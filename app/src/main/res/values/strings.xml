@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">EmpTrack</string>
+    <string name="app_subtitle">Employee Management System</string>
+    <string name="splash_tagline">Manage your workforce, effortlessly</string>
+    <string name="welcome_back">Welcome Back</string>
+    <string name="login_subtitle">Sign in to your account</string>
+    <string name="create_account">Create Account</string>
+    <string name="signup_subtitle">Join EmpTrack today</string>
+    <string name="hint_email">Email Address</string>
+    <string name="hint_password">Password</string>
+    <string name="hint_confirm_password">Confirm Password</string>
+    <string name="hint_full_name">Full Name</string>
+    <string name="btn_login">Login</string>
+    <string name="btn_signup">Create Account</string>
+    <string name="dont_have_account">Don\'t have an account? Sign Up</string>
+    <string name="already_have_account">Already have an account? Login</string>
+    <string name="home_welcome">Welcome to EmpTrack!</string>
+    <string name="back">Back</string>
+</resources>

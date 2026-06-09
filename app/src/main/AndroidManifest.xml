@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:name=".EmpTrackApp"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:networkSecurityConfig="@xml/network_security_config"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.EmpManager"
+        android:usesCleartextTraffic="true"
+        tools:targetApi="31">
+
+        <activity
+            android:name=".ui.splash.SplashActivity"
+            android:exported="true"
+            android:theme="@style/Theme.EmpManager.Splash">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".ui.company.CompanyListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.company.AddEditCompanyActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.offline.OfflineActivity"
+            android:theme="@style/Theme.EmpManager" />
+        <activity
+            android:name=".ui.sync.SyncActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.home.HomeActivity"
+            android:exported="false" />
+        <!-- Login -->
+        <activity
+            android:name=".ui.login.LoginActivity"
+            android:theme="@style/Theme.EmpManager" />
+
+        <!-- SignUp -->
+        <activity
+            android:name=".ui.signup.SignUpActivity"
+            android:theme="@style/Theme.EmpManager" />
+        <activity
+            android:name=".ui.employee.EmployeeListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.employee.AddEditEmployeeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.employee.EmployeeDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.attendance.AttendanceHomeActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".ui.attendance.MarkAttendanceActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".ui.shiftplan.ShiftPlanActivity"
+            android:exported="false"/>
+        <activity
+            android:name=".ui.shiftplan.AssignShiftActivity"
+            android:exported="false"/>
+
+    </application>
+
+</manifest>

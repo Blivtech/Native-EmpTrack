@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_dialog">
+
+    <!-- Handle -->
+    <View
+        android:layout_width="36dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_sheet_handle"/>
+
+    <!-- Header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="14dp"
+        android:paddingBottom="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Add deviation employees"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="#212121"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Select employees continuing from other shifts"
+            android:textSize="11sp"
+            android:textColor="#757575"
+            android:layout_marginTop="2dp"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#E0E0E0"/>
+
+    <!-- Search -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="10dp">
+
+        <ImageView
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@android:drawable/ic_menu_search"
+            android:tint="#9E9E9E"
+            android:layout_marginEnd="8dp"/>
+
+        <EditText
+            android:id="@+id/etDeviationSearch"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:hint="Search employee..."
+            android:textSize="12sp"
+            android:background="@null"
+            android:textColorHint="#BDBDBD"
+            android:singleLine="true"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#E0E0E0"/>
+
+    <!-- Employee list -->
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvDeviation"
+        android:layout_width="match_parent"
+        android:layout_height="280dp"
+        android:padding="10dp"
+        android:clipToPadding="false"/>
+
+    <!-- Selected count -->
+    <TextView
+        android:id="@+id/tvSelectedCount"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select employees"
+        android:textSize="11sp"
+        android:textColor="#0C447C"
+        android:background="@drawable/bg_badge_blue"
+        android:gravity="center"
+        android:padding="8dp"/>
+
+    <!-- Actions -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="12dp"
+        android:paddingBottom="16dp">
+
+        <TextView
+            android:id="@+id/btnCancelDeviation"
+            android:layout_width="0dp"
+            android:layout_height="46dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="Cancel"
+            android:textSize="13sp"
+            android:textColor="#757575"
+            android:background="@drawable/bg_field_trigger"
+            android:layout_marginEnd="8dp"/>
+
+        <TextView
+            android:id="@+id/btnAddDeviation"
+            android:layout_width="0dp"
+            android:layout_height="46dp"
+            android:layout_weight="2"
+            android:gravity="center"
+            android:text="Add employees"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"
+            android:background="@drawable/bg_dialog_btn"/>
+    </LinearLayout>
+</LinearLayout>

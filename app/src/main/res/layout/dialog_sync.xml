@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_dialog"
+
+    android:padding="24dp">
+
+    <!-- Icon -->
+    <FrameLayout
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="14dp">
+
+        <ImageView
+            android:id="@+id/ivSyncIcon"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@android:drawable/ic_popup_sync"
+            android:tint="#185FA5"
+            android:background="@drawable/bg_circle_blue"
+            android:padding="16dp"/>
+    </FrameLayout>
+
+    <!-- Title -->
+    <TextView
+        android:id="@+id/tvSyncTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Syncing master data"
+        android:textSize="18sp"
+        android:textStyle="bold"
+        android:textColor="#212121"
+        android:layout_marginBottom="4dp"/>
+
+    <!-- Subtitle -->
+    <TextView
+        android:id="@+id/tvSyncSubtitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:text="Fetching your company data from server"
+        android:textSize="13sp"
+        android:textColor="#757575"
+        android:gravity="center"
+        android:layout_marginBottom="20dp"/>
+
+    <!-- Step 1 -->
+    <LinearLayout
+        android:id="@+id/layoutStep1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="10px">
+
+        <TextView
+            android:id="@+id/tvStep1Icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:gravity="center"
+            android:text="○"
+            android:textSize="14sp"
+            android:textColor="#BDBDBD"
+            android:layout_marginEnd="10dp"/>
+
+        <TextView
+            android:id="@+id/tvStep1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fetching companies..."
+            android:textSize="13sp"
+            android:textColor="#757575"/>
+    </LinearLayout>
+
+    <!-- Step 2 -->
+    <LinearLayout
+        android:id="@+id/layoutStep2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="10dp">
+
+        <TextView
+            android:id="@+id/tvStep2Icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:gravity="center"
+            android:text="○"
+            android:textSize="14sp"
+            android:textColor="#BDBDBD"
+            android:layout_marginEnd="10dp"/>
+
+        <TextView
+            android:id="@+id/tvStep2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fetching shifts..."
+            android:textSize="13sp"
+            android:textColor="#757575"/>
+    </LinearLayout>
+
+    <!-- Step 3 -->
+    <LinearLayout
+        android:id="@+id/layoutStep3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:id="@+id/tvStep3Icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:gravity="center"
+            android:text="○"
+            android:textSize="14sp"
+            android:textColor="#BDBDBD"
+            android:layout_marginEnd="10dp"/>
+
+        <TextView
+            android:id="@+id/tvStep3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fetching departments..."
+            android:textSize="13sp"
+            android:textColor="#757575"/>
+    </LinearLayout>
+
+    <!-- Progress bar -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="6dp"
+        android:progress="0"
+        android:max="100"
+        android:progressDrawable="@drawable/progress_drawable"
+        android:layout_marginBottom="16dp"/>
+
+    <!-- Action button -->
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnSyncAction"
+        android:layout_width="match_parent"
+        android:layout_height="52dp"
+        android:text="Syncing... please wait"
+        android:textSize="14sp"
+        android:enabled="false"
+        app:cornerRadius="14dp"
+        app:backgroundTint="#BDBDBD"/>
+
+</LinearLayout>
