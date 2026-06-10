@@ -50,7 +50,7 @@
                 android:layout_marginTop="1dp"/>
         </LinearLayout>
 
-        <!-- Status badge -->
+        <!-- ✅ Status badge -->
         <TextView
             android:id="@+id/tvStatusBadge"
             android:layout_width="wrap_content"
@@ -58,17 +58,17 @@
             android:textSize="9sp"
             android:paddingStart="7dp"
             android:paddingEnd="7dp"
-            android:paddingTop="2dp"
-            android:paddingBottom="2dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"
             android:visibility="gone"/>
     </LinearLayout>
 
-    <!-- Status buttons -->
+    <!-- ✅ Status buttons — Working / Week off / Leave / Holiday -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:layout_marginBottom="5dp">
+        android:layout_marginBottom="6dp">
 
         <TextView
             android:id="@+id/btnWorking"
@@ -118,7 +118,7 @@
             android:background="@drawable/bg_field_trigger"/>
     </LinearLayout>
 
-    <!-- Full / Half sub-options -->
+    <!-- ✅ Full day / Half day sub-options — shown only when Working selected -->
     <LinearLayout
         android:id="@+id/layoutSubOptions"
         android:layout_width="match_parent"
@@ -149,6 +149,7 @@
             android:textColor="#212121"
             android:background="@drawable/bg_field_trigger"/>
 
+        <!-- ✅ Empty spacer to keep buttons left-aligned -->
         <View
             android:layout_width="0dp"
             android:layout_height="1dp"

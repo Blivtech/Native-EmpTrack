@@ -23,12 +23,12 @@
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="12dp"
+        android:layout_marginBottom="10dp"
         android:hint="Shift name *"
-        app:boxCornerRadiusTopStart="12dp"
-        app:boxCornerRadiusTopEnd="12dp"
-        app:boxCornerRadiusBottomStart="12dp"
-        app:boxCornerRadiusBottomEnd="12dp"
+        app:boxCornerRadiusTopStart="4dp"
+        app:boxCornerRadiusTopEnd="4dp"
+        app:boxCornerRadiusBottomStart="4dp"
+        app:boxCornerRadiusBottomEnd="4dp"
         app:boxStrokeColor="#1565C0"
         app:hintTextColor="#1565C0">
         <com.google.android.material.textfield.TextInputEditText
@@ -46,10 +46,10 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
         android:hint="Start time * (HH:mm:ss)"
-        app:boxCornerRadiusTopStart="12dp"
-        app:boxCornerRadiusTopEnd="12dp"
-        app:boxCornerRadiusBottomStart="12dp"
-        app:boxCornerRadiusBottomEnd="12dp"
+        app:boxCornerRadiusTopStart="4dp"
+        app:boxCornerRadiusTopEnd="4dp"
+        app:boxCornerRadiusBottomStart="4dp"
+        app:boxCornerRadiusBottomEnd="4dp"
         app:boxStrokeColor="#1565C0"
         app:hintTextColor="#1565C0"
         app:endIconMode="custom"
@@ -59,7 +59,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusable="false"
-            android:hint="06:00:00"/>
+            android:hint=""/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- End Time -->
@@ -70,10 +70,10 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:hint="End time * (HH:mm:ss)"
-        app:boxCornerRadiusTopStart="12dp"
-        app:boxCornerRadiusTopEnd="12dp"
-        app:boxCornerRadiusBottomStart="12dp"
-        app:boxCornerRadiusBottomEnd="12dp"
+        app:boxCornerRadiusTopStart="4dp"
+        app:boxCornerRadiusTopEnd="4dp"
+        app:boxCornerRadiusBottomStart="4dp"
+        app:boxCornerRadiusBottomEnd="4dp"
         app:boxStrokeColor="#1565C0"
         app:hintTextColor="#1565C0"
         app:endIconMode="custom"
@@ -83,7 +83,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusable="false"
-            android:hint="14:00:00"/>
+            android:hint=""/>
     </com.google.android.material.textfield.TextInputLayout>
 
     <!-- Buttons -->
@@ -96,21 +96,24 @@
             android:id="@+id/btnCancelShift"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="0dp"
-            android:layout_height="48dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:padding="5dp"
             android:layout_marginEnd="8dp"
             android:text="Cancel"
             android:textColor="#757575"
             app:strokeColor="#BDBDBD"
-            app:cornerRadius="12dp"/>
+            app:cornerRadius="4dp"/>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSaveShift"
             android:layout_width="0dp"
-            android:layout_height="48dp"
+            android:padding="5dp"
+
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Add shift"
-            app:cornerRadius="12dp"
+            app:cornerRadius="4dp"
             app:backgroundTint="#1565C0"/>
     </LinearLayout>
 </LinearLayout>

@@ -14,13 +14,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#1565C0"
-        android:padding="16dp">
+        android:padding="15dp">
 
         <ImageView
             android:id="@+id/ivBack"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:src="@drawable/ic_nav_home"
+            android:src="@android:drawable/ic_media_previous"
             android:tint="#FFFFFF"
             android:padding="4dp"
             app:layout_constraintStart_toStartOf="parent"
@@ -56,7 +56,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="10dp">
 
             <!-- ─────────────────────── -->
             <!-- PERSONAL INFO CARD      -->
@@ -64,8 +64,8 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                app:cardCornerRadius="16dp"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="4dp"
                 app:cardElevation="2dp"
                 app:cardBackgroundColor="#FFFFFF">
 
@@ -73,7 +73,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="10dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -99,14 +99,14 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
+                        android:layout_marginBottom="10dp"
                         android:hint="Enter full name"
                         app:startIconDrawable="@android:drawable/ic_menu_myplaces"
                         app:startIconTint="#1565C0"
-                        app:boxCornerRadiusTopStart="10dp"
-                        app:boxCornerRadiusTopEnd="10dp"
-                        app:boxCornerRadiusBottomStart="10dp"
-                        app:boxCornerRadiusBottomEnd="10dp"
+                        app:boxCornerRadiusTopStart="4dp"
+                        app:boxCornerRadiusTopEnd="4dp"
+                        app:boxCornerRadiusBottomStart="4dp"
+                        app:boxCornerRadiusBottomEnd="4dp"
                         app:boxStrokeColor="#1565C0"
                         app:hintTextColor="#1565C0">
                         <com.google.android.material.textfield.TextInputEditText
@@ -132,14 +132,14 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
+                        android:layout_marginBottom="10dp"
                         android:hint="Phone number"
                         app:startIconDrawable="@android:drawable/ic_menu_call"
                         app:startIconTint="#1565C0"
-                        app:boxCornerRadiusTopStart="10dp"
-                        app:boxCornerRadiusTopEnd="10dp"
-                        app:boxCornerRadiusBottomStart="10dp"
-                        app:boxCornerRadiusBottomEnd="10dp"
+                        app:boxCornerRadiusTopStart="4dp"
+                        app:boxCornerRadiusTopEnd="4dp"
+                        app:boxCornerRadiusBottomStart="4dp"
+                        app:boxCornerRadiusBottomEnd="4dp"
                         app:boxStrokeColor="#1565C0"
                         app:hintTextColor="#1565C0">
                         <com.google.android.material.textfield.TextInputEditText
@@ -167,8 +167,8 @@
                         android:orientation="horizontal"
                         android:gravity="center_vertical"
                         android:background="@drawable/bg_field_trigger"
-                        android:padding="12dp"
-                        android:layout_marginBottom="12dp">
+                        android:padding="10dp"
+                        android:layout_marginBottom="10dp">
 
                         <ImageView
                             android:layout_width="18dp"
@@ -208,14 +208,14 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
+                        android:layout_marginBottom="10dp"
                         android:hint="Email address"
                         app:startIconDrawable="@android:drawable/ic_dialog_email"
                         app:startIconTint="#1565C0"
-                        app:boxCornerRadiusTopStart="10dp"
-                        app:boxCornerRadiusTopEnd="10dp"
-                        app:boxCornerRadiusBottomStart="10dp"
-                        app:boxCornerRadiusBottomEnd="10dp"
+                        app:boxCornerRadiusTopStart="4dp"
+                        app:boxCornerRadiusTopEnd="4dp"
+                        app:boxCornerRadiusBottomStart="4dp"
+                        app:boxCornerRadiusBottomEnd="4dp"
                         app:boxStrokeColor="#1565C0"
                         app:hintTextColor="#1565C0">
                         <com.google.android.material.textfield.TextInputEditText
@@ -329,8 +329,8 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                app:cardCornerRadius="16dp"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="4dp"
                 app:cardElevation="2dp"
                 app:cardBackgroundColor="#FFFFFF">
 
@@ -338,7 +338,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="10dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -365,8 +365,8 @@
                         android:orientation="horizontal"
                         android:gravity="center_vertical"
                         android:background="@drawable/bg_field_selected"
-                        android:padding="12dp"
-                        android:layout_marginBottom="12dp">
+                        android:padding="10dp"
+                        android:layout_marginBottom="10dp">
 
                         <ImageView
                             android:layout_width="18dp"
@@ -506,8 +506,8 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                app:cardCornerRadius="16dp"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="4dp"
                 app:cardElevation="2dp"
                 app:cardBackgroundColor="#FFFFFF">
 
@@ -515,7 +515,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="10dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -550,7 +550,7 @@
                             android:layout_height="20dp"
                             android:src="@android:drawable/ic_menu_myplaces"
                             android:tint="#9E9E9E"
-                            android:layout_marginEnd="12dp"/>
+                            android:layout_marginEnd="10dp"/>
 
                         <TextView
                             android:id="@+id/tvSalaryValue"
@@ -577,11 +577,11 @@
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSave"
                 android:layout_width="match_parent"
-                android:layout_height="52dp"
+                android:layout_height="wrap_content"
                 android:text="Save employee"
                 android:textSize="15sp"
                 android:textStyle="bold"
-                app:cornerRadius="14dp"
+                app:cornerRadius="4dp"
                 app:backgroundTint="#1565C0"/>
 
             <ProgressBar
@@ -589,7 +589,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="10dp"
                 android:visibility="gone"
                 android:indeterminateTint="#1565C0"/>
 

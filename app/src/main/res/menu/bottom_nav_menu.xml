@@ -22,7 +22,7 @@
         android:title="Reports"/>
 
     <item
-        android:id="@+id/nav_profile"
+        android:id="@+id/nav_employee"
         android:icon="@drawable/ic_nav_profile"
         android:title="Profile"/>
 

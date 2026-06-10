@@ -65,6 +65,7 @@ class CompanyAdapter(
                             com.blivtech.emptrack.R.color.chip_text
                         )
                     )
+                    chipCornerRadius=4f
                 }
                 binding.chipGroupShifts.addView(chip)
             }

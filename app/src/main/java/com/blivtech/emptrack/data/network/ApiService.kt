@@ -1,8 +1,12 @@
 package com.blivtech.emptrack.data.network
 
+import com.blivtech.emptrack.data.model.AdvanceRequest
+import com.blivtech.emptrack.data.model.AdvanceResponse
 import com.blivtech.emptrack.data.model.ApiResponse
 import com.blivtech.emptrack.data.model.AttendanceRequest
 import com.blivtech.emptrack.data.model.AttendanceResponse
+import com.blivtech.emptrack.data.model.BonusRequest
+import com.blivtech.emptrack.data.model.BonusResponse
 import com.blivtech.emptrack.data.model.LoginRequest
 import com.blivtech.emptrack.data.model.LoginResponse
 import com.blivtech.emptrack.data.model.RegisterRequest
@@ -11,7 +15,13 @@ import com.blivtech.emptrack.data.model.CompanyData
 import com.blivtech.emptrack.data.model.EmployeeRequest
 import com.blivtech.emptrack.data.model.EmployeeResponse
 import com.blivtech.emptrack.data.model.MasterResponse
+import com.blivtech.emptrack.data.model.OvertimeRequest
+import com.blivtech.emptrack.data.model.OvertimeResponse
+import com.blivtech.emptrack.data.model.ProductRequest
+import com.blivtech.emptrack.data.model.ProductResponse
 import com.blivtech.emptrack.data.model.ShiftStatusResponse
+import com.blivtech.emptrack.data.model.WorkEntryRequest
+import com.blivtech.emptrack.data.model.WorkEntryResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST
@@ -110,4 +120,60 @@ interface ApiService {
         @Query("btCode") btCode: String,
         @Query("companyId") companyId: String
     ): Response<ApiResponse<List<ShiftStatusResponse>>>
+
+
+    @POST("api/overtime/add")
+    suspend fun addOvertime(
+        @Body request: OvertimeRequest
+    ): Response<ApiResponse<String>>
+
+    @POST("api/advance/add")
+    suspend fun addAdvance(
+        @Body request: AdvanceRequest
+    ): Response<ApiResponse<String>>
+
+    @POST("api/bonus/add")
+    suspend fun addBonus(
+        @Body request: BonusRequest
+    ): Response<ApiResponse<String>>
+
+
+    // ─── Products ───────────────────────────────
+
+    @GET("api/products")
+    suspend fun getProducts(
+        @Query("btCode") btCode: String,
+        @Query("companyCode") companyCode: String
+    ): Response<ApiResponse<List<ProductResponse>>>
+
+    @POST("api/products/add")
+    suspend fun addProduct(
+        @Body request: ProductRequest
+    ): Response<ApiResponse<String>>
+
+    @PUT("api/products/update/{productId}")
+    suspend fun updateProduct(
+        @Path("productId") productId: String,
+        @Body request: ProductRequest
+    ): Response<ApiResponse<String>>
+
+    @DELETE("api/products/{productId}")
+    suspend fun deleteProduct(
+        @Path("productId") productId: String
+    ): Response<ApiResponse<String>>
+
+// ─── Work Entries ────────────────────────────
+
+    @POST("api/work/add")
+    suspend fun addWorkEntry(
+        @Body request: WorkEntryRequest
+    ): Response<ApiResponse<String>>
+
+    @GET("api/work")
+    suspend fun getWorkEntries(
+        @Query("btCode") btCode: String,
+        @Query("companyCode") companyCode: String,
+        @Query("date") date: String? = null,
+        @Query("month") month: String? = null
+    ): Response<ApiResponse<List<WorkEntryResponse>>>
 }

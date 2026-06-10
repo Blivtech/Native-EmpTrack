@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:background="#F5F7FA">
 
-    <!-- Blue header -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -16,7 +16,6 @@
         android:padding="14dp"
         android:paddingBottom="16dp">
 
-        <!-- Top row -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -26,8 +25,8 @@
 
             <ImageView
                 android:id="@+id/ivBack"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:src="@drawable/ic_nav_home"
                 android:tint="#FFFFFF"
                 android:padding="4dp"
@@ -51,7 +50,6 @@
                 android:textColor="#CCffffff"/>
         </LinearLayout>
 
-        <!-- Shift banner -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -93,44 +91,45 @@
                     android:layout_height="wrap_content"
                     android:textSize="10sp"
                     android:textColor="#CCffffff"
-                    android:layout_marginTop="1dp"/>
+                    android:layout_marginTop="2dp"/>
             </LinearLayout>
 
-            <!-- Deviation button -->
             <TextView
                 android:id="@+id/btnDeviation"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Deviation"
-                android:textSize="10sp"
+                android:textSize="9sp"
+                android:textStyle="bold"
                 android:textColor="#FFFFFF"
                 android:background="@drawable/bg_stat_pill"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
-                android:paddingTop="4dp"
-                android:paddingBottom="4dp"
+                android:paddingStart="9dp"
+                android:paddingEnd="9dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:layout_marginStart="6dp"
                 android:visibility="gone"/>
 
-            <!-- Prefill button -->
             <TextView
                 android:id="@+id/btnPrefill"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Prefill"
-                android:textSize="10sp"
+                android:textSize="9sp"
+                android:textStyle="bold"
                 android:textColor="#412402"
                 android:background="@drawable/bg_badge_amber"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
-                android:paddingTop="4dp"
-                android:paddingBottom="4dp"
+                android:paddingStart="9dp"
+                android:paddingEnd="9dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
                 android:layout_marginStart="6dp"
                 android:visibility="gone"/>
+
         </LinearLayout>
     </LinearLayout>
 
-    <!-- Prefill banner -->
+
     <LinearLayout
         android:id="@+id/layoutPrefillBanner"
         android:layout_width="match_parent"
@@ -138,9 +137,10 @@
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:background="@drawable/bg_badge_amber"
-        android:padding="9px"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
         android:visibility="gone">
 
         <ImageView
@@ -167,23 +167,23 @@
             android:textColor="#854F0B"/>
     </LinearLayout>
 
-    <!-- Search bar -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:background="#FFFFFF"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:paddingTop="7dp"
-        android:paddingBottom="7dp">
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp">
 
         <ImageView
             android:layout_width="18dp"
             android:layout_height="18dp"
             android:src="@android:drawable/ic_menu_search"
-            android:tint="#9E9E9E"
+            android:tint="#BDBDBD"
             android:layout_marginEnd="8dp"/>
 
         <EditText
@@ -197,14 +197,15 @@
             android:textColorHint="#BDBDBD"
             android:background="@null"
             android:singleLine="true"
-            android:imeOptions="actionSearch"/>
+            android:imeOptions="actionSearch"
+            android:inputType="text"/>
 
         <ImageView
             android:id="@+id/ivClearSearch"
             android:layout_width="18dp"
             android:layout_height="18dp"
             android:src="@android:drawable/ic_menu_close_clear_cancel"
-            android:tint="#9E9E9E"
+            android:tint="#BDBDBD"
             android:visibility="gone"/>
     </LinearLayout>
 
@@ -213,7 +214,6 @@
         android:layout_height="0.5dp"
         android:background="#E0E0E0"/>
 
-    <!-- Tab bar -->
     <HorizontalScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -224,9 +224,10 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:padding="5dp"
+            android:padding="6dp"
             android:gravity="center_vertical">
 
+            <!-- ✅ Pending tab — default active -->
             <TextView
                 android:id="@+id/tabUnselected"
                 android:layout_width="wrap_content"
@@ -234,12 +235,14 @@
                 android:gravity="center"
                 android:text="Pending (0)"
                 android:textSize="11sp"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
+                android:textStyle="bold"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
                 android:layout_marginEnd="4dp"
                 android:background="@drawable/bg_tab_active"
-                android:textColor="#0C447C"/>
+                android:textColor="@color/blue_dark"/>
 
+            <!-- All tab -->
             <TextView
                 android:id="@+id/tabAll"
                 android:layout_width="wrap_content"
@@ -247,12 +250,13 @@
                 android:gravity="center"
                 android:text="All (0)"
                 android:textSize="11sp"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
                 android:layout_marginEnd="4dp"
                 android:background="@drawable/bg_tab_inactive"
                 android:textColor="#757575"/>
 
+            <!-- Working tab -->
             <TextView
                 android:id="@+id/tabWorking"
                 android:layout_width="wrap_content"
@@ -260,12 +264,13 @@
                 android:gravity="center"
                 android:text="Working (0)"
                 android:textSize="11sp"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
                 android:layout_marginEnd="4dp"
                 android:background="@drawable/bg_tab_inactive"
                 android:textColor="#757575"/>
 
+            <!-- Off tab -->
             <TextView
                 android:id="@+id/tabWeekoff"
                 android:layout_width="wrap_content"
@@ -273,12 +278,13 @@
                 android:gravity="center"
                 android:text="Off (0)"
                 android:textSize="11sp"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
                 android:layout_marginEnd="4dp"
                 android:background="@drawable/bg_tab_inactive"
                 android:textColor="#757575"/>
 
+            <!-- Leave tab -->
             <TextView
                 android:id="@+id/tabLeave"
                 android:layout_width="wrap_content"
@@ -286,12 +292,13 @@
                 android:gravity="center"
                 android:text="Leave (0)"
                 android:textSize="11sp"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
                 android:layout_marginEnd="4dp"
                 android:background="@drawable/bg_tab_inactive"
                 android:textColor="#757575"/>
 
+            <!-- Holiday tab -->
             <TextView
                 android:id="@+id/tabHoliday"
                 android:layout_width="wrap_content"
@@ -299,23 +306,34 @@
                 android:gravity="center"
                 android:text="Holiday (0)"
                 android:textSize="11sp"
-                android:paddingStart="12dp"
-                android:paddingEnd="12dp"
+                android:paddingStart="14dp"
+                android:paddingEnd="14dp"
                 android:background="@drawable/bg_tab_inactive"
                 android:textColor="#757575"/>
+
         </LinearLayout>
     </HorizontalScrollView>
 
-    <!-- Employee list -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#E0E0E0"/>
+
+    <!-- ═══════════════════════════════ -->
+    <!-- EMPLOYEE LIST                   -->
+    <!-- ═══════════════════════════════ -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvEmployees"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
         android:padding="10dp"
-        android:clipToPadding="false"/>
+        android:clipToPadding="false"
+        android:scrollbars="none"/>
 
-    <!-- Empty state -->
+    <!-- ═══════════════════════════════ -->
+    <!-- EMPTY STATE                     -->
+    <!-- ═══════════════════════════════ -->
     <LinearLayout
         android:id="@+id/layoutEmpty"
         android:layout_width="match_parent"
@@ -327,17 +345,17 @@
         android:visibility="gone">
 
         <ImageView
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
             android:src="@android:drawable/ic_menu_agenda"
             android:tint="#BDBDBD"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="12dp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="No employees in shift plan"
-            android:textSize="14sp"
+            android:textSize="15sp"
             android:textStyle="bold"
             android:textColor="#9E9E9E"/>
 
@@ -345,12 +363,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Assign employees to this shift first"
-            android:textSize="11sp"
+            android:textSize="12sp"
             android:textColor="#BDBDBD"
-            android:layout_marginTop="4dp"/>
+            android:layout_marginTop="6dp"/>
+
     </LinearLayout>
 
-    <!-- Bottom bar -->
+    <!-- ═══════════════════════════════ -->
+    <!-- BOTTOM BAR                      -->
+    <!-- ═══════════════════════════════ -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -365,8 +386,9 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:weightSum="5"
-            android:layout_marginBottom="8dp">
+            android:layout_marginBottom="10dp">
 
+            <!-- Working count -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -378,7 +400,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="#27500A"/>
                 <TextView
@@ -386,9 +408,11 @@
                     android:layout_height="wrap_content"
                     android:text="Working"
                     android:textSize="9sp"
-                    android:textColor="#757575"/>
+                    android:textColor="#757575"
+                    android:layout_marginTop="2dp"/>
             </LinearLayout>
 
+            <!-- Off count -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -400,7 +424,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="#633806"/>
                 <TextView
@@ -408,9 +432,11 @@
                     android:layout_height="wrap_content"
                     android:text="Off"
                     android:textSize="9sp"
-                    android:textColor="#757575"/>
+                    android:textColor="#757575"
+                    android:layout_marginTop="2dp"/>
             </LinearLayout>
 
+            <!-- Leave count -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -422,7 +448,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="#0C447C"/>
                 <TextView
@@ -430,9 +456,11 @@
                     android:layout_height="wrap_content"
                     android:text="Leave"
                     android:textSize="9sp"
-                    android:textColor="#757575"/>
+                    android:textColor="#757575"
+                    android:layout_marginTop="2dp"/>
             </LinearLayout>
 
+            <!-- Holiday count -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -444,7 +472,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="#3C3489"/>
                 <TextView
@@ -452,9 +480,11 @@
                     android:layout_height="wrap_content"
                     android:text="Holiday"
                     android:textSize="9sp"
-                    android:textColor="#757575"/>
+                    android:textColor="#757575"
+                    android:layout_marginTop="2dp"/>
             </LinearLayout>
 
+            <!-- Pending count -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -466,7 +496,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
-                    android:textSize="15sp"
+                    android:textSize="16sp"
                     android:textStyle="bold"
                     android:textColor="#E24B4A"/>
                 <TextView
@@ -474,20 +504,24 @@
                     android:layout_height="wrap_content"
                     android:text="Pending"
                     android:textSize="9sp"
-                    android:textColor="#757575"/>
+                    android:textColor="#757575"
+                    android:layout_marginTop="2dp"/>
             </LinearLayout>
+
         </LinearLayout>
 
-        <!-- Submit button -->
+        <!-- ✅ Submit button -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSubmit"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="50dp"
             android:text="Submit attendance →"
-            android:textSize="13sp"
+            android:textSize="14sp"
             android:textStyle="bold"
             android:enabled="false"
             app:cornerRadius="12dp"
             app:backgroundTint="#BDBDBD"/>
+
     </LinearLayout>
+
 </LinearLayout>

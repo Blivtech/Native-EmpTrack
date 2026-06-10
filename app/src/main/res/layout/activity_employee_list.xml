@@ -14,13 +14,13 @@
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:background="#1565C0"
-        android:padding="16dp">
+        android:padding="15dp">
 
         <ImageView
             android:id="@+id/ivBack"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:src="@drawable/ic_nav_home"
+            android:src="@android:drawable/ic_media_previous"
             android:tint="#FFFFFF"
             android:layout_marginEnd="12dp"/>
 
@@ -52,12 +52,12 @@
             android:id="@+id/btnAdd"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="wrap_content"
-            android:layout_height="36dp"
+            android:layout_height="wrap_content"
             android:text="+ Add"
             android:textColor="#FFFFFF"
             android:textSize="12sp"
             app:strokeColor="#FFFFFF"
-            app:cornerRadius="20dp"/>
+            app:cornerRadius="4dp"/>
     </LinearLayout>
 
     <!-- Search -->
@@ -66,7 +66,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical"
         android:background="#FFFFFF"
-        android:padding="12dp">
+        android:padding="10dp">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/tilSearch"
@@ -76,10 +76,10 @@
             android:hint="Search by name, code, phone..."
             app:startIconDrawable="@android:drawable/ic_menu_search"
             app:startIconTint="#1565C0"
-            app:boxCornerRadiusTopStart="12dp"
-            app:boxCornerRadiusTopEnd="12dp"
-            app:boxCornerRadiusBottomStart="12dp"
-            app:boxCornerRadiusBottomEnd="12dp"
+            app:boxCornerRadiusTopStart="4dp"
+            app:boxCornerRadiusTopEnd="4dp"
+            app:boxCornerRadiusBottomStart="4dp"
+            app:boxCornerRadiusBottomEnd="4dp"
             app:boxStrokeColor="#1565C0">
 
             <com.google.android.material.textfield.TextInputEditText
@@ -156,7 +156,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:padding="12dp"
+        android:padding="4dp"
         android:clipToPadding="false"/>
 
     <!-- Empty state -->

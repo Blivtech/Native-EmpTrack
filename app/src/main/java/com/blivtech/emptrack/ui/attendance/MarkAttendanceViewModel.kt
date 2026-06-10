@@ -48,15 +48,11 @@ class MarkAttendanceViewModel @Inject constructor(
     private val _showDeviation = MutableLiveData<Boolean>()
     val showDeviation: LiveData<Boolean> = _showDeviation
 
-    // ─────────────────────────────────────
-    // ✅ Status map — empCode → detail
-    // ─────────────────────────────────────
+
     val statusMap = mutableMapOf<String, AttendanceDetailRequest>()
     val deviationEmpCodes = mutableSetOf<String>()
 
-    // ─────────────────────────────────────
-    // ✅ Load employees
-    // ─────────────────────────────────────
+
     fun loadEmployees(companyCode: String, shiftCode: String) {
         viewModelScope.launch {
             // ✅ Check shift count for company
