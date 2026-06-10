@@ -14,7 +14,7 @@
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:background="#1565C0"
-        android:padding="16dp">
+        android:padding="15dp">
 
         <ImageView
             android:id="@+id/ivBack"
@@ -22,7 +22,7 @@
             android:layout_height="32dp"
             android:src="@android:drawable/ic_media_previous"
             android:tint="#FFFFFF"
-            android:layout_marginEnd="12dp"/>
+            android:layout_marginEnd="10dp"/>
 
         <TextView
             android:id="@+id/tvTitle"
@@ -56,14 +56,14 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="16dp">
+            android:padding="10dp">
 
             <!-- Company Info Card -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                app:cardCornerRadius="16dp"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="4dp"
                 app:cardElevation="2dp"
                 app:cardBackgroundColor="#FFFFFF">
 
@@ -71,7 +71,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="10dp">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -88,12 +88,12 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
+                        android:layout_marginBottom="10dp"
                         android:hint="Company name *"
-                        app:boxCornerRadiusTopStart="12dp"
-                        app:boxCornerRadiusTopEnd="12dp"
-                        app:boxCornerRadiusBottomStart="12dp"
-                        app:boxCornerRadiusBottomEnd="12dp"
+                        app:boxCornerRadiusTopStart="4dp"
+                        app:boxCornerRadiusTopEnd="4dp"
+                        app:boxCornerRadiusBottomStart="4dp"
+                        app:boxCornerRadiusBottomEnd="4dp"
                         app:boxStrokeColor="#1565C0"
                         app:hintTextColor="#1565C0">
                         <com.google.android.material.textfield.TextInputEditText
@@ -110,12 +110,12 @@
                         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="12dp"
+                        android:layout_marginBottom="10dp"
                         android:hint="Address"
-                        app:boxCornerRadiusTopStart="12dp"
-                        app:boxCornerRadiusTopEnd="12dp"
-                        app:boxCornerRadiusBottomStart="12dp"
-                        app:boxCornerRadiusBottomEnd="12dp"
+                        app:boxCornerRadiusTopStart="4dp"
+                        app:boxCornerRadiusTopEnd="4dp"
+                        app:boxCornerRadiusBottomStart="4dp"
+                        app:boxCornerRadiusBottomEnd="4dp"
                         app:boxStrokeColor="#1565C0"
                         app:hintTextColor="#1565C0">
                         <com.google.android.material.textfield.TextInputEditText
@@ -131,7 +131,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
-                        android:layout_marginBottom="12dp">
+                        android:layout_marginBottom="10dp">
 
                         <com.google.android.material.textfield.TextInputLayout
                             android:id="@+id/tilCity"
@@ -141,10 +141,10 @@
                             android:layout_weight="1"
                             android:layout_marginEnd="8dp"
                             android:hint="City"
-                            app:boxCornerRadiusTopStart="12dp"
-                            app:boxCornerRadiusTopEnd="12dp"
-                            app:boxCornerRadiusBottomStart="12dp"
-                            app:boxCornerRadiusBottomEnd="12dp"
+                            app:boxCornerRadiusTopStart="4dp"
+                            app:boxCornerRadiusTopEnd="4dp"
+                            app:boxCornerRadiusBottomStart="4dp"
+                            app:boxCornerRadiusBottomEnd="4dp"
                             app:boxStrokeColor="#1565C0"
                             app:hintTextColor="#1565C0">
                             <com.google.android.material.textfield.TextInputEditText
@@ -161,10 +161,10 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:hint="State"
-                            app:boxCornerRadiusTopStart="12dp"
-                            app:boxCornerRadiusTopEnd="12dp"
-                            app:boxCornerRadiusBottomStart="12dp"
-                            app:boxCornerRadiusBottomEnd="12dp"
+                            app:boxCornerRadiusTopStart="4dp"
+                            app:boxCornerRadiusTopEnd="4dp"
+                            app:boxCornerRadiusBottomStart="4dp"
+                            app:boxCornerRadiusBottomEnd="4dp"
                             app:boxStrokeColor="#1565C0"
                             app:hintTextColor="#1565C0">
                             <com.google.android.material.textfield.TextInputEditText
@@ -189,10 +189,10 @@
                             android:layout_weight="1"
                             android:layout_marginEnd="8dp"
                             android:hint="Phone"
-                            app:boxCornerRadiusTopStart="12dp"
-                            app:boxCornerRadiusTopEnd="12dp"
-                            app:boxCornerRadiusBottomStart="12dp"
-                            app:boxCornerRadiusBottomEnd="12dp"
+                            app:boxCornerRadiusTopStart="4dp"
+                            app:boxCornerRadiusTopEnd="4dp"
+                            app:boxCornerRadiusBottomStart="4dp"
+                            app:boxCornerRadiusBottomEnd="4dp"
                             app:boxStrokeColor="#1565C0"
                             app:hintTextColor="#1565C0">
                             <com.google.android.material.textfield.TextInputEditText
@@ -210,10 +210,10 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:hint="Email"
-                            app:boxCornerRadiusTopStart="12dp"
-                            app:boxCornerRadiusTopEnd="12dp"
-                            app:boxCornerRadiusBottomStart="12dp"
-                            app:boxCornerRadiusBottomEnd="12dp"
+                            app:boxCornerRadiusTopStart="4dp"
+                            app:boxCornerRadiusTopEnd="4dp"
+                            app:boxCornerRadiusBottomStart="4dp"
+                            app:boxCornerRadiusBottomEnd="4dp"
                             app:boxStrokeColor="#1565C0"
                             app:hintTextColor="#1565C0">
                             <com.google.android.material.textfield.TextInputEditText
@@ -232,8 +232,8 @@
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                app:cardCornerRadius="16dp"
+                android:layout_marginBottom="10dp"
+                app:cardCornerRadius="4dp"
                 app:cardElevation="2dp"
                 app:cardBackgroundColor="#FFFFFF">
 
@@ -241,7 +241,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="16dp">
+                    android:padding="10dp">
 
                     <!-- Shift header -->
                     <LinearLayout
@@ -249,7 +249,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
                         android:gravity="center_vertical"
-                        android:layout_marginBottom="12dp">
+                        android:layout_marginBottom="10dp">
 
                         <TextView
                             android:layout_width="0dp"
@@ -264,12 +264,12 @@
                             android:id="@+id/btnAddShift"
                             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                             android:layout_width="wrap_content"
-                            android:layout_height="32dp"
+                            android:layout_height="wrap_content"
                             android:text="+ Add shift"
                             android:textSize="11sp"
                             android:textColor="#1565C0"
                             app:strokeColor="#1565C0"
-                            app:cornerRadius="20dp"/>
+                            app:cornerRadius="4dp"/>
                     </LinearLayout>
 
                     <!-- Shift RecyclerView -->
@@ -309,7 +309,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginTop="12dp"
+                android:layout_marginTop="10dp"
                 android:visibility="gone"
                 android:indeterminateTint="#1565C0"/>
 

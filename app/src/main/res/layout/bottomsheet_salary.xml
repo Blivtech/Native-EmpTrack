@@ -193,10 +193,10 @@
         android:hint="Enter amount *"
         app:prefixText="₹ "
         app:suffixText="/ day"
-        app:boxCornerRadiusTopStart="12dp"
-        app:boxCornerRadiusTopEnd="12dp"
-        app:boxCornerRadiusBottomStart="12dp"
-        app:boxCornerRadiusBottomEnd="12dp"
+        app:boxCornerRadiusTopStart="4dp"
+        app:boxCornerRadiusTopEnd="4dp"
+        app:boxCornerRadiusBottomStart="4dp"
+        app:boxCornerRadiusBottomEnd="4dp"
         app:boxStrokeColor="#1565C0"
         app:hintTextColor="#1565C0">
 

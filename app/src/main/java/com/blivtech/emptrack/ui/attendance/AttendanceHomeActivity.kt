@@ -1,20 +1,30 @@
 package com.blivtech.emptrack.ui.attendance
 
-import android.annotation.SuppressLint
 import android.content.Intent
 import android.os.Bundle
+import android.view.LayoutInflater
 import android.view.View
+import android.widget.Button
+import android.widget.ImageView
+import android.widget.LinearLayout
+import android.widget.ProgressBar
+import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.blivtech.emptrack.R
-import com.blivtech.emptrack.data.local.entity.CompanyEntity
 import com.blivtech.emptrack.data.local.entity.ShiftEntity
 import com.blivtech.emptrack.data.model.ShiftStatusResponse
 import com.blivtech.emptrack.databinding.ActivityAttendanceHomeBinding
+import com.blivtech.emptrack.utils.PreferenceManager
 import com.blivtech.emptrack.utils.Resource
+import com.google.android.material.card.MaterialCardView
 import dagger.hilt.android.AndroidEntryPoint
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.runBlocking
+import java.text.SimpleDateFormat
+import java.util.Date
+import java.util.Locale
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class AttendanceHomeActivity : AppCompatActivity() {
@@ -22,17 +32,18 @@ class AttendanceHomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAttendanceHomeBinding
     private val viewModel: AttendanceHomeViewModel by viewModels()
 
-    private val btCode by lazy { intent.getStringExtra("btCode") ?: "" }
-    private val companyName by lazy { intent.getStringExtra("companyName") ?: "" }
-    private val companyCode by lazy { intent.getStringExtra("companyCode" ) ?:""}
+    @Inject
+    lateinit var preferenceManager: PreferenceManager
 
-    @SuppressLint("NewApi")
-    private val today = LocalDate.now()
-    @SuppressLint("NewApi")
-    private val todayStr = today.format(DateTimeFormatter.ISO_LOCAL_DATE)
+    private val btCode by lazy { intent.getStringExtra("btCode") ?: "" }
+    private val companyCode by lazy { intent.getStringExtra("companyCode") ?: "" }
+    private val companyName by lazy { intent.getStringExtra("companyName") ?: "" }
 
     private var shifts = listOf<ShiftEntity>()
-    private var shiftStatusList = listOf<ShiftStatusResponse>()
+    private var todayStatusList = listOf<ShiftStatusResponse>()
+
+    private val displayFmt = SimpleDateFormat("EEE, d MMM yyyy", Locale.getDefault())
+    private val dateFmt = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,234 +53,248 @@ class AttendanceHomeActivity : AppCompatActivity() {
         setupUI()
         observeData()
 
-        viewModel.loadEmployeeCount(companyCode)
+        viewModel.loadEmpCount(companyCode)
         viewModel.loadTodayStatus(btCode, companyCode)
     }
 
-    override fun onResume() {
-        super.onResume()
-        // ✅ Refresh on return from mark attendance
-        viewModel.loadTodayStatus(btCode, companyCode)
-    }
-
-    @SuppressLint("NewApi")
+    // ─────────────────────────────────────
+    // ✅ Setup UI
+    // ─────────────────────────────────────
     private fun setupUI() {
         binding.ivBack.setOnClickListener { finish() }
+        binding.ivCalendar.setOnClickListener {
+            // TODO: Open calendar activity
+        }
         binding.tvCompanyName.text = companyName
-        binding.tvDate.text = today.format(
-            DateTimeFormatter.ofPattern("EEE, d MMM yyyy")
-        )
+        binding.tvDate.text = displayFmt.format(Date())
     }
 
+    // ─────────────────────────────────────
+    // ✅ Observe data
+    // ─────────────────────────────────────
     private fun observeData() {
 
         // ✅ Employee count
-        viewModel.employeeCount.observe(this) { count ->
-            binding.tvTotalEmp.text = count.toString()
+        viewModel.empCount.observe(this) { count ->
+            binding.tvEmpCount.text = "$count employees"
         }
 
-        // ✅ Load shifts from Room
+        // ✅ Load shifts dynamically
         viewModel.getShifts(companyCode).observe(this) { shiftList ->
             shifts = shiftList
-            setupShiftCards()
+            buildShiftCards()
         }
 
-        // ✅ Today's attendance status
+        // ✅ Today's status
         viewModel.todayStatus.observe(this) { resource ->
+            binding.progressBar.visibility = View.GONE
             when (resource) {
                 is Resource.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
                 }
                 is Resource.Success -> {
-                    binding.progressBar.visibility = View.GONE
-                    shiftStatusList = resource.data
+                    todayStatusList = resource.data
                     updateShiftCards()
-                    updateStats()
+                    updateStatsBar()
                 }
                 is Resource.Error -> {
-                    binding.progressBar.visibility = View.GONE
+                    // ✅ Show default state — not marked
+                    updateShiftCards()
                 }
             }
         }
     }
 
-    private fun setupShiftCards() {
-        // ✅ Show/hide cards based on shift count
-        binding.cardShift1.visibility =
-            if (shifts.isNotEmpty()) View.VISIBLE else View.GONE
-        binding.cardShift2.visibility =
-            if (shifts.size > 1) View.VISIBLE else View.GONE
-        binding.cardShift3.visibility =
-            if (shifts.size > 2) View.VISIBLE else View.GONE
+    // ─────────────────────────────────────
+    // ✅ Build shift cards dynamically
+    // ─────────────────────────────────────
+    private fun buildShiftCards() {
+        binding.layoutShiftCards.removeAllViews()
+
+        if (shifts.isEmpty()) {
+            val emptyView = layoutInflater.inflate(
+                R.layout.item_empty_state,
+                binding.layoutShiftCards,
+                false
+            )
+            binding.layoutShiftCards.addView(emptyView)
+            return
+        }
 
         shifts.forEachIndexed { index, shift ->
-            when (index) {
+            val cardView = layoutInflater.inflate(
+                R.layout.item_attendance_shift_card,
+                binding.layoutShiftCards,
+                false
+            )
+
+            // ✅ Shift icon color
+            val iconLayout = cardView.findViewById<LinearLayout>(R.id.layoutShiftIcon)
+            val iconView   = cardView.findViewById<ImageView>(R.id.ivShiftIcon)
+
+            when (index % 3) {
                 0 -> {
-                    binding.tvShift1Name.text = "Shift 1 · ${shift.shiftName}"
-                    binding.tvShift1Time.text =
-                        "${shift.startTime.take(5)} – ${shift.endTime.take(5)}"
+                    iconLayout.setBackgroundResource(R.drawable.bg_shift_morning)
+                    iconView.setColorFilter(
+                        android.graphics.Color.parseColor("#27500A")
+                    )
                 }
                 1 -> {
-                    binding.tvShift2Name.text = "Shift 2 · ${shift.shiftName}"
-                    binding.tvShift2Time.text =
-                        "${shift.startTime.take(5)} – ${shift.endTime.take(5)}"
+                    iconLayout.setBackgroundResource(R.drawable.bg_shift_evening)
+                    iconView.setColorFilter(
+                        android.graphics.Color.parseColor("#0C447C")
+                    )
                 }
                 2 -> {
-                    binding.tvShift3Name.text = "Shift 3 · ${shift.shiftName}"
-                    binding.tvShift3Time.text =
-                        "${shift.startTime.take(5)} – ${shift.endTime.take(5)}"
+                    iconLayout.setBackgroundResource(R.drawable.bg_shift_night)
+                    iconView.setColorFilter(
+                        android.graphics.Color.parseColor("#534AB7")
+                    )
                 }
             }
+
+            // ✅ Shift name + time
+            cardView.findViewById<TextView>(R.id.tvShiftName).text =
+                "Shift ${index + 1} · ${shift.shiftName}"
+            cardView.findViewById<TextView>(R.id.tvShiftTime).text =
+                "${shift.startTime.take(5)} – ${shift.endTime.take(5)}"
+
+            // ✅ Default — not marked
+            cardView.findViewById<TextView>(R.id.tvShiftBadge).text = "Not marked"
+            cardView.findViewById<TextView>(R.id.tvShiftCount).text =
+                "Tap to mark attendance"
+            cardView.findViewById<ProgressBar>(R.id.progShift).progress = 0
+
+            // ✅ Mark now button
+            cardView.findViewById<Button>(R.id.btnMarkAttendance)
+                .setOnClickListener {
+                    openMarkAttendance(shift)
+                }
+
+            binding.layoutShiftCards.addView(cardView)
         }
+
+        // ✅ Update with today's status if available
+        if (todayStatusList.isNotEmpty()) updateShiftCards()
     }
 
-    // ✅ Change CardView to MaterialCardView in updateShiftCards()
+    // ─────────────────────────────────────
+    // ✅ Update shift cards with today's status
+    // ─────────────────────────────────────
     private fun updateShiftCards() {
         shifts.forEachIndexed { index, shift ->
-            val status = shiftStatusList.find { it.shiftCode == shift.shiftCode }
-            val isMarked = status?.isMarked == true
+            val cardView = binding.layoutShiftCards
+                .getChildAt(index) ?: return@forEachIndexed
 
-            when (index) {
-                0 -> updateCard(
-                    isMarked    = isMarked,
-                    status      = status,
-                    nameView    = binding.tvShift1Name,
-                    statusBadge = binding.tvShift1Badge,
-                    countView   = binding.tvShift1Count,
-                    progView    = binding.progShift1,
-                    btnView     = binding.btnShift1,
-                    shift       = shift,
-                    cardView    = binding.cardShift1  // ✅ Now MaterialCardView
-                )
-                1 -> updateCard(
-                    isMarked    = isMarked,
-                    status      = status,
-                    nameView    = binding.tvShift2Name,
-                    statusBadge = binding.tvShift2Badge,
-                    countView   = binding.tvShift2Count,
-                    progView    = binding.progShift2,
-                    btnView     = binding.btnShift2,
-                    shift       = shift,
-                    cardView    = binding.cardShift2  // ✅ Now MaterialCardView
-                )
-                2 -> updateCard(
-                    isMarked    = isMarked,
-                    status      = status,
-                    nameView    = binding.tvShift3Name,
-                    statusBadge = binding.tvShift3Badge,
-                    countView   = binding.tvShift3Count,
-                    progView    = binding.progShift3,
-                    btnView     = binding.btnShift3,
-                    shift       = shift,
-                    cardView    = binding.cardShift3  // ✅ Now MaterialCardView
-                )
+            val status = todayStatusList.find {
+                it.shiftCode == shift.shiftCode
+            }
+
+            val badge  = cardView.findViewById<TextView>(R.id.tvShiftBadge)
+            val count  = cardView.findViewById<TextView>(R.id.tvShiftCount)
+            val prog   = cardView.findViewById<ProgressBar>(R.id.progShift)
+            val btn    = cardView.findViewById<Button>(R.id.btnMarkAttendance)
+            val card   = cardView as? MaterialCardView
+
+            if (status != null && status.isMarked) {
+                // ✅ Marked — show counts
+                val total   = status.presentCount.toInt() +
+                        status.absentCount +
+                        status.weekoffCount +
+                        status.leaveCount +
+                        status.holidayCount
+                val present = status.presentCount.toInt()
+                val pct     = if (total > 0) (present * 100 / total) else 0
+
+                badge.text = "Marked ✓"
+                badge.setBackgroundResource(R.drawable.bg_badge_green)
+                badge.setTextColor(android.graphics.Color.parseColor("#27500A"))
+
+                count.text = "$present present · ${status.absentCount} absent · ${status.weekoffCount} off"
+                count.setTextColor(android.graphics.Color.parseColor("#27500A"))
+
+                prog.progress = pct
+                prog.progressDrawable = getDrawable(R.drawable.progress_drawable)
+
+                btn.text = "Edit"
+                btn.backgroundTintList =
+                    android.content.res.ColorStateList.valueOf(
+                        android.graphics.Color.parseColor("#27500A")
+                    )
+                btn.setOnClickListener {
+                    openMarkAttendance(shift, status.attendanceId, "EDIT")
+                }
+
+                // ✅ Green stroke for marked card
+                card?.strokeColor = android.graphics.Color.parseColor("#639922")
+                card?.strokeWidth = 2
+
+            } else {
+                // ✅ Not marked
+                badge.text = "Not marked"
+                badge.setBackgroundResource(R.drawable.bg_badge_blue)
+                badge.setTextColor(android.graphics.Color.parseColor("#0C447C"))
+
+                count.text = "Tap to mark attendance"
+                count.setTextColor(android.graphics.Color.parseColor("#757575"))
+
+                prog.progress = 0
+
+                btn.text = "Mark now"
+                btn.backgroundTintList =
+                    android.content.res.ColorStateList.valueOf(
+                        android.graphics.Color.parseColor("#1565C0")
+                    )
+                btn.setOnClickListener {
+                    openMarkAttendance(shift)
+                }
+
+                card?.strokeColor = android.graphics.Color.parseColor("#E0E0E0")
+                card?.strokeWidth = 0
             }
         }
     }
 
-    private fun updateCard(
-        isMarked: Boolean,
-        status: ShiftStatusResponse?,
-        nameView: android.widget.TextView,
-        statusBadge: android.widget.TextView,
-        countView: android.widget.TextView,
-        progView: android.widget.ProgressBar,
-        btnView: android.widget.Button,
-        shift: ShiftEntity,
-        cardView: com.google.android.material.card.MaterialCardView  // ✅ MaterialCardView
-    ) {
-        val total = binding.tvTotalEmp.text.toString().toIntOrNull() ?: 0
-
-        if (isMarked && status != null) {
-            // ✅ Done state
-            statusBadge.text = "Done ✓"
-            statusBadge.setBackgroundResource(
-                com.blivtech.emptrack.R.drawable.bg_badge_green
-            )
-            countView.text =
-                "✅ ${status.presentCount.toInt()} present · ❌ ${status.absentCount} absent"
-            val prog = if (total > 0)
-                ((status.presentCount / total) * 100).toInt() else 0
-            progView.progress = prog
-            btnView.text = "Edit"
-            btnView.backgroundTintList =
-                android.content.res.ColorStateList.valueOf(
-                    getColor(android.R.color.holo_green_light)
-                )
-
-            // ✅ Fix: use strokeColor on MaterialCardView
-            cardView.strokeColor = getColor(R.color.green_stroke)
-            cardView.strokeWidth = 2
-
-            btnView.setOnClickListener {
-                openMarkAttendance(
-                    shift        = shift,
-                    mode         = "EDIT",
-                    attendanceId = status.attendanceId
-                )
-            }
-
-        } else {
-            // ✅ Not marked state
-            statusBadge.text = "Not marked"
-            statusBadge.setBackgroundResource(
-                com.blivtech.emptrack.R.drawable.bg_badge_blue
-            )
-            countView.text = "Tap to mark attendance"
-            progView.progress = 0
-            btnView.text = "Mark now"
-            btnView.backgroundTintList =
-                android.content.res.ColorStateList.valueOf(
-                    getColor(android.R.color.holo_blue_dark)
-                )
-
-            // ✅ Reset stroke
-            cardView.strokeColor = getColor(android.R.color.transparent)
-            cardView.strokeWidth = 0
-
-            btnView.setOnClickListener {
-                openMarkAttendance(
-                    shift        = shift,
-                    mode         = "NEW",
-                    attendanceId = null
-                )
-            }
-        }
-    }
-
-    private fun updateStats() {
+    // ─────────────────────────────────────
+    // ✅ Update stats bar
+    // ─────────────────────────────────────
+    private fun updateStatsBar() {
         var totalPresent = 0.0
-        var totalAbsent = 0
+        var totalAbsent  = 0
         var totalOffLeave = 0
 
-        shiftStatusList.forEach { s ->
-            totalPresent  += s.presentCount
-            totalAbsent   += s.absentCount
-            totalOffLeave += s.weekoffCount + s.leaveCount + s.holidayCount
+        todayStatusList.forEach { status ->
+            totalPresent  += status.presentCount
+            totalAbsent   += status.absentCount
+            totalOffLeave += status.weekoffCount + status.leaveCount + status.holidayCount
         }
 
-        binding.tvPresent.text = totalPresent.toInt().toString()
-        binding.tvAbsent.text = totalAbsent.toString()
+        binding.tvPresent.text  = totalPresent.toInt().toString()
+        binding.tvAbsent.text   = totalAbsent.toString()
         binding.tvOffLeave.text = totalOffLeave.toString()
     }
 
+    // ─────────────────────────────────────
+    // ✅ Open mark attendance
+    // ─────────────────────────────────────
     private fun openMarkAttendance(
         shift: ShiftEntity,
-        mode: String,
-        attendanceId: String?
+        attendanceId: String? = null,
+        mode: String = "NEW"
     ) {
+        val today = dateFmt.format(Date())
         startActivity(
             Intent(this, MarkAttendanceActivity::class.java).apply {
-                putExtra("btCode", btCode)
-                putExtra("companyCode", companyCode)
-                putExtra("companyName", companyName)
-                putExtra("shiftId", shift.shiftCode)
-                putExtra("shiftName", shift.shiftName)
+                putExtra("btCode",         btCode)
+                putExtra("companyCode",    companyCode)
+                putExtra("companyName",    companyName)
+                putExtra("shiftCode",      shift.shiftCode)
+                putExtra("shiftName",      shift.shiftName)
                 putExtra("shiftStartTime", shift.startTime)
-                putExtra("shiftEndTime", shift.endTime)
-                putExtra("date", todayStr)
-                putExtra("mode", mode)
-                putExtra("attendanceId", attendanceId)
+                putExtra("shiftEndTime",   shift.endTime)
+                putExtra("date",           today)
+                putExtra("mode",           mode)
+                attendanceId?.let { putExtra("attendanceId", it) }
             }
         )
     }

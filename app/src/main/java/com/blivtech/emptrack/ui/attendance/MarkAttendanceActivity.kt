@@ -198,7 +198,7 @@ class MarkAttendanceActivity : AppCompatActivity() {
         // ✅ Show/hide deviation button
         viewModel.showDeviation.observe(this) { show ->
             binding.btnDeviation.visibility =
-                if (show) View.VISIBLE else View.GONE
+                if (show) View.VISIBLE else View.VISIBLE
         }
 
         // ✅ Employees loaded

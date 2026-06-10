@@ -12,14 +12,15 @@
     <color name="primary_dark">#0D47A1</color>
     <color name="primary_light">#E3F2FD</color>
     <color name="accent">#FF6F00</color>
-
     <color name="hint_color">#BDBDBD</color>
     <color name="error">#D32F2F</color>
-
     <color name="card_bg">#FFFFFF</color>
     <color name="divider">#E0E0E0</color>
     <color name="chip_bg">#EAF3DE</color>
     <color name="chip_text">#27500A</color>
     <color name="green_stroke">#639922</color>
     <color name="blue_dark">#0C447C</color>
+
+
+    <color name="purple_light">#EEEDFE</color>
 </resources>

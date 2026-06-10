@@ -29,124 +29,296 @@ class AttendanceEmployeeAdapter(
         notifyDataSetChanged()
     }
 
+    // ─────────────────────────────────────
     inner class ViewHolder(
         val binding: ItemAttendanceEmployeeBinding
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(emp: EmployeeEntity) {
-            val initials = emp.name.split(" ")
-                .take(2).joinToString("") { it.first().uppercase() }
+
+            // ✅ Initials
+            val initials = emp.name
+                .split(" ")
+                .take(2)
+                .joinToString("") { it.first().uppercase() }
             binding.tvInitials.text = initials
             binding.tvEmpName.text  = emp.name
             binding.tvEmpCode.text  = emp.empCode
 
+            // ✅ Get current status
             val current = statusMap[emp.empCode]
+
+            // ✅ Reset everything first
             resetAll()
 
-            current?.let { detail ->
-                when (detail.dayPlanStatus) {
+            if (current != null) {
+                // ✅ Apply status
+                when (current.dayPlanStatus) {
+
+                    // ─── Working ───────────────────────
                     1 -> {
-                        applyWorking()
-                        binding.layoutSubOptions.visibility = View.VISIBLE
-                        if (detail.workType == 1) applyFull() else applyHalf()
-                        binding.tvStatusBadge.visibility = View.VISIBLE
-                        binding.tvStatusBadge.text = if (detail.workType == 1)
-                            "Full day ✓" else "Half day ✓"
-                        binding.tvStatusBadge.setBackgroundResource(
-                            if (detail.workType == 1) R.drawable.bg_badge_green
-                            else R.drawable.bg_badge_amber
+                        // Status button
+                        binding.btnWorking.setBackgroundResource(
+                            R.drawable.bg_badge_green
                         )
-                        binding.root.setBackgroundResource(R.drawable.bg_card_working)
+                        binding.btnWorking.setTextColor(
+                            binding.root.context.getColor(
+                                android.R.color.white
+                            )
+                        )
+
+                        // ✅ Show Full/Half sub-options
+                        binding.layoutSubOptions.visibility = View.VISIBLE
+
+                        // ✅ Apply full or half day
+                        if (current.workType == 2) {
+                            applyHalf()
+                            binding.tvStatusBadge.text = "Half day ✓"
+                            binding.tvStatusBadge.setBackgroundResource(
+                                R.drawable.bg_badge_amber
+                            )
+                        } else {
+                            applyFull()
+                            binding.tvStatusBadge.text = "Full day ✓"
+                            binding.tvStatusBadge.setBackgroundResource(
+                                R.drawable.bg_badge_green
+                            )
+                        }
+
+                        binding.tvStatusBadge.visibility = View.VISIBLE
+                        binding.root.setBackgroundResource(
+                            R.drawable.bg_card_working
+                        )
                     }
+
+                    // ─── Week off ──────────────────────
                     2 -> {
-                        applyWeekoff()
-                        binding.tvStatusBadge.visibility = View.VISIBLE
+                        binding.btnWeekoff.setBackgroundResource(
+                            R.drawable.bg_badge_amber
+                        )
+                        binding.btnWeekoff.setTextColor(
+                            binding.root.context.getColor(
+                                android.R.color.white
+                            )
+                        )
+                        binding.layoutSubOptions.visibility = View.GONE
                         binding.tvStatusBadge.text = "Week off ✓"
-                        binding.tvStatusBadge.setBackgroundResource(R.drawable.bg_badge_amber)
-                        binding.root.setBackgroundResource(R.drawable.bg_card_weekoff)
+                        binding.tvStatusBadge.setBackgroundResource(
+                            R.drawable.bg_badge_amber
+                        )
+                        binding.tvStatusBadge.visibility = View.VISIBLE
+                        binding.root.setBackgroundResource(
+                            R.drawable.bg_card_weekoff
+                        )
                     }
+
+                    // ─── Leave ─────────────────────────
                     3 -> {
-                        applyLeave()
-                        binding.tvStatusBadge.visibility = View.VISIBLE
+                        binding.btnLeave.setBackgroundResource(
+                            R.drawable.bg_badge_blue
+                        )
+                        binding.btnLeave.setTextColor(
+                            binding.root.context.getColor(
+                                android.R.color.white
+                            )
+                        )
+                        binding.layoutSubOptions.visibility = View.GONE
                         binding.tvStatusBadge.text = "Leave ✓"
-                        binding.tvStatusBadge.setBackgroundResource(R.drawable.bg_badge_blue)
-                        binding.root.setBackgroundResource(R.drawable.bg_card_leave)
-                    }
-                    4 -> {
-                        applyHoliday()
+                        binding.tvStatusBadge.setBackgroundResource(
+                            R.drawable.bg_badge_blue
+                        )
                         binding.tvStatusBadge.visibility = View.VISIBLE
+                        binding.root.setBackgroundResource(
+                            R.drawable.bg_card_leave
+                        )
+                    }
+
+                    // ─── Holiday ───────────────────────
+                    4 -> {
+                        binding.btnHoliday.setBackgroundResource(
+                            R.drawable.bg_badge_purple
+                        )
+                        binding.btnHoliday.setTextColor(
+                            binding.root.context.getColor(
+                                android.R.color.white
+                            )
+                        )
+                        binding.layoutSubOptions.visibility = View.GONE
                         binding.tvStatusBadge.text = "Holiday ✓"
-                        binding.tvStatusBadge.setBackgroundResource(R.drawable.bg_badge_purple)
-                        binding.root.setBackgroundResource(R.drawable.bg_card_holiday)
+                        binding.tvStatusBadge.setBackgroundResource(
+                            R.drawable.bg_badge_purple
+                        )
+                        binding.tvStatusBadge.visibility = View.VISIBLE
+                        binding.root.setBackgroundResource(
+                            R.drawable.bg_card_holiday
+                        )
                     }
                 }
-            } ?: run {
-                binding.layoutSubOptions.visibility = View.GONE
-                binding.tvStatusBadge.visibility    = View.GONE
-                binding.root.setBackgroundResource(R.drawable.bg_card_unselected)
             }
 
-            // ✅ Status clicks
+            // ─────────────────────────────────────
+            // ✅ Status button clicks
+            // ─────────────────────────────────────
+
             binding.btnWorking.setOnClickListener {
                 resetAll()
-                applyWorking()
+
+                // ✅ Highlight Working button
+                binding.btnWorking.setBackgroundResource(R.drawable.bg_badge_green)
+                binding.btnWorking.setTextColor(
+                    binding.root.context.getColor(android.R.color.white)
+                )
+
+                // ✅ Show Full/Half sub-options
                 binding.layoutSubOptions.visibility = View.VISIBLE
-                applyFull() // ✅ Auto Full day
+
+                // ✅ Auto select Full day by default
+                applyFull()
+
+                // ✅ Show badge
+                binding.tvStatusBadge.text = "Full day ✓"
+                binding.tvStatusBadge.setBackgroundResource(R.drawable.bg_badge_green)
+                binding.tvStatusBadge.visibility = View.VISIBLE
+
+                // ✅ Card background
+                binding.root.setBackgroundResource(R.drawable.bg_card_working)
+
                 onStatusChanged(emp.empCode, 1, 1)
             }
+
             binding.btnWeekoff.setOnClickListener {
                 resetAll()
-                applyWeekoff()
+
+                binding.btnWeekoff.setBackgroundResource(R.drawable.bg_badge_amber)
+                binding.btnWeekoff.setTextColor(
+                    binding.root.context.getColor(android.R.color.white)
+                )
+                binding.layoutSubOptions.visibility = View.GONE
+                binding.tvStatusBadge.text = "Week off ✓"
+                binding.tvStatusBadge.setBackgroundResource(R.drawable.bg_badge_amber)
+                binding.tvStatusBadge.visibility = View.VISIBLE
+                binding.root.setBackgroundResource(R.drawable.bg_card_weekoff)
+
                 onStatusChanged(emp.empCode, 2, 1)
             }
+
             binding.btnLeave.setOnClickListener {
                 resetAll()
-                applyLeave()
+
+                binding.btnLeave.setBackgroundResource(R.drawable.bg_badge_blue)
+                binding.btnLeave.setTextColor(
+                    binding.root.context.getColor(android.R.color.white)
+                )
+                binding.layoutSubOptions.visibility = View.GONE
+                binding.tvStatusBadge.text = "Leave ✓"
+                binding.tvStatusBadge.setBackgroundResource(R.drawable.bg_badge_blue)
+                binding.tvStatusBadge.visibility = View.VISIBLE
+                binding.root.setBackgroundResource(R.drawable.bg_card_leave)
+
                 onStatusChanged(emp.empCode, 3, 1)
             }
+
             binding.btnHoliday.setOnClickListener {
                 resetAll()
-                applyHoliday()
+
+                binding.btnHoliday.setBackgroundResource(R.drawable.bg_badge_purple)
+                binding.btnHoliday.setTextColor(
+                    binding.root.context.getColor(android.R.color.white)
+                )
+                binding.layoutSubOptions.visibility = View.GONE
+                binding.tvStatusBadge.text = "Holiday ✓"
+                binding.tvStatusBadge.setBackgroundResource(R.drawable.bg_badge_purple)
+                binding.tvStatusBadge.visibility = View.VISIBLE
+                binding.root.setBackgroundResource(R.drawable.bg_card_holiday)
+
                 onStatusChanged(emp.empCode, 4, 1)
             }
+
+            // ─────────────────────────────────────
+            // ✅ Full / Half day clicks
+            // ─────────────────────────────────────
+
             binding.btnFullDay.setOnClickListener {
                 applyFull()
+                binding.tvStatusBadge.text = "Full day ✓"
+                binding.tvStatusBadge.setBackgroundResource(R.drawable.bg_badge_green)
+                binding.tvStatusBadge.visibility = View.VISIBLE
                 onStatusChanged(emp.empCode, 1, 1)
             }
+
             binding.btnHalfDay.setOnClickListener {
                 applyHalf()
+                binding.tvStatusBadge.text = "Half day ✓"
+                binding.tvStatusBadge.setBackgroundResource(R.drawable.bg_badge_amber)
+                binding.tvStatusBadge.visibility = View.VISIBLE
                 onStatusChanged(emp.empCode, 1, 2)
             }
         }
 
+        // ─────────────────────────────────────
+        // ✅ Helper functions
+        // ─────────────────────────────────────
+
         private fun resetAll() {
+            // ✅ Reset all status buttons
             listOf(
                 binding.btnWorking,
                 binding.btnWeekoff,
                 binding.btnLeave,
-                binding.btnHoliday,
-                binding.btnFullDay,
-                binding.btnHalfDay
-            ).forEach { it.setBackgroundResource(R.drawable.bg_field_trigger) }
+                binding.btnHoliday
+            ).forEach { btn ->
+                btn.setBackgroundResource(R.drawable.bg_field_trigger)
+                btn.setTextColor(
+                    binding.root.context.getColor(android.R.color.darker_gray)
+                )
+            }
+
+            // ✅ Reset sub-option buttons
+            binding.btnFullDay.setBackgroundResource(R.drawable.bg_field_trigger)
+            binding.btnFullDay.setTextColor(
+                binding.root.context.getColor(android.R.color.darker_gray)
+            )
+            binding.btnHalfDay.setBackgroundResource(R.drawable.bg_field_trigger)
+            binding.btnHalfDay.setTextColor(
+                binding.root.context.getColor(android.R.color.darker_gray)
+            )
+
+            // ✅ Hide sub-options and badge
             binding.layoutSubOptions.visibility = View.GONE
             binding.tvStatusBadge.visibility    = View.GONE
+
+            // ✅ Reset card background
             binding.root.setBackgroundResource(R.drawable.bg_card_unselected)
         }
 
-        private fun applyWorking() = binding.btnWorking.setBackgroundResource(R.drawable.bg_badge_green)
-        private fun applyWeekoff() = binding.btnWeekoff.setBackgroundResource(R.drawable.bg_badge_amber)
-        private fun applyLeave()   = binding.btnLeave.setBackgroundResource(R.drawable.bg_badge_blue)
-        private fun applyHoliday() = binding.btnHoliday.setBackgroundResource(R.drawable.bg_badge_purple)
         private fun applyFull() {
+            // ✅ Full day selected — blue
             binding.btnFullDay.setBackgroundResource(R.drawable.bg_circle_blue)
+            binding.btnFullDay.setTextColor(
+                binding.root.context.getColor(android.R.color.white)
+            )
+            // ✅ Half day reset
             binding.btnHalfDay.setBackgroundResource(R.drawable.bg_field_trigger)
+            binding.btnHalfDay.setTextColor(
+                binding.root.context.getColor(android.R.color.darker_gray)
+            )
         }
+
         private fun applyHalf() {
+            // ✅ Half day selected — amber
             binding.btnHalfDay.setBackgroundResource(R.drawable.bg_circle_amber)
+            binding.btnHalfDay.setTextColor(
+                binding.root.context.getColor(android.R.color.white)
+            )
+            // ✅ Full day reset
             binding.btnFullDay.setBackgroundResource(R.drawable.bg_field_trigger)
+            binding.btnFullDay.setTextColor(
+                binding.root.context.getColor(android.R.color.darker_gray)
+            )
         }
     }
 
+    // ─────────────────────────────────────
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) =
         ViewHolder(
             ItemAttendanceEmployeeBinding.inflate(

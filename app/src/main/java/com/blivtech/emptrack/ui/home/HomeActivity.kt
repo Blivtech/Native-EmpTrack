@@ -27,6 +27,7 @@ import com.blivtech.emptrack.databinding.DialogSyncBinding
 import com.blivtech.emptrack.ui.attendance.AttendanceHomeActivity
 import com.blivtech.emptrack.ui.company.CompanyListActivity
 import com.blivtech.emptrack.ui.employee.EmployeeListActivity
+import com.blivtech.emptrack.ui.entry.AddEntryActivity
 import com.blivtech.emptrack.ui.login.LoginActivity
 import com.blivtech.emptrack.ui.shiftplan.ShiftPlanActivity
 import com.blivtech.emptrack.utils.PreferenceManager
@@ -239,7 +240,7 @@ class HomeActivity : AppCompatActivity() {
 
     private fun navigateToModule(name: String) {
         when (name) {
-            "Reports" -> startActivity(
+            "Employee" -> startActivity(
                 Intent(this, EmployeeListActivity::class.java).apply {
                     putExtra("btCode", btCode)
                     putExtra("companyCode", currentCompany?.companyCode ?: "")
@@ -253,7 +254,14 @@ class HomeActivity : AppCompatActivity() {
             })}
             "Work Progress" -> { /* TODO */ }
             "Salary" -> { /* TODO */ }
-            "Advance" -> { /* TODO */ }
+            "Advance" -> {// From any module card
+                startActivity(
+                    Intent(this, AddEntryActivity::class.java).apply {
+                        putExtra("btCode", btCode)
+                        putExtra("companyName", currentCompany?.name ?: "")
+                        putExtra("companyCode", currentCompany?.companyCode ?: "")
+                    }
+                ) }
             "Inventory" -> { /* TODO */ }
             "Shift Mgmt" -> { startActivity(
                 Intent(this, ShiftPlanActivity::class.java).apply {
@@ -329,10 +337,7 @@ class HomeActivity : AppCompatActivity() {
                 R.id.nav_attendance -> { navigateToModule("Attendance"); true }
                 R.id.nav_work       -> { navigateToModule("Work Progress"); true }
                 R.id.nav_reports    -> { navigateToModule("Reports"); true }
-                R.id.nav_profile    -> {
-                    binding.drawerLayout.openDrawer(GravityCompat.END)
-                    true
-                }
+                R.id.nav_employee    -> { navigateToModule("Employee");true}
                 else -> false
             }
         }
