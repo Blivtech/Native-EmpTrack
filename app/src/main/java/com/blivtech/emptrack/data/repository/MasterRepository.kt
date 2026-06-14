@@ -136,8 +136,8 @@ class MasterRepository @Inject constructor(
         }
     }
 
-    fun getCompanies(btCode: String): Flow<List<CompanyEntity>> =
-        companyDao.getCompaniesByBtCode(btCode)
+    fun getCompanies(): Flow<List<CompanyEntity>> =
+        companyDao.getCompaniesByBtCode()
 
     fun getShiftsByCompany(companyId: String): Flow<List<ShiftEntity>> =
         shiftDao.getShiftsByCompany(companyId)

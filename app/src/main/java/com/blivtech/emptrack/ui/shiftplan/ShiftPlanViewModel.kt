@@ -121,7 +121,7 @@ class ShiftPlanViewModel @Inject constructor(
     // ✅ Data loading
     // ─────────────────────────────────────
     fun getCompanies(btCode: String) =
-        companyRepository.getCompanies(btCode).asLiveData()
+        companyRepository.getCompanies().asLiveData()
 
     fun getShifts(companyCode: String) =
         companyRepository.getShiftsByCompany(companyCode).asLiveData()

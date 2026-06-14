@@ -28,8 +28,8 @@ class CompanyListViewModel @Inject constructor(
     // ✅ Selected company id persisted
     private var selectedCompanyId: Long = -1L
 
-    fun getCompanies(btCode: String) =
-        repository.getCompanies(btCode).asLiveData()
+    fun getCompanies() =
+        repository.getCompanies().asLiveData()
 
     fun getShifts(companyCode: String) =
         repository.getShiftsByCompany(companyCode).asLiveData()

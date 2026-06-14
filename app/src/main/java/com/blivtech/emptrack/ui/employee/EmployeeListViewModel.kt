@@ -24,8 +24,7 @@ class EmployeeListViewModel @Inject constructor(
     private val _employee = MutableLiveData<EmployeeEntity?>()
     val employee: LiveData<EmployeeEntity?> = _employee
 
-    fun getEmployees(companyId: String) =
-        repository.getEmployees(companyId).asLiveData()
+    fun getEmployees(companyId: String) = repository.getEmployees(companyId).asLiveData()
 
     // ✅ Load single employee into LiveData
     fun loadEmployeeById(id: Long) {

@@ -8,6 +8,7 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +20,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.GridLayoutManager
 import com.blivtech.emptrack.R
 import com.blivtech.emptrack.data.local.entity.CompanyEntity
 import com.blivtech.emptrack.data.local.entity.ShiftEntity
@@ -48,30 +50,44 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityHomeBinding
     private lateinit var syncDialogBinding: DialogSyncBinding
     private lateinit var syncDialog: Dialog
+
+    private lateinit var adapter: ModuleCardAdapter
     private val viewModel: HomeViewModel by viewModels()
 
     @Inject
     lateinit var preferenceManager: PreferenceManager
 
-    private val btCode by lazy { intent.getStringExtra("btCode") ?: "" }
+    private var btCode = ""
     private val fromLogin by lazy { intent.getBooleanExtra("fromLogin", false) }
     private var currentCompany: CompanyEntity? = null
     private var currentShifts = listOf<ShiftEntity>()
 
+
+    private var selectedCompanyCode = ""
+    private var selectedCompanyName = ""
+
     // ✅ Company list launcher
-    private val companyLauncher = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
+    private val companyLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()
     ) { result ->
         if (result.resultCode == RESULT_OK) {
-            val data = result.data
-            val companyName = data?.getStringExtra("selectedCompanyName") ?: ""
-            val companyCode = data?.getStringExtra("selectedCompanyCode") ?: ""
-            binding.tvCompanyName.text = companyName
-            viewModel.getShifts(companyCode).observe(this) { shifts ->
+
+            lifecycleScope.launch {
+                selectedCompanyCode = preferenceManager.selectedCompanyCode.first()
+                selectedCompanyName = preferenceManager.selectedCompanyName.first()
+                binding.tvCompanyName.text = selectedCompanyName
+            }
+
+            // ✅ Update currentCompany immediately (synchronously) — single source of truth
+            val companies = viewModel.getCompanies().value
+            currentCompany = companies?.find { it.companyCode == selectedCompanyCode }
+                ?: currentCompany?.copy(companyCode = selectedCompanyCode, name = selectedCompanyName)
+
+            viewModel.getShifts(selectedCompanyCode).observe(this) { shifts ->
                 currentShifts = shifts
                 updateShiftCards(shifts)
             }
-            Snackbar.make(binding.root, "Switched to $companyName", Snackbar.LENGTH_SHORT).show()
+
+            Snackbar.make(binding.root, "Switched to $selectedCompanyName", Snackbar.LENGTH_SHORT).show()
         }
     }
 
@@ -80,6 +96,7 @@ class HomeActivity : AppCompatActivity() {
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        getValuesFromDataStore()
         setGreeting()
         setTodayDate()
         setupBottomNav()
@@ -94,6 +111,12 @@ class HomeActivity : AppCompatActivity() {
     // ─────────────────────────────────────────
     // Greeting & Date
     // ─────────────────────────────────────────
+
+    private fun  getValuesFromDataStore() {
+        lifecycleScope.launch {
+            btCode = preferenceManager.btCode.first()
+        }
+    }
 
     private fun setGreeting() {
         val hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
@@ -135,10 +158,7 @@ class HomeActivity : AppCompatActivity() {
         binding.menuCompanies.setOnClickListener {
             binding.drawerLayout.closeDrawer(GravityCompat.END)
             companyLauncher.launch(
-                Intent(this, CompanyListActivity::class.java).apply {
-                    putExtra("btCode", btCode)
-                }
-            )
+                Intent(this, CompanyListActivity::class.java))
         }
 
         // ✅ Profile from drawer
@@ -198,60 +218,36 @@ class HomeActivity : AppCompatActivity() {
     // ─────────────────────────────────────────
 
     private fun setupModules() {
-        data class Module(
-            val name: String,
-            val sub: String,
-            val iconRes: Int,
-            val bgColor: Int,
-            val iconColor: Int
-        )
+        adapter = ModuleCardAdapter(viewModel.moduleCards) { card ->
+            navigateToModule(card.cardName)
+        }
 
-        val modules = listOf(
-            Module("Attendance",    "Day plan · Shifts",      R.drawable.ic_nav_attendance, R.drawable.bg_circle_blue,  android.R.color.holo_blue_dark),
-            Module("Employees",     "Profile · Role · Team",  R.drawable.ic_nav_profile,    R.drawable.bg_circle_green, android.R.color.holo_green_dark),
-            Module("Work Progress", "Task · Entry · Status",  R.drawable.ic_nav_work,       R.drawable.bg_circle_amber, android.R.color.holo_orange_dark),
-            Module("Salary",        "Work based · Pay",       R.drawable.ic_nav_reports,    R.drawable.bg_circle_blue,  android.R.color.holo_blue_dark),
-            Module("Advance",       "Request · Approve",      R.drawable.ic_nav_reports,    R.drawable.bg_circle_red,   android.R.color.holo_red_dark),
-            Module("Inventory",     "Stock · Issue · Track",  R.drawable.ic_nav_work,       R.drawable.bg_circle_green, android.R.color.holo_green_dark),
-            Module("Shift Mgmt",    "Plan · Assign · Track",  R.drawable.ic_nav_attendance, R.drawable.bg_circle_blue,  android.R.color.holo_blue_dark),
-            Module("Reports",       "Summary · Export",       R.drawable.ic_nav_reports,    R.drawable.bg_circle_white, android.R.color.darker_gray)
-        )
-
-        binding.gridModules.removeAllViews()
-
-        modules.forEach { module ->
-            val card = LayoutInflater.from(this)
-                .inflate(R.layout.item_module_card, binding.gridModules, false)
-
-            card.findViewById<TextView>(R.id.tvModuleName).text = module.name
-            card.findViewById<TextView>(R.id.tvModuleSub).text = module.sub
-
-            val iconLayout = card.findViewById<View>(R.id.layoutModuleIcon)
-            iconLayout.setBackgroundResource(module.bgColor)
-
-            val icon = card.findViewById<ImageView>(R.id.ivModuleIcon)
-            icon.setImageResource(module.iconRes)
-            icon.setColorFilter(getColor(module.iconColor))
-
-            card.setOnClickListener { navigateToModule(module.name) }
-            binding.gridModules.addView(card)
+        binding.rvModules.apply {
+            layoutManager = GridLayoutManager(this@HomeActivity, 2)
+            this.adapter = this@HomeActivity.adapter
         }
     }
 
     private fun navigateToModule(name: String) {
         when (name) {
             "Employee" -> startActivity(
-                Intent(this, EmployeeListActivity::class.java).apply {
-                    putExtra("btCode", btCode)
-                    putExtra("companyCode", currentCompany?.companyCode ?: "")
-                    putExtra("companyName", currentCompany?.name ?: "")
+                Intent(this, EmployeeListActivity::class.java))
+
+            "Attendance" -> {
+                lifecycleScope.launch {
+                    val companyCode = preferenceManager.selectedCompanyCode.first()
+                    val companyName = preferenceManager.selectedCompanyName.first()
+                    val btCode = preferenceManager.btCode.first()
+
+                    startActivity(Intent(this@HomeActivity, AttendanceHomeActivity::class.java).apply {
+                        putExtra("btCode", btCode)
+                        putExtra("companyName", companyName)
+                        putExtra("companyCode", companyCode)
+                    })
                 }
-            )
-            "Attendance" -> { startActivity( Intent(this, AttendanceHomeActivity::class.java).apply {
-                putExtra("btCode", btCode)
-                putExtra("companyName", currentCompany?.name ?: "")
-                putExtra("companyCode", currentCompany?.companyCode ?: "")
-            })}
+            }
+
+
             "Work Progress" -> { /* TODO */ }
             "Salary" -> { /* TODO */ }
             "Advance" -> {// From any module card
@@ -264,11 +260,7 @@ class HomeActivity : AppCompatActivity() {
                 ) }
             "Inventory" -> { /* TODO */ }
             "Shift Mgmt" -> { startActivity(
-                Intent(this, ShiftPlanActivity::class.java).apply {
-                    putExtra("btCode", btCode)
-                    putExtra("companyCode", currentCompany?.companyCode ?: "")
-                    putExtra("companyName", currentCompany?.name ?: "")
-                }
+                Intent(this, ShiftPlanActivity::class.java)
             )}
             "Reports" -> { /* TODO */ }
         }
@@ -279,28 +271,28 @@ class HomeActivity : AppCompatActivity() {
     // ─────────────────────────────────────────
 
     private fun observeData() {
-        viewModel.getCompanies(btCode).observe(this) { companies ->
-            if (companies.isNotEmpty()) {
-                val company = companies.first()
-                currentCompany = company
-                binding.tvCompanyName.text = "${company.name} · ${company.city ?: ""}"
-                binding.tvTotalEmp.text = "50"
-
-                // ✅ Load shifts
-                viewModel.getShifts(company.companyCode).observe(this) { shifts ->
-                    currentShifts = shifts
-                    updateShiftCards(shifts)
-                }
-            } else {
-                binding.tvCompanyName.text = "No company — tap to add"
-            }
-        }
-
-        // ✅ Load user name
         lifecycleScope.launch {
+            val savedCompanyCode = preferenceManager.selectedCompanyCode.first()
+
+            viewModel.getCompanies().observe(this@HomeActivity) { companies ->
+                if (companies.isNotEmpty()) {
+                    val company = companies.find { it.companyCode == savedCompanyCode } ?: companies.first()
+
+                    currentCompany = company
+                    binding.tvCompanyName.text = "${company.name} · ${company.city ?: ""}"
+                    binding.tvTotalEmp.text = "50"
+
+                    viewModel.getShifts(company.companyCode).observe(this@HomeActivity) { shifts ->
+                        currentShifts = shifts
+                        updateShiftCards(shifts)
+                    }
+                } else {
+                    binding.tvCompanyName.text = "No company — tap to add"
+                }
+            }
+
             val name = preferenceManager.userName.first()
-            val initials = name.split(" ").take(2)
-                .joinToString("") { it.first().uppercase() }
+            val initials = name.split(" ").take(2).joinToString("") { it.first().uppercase() }
             binding.tvUserName.text = name
             binding.tvAvatar.text = initials
             binding.tvDrawerAvatar.text = initials

@@ -3,7 +3,7 @@ package com.blivtech.emptrack.data.model
 data class EmployeeRequest(
     val btCode: String,
     val empCode: String,
-    val companyId: Long,
+    val companyId: String,
     val departmentId: Long,
     val designationId: Long,
     val name: String,

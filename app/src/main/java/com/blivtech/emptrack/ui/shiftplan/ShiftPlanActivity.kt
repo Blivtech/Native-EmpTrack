@@ -8,6 +8,7 @@ import android.widget.Button
 import android.widget.LinearLayout
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.blivtech.emptrack.R
 import com.blivtech.emptrack.data.local.entity.ShiftEntity
 import com.blivtech.emptrack.data.local.entity.ShiftPlanEntity
@@ -15,6 +16,7 @@ import com.blivtech.emptrack.databinding.ActivityShiftPlanBinding
 import com.blivtech.emptrack.utils.PreferenceManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.time.LocalDate
 import java.time.format.DateTimeFormatter
@@ -29,11 +31,10 @@ class ShiftPlanActivity : AppCompatActivity() {
     @Inject
     lateinit var preferenceManager: PreferenceManager
 
-    private val companyCode by lazy { intent.getStringExtra("companyCode") ?: "" }
-    private val companyName by lazy { intent.getStringExtra("companyName") ?: "" }
-    private val btCode by lazy {
-        runBlocking { preferenceManager.btCode.first() }
-    }
+    var companyName = ""
+    var companyCode = ""
+
+
 
     private var shifts = listOf<ShiftEntity>()
     private var weekPlan = listOf<ShiftPlanEntity>()
@@ -43,18 +44,24 @@ class ShiftPlanActivity : AppCompatActivity() {
         binding = ActivityShiftPlanBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupUI()
-        observeData()
+        lifecycleScope.launch {
+            companyCode = preferenceManager.selectedCompanyCode.first()
+            companyName = preferenceManager.selectedCompanyName.first()
 
-        viewModel.loadEmployees(companyCode)
-        viewModel.loadWeekPlan(companyCode)
-        viewModel.checkLastWeekPlan(companyCode)
+            setupUI()
+            observeData()
+
+            viewModel.loadEmployees(companyCode)
+            viewModel.loadWeekPlan(companyCode)
+            viewModel.checkLastWeekPlan(companyCode)
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        // ✅ Refresh when returning from assign screen
-        viewModel.loadWeekPlan(companyCode)
+        if (companyCode.isNotEmpty()) {
+            viewModel.loadWeekPlan(companyCode)
+        }
     }
 
     private fun setupUI() {

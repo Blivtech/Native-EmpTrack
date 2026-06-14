@@ -11,6 +11,7 @@ import android.widget.ProgressBar
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.blivtech.emptrack.R
 import com.blivtech.emptrack.data.local.entity.ShiftEntity
 import com.blivtech.emptrack.data.model.ShiftStatusResponse
@@ -20,6 +21,7 @@ import com.blivtech.emptrack.utils.Resource
 import com.google.android.material.card.MaterialCardView
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.text.SimpleDateFormat
 import java.util.Date
@@ -34,27 +36,31 @@ class AttendanceHomeActivity : AppCompatActivity() {
 
     @Inject
     lateinit var preferenceManager: PreferenceManager
-
-    private val btCode by lazy { intent.getStringExtra("btCode") ?: "" }
-    private val companyCode by lazy { intent.getStringExtra("companyCode") ?: "" }
-    private val companyName by lazy { intent.getStringExtra("companyName") ?: "" }
-
     private var shifts = listOf<ShiftEntity>()
     private var todayStatusList = listOf<ShiftStatusResponse>()
-
     private val displayFmt = SimpleDateFormat("EEE, d MMM yyyy", Locale.getDefault())
     private val dateFmt = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+
+    private var btCode = ""
+    private var companyCode = ""
+    private var companyName = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAttendanceHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupUI()
-        observeData()
+        lifecycleScope.launch {
+            btCode = preferenceManager.btCode.first()
+            companyCode = preferenceManager.selectedCompanyCode.first()
+            companyName = preferenceManager.selectedCompanyName.first()
 
-        viewModel.loadEmpCount(companyCode)
-        viewModel.loadTodayStatus(btCode, companyCode)
+            setupUI()
+            observeData()
+
+            viewModel.loadEmpCount(companyCode)
+            viewModel.loadTodayStatus(btCode, companyCode)
+        }
     }
 
     // ─────────────────────────────────────
