@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:padding="10dp"
+    android:paddingStart="11dp"
+    android:paddingEnd="11dp"
+    android:background="?attr/selectableItemBackground">
+
+    <!-- ✅ Avatar with bg -->
+    <FrameLayout
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="9dp">
+
+        <!-- ✅ viewAvatarBg — set background color dynamically -->
+        <View
+            android:id="@+id/viewAvatarBg"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@drawable/bg_shift_morning"/>
+
+        <!-- ✅ tvAvatar — initials on top -->
+        <TextView
+            android:id="@+id/tvAvatar"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:gravity="center"
+            android:textSize="9sp"
+            android:textStyle="bold"/>
+    </FrameLayout>
+
+    <!-- Employee info -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvEmpName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:textColor="#212121"/>
+
+        <TextView
+            android:id="@+id/tvEmpCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="8sp"
+            android:textColor="#BDBDBD"
+            android:layout_marginTop="1dp"/>
+
+        <TextView
+            android:id="@+id/tvEmpDept"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="7sp"
+            android:textColor="#9E9E9E"
+            android:layout_marginTop="1dp"/>
+    </LinearLayout>
+
+    <!-- Status + late -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="end">
+
+        <TextView
+            android:id="@+id/tvStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="8sp"
+            android:textStyle="bold"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"/>
+
+        <!-- ✅ tvLateMinutes — shows "+32 min" for late -->
+        <TextView
+            android:id="@+id/tvLateMinutes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="7sp"
+            android:textColor="#BDBDBD"
+            android:layout_marginTop="2dp"
+            android:visibility="gone"/>
+    </LinearLayout>
+
+</LinearLayout>

@@ -1,0 +1,121 @@
+package com.blivtech.emptrack.data.repository
+
+import com.blivtech.emptrack.data.model.AttendanceEmployeeItem
+import com.blivtech.emptrack.data.model.ShiftAttendanceSummary
+import com.blivtech.emptrack.data.network.ApiService
+import com.blivtech.emptrack.utils.Resource
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.flow
+import javax.inject.Inject
+import javax.inject.Singleton
+
+@Singleton
+class ReportRepository @Inject constructor(
+    private val apiService: ApiService
+) {
+
+    // ─────────────────────────────────
+    // ✅ Get shift summaries for a date
+    //    Calls → GET /api/reports/attendance/daily
+    // ─────────────────────────────────
+    fun getShiftSummaries(
+        btCode: String,
+        companyCode: String,
+        date: String
+    ): Flow<Resource<List<ShiftAttendanceSummary>>> = flow {
+
+        emit(Resource.Loading)
+
+        try {
+            val response = apiService.getDailyReport(
+                btCode      = btCode,
+                companyCode = companyCode,
+                date        = date
+            )
+
+            if (response.isSuccessful && response.body() != null) {
+                val body = response.body()!!
+
+                // ✅ Map API DTO → UI model
+                val summaries = body.data?.shifts?.map { dto ->
+                    ShiftAttendanceSummary(
+                        shiftCode      = dto.shiftCode,
+                        shiftName      = dto.shiftName,
+                        startTime      = dto.startTime,
+                        endTime        = dto.endTime,
+                        attendanceDate = dto.attendanceDate,
+                        submittedAt    = dto.submittedAt,
+                        presentCount   = dto.presentCount,
+                        leaveCount     = dto.leaveCount,
+                        totalCount     = dto.totalCount
+                    )
+                } ?: emptyList()
+
+                emit(Resource.Success(summaries))
+
+            } else {
+                emit(Resource.Error(
+                    response.body()?.message ?: "Failed to load report"
+                ))
+            }
+
+        } catch (e: Exception) {
+            emit(Resource.Error(
+                e.localizedMessage ?: "Network error"
+            ))
+        }
+    }
+
+    // ─────────────────────────────────
+    // ✅ Get employees for shift + type
+    //    Calls → GET /api/reports/attendance/daily/employees
+    // ─────────────────────────────────
+    fun getEmployeesByShiftAndType(
+        btCode: String,
+        companyCode: String,
+        date: String,
+        shiftCode: String,
+        type: String        // "PRESENT" or "LEAVE"
+    ): Flow<Resource<List<AttendanceEmployeeItem>>> = flow {
+
+        emit(Resource.Loading)
+
+        try {
+            val response = apiService.getShiftEmployees(
+                btCode      = btCode,
+                companyCode = companyCode,
+                date        = date,
+                shiftCode   = shiftCode,
+                type        = type
+            )
+
+            if (response.isSuccessful && response.body() != null) {
+                val body = response.body()!!
+
+                // ✅ Map API DTO → UI model
+                val employees = body.data?.map { dto ->
+                    AttendanceEmployeeItem(
+                        empCode     = dto.empCode,
+                        empName     = dto.empName,
+                        department  = dto.department,
+                        status      = dto.status,
+                        statusLabel = dto.statusLabel,
+                        lateMinutes = dto.lateMinutes
+                    )
+                } ?: emptyList()
+
+                emit(Resource.Success(employees))
+
+            } else {
+                emit(Resource.Error(
+                    response.body()?.message ?: "Failed to load employees"
+                ))
+            }
+
+        } catch (e: Exception) {
+            emit(Resource.Error(
+                e.localizedMessage ?: "Network error"
+            ))
+        }
+    }
+}

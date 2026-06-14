@@ -19,8 +19,24 @@
     <color name="chip_bg">#EAF3DE</color>
     <color name="chip_text">#27500A</color>
     <color name="green_stroke">#639922</color>
+
+    <color name="green_dark">#27500A</color>
+    <color name="green_light">#EAF3DE</color>
+
+    <!-- ✅ Amber shades -->
+    <color name="amber_dark">#633806</color>
+    <color name="amber_light">#FAEEDA</color>
+
+    <!-- ✅ Red shades -->
+    <color name="red_dark">#C62828</color>
+    <color name="red_light">#FCEBEB</color>
+
+    <!-- ✅ Blue shades -->
     <color name="blue_dark">#0C447C</color>
+    <color name="blue_light">#E6F1FB</color>
 
-
+    <!-- ✅ Purple shades -->
+    <color name="purple_dark">#3C3489</color>
     <color name="purple_light">#EEEDFE</color>
+
 </resources>

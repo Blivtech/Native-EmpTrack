@@ -37,7 +37,8 @@ class AddEditCompanyActivity : AppCompatActivity() {
 
     @Inject
     lateinit var preferenceManager: PreferenceManager
-
+    private var companyCode = ""
+    private var companyName = ""
     // ✅ Edit mode data
     private var editCompanyId: Long = -1L
     private var btCode  = ""
@@ -52,7 +53,9 @@ class AddEditCompanyActivity : AppCompatActivity() {
         editCompanyId = intent.getLongExtra("companyId", -1L)
 
 
-
+        lifecycleScope.launch {
+            companyCode = preferenceManager.selectedCompanyCode.first()
+            companyName = preferenceManager.selectedCompanyName.first()}
 
         getValuesFromDataStore()
         setupUI()
@@ -270,7 +273,7 @@ class AddEditCompanyActivity : AppCompatActivity() {
         )
 
         if (isEditMode) {
-            viewModel.updateCompany(editCompanyId, request)
+            viewModel.updateCompany(companyCode, request)
         } else {
             viewModel.createCompany(request)
         }

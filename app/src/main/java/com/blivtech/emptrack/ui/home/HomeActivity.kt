@@ -66,30 +66,7 @@ class HomeActivity : AppCompatActivity() {
     private var selectedCompanyCode = ""
     private var selectedCompanyName = ""
 
-    // ✅ Company list launcher
-    private val companyLauncher = registerForActivityResult(ActivityResultContracts.StartActivityForResult()
-    ) { result ->
-        if (result.resultCode == RESULT_OK) {
 
-            lifecycleScope.launch {
-                selectedCompanyCode = preferenceManager.selectedCompanyCode.first()
-                selectedCompanyName = preferenceManager.selectedCompanyName.first()
-                binding.tvCompanyName.text = selectedCompanyName
-            }
-
-            // ✅ Update currentCompany immediately (synchronously) — single source of truth
-            val companies = viewModel.getCompanies().value
-            currentCompany = companies?.find { it.companyCode == selectedCompanyCode }
-                ?: currentCompany?.copy(companyCode = selectedCompanyCode, name = selectedCompanyName)
-
-            viewModel.getShifts(selectedCompanyCode).observe(this) { shifts ->
-                currentShifts = shifts
-                updateShiftCards(shifts)
-            }
-
-            Snackbar.make(binding.root, "Switched to $selectedCompanyName", Snackbar.LENGTH_SHORT).show()
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -157,8 +134,7 @@ class HomeActivity : AppCompatActivity() {
         // ✅ Companies from drawer
         binding.menuCompanies.setOnClickListener {
             binding.drawerLayout.closeDrawer(GravityCompat.END)
-            companyLauncher.launch(
-                Intent(this, CompanyListActivity::class.java))
+           startActivity(Intent(this, CompanyListActivity::class.java))
         }
 
         // ✅ Profile from drawer
@@ -453,5 +429,28 @@ class HomeActivity : AppCompatActivity() {
         } else {
             super.onBackPressed()
         }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        lifecycleScope.launch {
+            selectedCompanyCode = preferenceManager.selectedCompanyCode.first()
+            selectedCompanyName = preferenceManager.selectedCompanyName.first()
+            binding.tvCompanyName.text = selectedCompanyName
+        }
+
+        // ✅ Update currentCompany immediately (synchronously) — single source of truth
+        val companies = viewModel.getCompanies().value
+        currentCompany = companies?.find { it.companyCode == selectedCompanyCode }
+            ?: currentCompany?.copy(companyCode = selectedCompanyCode, name = selectedCompanyName)
+
+        viewModel.getShifts(selectedCompanyCode).observe(this) { shifts ->
+            currentShifts = shifts
+            updateShiftCards(shifts)
+        }
+
+       // Snackbar.make(binding.root, "Switched to $selectedCompanyName", Snackbar.LENGTH_SHORT).show()
+
     }
 }

@@ -84,6 +84,15 @@
         <activity android:name=".ui.contract.AddContractEntryActivity" android:exported="false"
             android:windowSoftInputMode="adjustResize"/>
         <activity android:name=".ui.contract.ContractProductListActivity" android:exported="false"/>
+        <activity
+            android:name=".ui.report.DailyReportActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"/>
+
+        <activity
+            android:name=".ui.report.ShiftEmployeeListActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize"/>
     </application>
 
 </manifest>

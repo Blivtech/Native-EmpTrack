@@ -69,42 +69,13 @@ class ShiftPlanActivity : AppCompatActivity() {
         binding.tvCompanyName.text = companyName
         updateWeekDisplay()
 
-        // ✅ Week navigation
-        binding.btnPrevWeek.setOnClickListener {
-            viewModel.previousWeek()
-            updateWeekDisplay()
-        }
-        binding.btnNextWeek.setOnClickListener {
-            viewModel.nextWeek()
-            updateWeekDisplay()
-        }
 
-        // ✅ Copy last week
         binding.ivCopyPlan.setOnClickListener {
             showCopyDialog()
         }
     }
     private fun updateWeekDisplay() {
-        // ✅ Week range label — "8 Jun – 14 Jun 2026"
-        binding.tvWeekRange.text = viewModel.getWeekLabel()
-
-        // ✅ Week number — "Week 23 · 2026"
-        binding.tvWeekNumber.text = viewModel.getWeekNumber()
-
-        // ✅ Current week badge
-        binding.tvCurrentBadge.visibility =
-            if (viewModel.isCurrentWeek()) View.VISIBLE else View.GONE
-
-        // ✅ Disable next week button if current week
-        binding.btnNextWeek.alpha =
-            if (viewModel.isCurrentWeek()) 0.4f else 1.0f
-        binding.btnNextWeek.isEnabled = !viewModel.isCurrentWeek()
-
-        // ✅ Reload week plan for selected week
         viewModel.loadWeekPlan(companyCode)
-
-        // ✅ Check last week plan for copy banner
-        viewModel.checkLastWeekPlan(companyCode)
     }
 
     private fun observeData() {
@@ -114,13 +85,13 @@ class ShiftPlanActivity : AppCompatActivity() {
             shifts = shiftList
             updateShiftCards()         // ✅ Rebuild cards
         }
-
-        // ✅ Refresh cards when week plan loads
-        viewModel.weekPlan.observe(this) { plan ->
-            weekPlan = plan
-            updateShiftCards()         // ✅ Refresh counts
-            updateUnassignedWarning()
-        }
+//
+//        // ✅ Refresh cards when week plan loads
+//        viewModel.weekPlan.observe(this) { plan ->
+//            weekPlan = plan
+//            updateShiftCards()         // ✅ Refresh counts
+//            updateUnassignedWarning()
+//        }
 
         // ✅ Refresh employee data
         viewModel.employees.observe(this) {

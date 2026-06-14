@@ -3,6 +3,7 @@ package com.blivtech.emptrack.data.network
 import com.blivtech.emptrack.data.model.AdvanceRequest
 import com.blivtech.emptrack.data.model.AdvanceResponse
 import com.blivtech.emptrack.data.model.ApiResponse
+import com.blivtech.emptrack.data.model.AttendanceEmployeeDto
 import com.blivtech.emptrack.data.model.AttendanceRequest
 import com.blivtech.emptrack.data.model.AttendanceResponse
 import com.blivtech.emptrack.data.model.BonusRequest
@@ -14,6 +15,7 @@ import com.blivtech.emptrack.data.model.CompanyRequest
 import com.blivtech.emptrack.data.model.CompanyData
 import com.blivtech.emptrack.data.model.ContractEntryRequest
 import com.blivtech.emptrack.data.model.ContractProductRequest
+import com.blivtech.emptrack.data.model.DailyReportSummaryDto
 import com.blivtech.emptrack.data.model.EmployeeRequest
 import com.blivtech.emptrack.data.model.EmployeeResponse
 import com.blivtech.emptrack.data.model.MasterResponse
@@ -196,4 +198,21 @@ interface ApiService {
         @Query("companyCode") companyCode: String,
         @Query("month") month: String
     ): Response<ApiResponse<List<Any>>>
+
+    // ✅ Daily report APIs
+    @GET("api/reports/attendance/daily")
+    suspend fun getDailyReport(
+        @Query("btCode")      btCode: String,
+        @Query("companyCode") companyCode: String,
+        @Query("date")        date: String
+    ): Response<ApiResponse<DailyReportSummaryDto>>
+
+    @GET("api/reports/attendance/daily/employees")
+    suspend fun getShiftEmployees(
+        @Query("btCode")      btCode: String,
+        @Query("companyCode") companyCode: String,
+        @Query("date")        date: String,
+        @Query("shiftCode")   shiftCode: String,
+        @Query("type")        type: String   // PRESENT or LEAVE
+    ): Response<ApiResponse<List<AttendanceEmployeeDto>>>
 }

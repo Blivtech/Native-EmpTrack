@@ -122,31 +122,10 @@ class CompanyListActivity : AppCompatActivity() {
             company?.let {
                 lifecycleScope.launch {
                     preferenceManager.saveSelectedCompany(it.companyCode, it.name)
-                    setResult(RESULT_OK)
                     finish()
                 }
             }
         }
-
-
-
-
-
-
-
-
-        // ✅ Observe selected company — pass back to HomeActivity
-//        viewModel.selectedCompany.observe(this) { company ->
-//            company?.let {
-//                val resultIntent = Intent().apply {
-//                    putExtra("selectedCompanyId", it.id)
-//                    putExtra("selectedCompanyName", it.name)
-//                    putExtra("selectedCompanyCode", it.companyCode)
-//                }
-//                setResult(RESULT_OK, resultIntent)
-//                finish()
-//            }
-//        }
     }
 
     private fun refreshAdapter() {

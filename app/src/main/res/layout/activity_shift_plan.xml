@@ -93,15 +93,11 @@
                     android:layout_marginTop="1dp"/>
             </LinearLayout>
 
-            <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:src="@android:drawable/arrow_down_float"
-                android:tint="#99ffffff"/>
         </LinearLayout>
 
         <!-- Week navigation -->
         <LinearLayout
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"

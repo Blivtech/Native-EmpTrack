@@ -20,12 +20,21 @@ import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
 import android.graphics.Color
+import androidx.lifecycle.lifecycleScope
+import com.blivtech.emptrack.utils.PreferenceManager
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class AddContractEntryActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityAddContractEntryBinding
     private val viewModel: ContractWageViewModel by viewModels()
+
+    @Inject
+    lateinit var preferenceManager: PreferenceManager
+
 
     private val btCode      by lazy { intent.getStringExtra("btCode") ?: "" }
     private val companyCode by lazy { intent.getStringExtra("companyCode") ?: "" }
@@ -44,6 +53,9 @@ class AddContractEntryActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityAddContractEntryBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+
+
 
         setupUI()
         setupClickListeners()
