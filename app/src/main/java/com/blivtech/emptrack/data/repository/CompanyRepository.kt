@@ -48,9 +48,9 @@ class CompanyRepository @Inject constructor(
         }
     }
 
-    suspend fun updateCompany(id: Long, request: CompanyRequest): Resource<CompanyEntity> {
+    suspend fun updateCompany(companyCode: String, request: CompanyRequest): Resource<CompanyEntity> {
         return try {
-            val response = apiService.updateCompany(id, request)
+            val response = apiService.updateCompany(companyCode, request)
             if (response.isSuccessful && response.body() != null) {
                 val body = response.body()!!
                 if (body.code == 200 && body.data != null) {

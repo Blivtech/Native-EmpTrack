@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="@drawable/bg_dialog">
+
+    <!-- Handle -->
+    <View
+        android:layout_width="36dp"
+        android:layout_height="4dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/bg_sheet_handle"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="14dp">
+
+        <!-- ✅ Product + work name -->
+        <TextView
+            android:id="@+id/tvQtyProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:textColor="#212121"
+            android:layout_marginBottom="10dp"/>
+
+        <!-- ✅ Rate info row — replaces suffixTextId -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:background="@drawable/bg_field_selector"
+            android:padding="10dp"
+            android:layout_marginBottom="12dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rate: "
+                android:textSize="11sp"
+                android:textColor="#9E9E9E"/>
+
+            <!-- ✅ tvQtyUnit — shows "₹2.00 per kg" -->
+            <TextView
+                android:id="@+id/tvQtyUnit"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:textColor="#1565C0"/>
+        </LinearLayout>
+
+        <!-- ✅ Qty input — no suffixTextId -->
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:hint="Enter quantity"
+            app:boxCornerRadiusTopStart="12dp"
+            app:boxCornerRadiusTopEnd="12dp"
+            app:boxCornerRadiusBottomStart="12dp"
+            app:boxCornerRadiusBottomEnd="12dp"
+            app:boxStrokeColor="#1565C0"
+            app:hintTextColor="#1565C0">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etQty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="numberDecimal"
+                android:textSize="22sp"
+                android:textStyle="bold"
+                android:textColor="#1565C0"
+                android:imeOptions="actionDone"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <!-- ✅ Preview -->
+        <TextView
+            android:id="@+id/tvQtyPreview"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="0 × ₹0.00 = ₹0"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="#1565C0"
+            android:background="@drawable/bg_field_selector"
+            android:padding="10dp"
+            android:layout_marginBottom="14dp"/>
+
+        <!-- ✅ Save button -->
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnQtySave"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:text="Confirm Quantity"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            app:cornerRadius="12dp"
+            app:backgroundTint="#1565C0"/>
+
+    </LinearLayout>
+</LinearLayout>

@@ -80,6 +80,10 @@
         <activity android:name=".ui.work.AddProductActivity"   android:exported="false"/>
         <activity android:name=".ui.work.AddWorkEntryActivity" android:exported="false"/>
         <activity android:name=".ui.work.SelectEmployeeActivity" android:exported="false"/>
+        <activity android:name=".ui.contract.ContractWageActivity" android:exported="false"/>
+        <activity android:name=".ui.contract.AddContractEntryActivity" android:exported="false"
+            android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".ui.contract.ContractProductListActivity" android:exported="false"/>
     </application>
 
 </manifest>

@@ -50,6 +50,7 @@ dependencies {
 
     // ✅ Hilt — using KSP now
     implementation(libs.hilt.android)
+    androidTestImplementation(libs.junit)
     ksp(libs.hilt.compiler)             // ✅ ksp() instead of kapt()
 
     // ✅ Retrofit

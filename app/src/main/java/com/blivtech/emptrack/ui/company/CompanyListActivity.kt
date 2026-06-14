@@ -132,7 +132,7 @@ class CompanyListActivity : AppCompatActivity() {
         startActivity(
             Intent(this, AddEditCompanyActivity::class.java).apply {
                 putExtra("btCode", btCode)
-                putExtra("companyId", company.id)
+                putExtra("companyCode", company.companyCode)
                 putExtra("company", company.toParcel())
                 putParcelableArrayListExtra(
                     "shifts",

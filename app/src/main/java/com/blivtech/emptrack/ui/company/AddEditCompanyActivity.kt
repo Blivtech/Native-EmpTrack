@@ -31,9 +31,9 @@ class AddEditCompanyActivity : AppCompatActivity() {
     private lateinit var shiftAdapter: ShiftAdapter
 
     // ✅ Edit mode data
-    private var editCompanyId: Long = -1L
+    private var editCompanyCode: String=""
     private val btCode by lazy { intent.getStringExtra("btCode") ?: "BT0017" }
-    private val isEditMode get() = editCompanyId != -1L
+    private val isEditMode get() = editCompanyCode != ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,7 +41,7 @@ class AddEditCompanyActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // ✅ Check if edit mode
-        editCompanyId = intent.getLongExtra("companyId", -1L)
+        editCompanyCode = intent.getStringExtra("companyCode")?:""
 
         setupUI()
         setupRecyclerView()
@@ -247,12 +247,12 @@ class AddEditCompanyActivity : AppCompatActivity() {
             state = binding.etState.text.toString().trim().ifEmpty { null },
             phone = binding.etPhone.text.toString().trim().ifEmpty { null },
             email = binding.etEmail.text.toString().trim().ifEmpty { null },
-            logo = null,
+            logo = "1123",
             shifts = viewModel.shifts.value ?: emptyList()
         )
 
         if (isEditMode) {
-            viewModel.updateCompany(editCompanyId, request)
+            viewModel.updateCompany(editCompanyCode, request)
         } else {
             viewModel.createCompany(request)
         }

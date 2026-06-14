@@ -12,6 +12,8 @@ import com.blivtech.emptrack.data.model.LoginResponse
 import com.blivtech.emptrack.data.model.RegisterRequest
 import com.blivtech.emptrack.data.model.CompanyRequest
 import com.blivtech.emptrack.data.model.CompanyData
+import com.blivtech.emptrack.data.model.ContractEntryRequest
+import com.blivtech.emptrack.data.model.ContractProductRequest
 import com.blivtech.emptrack.data.model.EmployeeRequest
 import com.blivtech.emptrack.data.model.EmployeeResponse
 import com.blivtech.emptrack.data.model.MasterResponse
@@ -48,14 +50,14 @@ interface ApiService {
         @Query("btCode") btCode: String
     ): Response<MasterResponse>
 
-    @POST("api/company")
+    @POST("api/companies/save")
     suspend fun createCompany(
         @Body request: CompanyRequest
     ): Response<ApiResponse<CompanyData>>
 
-    @PUT("api/company/{id}")
+    @PUT("api/companies/{id}")
     suspend fun updateCompany(
-        @Path("id") id: Long,
+        @Path("companyCode") companyCode: String,
         @Body request: CompanyRequest
     ): Response<ApiResponse<CompanyData>>
 
@@ -176,4 +178,22 @@ interface ApiService {
         @Query("date") date: String? = null,
         @Query("month") month: String? = null
     ): Response<ApiResponse<List<WorkEntryResponse>>>
+
+    // ✅ Contract Wage APIs
+    @POST("api/contract-products/add")
+    suspend fun addContractProduct(
+        @Body request: ContractProductRequest
+    ): Response<ApiResponse<Any>>
+
+    @POST("api/contract-entries/add")
+    suspend fun addContractEntries(
+        @Body request: ContractEntryRequest
+    ): Response<ApiResponse<Any>>
+
+    @GET("api/contract-entries")
+    suspend fun getContractEntries(
+        @Query("btCode") btCode: String,
+        @Query("companyCode") companyCode: String,
+        @Query("month") month: String
+    ): Response<ApiResponse<List<Any>>>
 }

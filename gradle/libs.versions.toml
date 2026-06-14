@@ -16,7 +16,8 @@ okhttp = "4.12.0"
 coroutines = "1.7.3"
 datastore = "1.0.0"
 splashscreen = "1.0.1"
-room = "2.6.1"                          # ✅ Add Room
+room = "2.6.1"
+junit = "4.12"                          # ✅ Add Room
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -41,7 +42,8 @@ androidx-datastore-preferences = { group = "androidx.datastore", name = "datasto
 androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscreen", version.ref = "splashscreen" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }  # ✅
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }          # ✅
-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" } # ✅
+room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
+junit = { group = "junit", name = "junit", version.ref = "junit" } # ✅
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
