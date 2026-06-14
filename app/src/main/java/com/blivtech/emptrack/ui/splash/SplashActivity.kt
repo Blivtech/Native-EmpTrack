@@ -76,7 +76,6 @@ class SplashActivity : AppCompatActivity() {
     private fun navigateToHome(btCode: String) {
         startActivity(
             Intent(this, HomeActivity::class.java).apply {
-                putExtra("btCode", btCode)
                 putExtra("fromLogin", false)    // ✅ Not from login — skip sync
             }
         )

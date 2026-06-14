@@ -20,8 +20,8 @@ class CompanyRepository @Inject constructor(
     private val shiftDao: ShiftDao
 ) {
 
-    fun getCompanies(btCode: String): Flow<List<CompanyEntity>> =
-        companyDao.getCompaniesByBtCode(btCode)
+    fun getCompanies(): Flow<List<CompanyEntity>> =
+        companyDao.getCompaniesByBtCode()
 
     suspend fun getCompanyById(id: Long): CompanyEntity? =
         companyDao.getCompanyById(id)

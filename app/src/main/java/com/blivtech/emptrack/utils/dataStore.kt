@@ -28,6 +28,9 @@ class PreferenceManager @Inject constructor(
         val KEY_PHONE         = stringPreferencesKey("phone")
         val KEY_USER_TYPE     = stringPreferencesKey("user_type")
         val KEY_IS_SYNCED     = booleanPreferencesKey("is_synced")  // ✅ Track sync
+
+        val KEY_SELECTED_COMPANY_CODE = stringPreferencesKey("selected_company_code")
+        val KEY_SELECTED_COMPANY_NAME = stringPreferencesKey("selected_company_name")
     }
 
     // ✅ Save login data after successful login
@@ -52,6 +55,13 @@ class PreferenceManager @Inject constructor(
     suspend fun markSynced() {
         context.dataStore.edit { prefs ->
             prefs[KEY_IS_SYNCED] = true
+        }
+    }
+
+    suspend fun saveSelectedCompany(companyCode: String, companyName: String) {
+        context.dataStore.edit { prefs ->
+            prefs[KEY_SELECTED_COMPANY_CODE] = companyCode
+            prefs[KEY_SELECTED_COMPANY_NAME] = companyName
         }
     }
 
@@ -80,4 +90,10 @@ class PreferenceManager @Inject constructor(
 
     val userType: Flow<String> = context.dataStore.data
         .map { prefs -> prefs[KEY_USER_TYPE] ?: "1" }
+
+    val selectedCompanyCode: Flow<String> = context.dataStore.data
+        .map { prefs -> prefs[KEY_SELECTED_COMPANY_CODE] ?: "" }
+
+    val selectedCompanyName: Flow<String> = context.dataStore.data
+        .map { prefs -> prefs[KEY_SELECTED_COMPANY_NAME] ?: "" }
 }

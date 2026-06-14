@@ -9,6 +9,7 @@ import android.view.View
 import android.view.Window
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blivtech.emptrack.data.local.entity.CompanyEntity
 import com.blivtech.emptrack.data.local.entity.ShiftEntity
@@ -18,10 +19,14 @@ import com.blivtech.emptrack.data.model.CompanyRequest
 import com.blivtech.emptrack.databinding.ActivityAddEditCompanyBinding
 import com.blivtech.emptrack.databinding.DialogAddShiftBinding
 import com.blivtech.emptrack.ui.company.adapter.ShiftAdapter
+import com.blivtech.emptrack.utils.PreferenceManager
 import com.blivtech.emptrack.utils.Resource
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import java.util.Calendar
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class AddEditCompanyActivity : AppCompatActivity() {
@@ -30,10 +35,13 @@ class AddEditCompanyActivity : AppCompatActivity() {
     private val viewModel: AddEditCompanyViewModel by viewModels()
     private lateinit var shiftAdapter: ShiftAdapter
 
+    @Inject
+    lateinit var preferenceManager: PreferenceManager
+
     // ✅ Edit mode data
-    private var editCompanyCode: String=""
-    private val btCode by lazy { intent.getStringExtra("btCode") ?: "BT0017" }
-    private val isEditMode get() = editCompanyCode != ""
+    private var editCompanyId: Long = -1L
+    private var btCode  = ""
+    private val isEditMode get() = editCompanyId != -1L
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -41,8 +49,12 @@ class AddEditCompanyActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // ✅ Check if edit mode
-        editCompanyCode = intent.getStringExtra("companyCode")?:""
+        editCompanyId = intent.getLongExtra("companyId", -1L)
 
+
+
+
+        getValuesFromDataStore()
         setupUI()
         setupRecyclerView()
         setupClickListeners()
@@ -50,6 +62,12 @@ class AddEditCompanyActivity : AppCompatActivity() {
 
         // ✅ Pre-fill if edit mode
         if (isEditMode) prefillData()
+    }
+
+    private fun getValuesFromDataStore(){
+        lifecycleScope.launch {
+            btCode = preferenceManager.btCode.first()
+        }
     }
 
     private fun setupUI() {
@@ -247,12 +265,12 @@ class AddEditCompanyActivity : AppCompatActivity() {
             state = binding.etState.text.toString().trim().ifEmpty { null },
             phone = binding.etPhone.text.toString().trim().ifEmpty { null },
             email = binding.etEmail.text.toString().trim().ifEmpty { null },
-            logo = "1123",
+            logo = null,
             shifts = viewModel.shifts.value ?: emptyList()
         )
 
         if (isEditMode) {
-            viewModel.updateCompany(editCompanyCode, request)
+            viewModel.updateCompany(editCompanyId, request)
         } else {
             viewModel.createCompany(request)
         }
