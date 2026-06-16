@@ -1,7 +1,11 @@
 package com.blivtech.emptrack.data.repository
 
 import com.blivtech.emptrack.data.model.AttendanceEmployeeItem
+import com.blivtech.emptrack.data.model.DailyStatus
+import com.blivtech.emptrack.data.model.EmployeeWeeklyDetail
 import com.blivtech.emptrack.data.model.ShiftAttendanceSummary
+import com.blivtech.emptrack.data.model.WeeklyReportDto
+import com.blivtech.emptrack.data.model.WeeklyShiftEmployee
 import com.blivtech.emptrack.data.network.ApiService
 import com.blivtech.emptrack.utils.Resource
 import kotlinx.coroutines.flow.Flow
@@ -116,6 +120,120 @@ class ReportRepository @Inject constructor(
             emit(Resource.Error(
                 e.localizedMessage ?: "Network error"
             ))
+        }
+    }
+
+    // ─────────────────────────────────
+// ✅ Weekly summary
+// ─────────────────────────────────
+    fun getWeeklySummary(
+        btCode: String,
+        companyCode: String,
+        weekStart: String,
+        weekEnd: String
+    ): Flow<Resource<WeeklyReportDto>> = flow {
+        emit(Resource.Loading)
+        try {
+            val response = apiService.getWeeklyReport(
+                btCode, companyCode, weekStart, weekEnd
+            )
+            if (response.isSuccessful && response.body()?.data != null) {
+                emit(Resource.Success(response.body()!!.data!!))
+            } else {
+                emit(Resource.Error(
+                    response.body()?.message ?: "Failed to load weekly report"
+                ))
+            }
+        } catch (e: Exception) {
+            emit(Resource.Error(e.localizedMessage ?: "Network error"))
+        }
+    }
+
+    // ─────────────────────────────────
+// ✅ Weekly shift employees
+// ─────────────────────────────────
+    fun getWeeklyShiftEmployees(
+        btCode: String,
+        companyCode: String,
+        weekStart: String,
+        weekEnd: String,
+        shiftCode: String,
+        type: String
+    ): Flow<Resource<List<WeeklyShiftEmployee>>> = flow {
+        emit(Resource.Loading)
+        try {
+            val response = apiService.getWeeklyShiftEmployees(
+                btCode, companyCode, weekStart, weekEnd, shiftCode, type
+            )
+            if (response.isSuccessful && response.body()?.data != null) {
+                val list = response.body()!!.data!!.map { dto ->
+                    WeeklyShiftEmployee(
+                        empCode            = dto.empCode,
+                        empName            = dto.empName,
+                        department         = dto.department,
+                        presentDays        = dto.presentDays,
+                        absentDays         = dto.absentDays,
+                        totalDays          = dto.totalDays,
+                        attendancePercent  = dto.attendancePercent
+                    )
+                }
+                emit(Resource.Success(list))
+            } else {
+                emit(Resource.Error(
+                    response.body()?.message ?: "Failed to load employees"
+                ))
+            }
+        } catch (e: Exception) {
+            emit(Resource.Error(e.localizedMessage ?: "Network error"))
+        }
+    }
+
+    // ✅ Map DailyStatusDto → DailyStatus (UI model)
+    fun getEmployeeWeeklyDetail(
+        btCode: String, companyCode: String,
+        weekStart: String, weekEnd: String,
+        shiftCode: String, empCode: String
+    ): Flow<Resource<EmployeeWeeklyDetail>> = flow {
+        emit(Resource.Loading)
+        try {
+            val response = apiService.getEmployeeWeeklyDetail(
+                btCode, companyCode, weekStart, weekEnd, shiftCode, empCode
+            )
+            if (response.isSuccessful && response.body()?.data != null) {
+                val dto = response.body()!!.data!!
+                emit(Resource.Success(
+                    EmployeeWeeklyDetail(
+                        empCode           = dto.empCode,
+                        empName           = dto.empName,
+                        department        = dto.department,
+                        shiftName         = dto.shiftName,
+                        weekStart         = dto.weekStart,
+                        weekEnd           = dto.weekEnd,
+                        presentDays       = dto.presentDays,
+                        absentDays        = dto.absentDays,
+                        lateDays          = dto.lateDays,
+                        holidayDays       = dto.holidayDays,
+                        weekOffDays       = dto.weekOffDays,
+                        totalDays         = dto.totalDays,
+                        attendancePercent = dto.attendancePercent,
+                        // ✅ Map DailyStatusDto → DailyStatus
+                        dailyStatus = dto.dailyStatus.map { d ->
+                            DailyStatus(
+                                date        = d.date,
+                                dayName     = d.dayName,
+                                status      = d.status,
+                                statusLabel = d.statusLabel
+                            )
+                        }
+                    )
+                ))
+            } else {
+                emit(Resource.Error(
+                    response.body()?.message ?: "Failed to load detail"
+                ))
+            }
+        } catch (e: Exception) {
+            emit(Resource.Error(e.localizedMessage ?: "Network error"))
         }
     }
 }

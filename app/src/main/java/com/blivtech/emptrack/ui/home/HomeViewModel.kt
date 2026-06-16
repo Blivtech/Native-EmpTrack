@@ -59,14 +59,11 @@ class HomeViewModel @Inject constructor(
 
 
     val moduleCards = listOf(
-        CardDetailsForHomeActivity(id = "1", iconRes = R.drawable.ic_nav_attendance, bgColorRes = R.drawable.bg_circle_blue, cardName = "Attendance", subtitle = "Day plan · Shifts", needFlag = true),
-        CardDetailsForHomeActivity(id = "2", iconRes = R.drawable.ic_nav_profile, bgColorRes = R.drawable.bg_circle_green, cardName = "Employees", subtitle = "Profile · Role · Team", needFlag = true),
+        CardDetailsForHomeActivity(id = "1", iconRes = R.drawable.ic_nav_reports, bgColorRes = R.drawable.bg_circle_red, cardName = "Advance", subtitle = "advance,overtime,bonus", needFlag = true),
+        CardDetailsForHomeActivity(id = "2", iconRes = R.drawable.ic_nav_attendance, bgColorRes = R.drawable.bg_circle_blue, cardName = "Shift Mgmt", subtitle = "Pre Plan Shift", needFlag = false),
         CardDetailsForHomeActivity(id = "3", iconRes = R.drawable.ic_nav_work, bgColorRes = R.drawable.bg_circle_amber, cardName = "Work Progress", subtitle = "Task · Entry · Status", needFlag = false),
         CardDetailsForHomeActivity(id = "4", iconRes = R.drawable.ic_nav_reports, bgColorRes = R.drawable.bg_circle_blue, cardName = "Salary", subtitle = "Work based · Pay", needFlag = false),
-        CardDetailsForHomeActivity(id = "5", iconRes = R.drawable.ic_nav_reports, bgColorRes = R.drawable.bg_circle_red, cardName = "Advance", subtitle = "Request · Approve", needFlag = true),
-        CardDetailsForHomeActivity(id = "6", iconRes = R.drawable.ic_nav_work, bgColorRes = R.drawable.bg_circle_green, cardName = "Inventory", subtitle = "Stock · Issue · Track", needFlag = false),
-        CardDetailsForHomeActivity(id = "7", iconRes = R.drawable.ic_nav_attendance, bgColorRes = R.drawable.bg_circle_blue, cardName = "Shift Mgmt", subtitle = "Plan · Assign · Track", needFlag = false),
-        CardDetailsForHomeActivity(id = "8", iconRes = R.drawable.ic_nav_reports, bgColorRes = R.drawable.bg_circle_white, cardName = "Reports", subtitle = "Summary · Export", needFlag = false)
+        CardDetailsForHomeActivity(id = "5", iconRes = R.drawable.ic_nav_work, bgColorRes = R.drawable.bg_circle_green, cardName = "Inventory", subtitle = "Stock · Issue · Track", needFlag = false),
     )
 }
 

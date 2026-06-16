@@ -32,23 +32,17 @@ class AddEditEmployeeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddEditEmployeeBinding
     private val viewModel: AddEditEmployeeViewModel by viewModels()
 
-    // ─────────────────────────────────────────
-    // Intent data
-    // ─────────────────────────────────────────
+
     private var btCode  = ""
-    private var companyId = ""
+    private var companyCode= ""
     private var companyName = ""
-    private val editEmployeeId by lazy { intent.getLongExtra("employeeId", -1L) }
-    private val isEditMode get() = editEmployeeId != -1L
+    private val editEmployeeCode by lazy { intent.getStringExtra("employeeCode")?:"" }
+    private val isEditMode get() = editEmployeeCode != ""
 
     @Inject
     lateinit var preferenceManager: PreferenceManager
 
 
-
-    // ─────────────────────────────────────────
-    // Selected values
-    // ─────────────────────────────────────────
     private var selectedDepartment: DepartmentEntity? = null
     private var selectedDesignation: DesignationEntity? = null
     private var selectedGender: Int? = null
@@ -73,7 +67,7 @@ class AddEditEmployeeActivity : AppCompatActivity() {
 
         lifecycleScope.launch {
             btCode = preferenceManager.btCode.first()
-            companyId = preferenceManager.selectedCompanyCode.first()
+            companyCode = preferenceManager.selectedCompanyCode.first()
             companyName = preferenceManager.selectedCompanyName.first()
 
             binding.tvCompanyValue.text = companyName
@@ -87,10 +81,6 @@ class AddEditEmployeeActivity : AppCompatActivity() {
     private fun setupUI() {
         binding.tvTitle.text = if (isEditMode) "Edit employee" else "Add employee"
     }
-
-    // ─────────────────────────────────────────
-    // Click Listeners
-    // ─────────────────────────────────────────
 
     private fun setupClickListeners() {
         binding.ivBack.setOnClickListener { finish() }
@@ -382,14 +372,14 @@ class AddEditEmployeeActivity : AppCompatActivity() {
     // ─────────────────────────────────────────
 
     private fun saveEmployee() {
-        val empCode = if (isEditMode) "" else "EMP${System.currentTimeMillis()}"
+        val empCode = if (isEditMode) editEmployeeCode else ""
 
         val request = EmployeeRequest(
             btCode = btCode,
             empCode = empCode,
-            companyId = companyId,
-            departmentId = selectedDepartment?.id ?: -1L,
-            designationId = selectedDesignation?.id ?: -1L,
+            companyCode = companyCode,
+            deptCode = selectedDepartment?.deptCode ?: "",
+            desgCode = selectedDesignation?.desgCode ?: "",
             name = binding.etName.text.toString().trim(),
             email = binding.etEmail.text.toString().trim().ifEmpty { null },
             phone = binding.etPhone.text.toString().trim(),
@@ -401,7 +391,7 @@ class AddEditEmployeeActivity : AppCompatActivity() {
             status = 1
         )
 
-        if (isEditMode) viewModel.updateEmployee(editEmployeeId, request)
+        if (isEditMode) viewModel.updateEmployee(editEmployeeCode, request)
         else viewModel.createEmployee(request)
     }
 }

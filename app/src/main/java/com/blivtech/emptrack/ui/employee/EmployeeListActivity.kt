@@ -79,15 +79,10 @@ class EmployeeListActivity : AppCompatActivity() {
 
         binding.btnAdd.setOnClickListener {
             startActivity(
-                Intent(this, AddEditEmployeeActivity::class.java).apply {
-                    putExtra("btCode", btCode)
-                    putExtra("companyCode", companyCode)
-                    putExtra("companyName", companyName)
-                }
+                Intent(this, AddEditEmployeeActivity::class.java)
             )
         }
 
-        // ✅ Filter chips
         binding.chipAll.setOnCheckedChangeListener { _, checked ->
             if (checked) filterEmployees("all")
         }
@@ -164,7 +159,7 @@ class EmployeeListActivity : AppCompatActivity() {
     private fun openDetail(employee: EmployeeEntity) {
         startActivity(
             Intent(this, EmployeeDetailActivity::class.java).apply {
-                putExtra("employeeId", employee.id)
+                putExtra("empCode", employee.empCode)
                 putExtra("btCode", btCode)
             }
         )

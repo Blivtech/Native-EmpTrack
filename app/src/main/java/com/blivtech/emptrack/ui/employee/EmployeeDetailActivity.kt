@@ -6,12 +6,17 @@ import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.blivtech.emptrack.data.local.entity.EmployeeEntity
 import com.blivtech.emptrack.databinding.ActivityEmployeeDetailBinding
 import com.blivtech.emptrack.utils.EntityExtensions.toParcel
+import com.blivtech.emptrack.utils.PreferenceManager
 import com.blivtech.emptrack.utils.Resource
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class EmployeeDetailActivity : AppCompatActivity() {
@@ -19,8 +24,16 @@ class EmployeeDetailActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEmployeeDetailBinding
     private val viewModel: EmployeeListViewModel by viewModels()
 
-    private val employeeId by lazy { intent.getLongExtra("employeeId", -1L) }
-    private val btCode by lazy { intent.getStringExtra("btCode") ?: "" }
+    @Inject
+    lateinit var preferenceManager: PreferenceManager
+
+    private var companyCode  = ""
+    private var companyName = ""
+    private var btCode = ""
+
+
+
+    private val empCode by lazy { intent.getStringExtra("empCode")?:"" }
     private var employee: EmployeeEntity? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -28,11 +41,19 @@ class EmployeeDetailActivity : AppCompatActivity() {
         binding = ActivityEmployeeDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        lifecycleScope.launch {
+            btCode = preferenceManager.btCode.first()
+            companyCode = preferenceManager.selectedCompanyCode.first()
+            companyName = preferenceManager.selectedCompanyName.first()
+            // ✅ Load employee via ViewModel
+            viewModel.loadEmployeeById(empCode,companyCode)
+        }
+
+
         setupClickListeners()
         observeViewModel()
 
-        // ✅ Load employee via ViewModel
-        viewModel.loadEmployeeById(employeeId)
+
     }
 
     private fun observeViewModel() {
@@ -137,10 +158,8 @@ class EmployeeDetailActivity : AppCompatActivity() {
                 startActivity(
                     Intent(this, AddEditEmployeeActivity::class.java).apply {
                         putExtra("btCode", btCode)
-                        putExtra("employeeId", emp.id)
-                        putExtra("companyId", emp.companyCode)
-                        putExtra("companyName", "")
-                        putExtra("employee", emp.toParcel())  // ✅ Pass parcel
+                        putExtra("employeeCode", emp.empCode)
+                        putExtra("employee", emp.toParcel())
                     }
                 )
             }
@@ -152,7 +171,7 @@ class EmployeeDetailActivity : AppCompatActivity() {
                 .setTitle("Delete employee")
                 .setMessage("Are you sure you want to delete ${employee?.name}?")
                 .setPositiveButton("Delete") { _, _ ->
-                    viewModel.deleteEmployee(employeeId)
+                    viewModel.deleteEmployee(empCode,companyCode)
                 }
                 .setNegativeButton("Cancel", null)
                 .show()

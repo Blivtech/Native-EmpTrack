@@ -18,12 +18,15 @@ import com.blivtech.emptrack.data.model.ContractProductRequest
 import com.blivtech.emptrack.data.model.DailyReportSummaryDto
 import com.blivtech.emptrack.data.model.EmployeeRequest
 import com.blivtech.emptrack.data.model.EmployeeResponse
+import com.blivtech.emptrack.data.model.EmployeeWeeklyDetailDto
 import com.blivtech.emptrack.data.model.MasterResponse
 import com.blivtech.emptrack.data.model.OvertimeRequest
 import com.blivtech.emptrack.data.model.OvertimeResponse
 import com.blivtech.emptrack.data.model.ProductRequest
 import com.blivtech.emptrack.data.model.ProductResponse
 import com.blivtech.emptrack.data.model.ShiftStatusResponse
+import com.blivtech.emptrack.data.model.WeeklyReportDto
+import com.blivtech.emptrack.data.model.WeeklyShiftEmployeeDto
 import com.blivtech.emptrack.data.model.WorkEntryRequest
 import com.blivtech.emptrack.data.model.WorkEntryResponse
 import retrofit2.Response
@@ -79,37 +82,39 @@ interface ApiService {
         @Body request: EmployeeRequest
     ): Response<ApiResponse<EmployeeResponse>>
 
-    @PUT("api/employee/{id}")
+
+    @PUT("api/employees/{empCode}/{companyCode}")
     suspend fun updateEmployee(
-        @Path("id") id: Long,
+        @Path("empCode")     empCode: String,
+        @Path("companyCode") companyCode: String,
         @Body request: EmployeeRequest
     ): Response<ApiResponse<EmployeeResponse>>
 
-    @DELETE("api/employee/{id}")
+
+    @DELETE("api/employees/{empCode}")
     suspend fun deleteEmployee(
-        @Path("id") id: Long
+        @Path("empCode")      empCode: String,
+        @Query("companyCode") companyCode: String
     ): Response<ApiResponse<Any>>
 
-    // ✅ Mark attendance
+
     @POST("api/attendance/mark")
     suspend fun markAttendance(
         @Body request: AttendanceRequest
     ): Response<ApiResponse<AttendanceResponse>>
 
-    // ✅ Update attendance
     @PUT("api/attendance/update/{attendanceId}")
     suspend fun updateAttendance(
         @Path("attendanceId") attendanceId: String,
         @Body request: AttendanceRequest
     ): Response<ApiResponse<AttendanceResponse>>
 
-    // ✅ Get attendance by ID
     @GET("api/attendance/{attendanceId}")
     suspend fun getAttendanceById(
         @Path("attendanceId") attendanceId: String
     ): Response<ApiResponse<AttendanceResponse>>
 
-    // ✅ Check attendance
+
     @GET("api/attendance/check")
     suspend fun checkAttendance(
         @Query("btCode") btCode: String,
@@ -118,7 +123,6 @@ interface ApiService {
         @Query("date") date: String
     ): Response<ApiResponse<Map<String, Any>>>
 
-    // ✅ Today's shifts status
     @GET("api/attendance/today")
     suspend fun getTodayStatus(
         @Query("btCode") btCode: String,
@@ -215,4 +219,34 @@ interface ApiService {
         @Query("shiftCode")   shiftCode: String,
         @Query("type")        type: String   // PRESENT or LEAVE
     ): Response<ApiResponse<List<AttendanceEmployeeDto>>>
+
+
+    // ✅ Weekly Report APIs
+    @GET("api/reports/attendance/weekly")
+    suspend fun getWeeklyReport(
+        @Query("btCode")      btCode: String,
+        @Query("companyCode") companyCode: String,
+        @Query("weekStart")   weekStart: String,
+        @Query("weekEnd")     weekEnd: String
+    ): Response<ApiResponse<WeeklyReportDto>>
+
+    @GET("api/reports/attendance/weekly/employees")
+    suspend fun getWeeklyShiftEmployees(
+        @Query("btCode")      btCode: String,
+        @Query("companyCode") companyCode: String,
+        @Query("weekStart")   weekStart: String,
+        @Query("weekEnd")     weekEnd: String,
+        @Query("shiftCode")   shiftCode: String,
+        @Query("type")        type: String
+    ): Response<ApiResponse<List<WeeklyShiftEmployeeDto>>>
+
+    @GET("api/reports/attendance/weekly/employee-detail")
+    suspend fun getEmployeeWeeklyDetail(
+        @Query("btCode")      btCode: String,
+        @Query("companyCode") companyCode: String,
+        @Query("weekStart")   weekStart: String,
+        @Query("weekEnd")     weekEnd: String,
+        @Query("shiftCode")   shiftCode: String,
+        @Query("empCode")     empCode: String
+    ): Response<ApiResponse<EmployeeWeeklyDetailDto>>
 }

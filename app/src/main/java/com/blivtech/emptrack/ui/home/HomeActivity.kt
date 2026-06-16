@@ -31,7 +31,11 @@ import com.blivtech.emptrack.ui.company.CompanyListActivity
 import com.blivtech.emptrack.ui.employee.EmployeeListActivity
 import com.blivtech.emptrack.ui.entry.AddEntryActivity
 import com.blivtech.emptrack.ui.login.LoginActivity
+import com.blivtech.emptrack.ui.report.DailyReportActivity
 import com.blivtech.emptrack.ui.shiftplan.ShiftPlanActivity
+import com.blivtech.emptrack.ui.work.AddProductActivity
+import com.blivtech.emptrack.ui.work.AddWorkEntryActivity
+import com.blivtech.emptrack.ui.work.SelectEmployeeActivity
 import com.blivtech.emptrack.utils.PreferenceManager
 import com.blivtech.emptrack.utils.Resource
 import com.google.android.material.snackbar.Snackbar
@@ -224,7 +228,10 @@ class HomeActivity : AppCompatActivity() {
             }
 
 
-            "Work Progress" -> { /* TODO */ }
+            "Work Progress" -> { startActivity(
+                Intent(this, AddWorkEntryActivity::class.java).apply {
+                    putExtra("companyCode", currentCompany?.companyCode ?: "")
+                })}
             "Salary" -> { /* TODO */ }
             "Advance" -> {// From any module card
                 startActivity(
@@ -238,7 +245,8 @@ class HomeActivity : AppCompatActivity() {
             "Shift Mgmt" -> { startActivity(
                 Intent(this, ShiftPlanActivity::class.java)
             )}
-            "Reports" -> { /* TODO */ }
+            "Reports" -> {  startActivity(
+                Intent(this, DailyReportActivity::class.java)) }
         }
     }
 
@@ -303,7 +311,6 @@ class HomeActivity : AppCompatActivity() {
             when (item.itemId) {
                 R.id.nav_home       -> true
                 R.id.nav_attendance -> { navigateToModule("Attendance"); true }
-                R.id.nav_work       -> { navigateToModule("Work Progress"); true }
                 R.id.nav_reports    -> { navigateToModule("Reports"); true }
                 R.id.nav_employee    -> { navigateToModule("Employee");true}
                 else -> false

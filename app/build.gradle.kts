@@ -76,4 +76,12 @@ dependencies {
     ksp(libs.room.compiler)
 
     implementation("androidx.datastore:datastore-preferences:1.1.1")
+    implementation ("com.google.android.flexbox:flexbox:3.0.0")
+    androidTestImplementation("androidx.test.ext:junit:1.2.1")
+    androidTestImplementation("androidx.test:runner:1.6.2")
+
+    testImplementation("junit:junit:4.13.2")
+    implementation ("com.facebook.shimmer:shimmer:0.5.0")
+
+
 }

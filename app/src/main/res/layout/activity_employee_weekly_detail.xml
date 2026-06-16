@@ -1,0 +1,680 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F4F6F9">
+
+    <!-- ✅ Topbar -->
+    <LinearLayout
+        android:id="@+id/layoutTopbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#004D40">
+
+        <!-- Title row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="13dp"
+            android:paddingBottom="10dp">
+
+            <ImageView
+                android:id="@+id/ivBack"
+                android:layout_width="27dp"
+                android:layout_height="27dp"
+                android:src="@drawable/ic_nav_home"
+                android:tint="#FFFFFF"
+                android:background="@drawable/bg_circle_white18"
+                android:padding="5dp"
+                android:layout_marginEnd="8dp"
+                android:clickable="true"
+                android:focusable="true"/>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvEmpTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF"/>
+
+                <TextView
+                    android:id="@+id/tvEmpSubtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="9sp"
+                    android:textColor="#99FFFFFF"
+                    android:layout_marginTop="1dp"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Count bar -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:paddingStart="13dp"
+            android:paddingEnd="13dp"
+            android:paddingBottom="11dp"
+            android:gravity="center_vertical">
+
+            <!-- Present -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="@drawable/bg_circle_white15"
+                android:padding="6dp"
+                android:layout_marginEnd="4dp">
+                <TextView
+                    android:id="@+id/tvCountPresent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#69F0AE"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Present"
+                    android:textSize="6sp"
+                    android:textColor="#88FFFFFF"
+                    android:layout_marginTop="1dp"/>
+            </LinearLayout>
+
+            <!-- Absent -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="@drawable/bg_circle_white18"
+                android:padding="6dp"
+                android:layout_marginEnd="4dp">
+                <TextView
+                    android:id="@+id/tvCountAbsent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#FF8A80"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Absent"
+                    android:textSize="6sp"
+                    android:textColor="#88FFFFFF"
+                    android:layout_marginTop="1dp"/>
+            </LinearLayout>
+
+            <!-- Late -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="@drawable/bg_circle_white15"
+                android:padding="6dp"
+                android:layout_marginEnd="4dp">
+                <TextView
+                    android:id="@+id/tvCountLate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#FFD54F"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Late"
+                    android:textSize="6sp"
+                    android:textColor="#88FFFFFF"
+                    android:layout_marginTop="1dp"/>
+            </LinearLayout>
+
+            <!-- Holiday -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="@drawable/bg_circle_white15"
+                android:padding="6dp"
+                android:layout_marginEnd="4dp">
+                <TextView
+                    android:id="@+id/tvCountHoliday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#CE93D8"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Holiday"
+                    android:textSize="6sp"
+                    android:textColor="#88FFFFFF"
+                    android:layout_marginTop="1dp"/>
+            </LinearLayout>
+
+            <!-- Week Off -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="@drawable/bg_circle_white15"
+                android:padding="6dp">
+                <TextView
+                    android:id="@+id/tvCountWeekOff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#B0BEC5"/>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Week Off"
+                    android:textSize="6sp"
+                    android:textColor="#88FFFFFF"
+                    android:layout_marginTop="1dp"/>
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Progress bar -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:indeterminate="true"
+        android:indeterminateTint="#004D40"
+        android:visibility="gone"/>
+
+    <!-- Scrollable content -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="11dp"
+            android:paddingBottom="16dp">
+
+            <!-- Employee summary card -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="#FFFFFF"
+                android:padding="11dp"
+                android:layout_marginBottom="8dp">
+
+                <TextView
+                    android:id="@+id/tvEmpAvatar"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:gravity="center"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:background="@drawable/bg_shift_morning"
+                    android:layout_marginEnd="10dp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvEmpName2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="11sp"
+                        android:textStyle="bold"
+                        android:textColor="#212121"/>
+
+                    <TextView
+                        android:id="@+id/tvEmpCode2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="8sp"
+                        android:textColor="#9E9E9E"
+                        android:layout_marginTop="2dp"/>
+
+                    <TextView
+                        android:id="@+id/tvShiftTag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="7sp"
+                        android:textStyle="bold"
+                        android:textColor="#0C447C"
+                        android:background="@drawable/bg_badge_blue"
+                        android:paddingStart="7dp"
+                        android:paddingEnd="7dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:layout_marginTop="4dp"/>
+                </LinearLayout>
+
+                <!-- Attendance % -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:background="@drawable/bg_card_working"
+                    android:padding="9dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp">
+
+                    <TextView
+                        android:id="@+id/tvAttendancePercent"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="18sp"
+                        android:textStyle="bold"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Attendance"
+                        android:textSize="7sp"
+                        android:textColor="#9E9E9E"
+                        android:layout_marginTop="1dp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- ✅ Warning card -->
+            <LinearLayout
+                android:id="@+id/layoutWarning"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="#FCEBEB"
+                android:padding="10dp"
+                android:layout_marginBottom="8dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@android:drawable/ic_dialog_alert"
+                    android:tint="#E24B4A"
+                    android:layout_marginEnd="8dp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="High absenteeism this week"
+                        android:textSize="9sp"
+                        android:textStyle="bold"
+                        android:textColor="#C62828"/>
+
+                    <TextView
+                        android:id="@+id/tvWarningText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="8sp"
+                        android:textColor="#9E9E9E"
+                        android:layout_marginTop="1dp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- ✅ Legend -->
+            <!-- ✅ Legend — remove android:flexWrap, use simple horizontal LinearLayout -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="#FFFFFF"
+                android:padding="9dp"
+                android:layout_marginBottom="8dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="P"
+                    android:textSize="8sp"
+                    android:textStyle="bold"
+                    android:textColor="#27500A"
+                    android:background="@drawable/bg_card_working"
+                    android:paddingStart="7dp"
+                    android:paddingEnd="7dp"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp"
+                    android:layout_marginEnd="4dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="L"
+                    android:textSize="8sp"
+                    android:textStyle="bold"
+                    android:textColor="#633806"
+                    android:background="@drawable/bg_badge_amber"
+                    android:paddingStart="7dp"
+                    android:paddingEnd="7dp"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp"
+                    android:layout_marginEnd="4dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="A"
+                    android:textSize="8sp"
+                    android:textStyle="bold"
+                    android:textColor="#C62828"
+                    android:background="@drawable/bg_badge_red"
+                    android:paddingStart="7dp"
+                    android:paddingEnd="7dp"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp"
+                    android:layout_marginEnd="4dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="H"
+                    android:textSize="8sp"
+                    android:textStyle="bold"
+                    android:textColor="#3C3489"
+                    android:background="@drawable/bg_badge_purple"
+                    android:paddingStart="7dp"
+                    android:paddingEnd="7dp"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp"
+                    android:layout_marginEnd="4dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="W"
+                    android:textSize="8sp"
+                    android:textStyle="bold"
+                    android:textColor="#9E9E9E"
+                    android:background="@drawable/bg_badge_grey"
+                    android:paddingStart="7dp"
+                    android:paddingEnd="7dp"
+                    android:paddingTop="3dp"
+                    android:paddingBottom="3dp"
+                    android:layout_marginEnd="4dp"/>
+
+                <!-- Full labels on right -->
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Present · Late · Absent · Holiday · WeekOff"
+                    android:textSize="7sp"
+                    android:textColor="#BDBDBD"
+                    android:gravity="end"/>
+
+            </LinearLayout>
+
+            <!-- ✅ Weekly attendance table -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#FFFFFF"
+                android:layout_marginBottom="8dp">
+
+                <!-- Day header row — built dynamically -->
+                <LinearLayout
+                    android:id="@+id/layoutTableHeader"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:background="#F8F9FB"
+                    android:padding="6dp"/>
+
+                <!-- Divider -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#EBEBEB"/>
+
+                <!-- Status badge row — built dynamically -->
+                <LinearLayout
+                    android:id="@+id/layoutTableRow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="8dp"
+                    android:paddingTop="10dp"
+                    android:paddingBottom="10dp"/>
+
+                <!-- Divider -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="#F0F0F0"/>
+
+                <!-- Summary count row — built dynamically -->
+                <LinearLayout
+                    android:id="@+id/layoutTableSummary"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:padding="8dp"
+                    android:paddingTop="9dp"
+                    android:paddingBottom="9dp"/>
+            </LinearLayout>
+
+            <!-- ✅ Progress bars card -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="#FFFFFF"
+                android:padding="12dp"
+                android:layout_marginBottom="8dp">
+
+                <!-- Present -->
+                <TextView
+                    android:id="@+id/tvProgPresentLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="8sp"
+                    android:textStyle="bold"
+                    android:textColor="#27500A"
+                    android:layout_marginBottom="4dp"/>
+
+                <ProgressBar
+                    android:id="@+id/progressPresent"
+                    android:layout_width="match_parent"
+                    android:layout_height="7dp"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:progressTint="#27500A"
+                    android:progressBackgroundTint="#F0F0F0"
+                    android:layout_marginBottom="10dp"/>
+
+                <!-- Late -->
+                <TextView
+                    android:id="@+id/tvProgLateLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="8sp"
+                    android:textStyle="bold"
+                    android:textColor="#633806"
+                    android:layout_marginBottom="4dp"
+                    android:visibility="gone"/>
+
+                <ProgressBar
+                    android:id="@+id/progressLate"
+                    android:layout_width="match_parent"
+                    android:layout_height="7dp"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:progressTint="#EF9F27"
+                    android:progressBackgroundTint="#F0F0F0"
+                    android:layout_marginBottom="10dp"
+                    android:visibility="gone"/>
+
+                <!-- Absent -->
+                <TextView
+                    android:id="@+id/tvProgAbsentLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="8sp"
+                    android:textStyle="bold"
+                    android:textColor="#E24B4A"
+                    android:layout_marginBottom="4dp"/>
+
+                <ProgressBar
+                    android:id="@+id/progressAbsent"
+                    android:layout_width="match_parent"
+                    android:layout_height="7dp"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:progressTint="#E24B4A"
+                    android:progressBackgroundTint="#F0F0F0"
+                    android:layout_marginBottom="10dp"/>
+
+                <!-- Holiday -->
+                <TextView
+                    android:id="@+id/tvProgHolidayLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="8sp"
+                    android:textStyle="bold"
+                    android:textColor="#3C3489"
+                    android:layout_marginBottom="4dp"
+                    android:visibility="gone"/>
+
+                <ProgressBar
+                    android:id="@+id/progressHoliday"
+                    android:layout_width="match_parent"
+                    android:layout_height="7dp"
+                    style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+                    android:progressTint="#7E6FD8"
+                    android:progressBackgroundTint="#F0F0F0"
+                    android:visibility="gone"/>
+            </LinearLayout>
+
+            <!-- ✅ No absence note -->
+            <LinearLayout
+                android:id="@+id/layoutNoAbsence"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="#EAF3DE"
+                android:padding="10dp"
+                android:layout_marginBottom="8dp"
+                android:visibility="gone">
+
+                <ImageView
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:src="@android:drawable/checkbox_on_background"
+                    android:tint="#27500A"
+                    android:layout_marginEnd="8dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No absences this week 🎉"
+                    android:textSize="9sp"
+                    android:textStyle="bold"
+                    android:textColor="#27500A"/>
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Download bar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#FFFFFF"
+        android:padding="9dp"
+        android:elevation="6dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@drawable/bg_badge_red_light"
+            android:layout_marginEnd="6dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PDF"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:textColor="#C62828"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@drawable/bg_badge_green_light"
+            android:layout_marginEnd="6dp">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Excel"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:textColor="#1B5E20"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@drawable/bg_badge_blue">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Share"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:textColor="#0C447C"/>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

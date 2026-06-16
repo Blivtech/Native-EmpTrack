@@ -18,6 +18,7 @@ import com.blivtech.emptrack.ui.attendance.adapter.ConfirmAttendanceAdapter
 import com.blivtech.emptrack.ui.attendance.adapter.DeviationAdapter
 import com.blivtech.emptrack.utils.PreferenceManager
 import com.blivtech.emptrack.utils.Resource
+import com.blivtech.emptrack.utils.ShimmerHelper
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
@@ -77,7 +78,6 @@ class MarkAttendanceActivity : AppCompatActivity() {
         if (mode == "EDIT" && attendanceId != null) {
             viewModel.loadExistingAttendance(attendanceId!!)
         } else {
-            // ✅ Load yesterday for prefill option
             viewModel.loadYesterdayAttendance(btCode, companyCode, shiftCode)
         }
     }
@@ -86,6 +86,7 @@ class MarkAttendanceActivity : AppCompatActivity() {
     // ✅ Setup UI
     // ─────────────────────────────────────
     private fun setupUI() {
+        currentTab = if(mode =="EDIT")TAB_WORKING else TAB_UNSELECTED
         binding.ivBack.setOnClickListener { finish() }
         binding.tvShiftBanner.text = "$shiftName · $companyName"
         binding.tvShiftTime.text   =
@@ -225,27 +226,52 @@ class MarkAttendanceActivity : AppCompatActivity() {
             }
         }
 
-        // ✅ EDIT mode — prefill existing
         viewModel.existingAttendance.observe(this) { resource ->
-            if (resource is Resource.Success) {
-                val att = resource.data
-                if (att.isMarked && att.employees != null) {
-                    att.employees.forEach { detail ->
-                        viewModel.updateStatus(
-                            empCode       = detail.empCode,
-                            dayPlanStatus = detail.dayPlanStatus,
-                            workType      = detail.workType,
-                            remarks       = detail.remarks ?: ""
-                        )
+
+            when (resource) {
+
+                // ✅ Loading — show shimmer
+                is Resource.Loading -> {
+                    ShimmerHelper.show(
+                        binding.shimmerLayout,
+                        binding.layoutMain,)
+                }
+
+                // ✅ Success — hide shimmer + populate data
+                is Resource.Success -> {
+                    ShimmerHelper.hide(
+                        binding.shimmerLayout,binding.layoutMain
+                    )
+
+                    val att = resource.data
+                    if (att.isMarked && att.employees != null) {
+                        att.employees.forEach { detail ->
+                            viewModel.updateStatus(
+                                empCode       = detail.empCode,
+                                dayPlanStatus = detail.dayPlanStatus,
+                                workType      = detail.workType,
+                                remarks       = detail.remarks ?: ""
+                            )
+                        }
+                        filterAndRefresh()
+                        updateBottomBar()
                     }
-                    filterAndRefresh()
-                    updateBottomBar()
+                }
+
+                // ✅ Error — hide shimmer + show default
+                is Resource.Error -> {
+                    ShimmerHelper.hide(binding.shimmerLayout,binding.layoutMain)
+                    Snackbar.make(
+                        binding.root,
+                        resource.message,
+                        Snackbar.LENGTH_LONG
+                    ).show()
                 }
             }
         }
 
         viewModel.submitState.observe(this) { resource ->
-            resource ?: return@observe  // ✅ Skip if null
+            resource ?: return@observe
 
             when (resource) {
                 is Resource.Loading -> {

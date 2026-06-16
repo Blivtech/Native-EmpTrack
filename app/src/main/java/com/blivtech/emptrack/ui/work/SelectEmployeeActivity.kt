@@ -21,7 +21,7 @@ class SelectEmployeeActivity : AppCompatActivity() {
     private val viewModel: EmployeeListViewModel by viewModels()
     private lateinit var adapter: EmployeeAdapter
 
-    private val companyId by lazy { intent.getStringExtra("companyId")?:"" }
+    private val companyId by lazy { intent.getStringExtra("companyCode")?:"" }
     private var allEmployees = listOf<EmployeeEntity>()
 
     override fun onCreate(savedInstanceState: Bundle?) {

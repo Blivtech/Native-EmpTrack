@@ -11,19 +11,16 @@
         android:icon="@drawable/ic_nav_attendance"
         android:title="Attendance"/>
 
-    <item
-        android:id="@+id/nav_work"
-        android:icon="@drawable/ic_nav_work"
-        android:title="Work"/>
+
 
     <item
         android:id="@+id/nav_reports"
-        android:icon="@drawable/ic_nav_reports"
+        android:icon="@drawable/ic_nav_work"
         android:title="Reports"/>
 
     <item
         android:id="@+id/nav_employee"
         android:icon="@drawable/ic_nav_profile"
-        android:title="Profile"/>
+        android:title="Employees"/>
 
 </menu>

@@ -9,30 +9,43 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.blivtech.emptrack.R
 import com.blivtech.emptrack.data.model.ShiftAttendanceSummary
 import com.blivtech.emptrack.databinding.ActivityDailyReportBinding
+import com.blivtech.emptrack.utils.PreferenceManager
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import java.util.*
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class DailyReportActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityDailyReportBinding
     private val viewModel: DailyReportViewModel by viewModels()
+    @Inject
+    lateinit var preferenceManager: PreferenceManager
 
-    private val btCode      by lazy { intent.getStringExtra("btCode") ?: "" }
-    private val companyCode by lazy { intent.getStringExtra("companyCode") ?: "" }
-    private val companyName by lazy { intent.getStringExtra("companyName") ?: "" }
+
+    private var btCode  = ""
+    private var companyCode= ""
+    private var companyName = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityDailyReportBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        lifecycleScope.launch {
+            btCode = preferenceManager.btCode.first()
+            companyCode = preferenceManager.selectedCompanyCode.first()
+            companyName = preferenceManager.selectedCompanyName.first()
+            setupUI()
+            setupClickListeners()
+            observeData()
+        }
 
-        setupUI()
-        setupClickListeners()
-        observeData()
     }
 
     // ─────────────────────────────────

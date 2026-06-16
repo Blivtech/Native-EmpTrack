@@ -75,7 +75,7 @@ class AttendanceEmployeeAdapter(
                             applyHalf()
                             binding.tvStatusBadge.text = "Half day ✓"
                             binding.tvStatusBadge.setBackgroundResource(
-                                R.drawable.bg_badge_amber
+                                R.drawable.bg_badge_green
                             )
                         } else {
                             applyFull()
@@ -177,7 +177,7 @@ class AttendanceEmployeeAdapter(
 
                 // ✅ Show badge
                 binding.tvStatusBadge.text = "Full day ✓"
-                binding.tvStatusBadge.setBackgroundResource(R.drawable.bg_badge_green)
+                binding.tvStatusBadge.setBackgroundResource(R.drawable.bg_badge_amber)
                 binding.tvStatusBadge.visibility = View.VISIBLE
 
                 // ✅ Card background
@@ -234,9 +234,7 @@ class AttendanceEmployeeAdapter(
                 onStatusChanged(emp.empCode, 4, 1)
             }
 
-            // ─────────────────────────────────────
-            // ✅ Full / Half day clicks
-            // ─────────────────────────────────────
+
 
             binding.btnFullDay.setOnClickListener {
                 applyFull()

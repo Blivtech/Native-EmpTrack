@@ -6,7 +6,34 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#F5F7FA">
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:shimmer_duration="1000"
+        app:shimmer_base_color="#F0F0F0"
+        app:shimmer_highlight_color="#FFFFFF"
+        android:visibility="visible">
 
+        <include layout="@layout/layout_shimmer_list"/>
+        <include layout="@layout/layout_shimmer_list"/>
+        <include layout="@layout/layout_shimmer_list"/>
+        <include layout="@layout/layout_shimmer_list"/>
+        <include layout="@layout/layout_shimmer_list"/>
+        <include layout="@layout/layout_shimmer_list"/>
+        <include layout="@layout/layout_shimmer_list"/>
+        <include layout="@layout/layout_shimmer_list"/>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+
+    <LinearLayout
+        android:id="@+id/layoutMain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:orientation="vertical"
+        android:background="#F5F7FA">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -523,5 +550,5 @@
             app:backgroundTint="#BDBDBD"/>
 
     </LinearLayout>
-
+    </LinearLayout>
 </LinearLayout>

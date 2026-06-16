@@ -58,9 +58,6 @@
             android:orientation="vertical"
             android:padding="10dp">
 
-            <!-- ─────────────────────── -->
-            <!-- PERSONAL INFO CARD      -->
-            <!-- ─────────────────────── -->
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

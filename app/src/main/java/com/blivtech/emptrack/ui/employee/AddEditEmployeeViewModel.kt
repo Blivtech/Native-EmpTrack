@@ -43,10 +43,10 @@ class AddEditEmployeeViewModel @Inject constructor(
         }
     }
 
-    fun updateEmployee(id: Long, request: EmployeeRequest) {
+    fun updateEmployee(editEmployeeCode: String, request: EmployeeRequest) {
         _saveState.value = Resource.Loading
         viewModelScope.launch {
-            _saveState.value = repository.updateEmployee(id, request)
+            _saveState.value = repository.updateEmployee(editEmployeeCode, request)
         }
     }
 

@@ -57,6 +57,7 @@
             android:layout_height="wrap_content"
             android:textSize="9sp"
             android:paddingStart="7dp"
+            android:textStyle="bold"
             android:paddingEnd="7dp"
             android:paddingTop="3dp"
             android:paddingBottom="3dp"
@@ -77,6 +78,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="Working"
+            android:textStyle="bold"
             android:textSize="10sp"
             android:textColor="#212121"
             android:layout_marginEnd="4dp"
@@ -89,6 +91,8 @@
             android:layout_weight="1"
             android:gravity="center"
             android:text="Week off"
+            android:textStyle="bold"
+
             android:textSize="10sp"
             android:textColor="#212121"
             android:layout_marginEnd="4dp"
@@ -102,6 +106,8 @@
             android:gravity="center"
             android:text="Leave"
             android:textSize="10sp"
+            android:textStyle="bold"
+
             android:textColor="#212121"
             android:layout_marginEnd="4dp"
             android:background="@drawable/bg_field_trigger"/>
@@ -114,6 +120,8 @@
             android:gravity="center"
             android:text="Holiday"
             android:textSize="10sp"
+            android:textStyle="bold"
+
             android:textColor="#212121"
             android:background="@drawable/bg_field_trigger"/>
     </LinearLayout>
@@ -132,6 +140,8 @@
             android:layout_height="30dp"
             android:layout_weight="1"
             android:gravity="center"
+            android:textStyle="bold"
+
             android:text="Full day"
             android:textSize="10sp"
             android:textColor="#212121"
@@ -141,6 +151,7 @@
         <TextView
             android:id="@+id/btnHalfDay"
             android:layout_width="0dp"
+            android:textStyle="bold"
             android:layout_height="30dp"
             android:layout_weight="1"
             android:gravity="center"

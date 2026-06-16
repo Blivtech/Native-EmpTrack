@@ -39,4 +39,139 @@
     <color name="purple_dark">#3C3489</color>
     <color name="purple_light">#EEEDFE</color>
 
+
+        <color name="clr_line">#DCDCDC</color>
+        <color name="clr_radio">#000113</color>
+        <color name="clr_black">#000000</color>
+        <color name="clr_white">#FFFFFF</color>
+        <color name="clr_grey_0">#F4F4F4</color>
+        <color name="clr_grey_1">#EAEAEA</color>
+        <color name="clr_grey_2">#D2D2D2</color>
+        <color name="clr_grey_3">#8B8A8A</color>
+        <color name="clr_grey_4">#504F4F</color>
+        <color name="clr_grey_5">#3E3E3E</color>
+        <color name="clr_clear_data">#FD4F6E</color>
+        <color name="clr_save_button">#2A293B</color>
+        <color name="clr_check_box">#23B84D</color>
+        <color name="clr_policy_button">#23B84D</color>
+        <color name="clr_clear_data_back">#F0D8DC</color>
+        <color name="clr_text_disable">#EEEEEE</color>
+        <color name="clr_status_bar_1">#2A293B</color>
+        <color name="clr_nav_selector">#FF637D</color>
+        <color name="clr_reset_button">#97989F</color>
+        <color name="clr_parent_screen">#EEEEEE</color>
+        <color name="clr_save_button_disable">#66000000</color>
+        <color name="clr_product_green">#2600C689</color>
+        <color name="clr_input_blue">#E2F2FE</color>
+        <color name="clr_input_badge_blue">#3DA5F4</color>
+        <color name="clr_stock_balance">#f36880</color>
+        <color name="clr_precall_title">#00c689</color>
+        <color name="clr_capture_button">#00c689</color>
+
+
+        <color name="black_overlay">#66000000</color>
+        <color name="purple_200">#FFBB86FC</color>
+        <color name="purple_500">#FF6200EE</color>
+        <color name="purple_700">#FF3700B3</color>
+        <color name="teal_200">#FF03DAC5</color>
+        <color name="teal_700">#FF018786</color>
+
+        <color name="appBackGround">#000113</color>
+        <color name="edtTextColor">#CCCCCC</color>
+        <color name="loginHintColor">#94A3B8</color>
+        <color name="ripple">#10000000</color>
+        <color name="light_blue_600">#FF039BE5</color>
+        <color name="light_blue_900">#FF01579B</color>
+        <color name="light_blue_A200">#FF40C4FF</color>
+        <color name="light_blue_A400">#FF00B0FF</color>
+        <color name="pink_80">#fd4f6e</color>
+        <color name="black_overlay_80">#2a293b</color>
+        <color name="gray_overlay_10">#97989f</color>
+        <color name="clr_backgroundscreen">#eeeeee</color>
+        <color name="notification_bg">#F1536E26</color>
+
+
+        <color name="clr_green_80">#00c689</color>
+        <color name="clr_green_80_light3">#26D6A8</color>
+        <color name="clr_green_10">#d9f7ee</color>
+
+        <color name="clr_blue_80">#3da5f4</color>
+        <color name="clr_blue_10">#e2f2fe</color>
+        <color name="clr_pink_80">#f1536e</color>
+        <color name="clr_pink_10">#fde5e9</color>
+        <color name="clr_yellow_80">#feb91a</color>
+        <color name="clr_yellow_10">#fff5dd</color>
+        <color name="clr_granite_grey_80">#6d5471</color>
+        <color name="clr_granite_grey_10">#dbd8dc</color>
+        <color name="clr_black_coral_80">#545f71</color>
+
+        <color name="clr_blue_0">#d4e4f0</color>
+        <color name="clr_green_0">#cbe9e0</color>
+        <color name="clr_yellow_0">#f1e7cf</color>
+        <color name="clr_pink_0">#efd7db</color>
+
+
+        <color name="clr_purpule_80">#805aaf</color>
+        <color name="clr_purpule_10">#ece6f3</color>
+
+        <color name="clr_blush_grey_80">#768ba0</color>
+        <color name="clr_blush_grey_10">#d8dcdb</color>
+
+        <color name="clr_royal_pink_80">#c73796</color>
+        <color name="clr_royal_pink_10">#f7e1ef</color>
+
+        <color name="clr_light_navy_80">#145977</color>
+        <color name="clr_light_navy_10">#dce6eb</color>
+
+
+        <color name="clr_dark_green_80">#076145</color>
+        <color name="clr_dark_green_10">#dae8e3</color>
+
+        <color name="clr_dark_blue_80">#282a3c</color>
+        <color name="clr_dark_blue_10">#dfdfe2</color>
+
+        <color name="clr_green_100">#00ad7e</color>
+        <color name="clr_blue_100">#2c84d1</color>
+        <color name="clr_blush_grey_100">#888484</color>
+        <color name="clr_pink_100">#CA3C55</color>
+        <color name="clr_yellow_100">#C8AA51</color>
+        <color name="clr_granite_grey_100">#5C3658</color>
+        <color name="clr_lite_silver">#d8d9dc</color>
+
+        <color name="clr_text_light">#737580</color>
+        <color name="clr_holiday">#4a78d4</color>
+        <color name="litePink">#15F1536E</color>
+
+
+        <color name="traffic_red">#FF0000</color>
+        <color name="traffic_yellow">#FFEB3B</color>
+        <color name="traffic_green">#4CAF50</color>
+
+        <color name="traffic_red_dark">#D32F2F</color>
+        <color name="traffic_yellow_bright">#FFFF00</color>
+        <color name="traffic_green_vibrant">#2dc937</color>
+
+        //#2E2E2E
+        <color name="white_soft">#2dc937</color>
+
+
+        <color name="chat_color_1">#F08080</color>   <!-- red -->
+        <color name="chat_color_2">#FF69B4</color>   <!-- teal -->
+        <color name="chat_color_3">#FF7F50</color>   <!-- yellow -->
+        <color name="chat_color_4">#FFD700</color>   <!-- blue -->
+        <color name="chat_color_5">#FF00FF</color>   <!-- purple -->
+        <color name="chat_color_6">#7FFF00</color>   <!-- green -->
+        <color name="chat_color_7">#66CDAA</color>   <!-- orange -->
+        <color name="chat_color_8">#48D1CC</color>   <!-- pink -->
+        <color name="chat_color_9">#F4A460</color>   <!-- brown -->
+        <color name="chat_color_10">#6495ED</color>  <!-- indigo -->
+
+
+        <color name="shimmer_color">#CECFD2</color>
+        <color name="lite_red">#15F1536E</color>
+        <color name="liteGrey">#dbdbdb</color>
+        <color name="darkGrey">#8B8C95</color>
+
+
+
 </resources>
