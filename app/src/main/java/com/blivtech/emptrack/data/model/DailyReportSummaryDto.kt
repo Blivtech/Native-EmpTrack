@@ -29,8 +29,10 @@ data class ShiftSummaryDto(
 data class AttendanceEmployeeDto(
     val empCode: String,
     val empName: String,
-    val department: String,
-    val designation: String,
+    val deptCode: String="",
+    val deptName: String="",
+    val desgCode: String="",
+    val desgName: String="",
     val status: String,
     val statusLabel: String,
     val lateMinutes: Int

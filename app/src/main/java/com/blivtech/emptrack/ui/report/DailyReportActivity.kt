@@ -187,17 +187,25 @@ class DailyReportActivity : AppCompatActivity() {
             val tvTotal   = card.findViewById<TextView>(R.id.tvTotalCount)
             val pillPresent = card.findViewById<LinearLayout>(R.id.pillPresent)
             val pillLeave   = card.findViewById<LinearLayout>(R.id.pillLeave)
-
+// ✅ In renderSummaries() — add holiday binding
+            val tvHoliday = card.findViewById<TextView>(R.id.tvHolidayCount)
+            val pillHoliday = card.findViewById<LinearLayout>(R.id.pillHoliday)
             if (summary.submittedAt != null) {
                 tvPresent.text = summary.presentCount.toString()
                 tvLeave.text   = summary.leaveCount.toString()
                 tvTotal.text   = summary.totalCount.toString()
                 pillPresent.alpha = 1f
                 pillLeave.alpha   = 1f
-
+                // ✅ Holiday + WeekOff combined
+                val holidayWO = summary.holidayCount + summary.weekOffCount
+                tvHoliday.text = holidayWO.toString()
+                pillHoliday.alpha = 1f
                 // ✅ Tap present → employee list
                 pillPresent.setOnClickListener {
                     openEmployeeList(summary, "PRESENT")
+                }
+                pillHoliday.setOnClickListener {
+                    openEmployeeList(summary, "HOLIDAY_WO")
                 }
 
                 // ✅ Tap leave → employee list
@@ -213,6 +221,8 @@ class DailyReportActivity : AppCompatActivity() {
                 pillLeave.alpha   = 0.4f
                 pillPresent.isClickable = false
                 pillLeave.isClickable   = false
+                tvHoliday.text = "—"
+                pillHoliday.alpha = 0.4f
             }
 
             binding.layoutShiftCards.addView(card)
@@ -226,6 +236,13 @@ class DailyReportActivity : AppCompatActivity() {
         summary: ShiftAttendanceSummary,
         type: String    // PRESENT or LEAVE
     ) {
+        // ✅ Pass correct count for each type
+        val count = when (type) {
+            "PRESENT"    -> summary.presentCount
+            "ABSENT"     -> summary.leaveCount
+            "HOLIDAY_WO" -> summary.holidayCount + summary.weekOffCount
+            else         -> summary.totalCount
+        }
         startActivity(
             Intent(this, ShiftEmployeeListActivity::class.java).apply {
                 putExtra("btCode",        btCode)
@@ -237,9 +254,9 @@ class DailyReportActivity : AppCompatActivity() {
                 putExtra("shiftEmoji",    viewModel.shiftEmoji(summary.shiftName))
                 putExtra("attendanceDate", summary.attendanceDate)
                 putExtra("type",          type)
-                putExtra("count",         if (type == "PRESENT")
-                    summary.presentCount else summary.leaveCount
-                )
+                putExtra("count",         count)
+
+
             }
         )
     }

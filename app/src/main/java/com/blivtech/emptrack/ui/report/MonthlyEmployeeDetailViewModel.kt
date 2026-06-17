@@ -4,7 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.blivtech.emptrack.data.model.WeeklyShiftEmployee
+import com.blivtech.emptrack.data.model.MonthlyEmployeeDetail
 import com.blivtech.emptrack.data.repository.ReportRepository
 import com.blivtech.emptrack.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -12,33 +12,32 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class WeeklyShiftEmployeeListViewModel @Inject constructor(
-    private val reportRepository: ReportRepository
+class MonthlyEmployeeDetailViewModel @Inject constructor(
+    private val repository: ReportRepository
 ) : ViewModel() {
 
-    private val _employees = MutableLiveData<List<WeeklyShiftEmployee>>()
-    val employees: LiveData<List<WeeklyShiftEmployee>> = _employees
+    private val _detail = MutableLiveData<MonthlyEmployeeDetail?>()
+    val detail: LiveData<MonthlyEmployeeDetail?> = _detail
 
-    private val _loading = MutableLiveData<Boolean>(false)
+    private val _loading = MutableLiveData(false)
     val loading: LiveData<Boolean> = _loading
 
     private val _error = MutableLiveData<String?>()
     val error: LiveData<String?> = _error
 
-    fun loadEmployees(
+    fun loadDetail(
         btCode: String, companyCode: String,
-        weekStart: String, weekEnd: String,
-        shiftCode: String, type: String
+        month: String, shiftCode: String, empCode: String
     ) {
         viewModelScope.launch {
-            reportRepository.getWeeklyShiftEmployees(
-                btCode, companyCode, weekStart, weekEnd, shiftCode, type
+            repository.getMonthlyEmployeeDetail(
+                btCode, companyCode, month, shiftCode, empCode
             ).collect { resource ->
                 when (resource) {
                     is Resource.Loading -> _loading.value = true
                     is Resource.Success -> {
-                        _loading.value    = false
-                        _employees.value  = resource.data
+                        _loading.value = false
+                        _detail.value  = resource.data
                     }
                     is Resource.Error -> {
                         _loading.value = false

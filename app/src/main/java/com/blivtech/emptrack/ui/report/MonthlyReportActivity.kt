@@ -10,41 +10,39 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.lifecycleScope
 import com.blivtech.emptrack.R
 import com.blivtech.emptrack.data.local.entity.ShiftEntity
-import com.blivtech.emptrack.data.model.WeeklyEmployeeSummaryDto
-import com.blivtech.emptrack.databinding.ActivityWeeklyReportBinding
-import com.blivtech.emptrack.utils.PreferenceManager
-import com.blivtech.emptrack.utils.Resource
+import com.blivtech.emptrack.data.model.*
+import com.blivtech.emptrack.databinding.ActivityMonthlyReportBinding
 import com.blivtech.emptrack.utils.ShimmerHelper
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
+import com.blivtech.emptrack.utils.PreferenceManager
+import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import javax.inject.Inject
 
 @AndroidEntryPoint
-class WeeklyReportActivity : AppCompatActivity() {
+class MonthlyReportActivity : AppCompatActivity() {
 
-    private lateinit var binding: ActivityWeeklyReportBinding
-    private val viewModel: WeeklyReportViewModel by viewModels()
+    private lateinit var binding: ActivityMonthlyReportBinding
+    private val viewModel: MonthlyReportViewModel by viewModels()
 
-    @Inject
-    lateinit var preferenceManager: PreferenceManager
+    @Inject lateinit var preferenceManager: PreferenceManager
 
     private var btCode      = ""
     private var companyCode = ""
     private var companyName = ""
 
     // ✅ State
-    private var currentTab    = "OVERALL"
+    private var currentTab   = "OVERALL"    // OVERALL / SHIFT
     private var selectedShift: ShiftEntity? = null
-    private var shifts        = listOf<ShiftEntity>()
+    private var shifts = listOf<ShiftEntity>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        binding = ActivityWeeklyReportBinding.inflate(layoutInflater)
+        binding = ActivityMonthlyReportBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
         lifecycleScope.launch {
@@ -55,6 +53,7 @@ class WeeklyReportActivity : AppCompatActivity() {
             setupUI()
             setupTabs()
             observeData()
+            loadData()
         }
     }
 
@@ -65,12 +64,13 @@ class WeeklyReportActivity : AppCompatActivity() {
         binding.tvCompanyName.text = companyName
         binding.ivBack.setOnClickListener { finish() }
 
-        binding.btnPrevWeek.setOnClickListener {
-            viewModel.prevWeek()
+        // ✅ Month navigation
+        binding.btnPrevMonth.setOnClickListener {
+            viewModel.prevMonth()
             loadData()
         }
-        binding.btnNextWeek.setOnClickListener {
-            viewModel.nextWeek()
+        binding.btnNextMonth.setOnClickListener {
+            viewModel.nextMonth()
             loadData()
         }
     }
@@ -83,7 +83,7 @@ class WeeklyReportActivity : AppCompatActivity() {
             if (currentTab != "OVERALL") {
                 currentTab = "OVERALL"
                 updateTabUI()
-                binding.scrollShiftChips.visibility = View.GONE
+                binding.layoutShiftChips.visibility = View.GONE
                 loadData()
             }
         }
@@ -92,26 +92,19 @@ class WeeklyReportActivity : AppCompatActivity() {
             if (currentTab != "SHIFT") {
                 currentTab = "SHIFT"
                 updateTabUI()
-                binding.scrollShiftChips.visibility = View.VISIBLE
+                binding.layoutShiftChips.visibility = View.VISIBLE
                 loadData()
             }
         }
-
-        updateTabUI()
     }
 
     private fun updateTabUI() {
-        if (currentTab == "OVERALL") {
-            binding.tabOverall.alpha   = 1f
-            binding.tabShiftWise.alpha = 0.5f
-        } else {
-            binding.tabOverall.alpha   = 0.5f
-            binding.tabShiftWise.alpha = 1f
-        }
+        binding.tabOverall.isSelected   = currentTab == "OVERALL"
+        binding.tabShiftWise.isSelected = currentTab == "SHIFT"
     }
 
     // ─────────────────────────────────
-    // ✅ Build shift chips
+    // ✅ Load shifts for chips
     // ─────────────────────────────────
     private fun buildShiftChips(shiftList: List<ShiftEntity>) {
         shifts = shiftList
@@ -119,32 +112,31 @@ class WeeklyReportActivity : AppCompatActivity() {
 
         shiftList.forEachIndexed { index, shift ->
             val chip = TextView(this).apply {
-                text = "${viewModel.shiftEmoji(shift.shiftName)} ${shift.shiftName}"
+                text = "${shiftEmoji(shift.shiftName)} ${shift.shiftName}"
                 textSize = 8f
                 setTextColor(Color.parseColor("#9E9E9E"))
                 setPadding(28, 14, 28, 14)
                 layoutParams = LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT
-                ).apply { marginEnd = 10 }
+                ).apply { marginEnd = 12 }
                 setBackgroundResource(R.drawable.bg_badge_grey)
             }
 
             chip.setOnClickListener {
                 selectedShift = shift
-                // ✅ Reset all chips
+                // ✅ Update chip UI
                 for (i in 0 until binding.layoutShiftChips.childCount) {
                     val v = binding.layoutShiftChips.getChildAt(i) as? TextView
                     v?.setBackgroundResource(R.drawable.bg_badge_grey)
                     v?.setTextColor(Color.parseColor("#9E9E9E"))
                 }
-                // ✅ Highlight selected
                 chip.setBackgroundResource(R.drawable.bg_card_working)
                 chip.setTextColor(Color.parseColor("#27500A"))
                 loadData()
             }
 
-            // ✅ Auto select first
+            // ✅ Auto-select first
             if (index == 0) {
                 selectedShift = shift
                 chip.setBackgroundResource(R.drawable.bg_card_working)
@@ -159,13 +151,9 @@ class WeeklyReportActivity : AppCompatActivity() {
     // ✅ Observe data
     // ─────────────────────────────────
     private fun observeData() {
-
-        // ✅ Week labels
-        viewModel.weekLabel.observe(this) {
-            binding.tvWeekLabel.text = it
-        }
-        viewModel.weekSubLabel.observe(this) {
-            binding.tvWeekSubLabel.text = it
+        // ✅ Month label
+        viewModel.monthLabel.observe(this) {
+            binding.tvMonthLabel.text = it
         }
 
         // ✅ Loading
@@ -216,31 +204,23 @@ class WeeklyReportActivity : AppCompatActivity() {
             buildTable(report.employees)
         }
 
-        // ✅ Shifts from Room
+        // ✅ Load shifts
         viewModel.getShifts(companyCode).observe(this) { shiftList ->
             buildShiftChips(shiftList)
         }
-
-        loadData()
     }
 
-    // ─────────────────────────────────
-    // ✅ Load data based on tab
-    // ─────────────────────────────────
+
     private fun loadData() {
         if (currentTab == "OVERALL") {
             viewModel.loadOverallReport(btCode, companyCode)
         } else {
             val shift = selectedShift ?: return
-            viewModel.loadShiftReport(
-                btCode, companyCode, shift.shiftCode
-            )
+            viewModel.loadShiftReport(btCode, companyCode, shift.shiftCode)
         }
     }
 
-    // ─────────────────────────────────
-    // ✅ Update summary strip
-    // ─────────────────────────────────
+
     private fun updateSummaryStrip(
         present: Int, absent: Int,
         holiday: Int, weekOff: Int
@@ -251,24 +231,22 @@ class WeeklyReportActivity : AppCompatActivity() {
         binding.tvSumWeekOff.text = weekOff.toString()
     }
 
-    // ─────────────────────────────────
-    // ✅ Build table rows
-    // ─────────────────────────────────
-    private fun buildTable(employees: List<WeeklyEmployeeSummaryDto>) {
+
+    private fun buildTable(employees: List<MonthlyEmployeeSummaryDto>) {
         binding.layoutTableRows.removeAllViews()
 
         if (employees.isEmpty()) {
             binding.layoutEmpty.visibility     = View.VISIBLE
-            binding.layoutTable.visibility     = View.GONE
+            binding.layoutTableRows.visibility = View.GONE
             return
         }
 
         binding.layoutEmpty.visibility     = View.GONE
-        binding.layoutTable.visibility     = View.VISIBLE
+        binding.layoutTableRows.visibility = View.VISIBLE
 
         employees.forEach { emp ->
             val row = LayoutInflater.from(this).inflate(
-                R.layout.item_monthly_report_row,   // ✅ Reuse same layout!
+                R.layout.item_monthly_report_row,
                 binding.layoutTableRows,
                 false
             )
@@ -277,35 +255,35 @@ class WeeklyReportActivity : AppCompatActivity() {
             row.findViewById<TextView>(R.id.tvEmpName).text = emp.empName
             row.findViewById<TextView>(R.id.tvEmpCode).text = emp.empCode
 
-            // ✅ Present — tappable
+            // ✅ Present count — tappable
             val tvPresent = row.findViewById<TextView>(R.id.tvPresent)
             tvPresent.text = emp.presentDays.toString()
             tvPresent.setOnClickListener {
                 openEmployeeDetail(emp, "PRESENT")
             }
 
-            // ✅ Absent — tappable
+            // ✅ Absent count — tappable
             val tvAbsent = row.findViewById<TextView>(R.id.tvAbsent)
             tvAbsent.text = emp.absentDays.toString()
             tvAbsent.setOnClickListener {
                 openEmployeeDetail(emp, "ABSENT")
             }
 
-            // ✅ Holiday — tappable
+            // ✅ Holiday count — tappable
             val tvHoliday = row.findViewById<TextView>(R.id.tvHoliday)
             tvHoliday.text = emp.holidayDays.toString()
             tvHoliday.setOnClickListener {
                 openEmployeeDetail(emp, "HOLIDAY")
             }
 
-            // ✅ Week Off — tappable
+            // ✅ WeekOff count — tappable
             val tvWeekOff = row.findViewById<TextView>(R.id.tvWeekOff)
             tvWeekOff.text = emp.weekOffDays.toString()
             tvWeekOff.setOnClickListener {
                 openEmployeeDetail(emp, "WEEKOFF")
             }
 
-            // ✅ Total
+            // ✅ Total — not tappable
             row.findViewById<TextView>(R.id.tvTotal).text =
                 emp.totalDays.toString()
 
@@ -314,30 +292,38 @@ class WeeklyReportActivity : AppCompatActivity() {
     }
 
     // ─────────────────────────────────
-    // ✅ Open employee weekly detail
+    // ✅ Open employee date detail
     // ─────────────────────────────────
     private fun openEmployeeDetail(
-        emp: WeeklyEmployeeSummaryDto,
-        type: String
+        emp: MonthlyEmployeeSummaryDto,
+        type: String    // PRESENT / ABSENT / HOLIDAY / WEEKOFF
     ) {
         startActivity(
             Intent(
                 this,
-                EmployeeWeeklyDetailActivity::class.java
+                MonthlyEmployeeDetailActivity::class.java
             ).apply {
                 putExtra("btCode",      btCode)
                 putExtra("companyCode", companyCode)
+                putExtra("month",       viewModel.currentMonth.value)
+                putExtra("monthLabel",  viewModel.monthLabel.value)
                 putExtra("shiftCode",   emp.shiftCode)
                 putExtra("shiftName",   emp.shiftName)
-                putExtra("shiftEmoji",  viewModel.shiftEmoji(emp.shiftName))
-                putExtra("weekStart",   viewModel.weekStart.value)
-                putExtra("weekEnd",     viewModel.weekEnd.value)
-                putExtra("weekLabel",   viewModel.weekLabel.value)
                 putExtra("empCode",     emp.empCode)
                 putExtra("empName",     emp.empName)
-                putExtra("department",  emp.deptName)
-                putExtra("type",        type)
+                putExtra("deptName",    emp.deptName)
+                putExtra("desgName",    emp.desgName)
+                putExtra("type",        type)   // ✅ which tab to show first
             }
         )
+    }
+
+    // ✅ Emoji helper
+    private fun shiftEmoji(name: String) = when {
+        name.contains("morning", true) ||
+        name.contains("day", true)     -> "☀️"
+        name.contains("evening", true) -> "🌆"
+        name.contains("night", true)   -> "🌙"
+        else                           -> "🕐"
     }
 }

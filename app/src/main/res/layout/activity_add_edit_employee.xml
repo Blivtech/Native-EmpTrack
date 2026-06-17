@@ -32,7 +32,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="Add employee"
-            android:textSize="18sp"
+            android:textSize="@dimen/text_caption_th"
             android:textStyle="bold"
             android:textColor="#FFFFFF"
             android:layout_marginStart="12dp"
@@ -76,7 +76,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Personal information"
-                        android:textSize="13sp"
+                        android:textSize="@dimen/text_caption_lg"
                         android:textStyle="bold"
                         android:textColor="#1565C0"
                         android:layout_marginBottom="14dp"/>
@@ -86,7 +86,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Full name *"
-                        android:textSize="11sp"
+                        android:textSize="@dimen/text_caption_md"
                         android:textStyle="bold"
                         android:textColor="#757575"
                         android:layout_marginBottom="4dp"/>
@@ -108,6 +108,7 @@
                         app:hintTextColor="#1565C0">
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etName"
+                            android:textSize="@dimen/text_caption_md"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textPersonName"
@@ -119,7 +120,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Phone *"
-                        android:textSize="11sp"
+                        android:textSize="@dimen/text_caption_md"
                         android:textStyle="bold"
                         android:textColor="#757575"
                         android:layout_marginBottom="4dp"/>
@@ -142,6 +143,8 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etPhone"
                             android:layout_width="match_parent"
+
+                            android:textSize="@dimen/text_caption_md"
                             android:layout_height="wrap_content"
                             android:inputType="phone"
                             android:imeOptions="actionNext"/>
@@ -152,7 +155,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Gender"
-                        android:textSize="11sp"
+                        android:textSize="@dimen/text_caption_md"
                         android:textStyle="bold"
                         android:textColor="#757575"
                         android:layout_marginBottom="4dp"/>
@@ -180,7 +183,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Select gender"
-                            android:textSize="13sp"
+                            android:textSize="@dimen/text_caption_md"
                             android:textColor="#9E9E9E"/>
 
                         <ImageView
@@ -195,7 +198,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Email"
-                        android:textSize="11sp"
+                        android:textSize="@dimen/text_caption_md"
                         android:textStyle="bold"
                         android:textColor="#757575"
                         android:layout_marginBottom="4dp"/>
@@ -217,6 +220,7 @@
                         app:hintTextColor="#1565C0">
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/etEmail"
+                            android:textSize="@dimen/text_caption_md"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:inputType="textEmailAddress"
@@ -241,7 +245,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Date of birth"
-                                android:textSize="11sp"
+                                android:textSize="@dimen/text_caption_lg"
+
                                 android:textStyle="bold"
                                 android:textColor="#757575"
                                 android:layout_marginBottom="4dp"/>
@@ -268,7 +273,8 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:text="DD/MM/YYYY"
-                                    android:textSize="11sp"
+                                    android:textSize="@dimen/text_caption_md"
+
                                     android:textColor="#9E9E9E"/>
                             </LinearLayout>
                         </LinearLayout>
@@ -284,7 +290,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Joining date"
-                                android:textSize="11sp"
+                                android:textSize="@dimen/text_caption_md"
+
                                 android:textStyle="bold"
                                 android:textColor="#757575"
                                 android:layout_marginBottom="4dp"/>
@@ -311,7 +318,8 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:text="DD/MM/YYYY"
-                                    android:textSize="11sp"
+                                    android:textSize="@dimen/text_caption_md"
+
                                     android:textColor="#9E9E9E"/>
                             </LinearLayout>
                         </LinearLayout>
@@ -341,7 +349,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Job information"
-                        android:textSize="13sp"
+                        android:textSize="@dimen/text_caption_lg"
                         android:textStyle="bold"
                         android:textColor="#1565C0"
                         android:layout_marginBottom="14dp"/>
@@ -351,7 +359,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Company"
-                        android:textSize="11sp"
+                        android:textSize="@dimen/text_caption_md"
+
                         android:textStyle="bold"
                         android:textColor="#757575"
                         android:layout_marginBottom="4dp"/>
@@ -377,7 +386,7 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:textSize="13sp"
+                            android:textSize="@dimen/text_caption_md"
                             android:textColor="#0C447C"
                             android:textStyle="bold"/>
 
@@ -406,7 +415,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Department *"
-                                android:textSize="11sp"
+                                android:textSize="@dimen/text_caption_md"
+
                                 android:textStyle="bold"
                                 android:textColor="#757575"
                                 android:layout_marginBottom="4dp"/>
@@ -433,7 +443,8 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:text="Select"
-                                    android:textSize="11sp"
+                                    android:textSize="@dimen/text_caption_md"
+
                                     android:textColor="#9E9E9E"/>
 
                                 <ImageView
@@ -455,7 +466,8 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="Designation *"
-                                android:textSize="11sp"
+                                android:textSize="@dimen/text_caption_md"
+
                                 android:textStyle="bold"
                                 android:textColor="#757575"
                                 android:layout_marginBottom="4dp"/>
@@ -482,7 +494,8 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:text="Select"
-                                    android:textSize="11sp"
+                                    android:textSize="@dimen/text_caption_md"
+
                                     android:textColor="#9E9E9E"/>
 
                                 <ImageView
@@ -518,7 +531,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Salary information"
-                        android:textSize="13sp"
+                        android:textSize="@dimen/text_caption_lg"
                         android:textStyle="bold"
                         android:textColor="#1565C0"
                         android:layout_marginBottom="14dp"/>
@@ -528,7 +541,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Salary type &amp; amount"
-                        android:textSize="11sp"
+                        android:textSize="@dimen/text_caption_md"
+
                         android:textStyle="bold"
                         android:textColor="#757575"
                         android:layout_marginBottom="4dp"/>
@@ -555,7 +569,7 @@
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
                             android:text="Tap to set salary"
-                            android:textSize="13sp"
+                            android:textSize="@dimen/text_caption_md"
                             android:textColor="#9E9E9E"/>
 
                         <ImageView
@@ -576,7 +590,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Save employee"
-                android:textSize="15sp"
+                android:textSize="@dimen/text_caption_lg"
                 android:textStyle="bold"
                 app:cornerRadius="4dp"
                 app:backgroundTint="#1565C0"/>

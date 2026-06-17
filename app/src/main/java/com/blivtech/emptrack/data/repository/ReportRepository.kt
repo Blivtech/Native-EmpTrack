@@ -3,10 +3,14 @@ package com.blivtech.emptrack.data.repository
 import com.blivtech.emptrack.data.model.AttendanceEmployeeItem
 import com.blivtech.emptrack.data.model.DailyStatus
 import com.blivtech.emptrack.data.model.EmployeeWeeklyDetail
+import com.blivtech.emptrack.data.model.MonthlyEmployeeDetail
+import com.blivtech.emptrack.data.model.MonthlyReportDto
+import com.blivtech.emptrack.data.model.MonthlyShiftReportDto
 import com.blivtech.emptrack.data.model.ShiftAttendanceSummary
-import com.blivtech.emptrack.data.model.WeeklyReportDto
-import com.blivtech.emptrack.data.model.WeeklyShiftEmployee
+import com.blivtech.emptrack.data.model.WeeklyOverallReportDto
+import com.blivtech.emptrack.data.model.WeeklyShiftReportDto
 import com.blivtech.emptrack.data.network.ApiService
+import com.blivtech.emptrack.utils.CommonClass.parseErrorMessage
 import com.blivtech.emptrack.utils.Resource
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -101,7 +105,10 @@ class ReportRepository @Inject constructor(
                     AttendanceEmployeeItem(
                         empCode     = dto.empCode,
                         empName     = dto.empName,
-                        department  = dto.department,
+                        desgCode  = dto.desgCode,
+                        desgName  = dto.desgName,
+                        deptCode  = dto.deptCode,
+                        deptName  = dto.deptName,
                         status      = dto.status,
                         statusLabel = dto.statusLabel,
                         lateMinutes = dto.lateMinutes
@@ -123,25 +130,27 @@ class ReportRepository @Inject constructor(
         }
     }
 
-    // ─────────────────────────────────
-// ✅ Weekly summary
-// ─────────────────────────────────
-    fun getWeeklySummary(
-        btCode: String,
-        companyCode: String,
-        weekStart: String,
-        weekEnd: String
-    ): Flow<Resource<WeeklyReportDto>> = flow {
+    // ✅ Weekly overall
+    fun getWeeklyOverallReport(
+        btCode: String, companyCode: String,
+        weekStart: String, weekEnd: String
+    ): Flow<Resource<WeeklyOverallReportDto>> = flow {
         emit(Resource.Loading)
         try {
-            val response = apiService.getWeeklyReport(
+            val response = apiService.getWeeklyOverallReport(
                 btCode, companyCode, weekStart, weekEnd
             )
-            if (response.isSuccessful && response.body()?.data != null) {
-                emit(Resource.Success(response.body()!!.data!!))
-            } else {
-                emit(Resource.Error(
-                    response.body()?.message ?: "Failed to load weekly report"
+            val body = response.body()
+            when {
+                response.isSuccessful &&
+                        body != null  ->
+                    emit(Resource.Success(body.data!!))
+                response.isSuccessful && body != null ->
+                    emit(Resource.Error(body.message))
+                else -> emit(Resource.Error(
+                    parseErrorMessage(
+                        response.errorBody()?.string()
+                    ) ?: "Failed to load weekly report"
                 ))
             }
         } catch (e: Exception) {
@@ -149,38 +158,28 @@ class ReportRepository @Inject constructor(
         }
     }
 
-    // ─────────────────────────────────
-// ✅ Weekly shift employees
-// ─────────────────────────────────
-    fun getWeeklyShiftEmployees(
-        btCode: String,
-        companyCode: String,
-        weekStart: String,
-        weekEnd: String,
-        shiftCode: String,
-        type: String
-    ): Flow<Resource<List<WeeklyShiftEmployee>>> = flow {
+    // ✅ Weekly shift wise
+    fun getWeeklyShiftReport(
+        btCode: String, companyCode: String,
+        weekStart: String, weekEnd: String,
+        shiftCode: String
+    ): Flow<Resource<WeeklyShiftReportDto>> = flow {
         emit(Resource.Loading)
         try {
-            val response = apiService.getWeeklyShiftEmployees(
-                btCode, companyCode, weekStart, weekEnd, shiftCode, type
+            val response = apiService.getWeeklyShiftReport(
+                btCode, companyCode, weekStart, weekEnd, shiftCode
             )
-            if (response.isSuccessful && response.body()?.data != null) {
-                val list = response.body()!!.data!!.map { dto ->
-                    WeeklyShiftEmployee(
-                        empCode            = dto.empCode,
-                        empName            = dto.empName,
-                        department         = dto.department,
-                        presentDays        = dto.presentDays,
-                        absentDays         = dto.absentDays,
-                        totalDays          = dto.totalDays,
-                        attendancePercent  = dto.attendancePercent
-                    )
-                }
-                emit(Resource.Success(list))
-            } else {
-                emit(Resource.Error(
-                    response.body()?.message ?: "Failed to load employees"
+            val body = response.body()
+            when {
+                response.isSuccessful &&
+                        body != null  ->
+                    emit(Resource.Success(body.data!!))
+                response.isSuccessful && body != null ->
+                    emit(Resource.Error(body.message))
+                else -> emit(Resource.Error(
+                    parseErrorMessage(
+                        response.errorBody()?.string()
+                    ) ?: "Failed to load shift report"
                 ))
             }
         } catch (e: Exception) {
@@ -230,6 +229,105 @@ class ReportRepository @Inject constructor(
             } else {
                 emit(Resource.Error(
                     response.body()?.message ?: "Failed to load detail"
+                ))
+            }
+        } catch (e: Exception) {
+            emit(Resource.Error(e.localizedMessage ?: "Network error"))
+        }
+    }
+
+
+    // ✅ Monthly overall
+    fun getMonthlyReport(
+        btCode: String, companyCode: String, month: String
+    ): Flow<Resource<MonthlyReportDto>> = flow {
+        emit(Resource.Loading)
+        try {
+            val response = apiService.getMonthlyReport(
+                btCode, companyCode, month
+            )
+            val body = response.body()
+            when {
+                response.isSuccessful && body != null  ->
+                    emit(Resource.Success(body.data!!))
+                response.isSuccessful && body != null ->
+                    emit(Resource.Error(body.message))
+                else -> emit(Resource.Error(
+                    parseErrorMessage(response.errorBody()?.string())
+                        ?: "Failed to load monthly report"
+                ))
+            }
+        } catch (e: Exception) {
+            emit(Resource.Error(e.localizedMessage ?: "Network error"))
+        }
+    }
+
+    // ✅ Monthly shift wise
+    fun getMonthlyShiftReport(
+        btCode: String, companyCode: String,
+        month: String, shiftCode: String
+    ): Flow<Resource<MonthlyShiftReportDto>> = flow {
+        emit(Resource.Loading)
+        try {
+            val response = apiService.getMonthlyShiftReport(
+                btCode, companyCode, month, shiftCode
+            )
+            val body = response.body()
+            when {
+                response.isSuccessful && body != null  ->
+                    emit(Resource.Success(body.data!!))
+                response.isSuccessful && body != null ->
+                    emit(Resource.Error(body.message))
+                else -> emit(Resource.Error(
+                    parseErrorMessage(response.errorBody()?.string())
+                        ?: "Failed to load shift report"
+                ))
+            }
+        } catch (e: Exception) {
+            emit(Resource.Error(e.localizedMessage ?: "Network error"))
+        }
+    }
+
+    // ✅ Monthly employee detail
+    fun getMonthlyEmployeeDetail(
+        btCode: String, companyCode: String,
+        month: String, shiftCode: String, empCode: String
+    ): Flow<Resource<MonthlyEmployeeDetail>> = flow {
+        emit(Resource.Loading)
+        try {
+            val response = apiService.getMonthlyEmployeeDetail(
+                btCode, companyCode, month, shiftCode, empCode
+            )
+            val body = response.body()
+            when {
+                response.isSuccessful && body != null  -> {
+                    val dto = body.data!!
+                    emit(Resource.Success(
+                        MonthlyEmployeeDetail(
+                            empCode           = dto.empCode,
+                            empName           = dto.empName,
+                            deptName          = dto.deptName,
+                            desgName          = dto.desgName,
+                            shiftName         = dto.shiftName,
+                            month             = dto.month,
+                            presentDays       = dto.presentDays,
+                            absentDays        = dto.absentDays,
+                            holidayDays       = dto.holidayDays,
+                            weekOffDays       = dto.weekOffDays,
+                            totalDays         = dto.totalDays,
+                            attendancePercent = dto.attendancePercent,
+                            presentDates      = dto.presentDates,
+                            absentDates       = dto.absentDates,
+                            holidayDates      = dto.holidayDates,
+                            weekOffDates      = dto.weekOffDates
+                        )
+                    ))
+                }
+                response.isSuccessful && body != null ->
+                    emit(Resource.Error(body.message))
+                else -> emit(Resource.Error(
+                    parseErrorMessage(response.errorBody()?.string())
+                        ?: "Failed to load employee detail"
                 ))
             }
         } catch (e: Exception) {

@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.blivtech.emptrack.data.local.entity.ShiftEntity
 import com.blivtech.emptrack.data.model.*
 import com.blivtech.emptrack.data.repository.CompanyRepository
 import com.blivtech.emptrack.data.repository.ReportRepository
@@ -16,37 +17,37 @@ import java.util.*
 import javax.inject.Inject
 
 @HiltViewModel
-class WeeklyReportViewModel @Inject constructor(
+class MonthlyReportViewModel @Inject constructor(
     private val repository: ReportRepository,
-    private val companyRepository: CompanyRepository
+    private val companyRepository: CompanyRepository      // ✅ Add this
 ) : ViewModel() {
 
     // ─────────────────────────────────
-    // ✅ Week state
+    // ✅ Month state
     // ─────────────────────────────────
-    private val _weekStart    = MutableLiveData<String>()
-    val weekStart: LiveData<String> = _weekStart
+    private val _currentMonth = MutableLiveData<String>()
+    val currentMonth: LiveData<String> = _currentMonth
 
-    private val _weekEnd      = MutableLiveData<String>()
-    val weekEnd: LiveData<String> = _weekEnd
-
-    private val _weekLabel    = MutableLiveData<String>()
-    val weekLabel: LiveData<String> = _weekLabel
-
-    private val _weekSubLabel = MutableLiveData<String>()
-    val weekSubLabel: LiveData<String> = _weekSubLabel
+    private val _monthLabel = MutableLiveData<String>()
+    val monthLabel: LiveData<String> = _monthLabel
 
     // ─────────────────────────────────
     // ✅ Overall report
     // ─────────────────────────────────
-    private val _overallReport = MutableLiveData<WeeklyOverallReportDto?>()
-    val overallReport: LiveData<WeeklyOverallReportDto?> = _overallReport
+    private val _overallReport = MutableLiveData<MonthlyReportDto?>()
+    val overallReport: LiveData<MonthlyReportDto?> = _overallReport
 
     // ─────────────────────────────────
-    // ✅ Shift report
+    // ✅ Shift wise report
     // ─────────────────────────────────
-    private val _shiftReport = MutableLiveData<WeeklyShiftReportDto?>()
-    val shiftReport: LiveData<WeeklyShiftReportDto?> = _shiftReport
+    private val _shiftReport = MutableLiveData<MonthlyShiftReportDto?>()
+    val shiftReport: LiveData<MonthlyShiftReportDto?> = _shiftReport
+
+    // ─────────────────────────────────
+    // ✅ Employee detail
+    // ─────────────────────────────────
+    private val _employeeDetail = MutableLiveData<MonthlyEmployeeDetail?>()
+    val employeeDetail: LiveData<MonthlyEmployeeDetail?> = _employeeDetail
 
     // ─────────────────────────────────
     // ✅ Loading + Error
@@ -60,107 +61,88 @@ class WeeklyReportViewModel @Inject constructor(
     // ─────────────────────────────────
     // ✅ Init
     // ─────────────────────────────────
-    init { setCurrentWeek() }
+    init {
+        setCurrentMonth()
+    }
 
-    private fun setCurrentWeek() {
+    private fun setCurrentMonth() {
         val cal = Calendar.getInstance()
-        cal.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
-        val start = cal.time
-        cal.add(Calendar.DAY_OF_WEEK, 6)
-        updateWeekDates(start, cal.time)
+        updateMonth(cal)
     }
 
     // ─────────────────────────────────
-    // ✅ Week navigation
+    // ✅ Month navigation
     // ─────────────────────────────────
-    fun prevWeek() {
-        val cal = calFromDate(_weekStart.value ?: "")
-        cal.add(Calendar.WEEK_OF_YEAR, -1)
-        val start = cal.time
-        cal.add(Calendar.DAY_OF_WEEK, 6)
-        updateWeekDates(start, cal.time)
+    fun prevMonth() {
+        val cal = calFromMonth(_currentMonth.value ?: "")
+        cal.add(Calendar.MONTH, -1)
+        updateMonth(cal)
     }
 
-    fun nextWeek() {
-        val cal = calFromDate(_weekStart.value ?: "")
-        cal.add(Calendar.WEEK_OF_YEAR, 1)
-        val start = cal.time
-        if (start.after(Date())) return
-        cal.add(Calendar.DAY_OF_WEEK, 6)
-        updateWeekDates(start, cal.time)
+    fun nextMonth() {
+        val cal = calFromMonth(_currentMonth.value ?: "")
+        cal.add(Calendar.MONTH, 1)
+        // ✅ No future months
+        if (cal.time.after(Date())) return
+        updateMonth(cal)
     }
 
-    private fun updateWeekDates(start: Date, end: Date) {
-        val apiSdf     = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-        val displaySdf = SimpleDateFormat("d MMM",      Locale.getDefault())
-        val yearSdf    = SimpleDateFormat("yyyy",        Locale.getDefault())
-
-        _weekStart.value    = apiSdf.format(start)
-        _weekEnd.value      = apiSdf.format(end)
-
-        val cal     = Calendar.getInstance().apply { time = start }
-        val weekNum = cal.get(Calendar.WEEK_OF_MONTH)
-        val month   = SimpleDateFormat(
-            "MMMM", Locale.getDefault()
-        ).format(start)
-
-        _weekLabel.value    = "Week $weekNum · $month ${yearSdf.format(start)}"
-        _weekSubLabel.value =
-            "${displaySdf.format(start)} – ${displaySdf.format(end)} ${yearSdf.format(end)}"
+    private fun updateMonth(cal: Calendar) {
+        val apiSdf   = SimpleDateFormat("yyyy-MM", Locale.getDefault())
+        val labelSdf = SimpleDateFormat("MMMM yyyy", Locale.getDefault())
+        _currentMonth.value = apiSdf.format(cal.time)
+        _monthLabel.value   = labelSdf.format(cal.time)
     }
 
-    private fun calFromDate(date: String): Calendar {
+    private fun calFromMonth(month: String): Calendar {
         val cal = Calendar.getInstance()
         try {
             cal.time = SimpleDateFormat(
-                "yyyy-MM-dd", Locale.getDefault()
-            ).parse(date) ?: Date()
+                "yyyy-MM", Locale.getDefault()
+            ).parse(month) ?: Date()
         } catch (e: Exception) { }
         return cal
     }
-
+    fun getShifts(companyCode: String): LiveData<List<ShiftEntity>> =
+        companyRepository.getShiftsByCompany(companyCode).asLiveData()
     // ─────────────────────────────────
     // ✅ Load overall report
     // ─────────────────────────────────
     fun loadOverallReport(btCode: String, companyCode: String) {
-        val start = _weekStart.value ?: return
-        val end   = _weekEnd.value   ?: return
+        val month = _currentMonth.value ?: return
         viewModelScope.launch {
-            repository.getWeeklyOverallReport(
-                btCode, companyCode, start, end
+            repository.getMonthlyReport(btCode, companyCode, month)
+                .collect { resource ->
+                    when (resource) {
+                        is Resource.Loading -> _loading.value = true
+                        is Resource.Success -> {
+                            _loading.value   = false
+                            _overallReport.value = resource.data
+                        }
+                        is Resource.Error -> {
+                            _loading.value = false
+                            _error.value   = resource.message
+                        }
+                    }
+                }
+        }
+    }
+
+    // ─────────────────────────────────
+    // ✅ Load shift wise report
+    // ─────────────────────────────────
+    fun loadShiftReport(
+        btCode: String, companyCode: String, shiftCode: String
+    ) {
+        val month = _currentMonth.value ?: return
+        viewModelScope.launch {
+            repository.getMonthlyShiftReport(
+                btCode, companyCode, month, shiftCode
             ).collect { resource ->
                 when (resource) {
                     is Resource.Loading -> _loading.value = true
                     is Resource.Success -> {
                         _loading.value     = false
-                        _overallReport.value = resource.data
-                    }
-                    is Resource.Error -> {
-                        _loading.value = false
-                        _error.value   = resource.message
-                    }
-                }
-            }
-        }
-    }
-
-    // ─────────────────────────────────
-    // ✅ Load shift report
-    // ─────────────────────────────────
-    fun loadShiftReport(
-        btCode: String, companyCode: String,
-        shiftCode: String
-    ) {
-        val start = _weekStart.value ?: return
-        val end   = _weekEnd.value   ?: return
-        viewModelScope.launch {
-            repository.getWeeklyShiftReport(
-                btCode, companyCode, start, end, shiftCode
-            ).collect { resource ->
-                when (resource) {
-                    is Resource.Loading -> _loading.value = true
-                    is Resource.Success -> {
-                        _loading.value   = false
                         _shiftReport.value = resource.data
                     }
                     is Resource.Error -> {
@@ -173,19 +155,31 @@ class WeeklyReportViewModel @Inject constructor(
     }
 
     // ─────────────────────────────────
-    // ✅ Helpers
+    // ✅ Load employee detail
     // ─────────────────────────────────
-    fun shiftEmoji(name: String) = when {
-        name.contains("morning", true) ||
-                name.contains("day",     true) -> "☀️"
-        name.contains("evening", true) -> "🌆"
-        name.contains("night",   true) -> "🌙"
-        else                           -> "🕐"
+    fun loadEmployeeDetail(
+        btCode: String, companyCode: String,
+        shiftCode: String, empCode: String
+    ) {
+        val month = _currentMonth.value ?: return
+        viewModelScope.launch {
+            repository.getMonthlyEmployeeDetail(
+                btCode, companyCode, month, shiftCode, empCode
+            ).collect { resource ->
+                when (resource) {
+                    is Resource.Loading -> _loading.value = true
+                    is Resource.Success -> {
+                        _loading.value        = false
+                        _employeeDetail.value = resource.data
+                    }
+                    is Resource.Error -> {
+                        _loading.value = false
+                        _error.value   = resource.message
+                    }
+                }
+            }
+        }
     }
 
     fun resetError() { _error.value = null }
-
-    fun getShifts(companyCode: String) =
-        companyRepository.getShiftsByCompany(companyCode)
-            .asLiveData()
 }

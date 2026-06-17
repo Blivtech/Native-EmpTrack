@@ -62,43 +62,66 @@
             android:exported="false" />
         <activity
             android:name=".ui.attendance.AttendanceHomeActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".ui.attendance.MarkAttendanceActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".ui.shiftplan.ShiftPlanActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".ui.shiftplan.AssignShiftActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".ui.entry.AddEntryActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
 
-        <activity android:name=".ui.work.AddProductActivity"   android:exported="false"/>
-        <activity android:name=".ui.work.AddWorkEntryActivity" android:exported="false"/>
-        <activity android:name=".ui.work.SelectEmployeeActivity" android:exported="false"/>
-        <activity android:name=".ui.contract.ContractWageActivity" android:exported="false"/>
-        <activity android:name=".ui.contract.AddContractEntryActivity" android:exported="false"
-            android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.contract.ContractProductListActivity" android:exported="false"/>
+        <activity
+            android:name=".ui.work.AddProductActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.work.AddWorkEntryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.work.SelectEmployeeActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.contract.ContractWageActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.contract.AddContractEntryActivity"
+            android:exported="false"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.contract.ContractProductListActivity"
+            android:exported="false" />
         <activity
             android:name=".ui.report.DailyReportActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize"/>
+            android:windowSoftInputMode="adjustResize" />
 
         <activity
             android:name=".ui.report.ShiftEmployeeListActivity"
             android:exported="false"
-            android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.report.WeeklyReportActivity"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".ui.report.WeeklyReportActivity"
+            android:exported="false" />
+
+        <activity
+            android:name=".ui.report.EmployeeWeeklyDetailActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.report.ReportsActivity"
+            android:exported="false" />
+        <activity android:name=".ui.report.MonthlyReportActivity"
             android:exported="false"/>
-        <activity android:name=".ui.report.WeeklyShiftEmployeeListActivity"
-            android:exported="false"
-            android:windowSoftInputMode="adjustResize"/>
-        <activity android:name=".ui.report.EmployeeWeeklyDetailActivity"
+        <activity android:name=".ui.report.MonthlyEmployeeDetailActivity"
+            android:exported="false"/>
+        <activity android:name=".ui.report.AdvanceReportActivity"
+            android:exported="false"/>
+        <activity android:name=".ui.report.AdvanceEmployeeDetailActivity"
             android:exported="false"/>
     </application>
 

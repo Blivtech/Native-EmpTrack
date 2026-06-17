@@ -5,36 +5,35 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:gravity="center_vertical"
-    android:padding="10dp"
-    android:paddingStart="11dp"
-    android:paddingEnd="11dp"
-    android:layout_marginVertical="5dp"
-    android:background="?attr/selectableItemBackground">
+    android:background="#FFFFFF"
+    android:padding="11px"
+    android:layout_marginBottom="7dp"
+    android:clickable="true"
+    android:focusable="true"
+    >
 
-    <!-- ✅ Avatar with bg -->
+    <!-- Avatar -->
     <FrameLayout
-        android:layout_width="32dp"
-        android:layout_height="32dp"
+        android:layout_width="34dp"
+        android:layout_height="34dp"
         android:layout_marginEnd="9dp">
 
-        <!-- ✅ viewAvatarBg — set background color dynamically -->
         <View
             android:id="@+id/viewAvatarBg"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
             android:background="@drawable/bg_shift_morning"/>
 
-        <!-- ✅ tvAvatar — initials on top -->
         <TextView
             android:id="@+id/tvAvatar"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
             android:gravity="center"
-            android:textSize="@dimen/text_caption_md"
+            android:textSize="9sp"
             android:textStyle="bold"/>
     </FrameLayout>
 
-    <!-- Employee info -->
+    <!-- Info -->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -45,7 +44,7 @@
             android:id="@+id/tvEmpName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_caption_md"
+            android:textSize="10sp"
             android:textStyle="bold"
             android:textColor="#212121"/>
 
@@ -53,20 +52,26 @@
             android:id="@+id/tvEmpCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_caption_small"
+            android:textSize="7sp"
             android:textColor="#BDBDBD"
             android:layout_marginTop="1dp"/>
 
         <TextView
-            android:id="@+id/tvEmpDept"
+            android:id="@+id/tvDeptName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_caption_md"
-            android:textColor="#1CADED"
-            android:layout_marginTop="1dp"/>
+            android:textSize="7sp"
+            android:textStyle="bold"
+            android:textColor="#0C447C"
+            android:background="@drawable/bg_badge_blue"
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:layout_marginTop="3dp"/>
     </LinearLayout>
 
-    <!-- Status + late -->
+    <!-- Amount + date -->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -74,25 +79,29 @@
         android:gravity="end">
 
         <TextView
-            android:id="@+id/tvStatus"
+            android:id="@+id/tvAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="8sp"
+            android:textSize="13sp"
             android:textStyle="bold"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:paddingTop="2dp"
-            android:paddingBottom="2dp"/>
+            android:textColor="#633806"/>
 
-        <!-- ✅ tvLateMinutes — shows "+32 min" for late -->
         <TextView
-            android:id="@+id/tvLateMinutes"
+            android:id="@+id/tvDate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="7sp"
-            android:textColor="#BDBDBD"
-            android:layout_marginTop="2dp"
-            android:visibility="gone"/>
+            android:textColor="#9E9E9E"
+            android:layout_marginTop="2dp"/>
     </LinearLayout>
+
+    <!-- Arrow -->
+    <ImageView
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:src="@android:drawable/arrow_down_float"
+        android:tint="#BDBDBD"
+        android:rotation="-90"
+        android:layout_marginStart="6dp"/>
 
 </LinearLayout>

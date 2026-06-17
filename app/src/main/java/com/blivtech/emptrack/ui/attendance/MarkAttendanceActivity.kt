@@ -77,8 +77,6 @@ class MarkAttendanceActivity : AppCompatActivity() {
 
         if (mode == "EDIT" && attendanceId != null) {
             viewModel.loadExistingAttendance(attendanceId!!)
-        } else {
-            viewModel.loadYesterdayAttendance(btCode, companyCode, shiftCode)
         }
     }
 

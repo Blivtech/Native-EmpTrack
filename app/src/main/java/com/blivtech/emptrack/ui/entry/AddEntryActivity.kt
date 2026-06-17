@@ -69,7 +69,7 @@ class AddEntryActivity : AppCompatActivity() {
             shifts = list
         }
 
-        // ✅ Default — today
+
         val today = Calendar.getInstance()
         viewModel.selectedDate = dateFmt.format(today.time)
         binding.tvDate.text = displayFmt.format(today.time)
@@ -239,12 +239,12 @@ class AddEntryActivity : AppCompatActivity() {
 
     private fun updateModeUI() {
         if (viewModel.entryMode == EntryMode.SINGLE) {
-            binding.cardSingle.setBackgroundResource(R.drawable.bg_badge_blue)
+            binding.cardSingle.setBackgroundResource(R.drawable.bg_badge_blue_light)
             binding.cardMultiple.setBackgroundResource(R.drawable.bg_card_unselected)
             binding.layoutSingleEmployee.visibility = View.VISIBLE
             binding.layoutMultiEmployee.visibility  = View.GONE
         } else {
-            binding.cardMultiple.setBackgroundResource(R.drawable.bg_badge_blue)
+            binding.cardMultiple.setBackgroundResource(R.drawable.bg_badge_blue_light)
             binding.cardSingle.setBackgroundResource(R.drawable.bg_card_unselected)
             binding.layoutSingleEmployee.visibility = View.GONE
             binding.layoutMultiEmployee.visibility  = View.VISIBLE

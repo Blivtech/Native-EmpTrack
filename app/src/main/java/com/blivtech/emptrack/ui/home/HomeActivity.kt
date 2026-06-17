@@ -32,6 +32,7 @@ import com.blivtech.emptrack.ui.employee.EmployeeListActivity
 import com.blivtech.emptrack.ui.entry.AddEntryActivity
 import com.blivtech.emptrack.ui.login.LoginActivity
 import com.blivtech.emptrack.ui.report.DailyReportActivity
+import com.blivtech.emptrack.ui.report.ReportsActivity
 import com.blivtech.emptrack.ui.shiftplan.ShiftPlanActivity
 import com.blivtech.emptrack.ui.work.AddProductActivity
 import com.blivtech.emptrack.ui.work.AddWorkEntryActivity
@@ -237,8 +238,8 @@ class HomeActivity : AppCompatActivity() {
                 startActivity(
                     Intent(this, AddEntryActivity::class.java).apply {
                         putExtra("btCode", btCode)
-                        putExtra("companyName", currentCompany?.name ?: "")
-                        putExtra("companyCode", currentCompany?.companyCode ?: "")
+                        putExtra("companyName", selectedCompanyName)
+                        putExtra("companyCode", selectedCompanyCode)
                     }
                 ) }
             "Inventory" -> { /* TODO */ }
@@ -246,7 +247,7 @@ class HomeActivity : AppCompatActivity() {
                 Intent(this, ShiftPlanActivity::class.java)
             )}
             "Reports" -> {  startActivity(
-                Intent(this, DailyReportActivity::class.java)) }
+                Intent(this, ReportsActivity::class.java)) }
         }
     }
 

@@ -1,5 +1,6 @@
 package com.blivtech.emptrack.ui.report
 
+import android.graphics.Color
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -47,8 +48,16 @@ class ShiftEmployeeListActivity : AppCompatActivity() {
     // ✅ Setup
     // ─────────────────────────────────
     private fun setupUI() {
-        // ✅ Topbar color — green for present, red for leave
-        val topbarColor = if (type == "PRESENT") "#1B5E20" else "#B71C1C"
+
+        val topbarColor = when (type) {
+            "PRESENT"    -> "#1B5E20"
+            "ABSENT"     -> "#B71C1C"
+            "HOLIDAY_WO" -> "#4A148C"
+            else         -> "#1565C0"
+        }
+        binding.layoutTopbar.setBackgroundColor(
+            Color.parseColor(topbarColor)
+        )
         binding.layoutTopbar.setBackgroundColor(
             android.graphics.Color.parseColor(topbarColor)
         )
@@ -57,7 +66,12 @@ class ShiftEmployeeListActivity : AppCompatActivity() {
         binding.tvShiftSubtitle.text = "$attendanceDate · $companyName"
         binding.tvShiftTime.text   = shiftTime
 
-        val typeIcon  = if (type == "PRESENT") "✅ Present" else "❌ On Leave"
+        val typeIcon = when (type) {
+            "PRESENT"    -> "✅ Present"
+            "ABSENT"     -> "❌ On Leave"
+            "HOLIDAY_WO" -> "🏖️ Holiday / Week Off"
+            else         -> "📋 All"
+        }
         binding.tvTypeLabel.text = typeIcon
         binding.tvTypeCount.text = count.toString()
 
@@ -182,8 +196,8 @@ class ShiftEmployeeListActivity : AppCompatActivity() {
 
             // ✅ Name + code + dept
             row.findViewById<TextView>(R.id.tvEmpName).text   = emp.empName
-            row.findViewById<TextView>(R.id.tvEmpCode).text   = emp.empCode
-            row.findViewById<TextView>(R.id.tvEmpDept).text   = emp.department
+            row.findViewById<TextView>(R.id.tvEmpCode).text   = emp.desgName
+            row.findViewById<TextView>(R.id.tvEmpDept).text   = emp.deptName
 
             // ✅ Status label
             val tvStatus = row.findViewById<TextView>(R.id.tvStatus)

@@ -1,5 +1,7 @@
 package com.blivtech.emptrack.data.network
 
+import com.blivtech.emptrack.data.model.AdvanceEmployeeDetailDto
+import com.blivtech.emptrack.data.model.AdvanceReportDto
 import com.blivtech.emptrack.data.model.AdvanceRequest
 import com.blivtech.emptrack.data.model.AdvanceResponse
 import com.blivtech.emptrack.data.model.ApiResponse
@@ -20,13 +22,16 @@ import com.blivtech.emptrack.data.model.EmployeeRequest
 import com.blivtech.emptrack.data.model.EmployeeResponse
 import com.blivtech.emptrack.data.model.EmployeeWeeklyDetailDto
 import com.blivtech.emptrack.data.model.MasterResponse
+import com.blivtech.emptrack.data.model.MonthlyEmployeeDetailDto
+import com.blivtech.emptrack.data.model.MonthlyReportDto
+import com.blivtech.emptrack.data.model.MonthlyShiftReportDto
 import com.blivtech.emptrack.data.model.OvertimeRequest
 import com.blivtech.emptrack.data.model.OvertimeResponse
 import com.blivtech.emptrack.data.model.ProductRequest
 import com.blivtech.emptrack.data.model.ProductResponse
 import com.blivtech.emptrack.data.model.ShiftStatusResponse
-import com.blivtech.emptrack.data.model.WeeklyReportDto
-import com.blivtech.emptrack.data.model.WeeklyShiftEmployeeDto
+import com.blivtech.emptrack.data.model.WeeklyOverallReportDto
+import com.blivtech.emptrack.data.model.WeeklyShiftReportDto
 import com.blivtech.emptrack.data.model.WorkEntryRequest
 import com.blivtech.emptrack.data.model.WorkEntryResponse
 import retrofit2.Response
@@ -221,25 +226,24 @@ interface ApiService {
     ): Response<ApiResponse<List<AttendanceEmployeeDto>>>
 
 
-    // ✅ Weekly Report APIs
-    @GET("api/reports/attendance/weekly")
-    suspend fun getWeeklyReport(
+    // ✅ Weekly overall report
+    @GET("api/reports/attendance/weekly/overall")
+    suspend fun getWeeklyOverallReport(
         @Query("btCode")      btCode: String,
         @Query("companyCode") companyCode: String,
         @Query("weekStart")   weekStart: String,
         @Query("weekEnd")     weekEnd: String
-    ): Response<ApiResponse<WeeklyReportDto>>
+    ): Response<ApiResponse<WeeklyOverallReportDto>>
 
-    @GET("api/reports/attendance/weekly/employees")
-    suspend fun getWeeklyShiftEmployees(
+    // ✅ Weekly shift report
+    @GET("api/reports/attendance/weekly/shift")
+    suspend fun getWeeklyShiftReport(
         @Query("btCode")      btCode: String,
         @Query("companyCode") companyCode: String,
         @Query("weekStart")   weekStart: String,
         @Query("weekEnd")     weekEnd: String,
-        @Query("shiftCode")   shiftCode: String,
-        @Query("type")        type: String
-    ): Response<ApiResponse<List<WeeklyShiftEmployeeDto>>>
-
+        @Query("shiftCode")   shiftCode: String
+    ): Response<ApiResponse<WeeklyShiftReportDto>>
     @GET("api/reports/attendance/weekly/employee-detail")
     suspend fun getEmployeeWeeklyDetail(
         @Query("btCode")      btCode: String,
@@ -249,4 +253,50 @@ interface ApiService {
         @Query("shiftCode")   shiftCode: String,
         @Query("empCode")     empCode: String
     ): Response<ApiResponse<EmployeeWeeklyDetailDto>>
+
+    // ✅ Monthly overall report
+    @GET("api/reports/attendance/monthly")
+    suspend fun getMonthlyReport(
+        @Query("btCode")      btCode: String,
+        @Query("companyCode") companyCode: String,
+        @Query("month")       month: String   // "2026-06"
+    ): Response<ApiResponse<MonthlyReportDto>>
+
+    // ✅ Monthly shift wise report
+    @GET("api/reports/attendance/monthly/shift")
+    suspend fun getMonthlyShiftReport(
+        @Query("btCode")      btCode: String,
+        @Query("companyCode") companyCode: String,
+        @Query("month")       month: String,
+        @Query("shiftCode")   shiftCode: String
+    ): Response<ApiResponse<MonthlyShiftReportDto>>
+
+    // ✅ Monthly employee detail
+    @GET("api/reports/attendance/monthly/employee-detail")
+    suspend fun getMonthlyEmployeeDetail(
+        @Query("btCode")      btCode: String,
+        @Query("companyCode") companyCode: String,
+        @Query("month")       month: String,
+        @Query("shiftCode")   shiftCode: String,
+        @Query("empCode")     empCode: String
+    ): Response<ApiResponse<MonthlyEmployeeDetailDto>>
+
+
+
+    // ✅ Advance report — month wise
+    @GET("api/reports/advance")
+    suspend fun getAdvanceReport(
+        @Query("btCode")      btCode: String,
+        @Query("companyCode") companyCode: String,
+        @Query("month")       month: String
+    ): Response<ApiResponse<AdvanceReportDto>>
+
+    // ✅ Employee advance detail
+    @GET("api/reports/advance/employee-detail")
+    suspend fun getAdvanceEmployeeDetail(
+        @Query("btCode")      btCode: String,
+        @Query("companyCode") companyCode: String,
+        @Query("month")       month: String,
+        @Query("empCode")     empCode: String
+    ): Response<ApiResponse<AdvanceEmployeeDetailDto>>
 }
