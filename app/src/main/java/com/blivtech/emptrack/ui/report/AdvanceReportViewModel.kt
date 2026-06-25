@@ -1,11 +1,13 @@
+// AdvanceReportViewModel.kt
 package com.blivtech.emptrack.ui.report
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.blivtech.emptrack.data.model.AdvanceReportDto
-import com.blivtech.emptrack.data.repository.AdvanceRepository
+import com.blivtech.emptrack.data.model.AdvanceEntryDto
+import com.blivtech.emptrack.data.model.AdvanceMonthlyDto
+import com.blivtech.emptrack.data.repository.WageReportRepository
 import com.blivtech.emptrack.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
@@ -15,107 +17,97 @@ import javax.inject.Inject
 
 @HiltViewModel
 class AdvanceReportViewModel @Inject constructor(
-    private val repository: AdvanceRepository
+    private val repository: WageReportRepository
 ) : ViewModel() {
 
-    // ─────────────────────────────────
-    // ✅ Month state
-    // ─────────────────────────────────
-    private val _currentMonth = MutableLiveData<String>()
-    val currentMonth: LiveData<String> = _currentMonth
+    private val apiSdf   = SimpleDateFormat("yyyy-MM", Locale.getDefault())
+    private val labelSdf = SimpleDateFormat("MMMM yyyy", Locale.getDefault())
 
-    private val _monthLabel = MutableLiveData<String>()
+    private val _currentMonth = MutableLiveData(apiSdf.format(Date()))
+    private val _monthLabel   = MutableLiveData(labelSdf.format(Date()))
     val monthLabel: LiveData<String> = _monthLabel
 
-    private val _monthSubLabel = MutableLiveData<String>()
-    val monthSubLabel: LiveData<String> = _monthSubLabel
-
-    // ─────────────────────────────────
-    // ✅ Report data
-    // ─────────────────────────────────
-    private val _report  = MutableLiveData<AdvanceReportDto?>()
-    val report: LiveData<AdvanceReportDto?> = _report
+    private val _monthlyData = MutableLiveData<AdvanceMonthlyDto?>()
+    val monthlyData: LiveData<AdvanceMonthlyDto?> = _monthlyData
 
     private val _loading = MutableLiveData(false)
     val loading: LiveData<Boolean> = _loading
 
-    private val _error   = MutableLiveData<String?>()
+    private val _error = MutableLiveData<String?>()
     val error: LiveData<String?> = _error
 
-    // ─────────────────────────────────
-    // ✅ Init
-    // ─────────────────────────────────
-    init { setCurrentMonth() }
+    private val _actionState = MutableLiveData<Resource<*>?>()
+    val actionState: LiveData<Resource<*>?> = _actionState
 
-    private fun setCurrentMonth() {
-        val cal = Calendar.getInstance()
-        updateMonth(cal)
-    }
-
-    // ─────────────────────────────────
-    // ✅ Month navigation
-    // ─────────────────────────────────
     fun prevMonth() {
-        val cal = calFromMonth(_currentMonth.value ?: "")
+        val cal = Calendar.getInstance().apply {
+            time = apiSdf.parse(_currentMonth.value!!)!!
+        }
         cal.add(Calendar.MONTH, -1)
-        updateMonth(cal)
+        _currentMonth.value = apiSdf.format(cal.time)
+        _monthLabel.value   = labelSdf.format(cal.time)
     }
 
     fun nextMonth() {
-        val cal = calFromMonth(_currentMonth.value ?: "")
+        val cal = Calendar.getInstance().apply {
+            time = apiSdf.parse(_currentMonth.value!!)!!
+        }
         cal.add(Calendar.MONTH, 1)
         if (cal.time.after(Date())) return
-        updateMonth(cal)
+        _currentMonth.value = apiSdf.format(cal.time)
+        _monthLabel.value   = labelSdf.format(cal.time)
     }
 
-    private fun updateMonth(cal: Calendar) {
-        val apiSdf   = SimpleDateFormat("yyyy-MM",   Locale.getDefault())
-        val labelSdf = SimpleDateFormat("MMMM yyyy", Locale.getDefault())
-        val subSdf   = SimpleDateFormat("MMM yyyy",  Locale.getDefault())
-        _currentMonth.value  = apiSdf.format(cal.time)
-        _monthLabel.value    = labelSdf.format(cal.time)
-        _monthSubLabel.value = subSdf.format(cal.time)
-    }
-
-    private fun calFromMonth(month: String): Calendar {
-        val cal = Calendar.getInstance()
-        try {
-            cal.time = SimpleDateFormat(
-                "yyyy-MM", Locale.getDefault()
-            ).parse(month) ?: Date()
-        } catch (e: Exception) { }
-        return cal
-    }
-
-    // ─────────────────────────────────
-    // ✅ Load advance report
-    // ─────────────────────────────────
-    fun loadReport(btCode: String, companyCode: String) {
+    fun loadAdvanceList(btCode: String, companyCode: String) {
         val month = _currentMonth.value ?: return
         viewModelScope.launch {
-            repository.getAdvanceReport(btCode, companyCode, month)
-                .collect { resource ->
-                    when (resource) {
-                        is Resource.Loading -> _loading.value = true
-                        is Resource.Success -> {
-                            _loading.value = false
-                            _report.value  = resource.data
-                        }
-                        is Resource.Error -> {
-                            _loading.value = false
-                            _error.value   = resource.message
-                        }
+            repository.getAdvanceList(btCode, companyCode, month).collect { resource ->
+                when (resource) {
+                    is Resource.Loading -> _loading.value = true
+                    is Resource.Success -> {
+                        _loading.value  = false
+                        _monthlyData.value = resource.data
+                    }
+                    is Resource.Error -> {
+                        _loading.value = false
+                        _error.value   = resource.message
                     }
                 }
+            }
         }
     }
 
-    // ─────────────────────────────────
-    // ✅ Format amount
-    // ─────────────────────────────────
-    fun formatAmount(amount: Double): String {
-        return "₹${String.format("%,.0f", amount)}"
+    fun updateAdvance(
+        entry: AdvanceEntryDto,
+        requestDate: String,
+        amount: Double,
+        repayMonth: String,
+        remarks: String
+    ) {
+        viewModelScope.launch {
+            _actionState.value = repository.updateAdvance(
+                advanceId   = entry.advanceId,
+                btCode      = entry.btCode,
+                companyCode = entry.companyCode,
+                empCode     = entry.empCode,
+                requestDate = requestDate,
+                amount      = amount,
+                repayMonth  = repayMonth,
+                remarks     = remarks
+            )
+        }
     }
 
-    fun resetError() { _error.value = null }
+    fun deleteAdvance(entry: AdvanceEntryDto) {
+        viewModelScope.launch {
+            _actionState.value = repository.deleteAdvance(
+                advanceId   = entry.advanceId,
+                btCode      = entry.btCode,
+                companyCode = entry.companyCode
+            )
+        }
+    }
+
+    fun resetActionState() { _actionState.value = null }
+    fun resetError()       { _error.value = null }
 }

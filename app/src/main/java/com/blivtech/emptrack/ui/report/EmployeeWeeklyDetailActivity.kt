@@ -159,14 +159,14 @@ class EmployeeWeeklyDetailActivity : AppCompatActivity() {
             }
             val dayTv = TextView(this).apply {
                 text      = day.dayName.take(3)
-                textSize  = 7f
+                textSize  =10f
                 setTypeface(typeface, android.graphics.Typeface.BOLD)
                 setTextColor(Color.parseColor("#9E9E9E"))
                 gravity   = Gravity.CENTER
             }
             val dateTv = TextView(this).apply {
                 text      = formatDayNum(day.date)
-                textSize  = 8f
+                textSize  = 10f
                 setTypeface(typeface, android.graphics.Typeface.BOLD)
                 setTextColor(Color.parseColor("#424242"))
                 gravity   = Gravity.CENTER
@@ -193,7 +193,7 @@ class EmployeeWeeklyDetailActivity : AppCompatActivity() {
                     "WO"  -> "W"
                     else  -> day.status
                 }
-                textSize  = 10f
+                textSize  = 12f
                 setTypeface(typeface, android.graphics.Typeface.BOLD)
                 setTextColor(Color.parseColor(colors.second))
                 setBackgroundColor(Color.parseColor(colors.first))
@@ -208,7 +208,7 @@ class EmployeeWeeklyDetailActivity : AppCompatActivity() {
 
             val lblTv = TextView(this).apply {
                 text      = day.statusLabel.take(7)
-                textSize  = 6f
+                textSize  = 10f
                 setTypeface(typeface, android.graphics.Typeface.BOLD)
                 setTextColor(Color.parseColor(colors.second))
                 gravity   = Gravity.CENTER
@@ -232,8 +232,7 @@ class EmployeeWeeklyDetailActivity : AppCompatActivity() {
         // ── Summary row ──
         val summaryData = listOf(
             Triple(pCount, "#27500A", "Present"),
-            Triple(lCount, "#633806", "Late"),
-            Triple(aCount, "#E24B4A", "Absent"),
+            Triple(aCount, "#E24B4A", "Leave"),
             Triple(hCount, "#3C3489", "Holiday"),
             Triple(wCount, "#9E9E9E", "Week Off")
         )
@@ -256,7 +255,7 @@ class EmployeeWeeklyDetailActivity : AppCompatActivity() {
             }
             val lblTv = TextView(this).apply {
                 text      = label
-                textSize  = 6f
+                textSize  = 12f
                 setTypeface(typeface, android.graphics.Typeface.BOLD)
                 setTextColor(Color.parseColor(color))
                 gravity   = Gravity.CENTER
@@ -295,7 +294,7 @@ class EmployeeWeeklyDetailActivity : AppCompatActivity() {
 
         // ✅ Absent
         binding.tvProgAbsentLabel.text =
-            "Absent   ${detail.absentDays} / ${detail.totalDays} days"
+            "Leave   ${detail.absentDays} / ${detail.totalDays} days"
         binding.progressAbsent.progress =
             (detail.absentDays * 100 / total)
 

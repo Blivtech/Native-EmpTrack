@@ -19,6 +19,9 @@
     <color name="chip_bg">#EAF3DE</color>
     <color name="chip_text">#27500A</color>
     <color name="green_stroke">#639922</color>
+    <color name="accent_blue">#1CADED</color>
+    <color name="bg_card">#F4F6F9</color>
+    <color name="bg_ss">#88FFFFFF</color>
 
     <color name="green_dark">#27500A</color>
     <color name="green_light">#EAF3DE</color>

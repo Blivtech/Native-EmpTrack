@@ -28,7 +28,7 @@
                 android:id="@+id/ivBack"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/ic_nav_home"
+                android:src="@drawable/ic_arrow_back"
                 android:tint="#FFFFFF"
                 android:padding="4dp"
                 android:layout_marginEnd="10dp"/>
@@ -43,7 +43,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Assign Employees"
-                    android:textSize="16sp"
+                    android:fontFamily="@font/satoshi_medium"
+                    android:textSize="@dimen/text_caption_th"
                     android:textStyle="bold"
                     android:textColor="#FFFFFF"/>
 
@@ -51,8 +52,8 @@
                     android:id="@+id/tvShiftName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="10sp"
-                    android:textColor="#CCffffff"
+                    android:fontFamily="@font/satoshi_medium"
+                    android:textSize="@dimen/text_caption_md"                    android:textColor="#CCffffff"
                     android:layout_marginTop="1dp"/>
             </LinearLayout>
 
@@ -61,8 +62,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0/0"
-                android:textSize="12sp"
-                android:textColor="#CCffffff"/>
+                android:fontFamily="@font/satoshi_medium"
+                android:textSize="@dimen/text_caption_md"                 android:textColor="#CCffffff"/>
         </LinearLayout>
 
         <!-- Shift info banner -->
@@ -97,16 +98,16 @@
                     android:id="@+id/tvShiftTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="11sp"
-                    android:textStyle="bold"
+                    android:fontFamily="@font/satoshi_medium"
+                    android:textSize="@dimen/text_caption_md"                     android:textStyle="bold"
                     android:textColor="#FFFFFF"/>
 
                 <TextView
                     android:id="@+id/tvWeekRange"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="9sp"
-                    android:textColor="#CCffffff"
+                    android:fontFamily="@font/satoshi_medium"
+                    android:textSize="@dimen/text_caption_small"                     android:textColor="#CCffffff"
                     android:layout_marginTop="1dp"/>
             </LinearLayout>
         </LinearLayout>
@@ -134,10 +135,12 @@
         <EditText
             android:id="@+id/etSearch"
             android:layout_width="0dp"
-            android:layout_height="36dp"
+            android:layout_height="wrap_content"
+            android:paddingVertical="5dp"
             android:layout_weight="1"
             android:hint="Search by name or code..."
-            android:textSize="12sp"
+            android:fontFamily="@font/satoshi_medium"
+            android:textSize="@dimen/text_caption_md"
             android:textColor="#212121"
             android:textColorHint="#9E9E9E"
             android:background="@null"
@@ -182,9 +185,10 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="ASSIGNED TO THIS SHIFT"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
+                    android:textAllCaps="false"
+                    android:text="Assigned To This Shift"
+                    android:fontFamily="@font/satoshi_medium"
+                    android:textSize="@dimen/text_caption_md"                     android:textStyle="bold"
                     android:textColor="#757575"
                     android:letterSpacing="0.05"/>
 
@@ -192,10 +196,11 @@
                     android:id="@+id/tvAssignedCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="10sp"
                     android:textColor="#27500A"
                     android:background="@drawable/bg_badge_green"
                     android:paddingStart="7dp"
+                    android:fontFamily="@font/satoshi_medium"
+                    android:textSize="@dimen/text_caption_vs"
                     android:paddingEnd="7dp"
                     android:paddingTop="2dp"
                     android:paddingBottom="2dp"/>
@@ -227,9 +232,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="UNASSIGNED EMPLOYEES"
-                    android:textSize="10sp"
-                    android:textStyle="bold"
+                    android:text="Unassined Employees"
+                    android:fontFamily="@font/satoshi_medium"
+                    android:textSize="@dimen/text_caption_md"                     android:textStyle="bold"
                     android:textColor="#757575"
                     android:letterSpacing="0.05"/>
 
@@ -237,8 +242,8 @@
                     android:id="@+id/tvUnassignedCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="10sp"
-                    android:textColor="#791F1F"
+                    android:fontFamily="@font/satoshi_medium"
+                    android:textSize="@dimen/text_caption_vs"                     android:textColor="#791F1F"
                     android:background="@drawable/bg_badge_red"
                     android:paddingStart="7dp"
                     android:paddingEnd="7dp"
@@ -269,9 +274,11 @@
             android:layout_width="match_parent"
             android:layout_height="48dp"
             android:text="Save shift plan"
-            android:textSize="13sp"
+            android:fontFamily="@font/satoshi_medium"
+            android:textSize="@dimen/text_caption_md"
+            android:textAllCaps="false"
             android:textStyle="bold"
-            app:cornerRadius="12dp"
+            app:cornerRadius="4dp"
             app:backgroundTint="#1565C0"/>
     </LinearLayout>
 </LinearLayout>

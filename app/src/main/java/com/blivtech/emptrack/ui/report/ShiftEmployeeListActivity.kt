@@ -62,18 +62,11 @@ class ShiftEmployeeListActivity : AppCompatActivity() {
             android.graphics.Color.parseColor(topbarColor)
         )
 
-        binding.tvShiftTitle.text  = "$shiftEmoji $shiftName"
-        binding.tvShiftSubtitle.text = "$attendanceDate · $companyName"
+        binding.tvShiftTitle.text  = "$shiftEmoji $shiftName ($companyName)"
+        binding.tvShiftSubtitle.text = "$attendanceDate"
         binding.tvShiftTime.text   = shiftTime
 
-        val typeIcon = when (type) {
-            "PRESENT"    -> "✅ Present"
-            "ABSENT"     -> "❌ On Leave"
-            "HOLIDAY_WO" -> "🏖️ Holiday / Week Off"
-            else         -> "📋 All"
-        }
-        binding.tvTypeLabel.text = typeIcon
-        binding.tvTypeCount.text = count.toString()
+
 
         binding.ivBack.setOnClickListener { finish() }
 
@@ -189,15 +182,15 @@ class ShiftEmployeeListActivity : AppCompatActivity() {
                 "#E1F5EE" to "#085041"
             )
             val colorPair = colors[emp.empCode.hashCode().and(0x7FFFFFFF) % colors.size]
-            row.findViewById<android.view.View>(R.id.viewAvatarBg)
-                .setBackgroundColor(android.graphics.Color.parseColor(colorPair.first))
+         //   row.findViewById<android.view.View>(R.id.viewAvatarBg)
+        //        .setBackgroundColor(android.graphics.Color.parseColor(colorPair.first))
             row.findViewById<TextView>(R.id.tvAvatar)
                 .setTextColor(android.graphics.Color.parseColor(colorPair.second))
 
             // ✅ Name + code + dept
             row.findViewById<TextView>(R.id.tvEmpName).text   = emp.empName
-            row.findViewById<TextView>(R.id.tvEmpCode).text   = emp.desgName
-            row.findViewById<TextView>(R.id.tvEmpDept).text   = emp.deptName
+            row.findViewById<TextView>(R.id.tvEmpCode).text   = emp.empCode
+            row.findViewById<TextView>(R.id.tvEmpDept).text   = emp.deptCode
 
             // ✅ Status label
             val tvStatus = row.findViewById<TextView>(R.id.tvStatus)

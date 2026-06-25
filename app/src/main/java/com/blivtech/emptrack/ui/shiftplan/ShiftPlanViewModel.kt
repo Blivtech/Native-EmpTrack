@@ -27,14 +27,14 @@ class ShiftPlanViewModel @Inject constructor(
     // ─────────────────────────────────────
     // LiveData
     // ─────────────────────────────────────
+
+    // ✅ ALL shift assignments for the selected week — across ALL shifts
     private val _weekPlan = MutableLiveData<List<ShiftPlanEntity>>()
     val weekPlan: LiveData<List<ShiftPlanEntity>> = _weekPlan
 
+    // ✅ ALL active employees for the company
     private val _employees = MutableLiveData<List<EmployeeEntity>>()
     val employees: LiveData<List<EmployeeEntity>> = _employees
-
-    private val _assignedEmpIds = MutableLiveData<List<String>>()
-    val assignedEmpIds: LiveData<List<String>> = _assignedEmpIds
 
     private val _saveState = MutableLiveData<Boolean>()
     val saveState: LiveData<Boolean> = _saveState
@@ -45,11 +45,11 @@ class ShiftPlanViewModel @Inject constructor(
     // ─────────────────────────────────────
     // ✅ Calendar for week navigation
     // ─────────────────────────────────────
-    private val dateFmt = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+    private val dateFmt    = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
     private val displayFmt = SimpleDateFormat("d MMM", Locale.getDefault())
 
     private var selectedCal: Calendar = Calendar.getInstance().apply {
-        set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)  // ✅ Start on Monday
+        set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
     }
 
     private var currentCompanyCode = ""
@@ -94,7 +94,6 @@ class ShiftPlanViewModel @Inject constructor(
         }
         val selected = selectedCal.clone() as Calendar
         selected.set(Calendar.DAY_OF_WEEK, Calendar.MONDAY)
-
         return dateFmt.format(current.time) == dateFmt.format(selected.time)
     }
 
@@ -136,6 +135,8 @@ class ShiftPlanViewModel @Inject constructor(
         }
     }
 
+    // ✅ Loads ALL shift assignments for the WHOLE company, for the selected week
+    // (not filtered by shiftCode — that's done in-memory by getX() helpers below)
     fun loadWeekPlan(companyCode: String) {
         currentCompanyCode = companyCode
         viewModelScope.launch {
@@ -147,23 +148,11 @@ class ShiftPlanViewModel @Inject constructor(
         }
     }
 
-    fun loadAssignedEmpIds(
-        companyCode: String,
-        shiftCode: String
-    ) {
-        viewModelScope.launch {
-            val ids = shiftPlanRepository.getAssignedEmpIds(
-                companyCode   = companyCode,
-                shiftCode     = shiftCode,
-                weekStartDate = getSelectedWeekStart()
-            )
-            _assignedEmpIds.value = ids
-        }
-    }
-
     // ─────────────────────────────────────
     // ✅ Save + Copy
     // ─────────────────────────────────────
+
+    // ✅ Saves the FULL assigned list for one shift (replace, not append)
     fun saveShiftPlan(
         btCode: String,
         companyCode: String,
@@ -179,6 +168,8 @@ class ShiftPlanViewModel @Inject constructor(
                 weekStartDate = getSelectedWeekStart(),
                 weekEndDate   = getSelectedWeekEnd()
             )
+            // ✅ Reload full week plan so other shift screens see the update immediately
+            loadWeekPlan(companyCode)
             _saveState.value = true
         }
     }
@@ -190,6 +181,7 @@ class ShiftPlanViewModel @Inject constructor(
                 newWeekStartDate = getSelectedWeekStart(),
                 newWeekEndDate   = getSelectedWeekEnd()
             )
+            loadWeekPlan(companyCode)
             _saveState.value = success
         }
     }
@@ -203,7 +195,7 @@ class ShiftPlanViewModel @Inject constructor(
     }
 
     // ─────────────────────────────────────
-    // ✅ Helper functions
+    // ✅ Shift Plan overview card helpers
     // ─────────────────────────────────────
     fun getShiftEmpCount(shiftCode: String): Int =
         _weekPlan.value?.count { it.shiftCode == shiftCode } ?: 0
@@ -226,10 +218,40 @@ class ShiftPlanViewModel @Inject constructor(
         return allEmps.count { it.empCode !in assignedIds }
     }
 
-    fun getUnassignedEmployees(): List<EmployeeEntity> {
-        val allEmps     = _employees.value ?: return emptyList()
-        val assignedIds = _weekPlan.value?.map { it.empCode }?.toSet() ?: emptySet()
-        return allEmps.filter { it.empCode !in assignedIds }
+    // ─────────────────────────────────────
+    // ✅ ★ CORE RULE — used by AssignShiftActivity ★
+    // One employee = one shift per week.
+    // ─────────────────────────────────────
+
+    /**
+     * Employees currently assigned to THIS shift.
+     */
+    fun getAssignedEmployees(shiftCode: String): List<EmployeeEntity> {
+        val allEmps = _employees.value ?: return emptyList()
+        val plan    = _weekPlan.value  ?: return emptyList()
+
+        val assignedCodes = plan
+            .filter { it.shiftCode == shiftCode }
+            .map { it.empCode }
+            .toSet()
+
+        return allEmps.filter { it.empCode in assignedCodes }
+    }
+
+    /**
+     * Employees that CAN be added to this shift —
+     * i.e. NOT assigned to this shift AND NOT assigned to ANY other shift this week.
+     */
+    fun getAvailableEmployees(shiftCode: String): List<EmployeeEntity> {
+        val allEmps = _employees.value ?: return emptyList()
+        val plan    = _weekPlan.value  ?: return emptyList()
+
+        // ✅ Every empCode that has ANY assignment this week (any shift)
+        val assignedAnywhere = plan
+            .map { it.empCode }
+            .toSet()
+
+        return allEmps.filter { it.empCode !in assignedAnywhere }
     }
 
     fun resetSaveState() {

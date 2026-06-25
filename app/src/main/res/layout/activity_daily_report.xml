@@ -25,13 +25,11 @@
 
             <ImageView
                 android:id="@+id/ivBack"
-                android:layout_width="27dp"
-                android:layout_height="27dp"
-                android:src="@drawable/ic_nav_home"
-                android:tint="#FFFFFF"
-                android:background="@drawable/bg_circle_white18"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_arrow_back"
                 android:layout_marginEnd="8dp"
-                android:padding="5dp"/>
+                android:padding="4dp"/>
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -43,7 +41,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Daily Report"
-                    android:textSize="13sp"
+                    android:textSize="@dimen/text_caption_th"
+                    android:fontFamily="@font/satoshi_medium"
                     android:textStyle="bold"
                     android:textColor="#FFFFFF"/>
 
@@ -51,7 +50,8 @@
                     android:id="@+id/tvCompanyName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="9sp"
+                    android:fontFamily="@font/satoshi_medium"
+                    android:textSize="@dimen/text_caption_md"
                     android:textColor="#99FFFFFF"
                     android:layout_marginTop="1dp"/>
             </LinearLayout>
@@ -62,6 +62,7 @@
                 android:layout_height="27dp"
                 android:src="@android:drawable/ic_menu_save"
                 android:tint="#FFFFFF"
+                android:visibility="gone"
                 android:background="@drawable/bg_circle_white15"
                 android:padding="5dp"
                 android:clickable="true"
@@ -92,6 +93,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:fontFamily="@font/satoshi_medium"
                 android:gravity="center"
                 android:textSize="@dimen/text_caption_md"
                 android:textStyle="bold"
@@ -229,18 +231,18 @@
             android:orientation="vertical"
             android:padding="11dp">
 
-            <!-- Section label -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="SHIFT ATTENDANCE"
-                android:textSize="@dimen/text_caption_md"
+                android:text="Shift Summary"
+                android:fontFamily="@font/satoshi_medium"
+                android:textSize="@dimen/text_caption_th"
                 android:textStyle="bold"
-                android:textColor="#BDBDBD"
+                android:textColor="@color/black_overlay_80"
                 android:letterSpacing="0.07"
                 android:layout_marginBottom="8dp"/>
 
-            <!-- Empty state -->
+
             <LinearLayout
                 android:id="@+id/layoutEmpty"
                 android:layout_width="match_parent"
@@ -265,7 +267,6 @@
                     android:layout_marginTop="6dp"/>
             </LinearLayout>
 
-            <!-- Shift cards (dynamic) -->
             <LinearLayout
                 android:id="@+id/layoutShiftCards"
                 android:layout_width="match_parent"

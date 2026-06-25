@@ -8,7 +8,6 @@
     android:background="@color/white"
     android:layout_marginBottom="8dp">
 
-    <!-- ✅ Shift header -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -36,6 +35,7 @@
                 android:id="@+id/tvShiftName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/satoshi_medium"
                 android:textSize="@dimen/text_caption_md"
                 android:textStyle="bold"
                 android:textColor="#212121"/>
@@ -44,6 +44,8 @@
                 android:id="@+id/tvShiftTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/satoshi_medium"
+
                 android:textSize="@dimen/text_caption_small"
                 android:textColor="#9E9E9E"
                 android:layout_marginTop="1dp"/>
@@ -53,15 +55,15 @@
             android:id="@+id/tvSubmitBadge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="8sp"
+            android:textSize="@dimen/text_caption_small"
             android:textStyle="bold"
+            android:fontFamily="@font/satoshi_medium"
             android:paddingStart="8dp"
             android:paddingEnd="8dp"
             android:paddingTop="3dp"
             android:paddingBottom="3dp"/>
     </LinearLayout>
 
-    <!-- ✅ Meta — date + submitted -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -84,6 +86,8 @@
                 android:layout_height="wrap_content"
                 android:text="Date"
                 android:textSize="@dimen/text_caption_small"
+                android:fontFamily="@font/satoshi_medium"
+
                 android:textStyle="bold"
                 android:textColor="#BDBDBD"
                 android:letterSpacing="0.05"/>
@@ -93,6 +97,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="@dimen/text_caption_small"
+                android:fontFamily="@font/satoshi_medium"
+
                 android:textStyle="bold"
                 android:textColor="#424242"/>
         </LinearLayout>
@@ -108,8 +114,11 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Submitted Date"
+
                 android:textSize="@dimen/text_caption_small"
                 android:textStyle="bold"
+                android:fontFamily="@font/satoshi_medium"
+
                 android:textColor="#BDBDBD"
                 android:letterSpacing="0.05"/>
 
@@ -151,6 +160,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="—"
+                android:fontFamily="@font/satoshi_medium"
+
                 android:textSize="18sp"
                 android:textStyle="bold"
                 android:textColor="#27500A"/>
@@ -160,6 +171,8 @@
                 android:layout_height="wrap_content"
                 android:text="Present"
                 android:textSize="@dimen/text_caption_md"
+                android:fontFamily="@font/satoshi_medium"
+
                 android:textStyle="bold"
                 android:textColor="#639922"
                 android:layout_marginTop="2dp"/>
@@ -201,6 +214,8 @@
                 android:layout_height="wrap_content"
                 android:text="Leave"
                 android:textSize="@dimen/text_caption_md"
+                android:fontFamily="@font/satoshi_medium"
+
                 android:textStyle="bold"
                 android:textColor="#E24B4A"
                 android:layout_marginTop="2dp"/>
@@ -242,6 +257,7 @@
                 android:layout_height="wrap_content"
                 android:text="H / WO"
                 android:textSize="@dimen/text_caption_md"
+                android:fontFamily="@font/satoshi_medium"
                 android:textStyle="bold"
                 android:textColor="#3C3489"
                 android:layout_marginTop="2dp"/>
@@ -280,6 +296,7 @@
                 android:text="Total"
                 android:textSize="@dimen/text_caption_md"
                 android:textStyle="bold"
+                android:fontFamily="@font/satoshi_medium"
                 android:textColor="#1565C0"
                 android:layout_marginTop="2dp"/>
 

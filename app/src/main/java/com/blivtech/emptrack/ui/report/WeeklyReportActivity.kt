@@ -10,6 +10,7 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.lifecycleScope
 import com.blivtech.emptrack.R
 import com.blivtech.emptrack.data.local.entity.ShiftEntity
@@ -104,9 +105,13 @@ class WeeklyReportActivity : AppCompatActivity() {
         if (currentTab == "OVERALL") {
             binding.tabOverall.alpha   = 1f
             binding.tabShiftWise.alpha = 0.5f
+            binding.tabShiftWise.setTextColor(ContextCompat.getColor(this, R.color.bg_ss))
+            binding.tabOverall.setTextColor(ContextCompat.getColor(this, R.color.white))
         } else {
             binding.tabOverall.alpha   = 0.5f
             binding.tabShiftWise.alpha = 1f
+            binding.tabShiftWise.setTextColor(ContextCompat.getColor(this, R.color.white))
+            binding.tabOverall.setTextColor(ContextCompat.getColor(this, R.color.bg_ss))
         }
     }
 
@@ -120,7 +125,7 @@ class WeeklyReportActivity : AppCompatActivity() {
         shiftList.forEachIndexed { index, shift ->
             val chip = TextView(this).apply {
                 text = "${viewModel.shiftEmoji(shift.shiftName)} ${shift.shiftName}"
-                textSize = 8f
+                textSize = 12f
                 setTextColor(Color.parseColor("#9E9E9E"))
                 setPadding(28, 14, 28, 14)
                 layoutParams = LinearLayout.LayoutParams(

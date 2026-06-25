@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+
     android:orientation="vertical"
     android:background="#FFFFFF">
 
@@ -14,7 +15,6 @@
         android:padding="12dp"
         android:background="?attr/selectableItemBackground">
 
-        <!-- ✅ Icon -->
         <LinearLayout
             android:id="@+id/layoutReportIcon"
             android:layout_width="42dp"
@@ -24,11 +24,10 @@
 
             <ImageView
                 android:id="@+id/ivReportIcon"
-                android:layout_width="22dp"
-                android:layout_height="22dp"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
         </LinearLayout>
 
-        <!-- ✅ Info -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -37,9 +36,10 @@
 
             <TextView
                 android:id="@+id/tvReportName"
+                android:textSize="@dimen/text_caption_md"
+                android:fontFamily="@font/satoshi_medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="11sp"
                 android:textStyle="bold"
                 android:textColor="#212121"/>
 
@@ -47,7 +47,8 @@
                 android:id="@+id/tvReportSubtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="9sp"
+                android:textSize="@dimen/text_caption_small"
+                android:fontFamily="@font/satoshi_medium"
                 android:textColor="#9E9E9E"
                 android:layout_marginTop="2dp"/>
 
@@ -59,6 +60,7 @@
                 android:textStyle="bold"
                 android:paddingStart="7dp"
                 android:paddingEnd="7dp"
+                android:visibility="gone"
                 android:paddingTop="2dp"
                 android:paddingBottom="2dp"
                 android:layout_marginTop="4dp"/>
@@ -69,7 +71,7 @@
             android:layout_width="16dp"
             android:layout_height="16dp"
             android:src="@android:drawable/arrow_down_float"
-            android:tint="#E0E0E0"
+            android:tint="@color/black_overlay_80"
             android:rotation="-90"/>
     </LinearLayout>
 

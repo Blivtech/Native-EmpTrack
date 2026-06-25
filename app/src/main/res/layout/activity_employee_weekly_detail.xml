@@ -25,11 +25,9 @@
 
             <ImageView
                 android:id="@+id/ivBack"
-                android:layout_width="27dp"
-                android:layout_height="27dp"
-                android:src="@drawable/ic_nav_home"
-                android:tint="#FFFFFF"
-                android:background="@drawable/bg_circle_white18"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_arrow_back"
                 android:padding="5dp"
                 android:layout_marginEnd="8dp"
                 android:clickable="true"
@@ -45,7 +43,8 @@
                     android:id="@+id/tvEmpTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="13sp"
+                    android:textSize="@dimen/text_caption_lg"
+                    android:fontFamily="@font/satoshi_medium"
                     android:textStyle="bold"
                     android:textColor="#FFFFFF"/>
 
@@ -53,8 +52,8 @@
                     android:id="@+id/tvEmpSubtitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="9sp"
-                    android:textColor="#99FFFFFF"
+                    android:textSize="@dimen/text_caption_small"
+                    android:fontFamily="@font/satoshi_medium"                    android:textColor="#99FFFFFF"
                     android:layout_marginTop="1dp"/>
             </LinearLayout>
         </LinearLayout>
@@ -66,6 +65,7 @@
             android:orientation="horizontal"
             android:paddingStart="13dp"
             android:paddingEnd="13dp"
+            android:visibility="gone"
             android:paddingBottom="11dp"
             android:gravity="center_vertical">
 
@@ -259,15 +259,18 @@
                         android:id="@+id/tvEmpName2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="11sp"
+                        android:textSize="@dimen/text_caption_md"
                         android:textStyle="bold"
+                        android:fontFamily="@font/satoshi_medium"
                         android:textColor="#212121"/>
 
                     <TextView
                         android:id="@+id/tvEmpCode2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="8sp"
+                        android:textSize="@dimen/text_caption_small"
+                        android:fontFamily="@font/satoshi_medium"
+
                         android:textColor="#9E9E9E"
                         android:layout_marginTop="2dp"/>
 
@@ -275,8 +278,8 @@
                         android:id="@+id/tvShiftTag"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="7sp"
-                        android:textStyle="bold"
+                        android:textSize="@dimen/text_caption_small"
+                        android:fontFamily="@font/satoshi_medium"                        android:textStyle="bold"
                         android:textColor="#0C447C"
                         android:background="@drawable/bg_badge_blue"
                         android:paddingStart="7dp"
@@ -301,14 +304,16 @@
                         android:id="@+id/tvAttendancePercent"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="18sp"
+                        android:textSize="@dimen/text_caption_th"
+                        android:fontFamily="@font/satoshi_medium"
                         android:textStyle="bold"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Attendance"
-                        android:textSize="7sp"
+                        android:textSize="@dimen/text_caption_small"
+                        android:fontFamily="@font/satoshi_medium"
                         android:textColor="#9E9E9E"
                         android:layout_marginTop="1dp"/>
                 </LinearLayout>
@@ -372,8 +377,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="P"
-                    android:textSize="8sp"
-                    android:textStyle="bold"
+                    android:textSize="@dimen/text_caption_vs"
+                    android:fontFamily="@font/satoshi_medium"                    android:textStyle="bold"
                     android:textColor="#27500A"
                     android:background="@drawable/bg_card_working"
                     android:paddingStart="7dp"
@@ -386,36 +391,25 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="L"
-                    android:textSize="8sp"
                     android:textStyle="bold"
                     android:textColor="#633806"
                     android:background="@drawable/bg_badge_amber"
                     android:paddingStart="7dp"
                     android:paddingEnd="7dp"
                     android:paddingTop="3dp"
+                    android:textSize="@dimen/text_caption_vs"
+                    android:fontFamily="@font/satoshi_medium"
                     android:paddingBottom="3dp"
                     android:layout_marginEnd="4dp"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="A"
-                    android:textSize="8sp"
-                    android:textStyle="bold"
-                    android:textColor="#C62828"
-                    android:background="@drawable/bg_badge_red"
-                    android:paddingStart="7dp"
-                    android:paddingEnd="7dp"
-                    android:paddingTop="3dp"
-                    android:paddingBottom="3dp"
-                    android:layout_marginEnd="4dp"/>
+
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="H"
-                    android:textSize="8sp"
-                    android:textStyle="bold"
+                    android:textSize="@dimen/text_caption_vs"
+                    android:fontFamily="@font/satoshi_medium"                    android:textStyle="bold"
                     android:textColor="#3C3489"
                     android:background="@drawable/bg_badge_purple"
                     android:paddingStart="7dp"
@@ -428,8 +422,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="W"
-                    android:textSize="8sp"
-                    android:textStyle="bold"
+                    android:textSize="@dimen/text_caption_vs"
+                    android:fontFamily="@font/satoshi_medium"                    android:textStyle="bold"
                     android:textColor="#9E9E9E"
                     android:background="@drawable/bg_badge_grey"
                     android:paddingStart="7dp"
@@ -443,8 +437,9 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Present · Late · Absent · Holiday · WeekOff"
-                    android:textSize="7sp"
+                    android:textSize="@dimen/text_caption_vs"
+                    android:fontFamily="@font/satoshi_medium"
+                    android:text="Present ·Leave · Holiday · WeekOff"
                     android:textColor="#BDBDBD"
                     android:gravity="end"/>
 
@@ -514,7 +509,8 @@
                     android:id="@+id/tvProgPresentLabel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="8sp"
+                    android:textSize="@dimen/text_caption_vs"
+                    android:fontFamily="@font/satoshi_medium"
                     android:textStyle="bold"
                     android:textColor="#27500A"
                     android:layout_marginBottom="4dp"/>
@@ -533,8 +529,8 @@
                     android:id="@+id/tvProgLateLabel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="8sp"
-                    android:textStyle="bold"
+                    android:textSize="@dimen/text_caption_vs"
+                    android:fontFamily="@font/satoshi_medium"                    android:textStyle="bold"
                     android:textColor="#633806"
                     android:layout_marginBottom="4dp"
                     android:visibility="gone"/>
@@ -554,7 +550,8 @@
                     android:id="@+id/tvProgAbsentLabel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="8sp"
+                    android:textSize="@dimen/text_caption_vs"
+                    android:fontFamily="@font/satoshi_medium"
                     android:textStyle="bold"
                     android:textColor="#E24B4A"
                     android:layout_marginBottom="4dp"/>
@@ -573,8 +570,8 @@
                     android:id="@+id/tvProgHolidayLabel"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="8sp"
-                    android:textStyle="bold"
+                    android:textSize="@dimen/text_caption_vs"
+                    android:fontFamily="@font/satoshi_medium"                    android:textStyle="bold"
                     android:textColor="#3C3489"
                     android:layout_marginBottom="4dp"
                     android:visibility="gone"/>
@@ -612,69 +609,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="No absences this week 🎉"
-                    android:textSize="9sp"
-                    android:textStyle="bold"
+                    android:textSize="@dimen/text_caption_vs"
+                    android:fontFamily="@font/satoshi_medium"                    android:textStyle="bold"
                     android:textColor="#27500A"/>
             </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
 
-    <!-- Download bar -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="#FFFFFF"
-        android:padding="9dp"
-        android:elevation="6dp">
 
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="44dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:background="@drawable/bg_badge_red_light"
-            android:layout_marginEnd="6dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="PDF"
-                android:textSize="10sp"
-                android:textStyle="bold"
-                android:textColor="#C62828"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="44dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:background="@drawable/bg_badge_green_light"
-            android:layout_marginEnd="6dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Excel"
-                android:textSize="10sp"
-                android:textStyle="bold"
-                android:textColor="#1B5E20"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="44dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:background="@drawable/bg_badge_blue">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Share"
-                android:textSize="10sp"
-                android:textStyle="bold"
-                android:textColor="#0C447C"/>
-        </LinearLayout>
-    </LinearLayout>
 
 </LinearLayout>

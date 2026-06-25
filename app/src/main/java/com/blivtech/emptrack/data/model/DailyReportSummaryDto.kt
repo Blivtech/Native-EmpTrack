@@ -22,6 +22,8 @@ data class ShiftSummaryDto(
     val submittedAt: String?,
     val presentCount: Int,
     val leaveCount: Int,
+    val holidayCount: Int,
+    val weekOffCount: Int,
     val totalCount: Int
 )
 

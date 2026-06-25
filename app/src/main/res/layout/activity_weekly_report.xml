@@ -24,14 +24,13 @@
 
             <ImageView
                 android:id="@+id/ivBack"
-                android:layout_width="27dp"
-                android:layout_height="27dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:layout_marginEnd="8dp"
-                android:background="@drawable/bg_circle_white18"
                 android:clickable="true"
                 android:focusable="true"
                 android:padding="5dp"
-                android:src="@drawable/ic_nav_home"
+                android:src="@drawable/ic_arrow_back"
                 android:tint="#FFFFFF" />
 
             <LinearLayout
@@ -44,8 +43,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Weekly Report"
+                    android:fontFamily="@font/satoshi_medium"
+
                     android:textColor="#FFFFFF"
-                    android:textSize="13sp"
+                    android:textSize="@dimen/text_caption_th"
                     android:textStyle="bold" />
 
                 <TextView
@@ -53,8 +54,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"
+                    android:textSize="@dimen/text_caption_small"
+                    android:fontFamily="@font/satoshi_medium"
                     android:textColor="#99FFFFFF"
-                    android:textSize="9sp" />
+                     />
             </LinearLayout>
 
             <ImageView
@@ -97,7 +100,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="#FFFFFF"
-                    android:textSize="11sp"
+                    android:textSize="@dimen/text_caption_md"
+                    android:fontFamily="@font/satoshi_medium"
                     android:textStyle="bold" />
 
                 <TextView
@@ -105,8 +109,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="1dp"
+                    android:textSize="@dimen/text_caption_small"
+                    android:fontFamily="@font/satoshi_medium"
                     android:textColor="#88FFFFFF"
-                    android:textSize="8sp" />
+                     />
             </LinearLayout>
 
             <ImageView
@@ -142,7 +148,8 @@
                     android:layout_height="wrap_content"
                     android:text="—"
                     android:textColor="#69F0AE"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/text_caption_md"
+                    android:fontFamily="@font/satoshi_medium"
                     android:textStyle="bold" />
 
                 <TextView
@@ -150,9 +157,11 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:letterSpacing="0.05"
-                    android:text="PRESENT"
+                    android:text="Present"
+                    android:textSize="@dimen/text_caption_md"
+                    android:fontFamily="@font/satoshi_medium"
                     android:textColor="#88FFFFFF"
-                    android:textSize="6sp" />
+                     />
             </LinearLayout>
 
             <View
@@ -182,9 +191,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:letterSpacing="0.05"
-                    android:text="ABSENT"
+                    android:text="Leave"
                     android:textColor="#88FFFFFF"
-                    android:textSize="6sp" />
+                    android:textSize="@dimen/text_caption_md"
+                    android:fontFamily="@font/satoshi_medium" />
             </LinearLayout>
 
             <View
@@ -206,7 +216,8 @@
                     android:layout_height="wrap_content"
                     android:text="—"
                     android:textColor="#CE93D8"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/text_caption_small"
+                    android:fontFamily="@font/satoshi_medium"
                     android:textStyle="bold" />
 
                 <TextView
@@ -214,9 +225,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:letterSpacing="0.05"
-                    android:text="HOLIDAY"
+                    android:text="Holiday"
                     android:textColor="#88FFFFFF"
-                    android:textSize="6sp" />
+                    android:textSize="@dimen/text_caption_small"
+                    android:fontFamily="@font/satoshi_medium"  />
             </LinearLayout>
 
             <View
@@ -238,7 +250,8 @@
                     android:layout_height="wrap_content"
                     android:text="—"
                     android:textColor="#B0BEC5"
-                    android:textSize="14sp"
+                    android:textSize="@dimen/text_caption_small"
+                    android:fontFamily="@font/satoshi_medium"
                     android:textStyle="bold" />
 
                 <TextView
@@ -246,9 +259,10 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="2dp"
                     android:letterSpacing="0.05"
-                    android:text="WEEK OFF"
+                    android:text="Week Off"
                     android:textColor="#88FFFFFF"
-                    android:textSize="6sp" />
+                    android:textSize="@dimen/text_caption_small"
+                    android:fontFamily="@font/satoshi_medium"  />
             </LinearLayout>
         </LinearLayout>
 
@@ -270,7 +284,8 @@
                 android:padding="9dp"
                 android:text="Overall"
                 android:textColor="#FFFFFF"
-                android:textSize="9sp"
+                android:textSize="@dimen/text_caption_md"
+                android:fontFamily="@font/satoshi_medium"
                 android:textStyle="bold" />
 
             <TextView
@@ -284,7 +299,8 @@
                 android:padding="9dp"
                 android:text="Shift Wise"
                 android:textColor="#88FFFFFF"
-                android:textSize="9sp"
+                android:textSize="@dimen/text_caption_md"
+                android:fontFamily="@font/satoshi_medium"
                 android:textStyle="bold" />
         </LinearLayout>
     </LinearLayout>
@@ -324,7 +340,7 @@
                 android:id="@+id/shimmerLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:shimmer_base_color="#F0F0F0"
                 app:shimmer_duration="1000"
                 app:shimmer_highlight_color="#FFFFFF">
@@ -348,6 +364,7 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:padding="9dp"
+                    android:visibility="gone"
                     android:paddingBottom="6dp">
 
                     <TextView
@@ -361,7 +378,8 @@
                         android:paddingBottom="2dp"
                         android:text="P Present"
                         android:textColor="#27500A"
-                        android:textSize="7sp"
+                        android:textSize="@dimen/text_caption_small"
+                        android:fontFamily="@font/satoshi_medium"
                         android:textStyle="bold" />
 
                     <TextView
@@ -373,10 +391,10 @@
                         android:paddingTop="2dp"
                         android:paddingEnd="6dp"
                         android:paddingBottom="2dp"
-                        android:text="A Absent"
+                        android:text="L Leave"
                         android:textColor="#C62828"
-                        android:textSize="7sp"
-                        android:textStyle="bold" />
+                        android:textSize="@dimen/text_caption_small"
+                        android:fontFamily="@font/satoshi_medium"                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -389,7 +407,8 @@
                         android:paddingBottom="2dp"
                         android:text="H Holiday"
                         android:textColor="#3C3489"
-                        android:textSize="7sp"
+                          android:textSize="@dimen/text_caption_small"
+                        android:fontFamily="@font/satoshi_medium"
                         android:textStyle="bold" />
 
                     <TextView
@@ -402,7 +421,8 @@
                         android:paddingBottom="2dp"
                         android:text="W Week Off"
                         android:textColor="#9E9E9E"
-                        android:textSize="7sp"
+                          android:textSize="@dimen/text_caption_small"
+                        android:fontFamily="@font/satoshi_medium"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -422,7 +442,8 @@
                         android:letterSpacing="0.05"
                         android:text="EMPLOYEE"
                         android:textColor="#BDBDBD"
-                        android:textSize="7sp"
+                          android:textSize="@dimen/text_caption_small"
+                        android:fontFamily="@font/satoshi_medium"
                         android:textStyle="bold" />
 
                     <TextView
@@ -432,7 +453,8 @@
                         android:gravity="center"
                         android:text="P"
                         android:textColor="#27500A"
-                        android:textSize="7sp"
+                          android:textSize="@dimen/text_caption_small"
+                        android:fontFamily="@font/satoshi_medium"
                         android:textStyle="bold" />
 
                     <TextView
@@ -440,9 +462,10 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center"
-                        android:text="A"
+                        android:text="L"
                         android:textColor="#E24B4A"
-                        android:textSize="7sp"
+                          android:textSize="@dimen/text_caption_small"
+                        android:fontFamily="@font/satoshi_medium"
                         android:textStyle="bold" />
 
                     <TextView
@@ -452,7 +475,8 @@
                         android:gravity="center"
                         android:text="H"
                         android:textColor="#3C3489"
-                        android:textSize="7sp"
+                          android:textSize="@dimen/text_caption_small"
+                        android:fontFamily="@font/satoshi_medium"
                         android:textStyle="bold" />
 
                     <TextView
@@ -462,7 +486,8 @@
                         android:gravity="center"
                         android:text="WO"
                         android:textColor="#9E9E9E"
-                        android:textSize="7sp"
+                          android:textSize="@dimen/text_caption_small"
+                        android:fontFamily="@font/satoshi_medium"
                         android:textStyle="bold" />
 
                     <TextView
@@ -472,7 +497,8 @@
                         android:gravity="center"
                         android:text="Total"
                         android:textColor="#1565C0"
-                        android:textSize="7sp"
+                          android:textSize="@dimen/text_caption_small"
+                        android:fontFamily="@font/satoshi_medium"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -545,6 +571,7 @@
         android:background="#FFFFFF"
         android:elevation="6dp"
         android:orientation="horizontal"
+        android:visibility="gone"
         android:padding="9dp">
 
         <LinearLayout

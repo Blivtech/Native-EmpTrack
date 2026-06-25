@@ -50,6 +50,8 @@ dependencies {
 
     // ✅ Hilt — using KSP now
     implementation(libs.hilt.android)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
     androidTestImplementation(libs.junit)
     ksp(libs.hilt.compiler)             // ✅ ksp() instead of kapt()
 
@@ -82,6 +84,10 @@ dependencies {
 
     testImplementation("junit:junit:4.13.2")
     implementation ("com.facebook.shimmer:shimmer:0.5.0")
+
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
+
 
 
 }

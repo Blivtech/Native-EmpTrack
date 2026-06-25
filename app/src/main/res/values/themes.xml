@@ -12,4 +12,9 @@
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowBackground">@color/primary</item>
     </style>
+    <style name="Theme.EmpTrack" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowFullscreen">false</item>
+        <item name="android:statusBarColor">#1565C0</item>
+        <item name="android:windowLightStatusBar">false</item>
+    </style>
 </resources>

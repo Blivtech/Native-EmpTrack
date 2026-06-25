@@ -55,6 +55,8 @@ class ReportRepository @Inject constructor(
                         submittedAt    = dto.submittedAt,
                         presentCount   = dto.presentCount,
                         leaveCount     = dto.leaveCount,
+                        weekOffCount     = dto.weekOffCount,
+                        holidayCount     = dto.holidayCount,
                         totalCount     = dto.totalCount
                     )
                 } ?: emptyList()

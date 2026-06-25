@@ -1,5 +1,6 @@
 package com.blivtech.emptrack.ui.attendance
 
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -13,12 +14,11 @@ import com.blivtech.emptrack.databinding.ActivityAttendanceHomeBinding
 import com.blivtech.emptrack.utils.PreferenceManager
 import com.blivtech.emptrack.utils.Resource
 import com.blivtech.emptrack.utils.ShimmerHelper
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
+import java.util.Calendar
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -34,19 +34,12 @@ class AttendanceHomeActivity : AppCompatActivity() {
     private lateinit var shiftCardAdapter: ShiftCardAdapter
 
     // ✅ State
-    private var shifts         = listOf<ShiftEntity>()
+    private var shifts          = listOf<ShiftEntity>()
     private var todayStatusList = listOf<ShiftStatusResponse>()
 
     private var btCode      = ""
     private var companyCode = ""
     private var companyName = ""
-
-    private val displayFmt = SimpleDateFormat(
-        "EEE, d MMM yyyy", Locale.getDefault()
-    )
-    private val dateFmt = SimpleDateFormat(
-        "yyyy-MM-dd", Locale.getDefault()
-    )
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -72,12 +65,47 @@ class AttendanceHomeActivity : AppCompatActivity() {
     // ─────────────────────────────────
     private fun setupUI() {
         binding.tvCompanyName.text = companyName
-        binding.tvDate.text        = displayFmt.format(Date())
+        binding.tvDate.text        = viewModel.selectedDateLabel.value
 
         binding.ivBack.setOnClickListener { finish() }
+
+        // ✅ Calendar tap → open date picker
         binding.ivCalendar.setOnClickListener {
-            // TODO: calendar
+            showDatePicker()
         }
+    }
+
+    // ─────────────────────────────────
+    // ✅ Date picker — past dates allowed, future dates blocked
+    // ─────────────────────────────────
+    private fun showDatePicker() {
+        val cal = viewModel.getSelectedCalendar()
+
+        val dialog = DatePickerDialog(
+            this,
+            { _, year, month, day ->
+                viewModel.setSelectedDate(year, month, day)
+                onDateChanged()
+            },
+            cal.get(Calendar.YEAR),
+            cal.get(Calendar.MONTH),
+            cal.get(Calendar.DAY_OF_MONTH)
+        )
+
+        // ✅ Block future dates — greyed out / unselectable in the picker UI itself
+        dialog.datePicker.maxDate = System.currentTimeMillis()
+
+        dialog.show()
+    }
+
+    // ─────────────────────────────────
+    // ✅ Called whenever the selected date changes
+    // ─────────────────────────────────
+    private fun onDateChanged() {
+        binding.tvDate.text = viewModel.selectedDateLabel.value
+
+        // ✅ Re-fetch attendance status for the newly selected date
+        viewModel.loadTodayStatus(btCode, companyCode)
     }
 
     // ─────────────────────────────────
@@ -88,11 +116,27 @@ class AttendanceHomeActivity : AppCompatActivity() {
 
             // ✅ Mark now clicked
             onMarkClick = { item ->
+                if (!viewModel.isToday()) {
+                    Snackbar.make(
+                        binding.root,
+                        "Attendance can only be marked for today",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                    return@ShiftCardAdapter
+                }
                 openMarkAttendance(item.shift)
             },
 
             // ✅ Edit clicked
             onEditClick = { item ->
+                if (!viewModel.isToday()) {
+                    Snackbar.make(
+                        binding.root,
+                        "Attendance can only be edited for today",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                    return@ShiftCardAdapter
+                }
                 openMarkAttendance(
                     shift        = item.shift,
                     attendanceId = item.status?.attendanceId,
@@ -111,7 +155,9 @@ class AttendanceHomeActivity : AppCompatActivity() {
         }
     }
 
-
+    // ─────────────────────────────────
+    // ✅ Observe data
+    // ─────────────────────────────────
     private fun observeData() {
 
         // ✅ Employee count
@@ -125,7 +171,7 @@ class AttendanceHomeActivity : AppCompatActivity() {
             submitShiftCards()
         }
 
-        // ✅ Today's attendance status from API
+        // ✅ Today's (or selected date's) attendance status from API
         viewModel.todayStatus.observe(this) { resource ->
             when (resource) {
                 is Resource.Loading -> {
@@ -133,12 +179,11 @@ class AttendanceHomeActivity : AppCompatActivity() {
                         binding.shimmerLayout,
                         binding.layoutMain
                     )
-
                 }
                 is Resource.Success -> {
                     ShimmerHelper.hide(
                         binding.shimmerLayout,
-                        binding.layoutMain     // show RecyclerView
+                        binding.layoutMain
                     )
                     todayStatusList = resource.data
                     submitShiftCards()
@@ -147,7 +192,7 @@ class AttendanceHomeActivity : AppCompatActivity() {
                 is Resource.Error -> {
                     ShimmerHelper.hide(
                         binding.shimmerLayout,
-                        binding.layoutMain     // show RecyclerView
+                        binding.layoutMain
                     )
                     todayStatusList = emptyList()
                     submitShiftCards()
@@ -156,6 +201,9 @@ class AttendanceHomeActivity : AppCompatActivity() {
         }
     }
 
+    // ─────────────────────────────────
+    // ✅ Build shift cards
+    // ─────────────────────────────────
     private fun submitShiftCards() {
         if (shifts.isEmpty()) {
             binding.layoutEmpty.visibility  = View.VISIBLE
@@ -181,7 +229,9 @@ class AttendanceHomeActivity : AppCompatActivity() {
         shiftCardAdapter.submitList(items)
     }
 
-
+    // ─────────────────────────────────
+    // ✅ Update stats bar
+    // ─────────────────────────────────
     private fun updateStatsBar() {
         var totalPresent  = 0.0
         var totalAbsent   = 0
@@ -199,17 +249,18 @@ class AttendanceHomeActivity : AppCompatActivity() {
         binding.tvAbsent.text   = totalAbsent.toString()
         binding.tvOffLeave.text = totalOffLeave.toString()
         binding.tvTotalEmp.text =
-            (totalOffLeave.toInt() + totalPresent.toInt() + totalAbsent).toString() }
+            (totalOffLeave + totalPresent.toInt() + totalAbsent).toString()
+    }
 
     // ─────────────────────────────────
-    // ✅ Open mark attendance
+    // ✅ Open mark attendance — uses the SELECTED date, not always today
     // ─────────────────────────────────
     private fun openMarkAttendance(
         shift: ShiftEntity,
         attendanceId: String? = null,
         mode: String = "NEW"
     ) {
-        val today = dateFmt.format(Date())
+        val date = viewModel.getTodayDate()   // ✅ now returns selected date
         startActivity(
             Intent(this, MarkAttendanceActivity::class.java).apply {
                 putExtra("btCode",         btCode)
@@ -219,7 +270,7 @@ class AttendanceHomeActivity : AppCompatActivity() {
                 putExtra("shiftName",      shift.shiftName)
                 putExtra("shiftStartTime", shift.startTime)
                 putExtra("shiftEndTime",   shift.endTime)
-                putExtra("date",           today)
+                putExtra("date",           date)
                 putExtra("mode",           mode)
                 attendanceId?.let { putExtra("attendanceId", it) }
             }
@@ -228,6 +279,7 @@ class AttendanceHomeActivity : AppCompatActivity() {
 
     // ─────────────────────────────────
     // ✅ Refresh after returning from MarkAttendance
+    // — only matters when viewing today (edits happen on today only)
     // ─────────────────────────────────
     override fun onResume() {
         super.onResume()

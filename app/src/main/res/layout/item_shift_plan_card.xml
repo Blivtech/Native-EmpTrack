@@ -26,8 +26,8 @@
             <!-- Shift icon -->
             <LinearLayout
                 android:id="@+id/layoutShiftIcon"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
                 android:gravity="center"
                 android:background="@drawable/bg_shift_morning"
                 android:layout_marginEnd="10dp">
@@ -55,24 +55,25 @@
                         android:id="@+id/tvShiftIndex"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="10sp"
+                        android:textSize="@dimen/text_caption_md"
+                        android:fontFamily="@font/satoshi_medium"
                         android:textColor="#757575"
                         android:layout_marginEnd="4dp"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="·"
-                        android:textSize="10sp"
-                        android:textColor="#757575"
+                        android:text=":"
+                        android:textSize="@dimen/text_caption_md"
+                        android:fontFamily="@font/satoshi_medium"                        android:textColor="#757575"
                         android:layout_marginEnd="4dp"/>
 
                     <TextView
                         android:id="@+id/tvShiftName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="12sp"
-                        android:textStyle="bold"
+                        android:textSize="@dimen/text_caption_md"
+                        android:fontFamily="@font/satoshi_medium"                        android:textStyle="bold"
                         android:textColor="#212121"/>
                 </LinearLayout>
 
@@ -80,8 +81,8 @@
                     android:id="@+id/tvShiftTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="10sp"
-                    android:textColor="#757575"
+                    android:textSize="@dimen/text_caption_small"
+                    android:fontFamily="@font/satoshi_medium"                    android:textColor="#757575"
                     android:layout_marginTop="1dp"/>
             </LinearLayout>
 
@@ -89,56 +90,32 @@
                 android:id="@+id/tvShiftEmpCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="12sp"
+                android:textSize="@dimen/text_caption_small"
+                android:fontFamily="@font/satoshi_medium"
                 android:textStyle="bold"
                 android:textColor="#27500A"/>
         </LinearLayout>
 
-        <!-- Employee names -->
         <TextView
             android:id="@+id/tvShiftEmployees"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="11sp"
+            android:textSize="@dimen/text_caption_small"
+            android:fontFamily="@font/satoshi_medium"
             android:textColor="#757575"
+            android:textStyle="bold"
             android:layout_marginBottom="8dp"/>
 
-        <!-- No employees alert -->
-        <LinearLayout
-            android:id="@+id/layoutAlert"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:background="@drawable/bg_badge_red_light"
-            android:padding="7dp"
-            android:layout_marginBottom="8dp"
-            android:visibility="gone">
-
-            <ImageView
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:src="@android:drawable/ic_dialog_alert"
-                android:tint="#791F1F"
-                android:layout_marginEnd="6dp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="No employees assigned for this week"
-                android:textSize="10sp"
-                android:textColor="#791F1F"/>
-        </LinearLayout>
-
-        <!-- Assign button -->
         <Button
             android:id="@+id/btnAssign"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="end"
             android:text="Assign now"
-            android:textSize="11sp"
+            android:textSize="@dimen/text_caption_md"
+            android:fontFamily="@font/satoshi_medium"
             android:textAllCaps="false"
+            android:textStyle="bold"
             android:paddingStart="14dp"
             android:paddingEnd="14dp"
             android:backgroundTint="#1565C0"/>

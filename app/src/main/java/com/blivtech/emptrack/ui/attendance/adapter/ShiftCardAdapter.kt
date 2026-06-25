@@ -30,25 +30,18 @@ class ShiftCardAdapter(
             // ✅ Shift icon color — by index
             when (item.index % 3) {
                 0 -> {
-                    binding.cardShift.setBackgroundResource(
-                        R.drawable.bg_shift_morning
-                    )
                     binding.ivShiftIcon.setColorFilter(
                         Color.parseColor("#27500A")
                     )
                 }
                 1 -> {
-                    binding.layoutShiftIcon.setBackgroundResource(
-                        R.drawable.bg_shift_evening
-                    )
+
                     binding.ivShiftIcon.setColorFilter(
                         Color.parseColor("#0C447C")
                     )
                 }
                 2 -> {
-                    binding.layoutShiftIcon.setBackgroundResource(
-                        R.drawable.bg_shift_night
-                    )
+
                     binding.ivShiftIcon.setColorFilter(
                         Color.parseColor("#534AB7")
                     )
@@ -85,7 +78,7 @@ class ShiftCardAdapter(
 
             // ── Badge ──
             binding.tvShiftBadge.text = "Marked ✓"
-            binding.tvShiftBadge.setBackgroundResource(R.drawable.bg_badge_green)
+            binding.tvShiftBadge.setBackgroundResource(R.drawable.bg_badge_green_light)
             binding.tvShiftBadge.setTextColor(Color.parseColor("#27500A"))
 
             // ── Count text ──
@@ -116,7 +109,7 @@ class ShiftCardAdapter(
 
             // ── Badge ──
             binding.tvShiftBadge.text = "Not marked"
-            binding.tvShiftBadge.setBackgroundResource(R.drawable.bg_badge_blue)
+            binding.tvShiftBadge.setBackgroundResource(R.drawable.bg_badge_blue_light)
             binding.tvShiftBadge.setTextColor(Color.parseColor("#0C447C"))
 
             // ── Count text ──

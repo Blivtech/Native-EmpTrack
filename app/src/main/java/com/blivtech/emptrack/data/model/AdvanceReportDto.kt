@@ -32,10 +32,10 @@ data class AdvanceEmployeeDetailDto(
     val month: String,
     val totalAmount: Double,
     val entryCount: Int,
-    val entries: List<AdvanceEntryDto>
+    val entries: List<AdvanceReportEntryDto>
 )
 
-data class AdvanceEntryDto(
+data class AdvanceReportEntryDto(
     val id: Long,
     val date: String,
     val amount: Double,

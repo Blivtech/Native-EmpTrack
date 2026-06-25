@@ -36,7 +36,6 @@ class ShiftPlanAdapter(
         val tvShiftEmpCount: TextView = view.findViewById(R.id.tvShiftEmpCount)
         val tvShiftEmployees: TextView = view.findViewById(R.id.tvShiftEmployees)
         val btnAssign: Button         = view.findViewById(R.id.btnAssign)
-        val layoutAlert: LinearLayout = view.findViewById(R.id.layoutAlert)
         val layoutShiftIcon: LinearLayout = view.findViewById(R.id.layoutShiftIcon)
         val tvShiftIndex: TextView    = view.findViewById(R.id.tvShiftIndex)
     }
@@ -115,8 +114,6 @@ class ShiftPlanAdapter(
 
         holder.btnAssign.text = if (empCount > 0) "Edit Plan" else "Assign Now"
 
-        holder.layoutAlert.visibility =
-            if (empCount == 0) View.VISIBLE else View.GONE
 
         holder.btnAssign.setOnClickListener { onAssignClick(shift) }
     }

@@ -30,7 +30,7 @@
                 android:id="@+id/ivBack"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@drawable/ic_nav_home"
+                android:src="@drawable/ic_back"
                 android:tint="#FFFFFF"
                 android:padding="4dp"
                 android:layout_marginEnd="10dp"/>
@@ -40,8 +40,9 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Shift Plan"
-                android:textSize="18sp"
+                android:textSize="@dimen/text_caption_th"
                 android:textStyle="bold"
+                android:fontFamily="@font/satoshi_medium"
                 android:textColor="#FFFFFF"/>
 
             <ImageView
@@ -77,7 +78,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="5dp"
-                android:textSize="13sp"
+                android:textSize="@dimen/text_caption_md"
+                android:fontFamily="@font/satoshi_medium"
                 android:layout_gravity="center"
                 android:textStyle="bold"
                 android:textColor="#FFFFFF"/>
@@ -254,7 +256,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Shift assignments"
-                    android:textSize="13sp"
+                    android:textSize="@dimen/text_caption_md"
+                    android:fontFamily="@font/satoshi_medium"
+
                     android:textStyle="bold"
                     android:textColor="#212121"/>
 
@@ -279,7 +283,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:background="@drawable/bg_badge_amber"
+                android:background="@drawable/bg_badge_red_light"
                 android:padding="10dp"
                 android:layout_marginTop="4dp"
                 android:visibility="gone">
@@ -296,8 +300,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="11sp"
-                    android:textColor="#633806"/>
+                    android:textSize="@dimen/text_caption_small"
+                    android:fontFamily="@font/satoshi_medium"                     android:textColor="#633806"/>
             </LinearLayout>
 
             <!-- Empty state — no shifts -->
@@ -321,16 +325,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="No shifts found"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
+                    android:textSize="@dimen/text_caption_md"
+                    android:fontFamily="@font/satoshi_medium"                     android:textStyle="bold"
                     android:textColor="#9E9E9E"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Add shifts to this company first"
-                    android:textSize="11sp"
-                    android:textColor="#BDBDBD"
+                    android:textSize="@dimen/text_caption_small"
+                    android:fontFamily="@font/satoshi_medium"                     android:textColor="#BDBDBD"
                     android:layout_marginTop="4dp"/>
             </LinearLayout>
 

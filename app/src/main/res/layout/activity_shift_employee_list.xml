@@ -25,11 +25,10 @@
 
             <ImageView
                 android:id="@+id/ivBack"
-                android:layout_width="27dp"
-                android:layout_height="27dp"
-                android:src="@drawable/ic_nav_home"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_arrow_back"
                 android:tint="#FFFFFF"
-                android:background="@drawable/bg_circle_white18"
                 android:layout_marginEnd="8dp"
                 android:padding="5dp"/>
 
@@ -43,17 +42,11 @@
                     android:id="@+id/tvShiftTitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_caption_th"
+                    android:fontFamily="@font/satoshi_medium"
+                    android:textSize="@dimen/text_caption_lg"
                     android:textStyle="bold"
                     android:textColor="#FFFFFF"/>
 
-                <TextView
-                    android:id="@+id/tvShiftSubtitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_caption_small"
-                    android:textColor="#99FFFFFF"
-                    android:layout_marginTop="1dp"/>
             </LinearLayout>
 
             <ImageView
@@ -90,9 +83,10 @@
                 android:paddingEnd="10dp">
 
                 <TextView
-                    android:id="@+id/tvTypeLabel"
+                    android:id="@+id/tvShiftSubtitle"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/satoshi_medium"
                     android:textSize="@dimen/text_caption_md"
                     android:textStyle="bold"
                     android:textColor="#FFFFFF"
@@ -104,6 +98,7 @@
                     android:layout_height="wrap_content"
                     android:textSize="@dimen/text_caption_md"
                     android:textStyle="bold"
+                    android:visibility="gone"
                     android:textColor="#FFFFFF"
                     android:background="@drawable/bg_circle_white18"
                     android:paddingStart="8dp"
@@ -116,7 +111,8 @@
                 android:id="@+id/tvShiftTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="9sp"
+                android:fontFamily="@font/satoshi_medium"
+                android:textSize="@dimen/text_caption_md"
                 android:textColor="#88FFFFFF"
                 android:background="@drawable/bg_circle_white15"
                 android:padding="6dp"
@@ -150,9 +146,10 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/satoshi_medium"
+            android:textSize="@dimen/text_caption_md"
             android:background="@null"
             android:hint="Search employee name or code..."
-            android:textSize="@dimen/text_caption_md"
             android:textColor="#212121"
             android:textColorHint="#BDBDBD"
             android:inputType="text"
@@ -175,13 +172,14 @@
         android:id="@+id/tvListLabel"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="7sp"
-        android:textStyle="bold"
-        android:textColor="#BDBDBD"
-        android:letterSpacing="0.07"
         android:layout_marginStart="11dp"
         android:layout_marginTop="9dp"
-        android:layout_marginBottom="5dp"/>
+        android:layout_marginBottom="5dp"
+        android:fontFamily="@font/satoshi_medium"
+        android:letterSpacing="0.07"
+        android:textColor="@color/black_overlay_80"
+        android:textSize="@dimen/text_caption_md"
+        android:textStyle="bold" />
 
     <!-- Employee list -->
     <ScrollView

@@ -20,6 +20,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 import com.blivtech.emptrack.utils.PreferenceManager
 import androidx.lifecycle.lifecycleScope
+import com.blivtech.emptrack.utils.MonthlyReportPdfBuilder
+import com.blivtech.emptrack.utils.PdfFileOpener
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
@@ -54,6 +56,7 @@ class MonthlyReportActivity : AppCompatActivity() {
             setupTabs()
             observeData()
             loadData()
+            setupDownloadBar()
         }
     }
 
@@ -83,7 +86,7 @@ class MonthlyReportActivity : AppCompatActivity() {
             if (currentTab != "OVERALL") {
                 currentTab = "OVERALL"
                 updateTabUI()
-                binding.layoutShiftChips.visibility = View.GONE
+                binding.scrollShiftChips.visibility = View.GONE
                 loadData()
             }
         }
@@ -92,7 +95,7 @@ class MonthlyReportActivity : AppCompatActivity() {
             if (currentTab != "SHIFT") {
                 currentTab = "SHIFT"
                 updateTabUI()
-                binding.layoutShiftChips.visibility = View.VISIBLE
+                binding.scrollShiftChips.visibility = View.VISIBLE
                 loadData()
             }
         }
@@ -325,5 +328,52 @@ class MonthlyReportActivity : AppCompatActivity() {
         name.contains("evening", true) -> "🌆"
         name.contains("night", true)   -> "🌙"
         else                           -> "🕐"
+    }
+
+    // ✅ Add to MonthlyReportActivity.kt
+
+    private fun setupDownloadBar() {
+        binding.imgDownload.setOnClickListener {
+            generateAndOpenPdf()
+        }
+    }
+
+    private fun generateAndOpenPdf() {
+        val monthLabel = viewModel.monthLabel.value ?: return
+
+        val file = when (currentTab) {
+            "OVERALL" -> {
+                val report = viewModel.overallReport.value ?: run {
+                    Snackbar.make(binding.root, "No data to export", Snackbar.LENGTH_SHORT).show()
+                    return
+                }
+                MonthlyReportPdfBuilder.buildOverallPdf(
+                    context     = this,
+                    companyName = companyName,
+                    monthLabel  = monthLabel,
+                    workingDays = report.workingDays,
+                    report      = report
+                )
+            }
+            "SHIFT" -> {
+                // ✅ For shift wise PDF you need ALL shift reports loaded, not just the selected chip.
+                // Simplest: loop through `shifts` and fetch each report synchronously before building.
+                // (See note below for a batched-load helper if you want this automated.)
+                val report = viewModel.shiftReport.value ?: run {
+                    Snackbar.make(binding.root, "No data to export", Snackbar.LENGTH_SHORT).show()
+                    return
+                }
+                MonthlyReportPdfBuilder.buildShiftWisePdf(
+                    context      = this,
+                    companyName  = companyName,
+                    monthLabel   = monthLabel,
+                    workingDays  = report.workingDays,
+                    shiftReports = listOf(report)   // currently selected shift only — see note
+                )
+            }
+            else -> return
+        }
+
+        PdfFileOpener.openPdf(this, file)
     }
 }

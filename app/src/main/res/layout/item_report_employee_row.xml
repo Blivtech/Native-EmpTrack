@@ -5,34 +5,28 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:gravity="center_vertical"
-    android:padding="10dp"
-    android:paddingStart="11dp"
-    android:paddingEnd="11dp"
-    android:layout_marginVertical="5dp"
-    android:background="?attr/selectableItemBackground">
+    android:background="@color/bg_card"
+    android:paddingStart="14dp"
+    android:paddingEnd="14dp"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:layout_marginVertical="6dp"
+    android:layout_marginHorizontal="2dp"
+    android:elevation="1dp">
 
-    <!-- ✅ Avatar with bg -->
-    <FrameLayout
-        android:layout_width="32dp"
-        android:layout_height="32dp"
-        android:layout_marginEnd="9dp">
-
-        <!-- ✅ viewAvatarBg — set background color dynamically -->
-        <View
-            android:id="@+id/viewAvatarBg"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:background="@drawable/bg_shift_morning"/>
-
-        <!-- ✅ tvAvatar — initials on top -->
-        <TextView
-            android:id="@+id/tvAvatar"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:gravity="center"
-            android:textSize="@dimen/text_caption_md"
-            android:textStyle="bold"/>
-    </FrameLayout>
+    <!-- Avatar: single TextView handles background + centered initials,
+         no FrameLayout or separate View needed -->
+    <TextView
+        android:id="@+id/tvAvatar"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginEnd="12dp"
+        android:background="@drawable/bg_shift_morning"
+        android:gravity="center"
+        android:textSize="@dimen/text_caption_md"
+        android:textStyle="bold"
+        android:textColor="@color/white"
+        android:fontFamily="@font/satoshi_medium" />
 
     <!-- Employee info -->
     <LinearLayout
@@ -46,27 +40,33 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_caption_md"
+            android:fontFamily="@font/satoshi_medium"
             android:textStyle="bold"
-            android:textColor="#212121"/>
+            android:textColor="@color/text_primary"
+            android:maxLines="1"
+            android:ellipsize="end" />
 
         <TextView
             android:id="@+id/tvEmpCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_caption_small"
-            android:textColor="#BDBDBD"
-            android:layout_marginTop="1dp"/>
+            android:fontFamily="@font/satoshi_medium"
+            android:textColor="@color/text_secondary"
+            android:layout_marginTop="2dp" />
 
         <TextView
             android:id="@+id/tvEmpDept"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="@dimen/text_caption_md"
-            android:textColor="#1CADED"
-            android:layout_marginTop="1dp"/>
+            android:fontFamily="@font/satoshi_medium"
+            android:textColor="@color/accent_blue"
+            android:layout_marginTop="2dp" />
+
     </LinearLayout>
 
-    <!-- Status + late -->
+    <!-- Status + late indicator -->
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -76,23 +76,27 @@
         <TextView
             android:id="@+id/tvStatus"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="8sp"
-            android:textStyle="bold"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:paddingTop="2dp"
-            android:paddingBottom="2dp"/>
+            android:layout_height="match_parent"
+            android:background="@drawable/bg_status_chip"
+            android:fontFamily="@font/satoshi_medium"
+            android:paddingStart="10dp"
+            android:paddingTop="3dp"
+            android:paddingEnd="10dp"
+            android:paddingBottom="3dp"
+            android:textSize="@dimen/text_caption_small"
+            android:textStyle="bold" />
 
-        <!-- ✅ tvLateMinutes — shows "+32 min" for late -->
+        <!-- Shows "+32 min" for late employees -->
         <TextView
             android:id="@+id/tvLateMinutes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="7sp"
-            android:textColor="#BDBDBD"
-            android:layout_marginTop="2dp"
-            android:visibility="gone"/>
+            android:textSize="10sp"
+            android:fontFamily="@font/satoshi_medium"
+            android:textColor="@color/text_secondary"
+            android:layout_marginTop="3dp"
+            android:visibility="gone" />
+
     </LinearLayout>
 
 </LinearLayout>

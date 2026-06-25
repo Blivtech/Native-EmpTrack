@@ -17,7 +17,9 @@ coroutines = "1.7.3"
 datastore = "1.0.0"
 splashscreen = "1.0.1"
 room = "2.6.1"
-junit = "4.12"                          # ✅ Add Room
+junit = "4.12"
+navigationFragmentKtx = "2.9.8"
+navigationUiKtx = "2.9.8"                          # ✅ Add Room
 
 [libraries]
 androidx-core-ktx = { group = "androidx.core", name = "core-ktx", version.ref = "coreKtx" }
@@ -43,7 +45,9 @@ androidx-core-splashscreen = { group = "androidx.core", name = "core-splashscree
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }  # ✅
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }          # ✅
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
-junit = { group = "junit", name = "junit", version.ref = "junit" } # ✅
+junit = { group = "junit", name = "junit", version.ref = "junit" }
+androidx-navigation-fragment-ktx = { group = "androidx.navigation", name = "navigation-fragment-ktx", version.ref = "navigationFragmentKtx" }
+androidx-navigation-ui-ktx = { group = "androidx.navigation", name = "navigation-ui-ktx", version.ref = "navigationUiKtx" } # ✅
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

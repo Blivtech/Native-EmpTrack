@@ -12,8 +12,8 @@
     <!-- Avatar -->
     <TextView
         android:id="@+id/tvInitials"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
+        android:layout_width="36dp"
+        android:layout_height="36dp"
         android:gravity="center"
         android:textSize="10sp"
         android:textStyle="bold"
@@ -32,7 +32,8 @@
             android:id="@+id/tvEmpName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
+            android:textSize="@dimen/text_caption_md"
+            android:fontFamily="@font/satoshi_medium"
             android:textStyle="bold"
             android:textColor="#212121"/>
 
@@ -40,7 +41,8 @@
             android:id="@+id/tvEmpCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="10sp"
+            android:textSize="@dimen/text_caption_small"
+            android:fontFamily="@font/satoshi_medium"
             android:textColor="#757575"
             android:layout_marginTop="1dp"/>
     </LinearLayout>

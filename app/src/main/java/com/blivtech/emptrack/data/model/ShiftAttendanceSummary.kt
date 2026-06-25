@@ -12,8 +12,8 @@ data class ShiftAttendanceSummary(
     val submittedAt: String?,       // null = not submitted
     val presentCount: Int,
     val leaveCount: Int,
-    val weekOffCount: Int=0,
-    val holidayCount: Int=0,
+    val weekOffCount: Int,
+    val holidayCount: Int,
     val totalCount: Int
 )
 

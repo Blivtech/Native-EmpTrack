@@ -13,7 +13,7 @@
         app:shimmer_duration="1000"
         app:shimmer_base_color="#F0F0F0"
         app:shimmer_highlight_color="#FFFFFF"
-        android:visibility="visible">
+        android:visibility="gone">
 
         <include layout="@layout/layout_shimmer_list"/>
         <include layout="@layout/layout_shimmer_list"/>
@@ -31,7 +31,7 @@
     android:id="@+id/layoutMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:visibility="gone"
+    android:visibility="visible"
     android:orientation="vertical"
     android:background="#F5F7FA">
     <LinearLayout
@@ -91,7 +91,7 @@
                 android:id="@+id/ivCalendar"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
-                android:visibility="gone"
+                android:visibility="visible"
                 android:src="@android:drawable/ic_menu_my_calendar"
                 android:tint="#FFFFFF"
                 app:layout_constraintEnd_toEndOf="parent"

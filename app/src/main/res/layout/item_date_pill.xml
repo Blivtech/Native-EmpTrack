@@ -14,13 +14,15 @@
         android:id="@+id/tvPillDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="9sp"
+        android:textSize="@dimen/text_caption_small"
+        android:fontFamily="@font/satoshi_medium"
         android:textStyle="bold"/>
 
     <TextView
         android:id="@+id/tvPillDay"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="7sp"
-        android:layout_marginTop="1dp"/>
+        android:textSize="@dimen/text_caption_small"
+    android:fontFamily="@font/satoshi_medium"
+    android:layout_marginTop="1dp"/>
 </LinearLayout>

@@ -6,6 +6,7 @@
     android:orientation="horizontal"
     android:gravity="center_vertical"
     android:padding="8dp"
+    android:layout_marginVertical="5dp"
     android:paddingStart="11dp"
     android:background="?attr/selectableItemBackground">
 
@@ -20,7 +21,8 @@
             android:id="@+id/tvEmpName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="9sp"
+            android:textSize="@dimen/text_caption_small"
+            android:fontFamily="@font/satoshi_medium"
             android:textStyle="bold"
             android:textColor="#212121"/>
 
@@ -28,7 +30,8 @@
             android:id="@+id/tvEmpCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="7sp"
+            android:textSize="@dimen/text_caption_small"
+            android:fontFamily="@font/satoshi_medium"
             android:textColor="#BDBDBD"
             android:layout_marginTop="1dp"/>
     </LinearLayout>
@@ -40,7 +43,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:textSize="9sp"
+        android:textSize="@dimen/text_caption_small"
+        android:fontFamily="@font/satoshi_medium"
         android:textStyle="bold"
         android:textColor="#27500A"
         android:background="@drawable/bg_card_working"
@@ -59,7 +63,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:textSize="9sp"
+        android:textSize="@dimen/text_caption_small"
+        android:fontFamily="@font/satoshi_medium"
         android:textStyle="bold"
         android:textColor="#E24B4A"
         android:background="@drawable/bg_badge_red_light"
@@ -78,7 +83,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:textSize="9sp"
+        android:textSize="@dimen/text_caption_small"
+        android:fontFamily="@font/satoshi_medium"
         android:textStyle="bold"
         android:textColor="#3C3489"
         android:background="@drawable/bg_badge_purple"
@@ -96,8 +102,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:textSize="9sp"
-        android:textStyle="bold"
+        android:textSize="@dimen/text_caption_small"
+        android:fontFamily="@font/satoshi_medium"          android:textStyle="bold"
         android:textColor="#9E9E9E"
         android:background="@drawable/bg_badge_grey"
         android:paddingStart="4dp"
@@ -114,7 +120,8 @@
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:gravity="center"
-        android:textSize="9sp"
+        android:textSize="@dimen/text_caption_small"
+        android:fontFamily="@font/satoshi_medium"
         android:textStyle="bold"
         android:textColor="#1565C0"/>
 
