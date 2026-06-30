@@ -14,7 +14,6 @@
     <color name="accent">#FF6F00</color>
     <color name="hint_color">#BDBDBD</color>
     <color name="error">#D32F2F</color>
-    <color name="card_bg">#FFFFFF</color>
     <color name="divider">#E0E0E0</color>
     <color name="chip_bg">#EAF3DE</color>
     <color name="chip_text">#27500A</color>
@@ -174,7 +173,38 @@
         <color name="lite_red">#15F1536E</color>
         <color name="liteGrey">#dbdbdb</color>
         <color name="darkGrey">#8B8C95</color>
+    <!-- Screen / surfaces -->
+    <color name="screen_bg">#F4F5FA</color>
+    <color name="card_bg">#FFFFFF</color>
+    <color name="title_text">#1F2330</color>
 
+    <!-- Left accent strip -->
+    <color name="accent_top">#7C5CFC</color>
+    <color name="accent_bottom">#4D7CFE</color>
+
+    <!-- Extra Pay & Advances -->
+    <color name="icon_pay">#3A3A8C</color>
+    <color name="bg_pay">#DED7FC</color>
+
+    <!-- Shift Management -->
+    <color name="icon_shift">#0E5A4E</color>
+    <color name="bg_shift">#79E6CE</color>
+
+    <!-- Work-Based Pay -->
+    <color name="icon_work">#8030E0</color>
+    <color name="bg_work">#E6D6FB</color>
+
+    <!-- Salary -->
+    <color name="icon_salary">#E23B3B</color>
+    <color name="bg_salary">#FBD6D6</color>
+
+    <!-- Inventory -->
+    <color name="icon_inventory">#3E6BE6</color>
+    <color name="bg_inventory">#BFCEFB</color>
+
+    <!-- Contractor Billing -->
+    <color name="icon_billing">#4A4A55</color>
+    <color name="bg_billing">#E1E1E5</color>
 
 
 </resources>

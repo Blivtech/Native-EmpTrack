@@ -40,9 +40,9 @@ class AddEditCompanyActivity : AppCompatActivity() {
     private var companyCode = ""
     private var companyName = ""
     // ✅ Edit mode data
-    private var editCompanyId: Long = -1L
+    private var editCompanyId: String = ""
     private var btCode  = ""
-    private val isEditMode get() = editCompanyId != -1L
+    private val isEditMode get() = editCompanyId != ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -50,7 +50,7 @@ class AddEditCompanyActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         // ✅ Check if edit mode
-        editCompanyId = intent.getLongExtra("companyId", -1L)
+        editCompanyId = intent.getStringExtra("companyCode", )?:""
 
 
         lifecycleScope.launch {

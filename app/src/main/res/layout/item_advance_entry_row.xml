@@ -8,7 +8,7 @@
     android:padding="10dp"
     android:layout_marginBottom="8dp">
 
-    <!-- Top row: avatar + name + actions -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -17,10 +17,10 @@
 
         <TextView
             android:id="@+id/tvAvatar"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:gravity="center"
-            android:textSize="9sp"
+            android:textSize="@dimen/text_caption_md"
             android:textStyle="bold"
             android:background="@drawable/bg_badge_amber"
             android:layout_marginEnd="8dp"/>
@@ -34,9 +34,9 @@
             <TextView
                 android:id="@+id/tvEmpName"
                 android:layout_width="wrap_content"
-
+                 android:fontFamily="@font/satoshi_medium"
                 android:layout_height="wrap_content"
-                android:textSize="9.5sp"
+                android:textSize="@dimen/text_caption_md"
                 android:textStyle="bold"
                 android:textColor="#212121"/>
 
@@ -44,7 +44,8 @@
                 android:id="@+id/tvEmpMeta"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="7sp"
+                android:fontFamily="@font/satoshi_medium"
+                android:textSize="@dimen/text_caption_small"
                 android:textColor="#9E9E9E"
                 android:layout_marginTop="1dp"/>
         </LinearLayout>
@@ -96,8 +97,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="DATE"
-                android:textSize="6.5sp"
+                android:text="Date"
+                android:fontFamily="@font/satoshi_medium"
+                android:textSize="@dimen/text_caption_small"
                 android:textStyle="bold"
                 android:textColor="#9E9E9E"
                 android:letterSpacing="0.05"/>
@@ -120,8 +122,8 @@
                     android:id="@+id/tvDate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="9.5sp"
-                    android:textStyle="bold"
+                    android:fontFamily="@font/satoshi_medium"
+                    android:textSize="@dimen/text_caption_small"                    android:textStyle="bold"
                     android:textColor="#212121"/>
             </LinearLayout>
         </LinearLayout>
@@ -135,8 +137,9 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="AMOUNT"
-                android:textSize="6.5sp"
+                android:text="Amount"
+                android:fontFamily="@font/satoshi_medium"
+                android:textSize="@dimen/text_caption_small"
                 android:textStyle="bold"
                 android:textColor="#9E9E9E"
                 android:letterSpacing="0.05"/>
@@ -145,8 +148,8 @@
                 android:id="@+id/tvAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="9.5sp"
-                android:textStyle="bold"
+                android:fontFamily="@font/satoshi_medium"
+                android:textSize="@dimen/text_caption_small"                android:textStyle="bold"
                 android:textColor="#633806"
                 android:layout_marginTop="2dp"/>
         </LinearLayout>
@@ -173,8 +176,8 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:textSize="8sp"
-            android:textColor="#757575"
+            android:fontFamily="@font/satoshi_medium"
+            android:textSize="@dimen/text_caption_small"            android:textColor="#757575"
             android:lineSpacingExtra="2dp"/>
     </LinearLayout>
 

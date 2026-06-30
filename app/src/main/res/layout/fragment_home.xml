@@ -39,7 +39,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Good morning,"
-                    android:textSize="12sp"
+                    android:fontFamily="@font/satoshi_medium"
+                    android:textSize="@dimen/text_caption_vs"
                     android:textColor="#B3ffffff"/>
 
                 <TextView
@@ -47,8 +48,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Saravanan R"
-                    android:textSize="22sp"
-                    android:textStyle="bold"
+                    android:fontFamily="@font/satoshi_medium"
+                    android:textSize="@dimen/text_caption_lg"                    android:textStyle="bold"
                     android:textColor="#FFFFFF"
                     android:layout_marginTop="1dp"/>
             </LinearLayout>
@@ -89,6 +90,7 @@
                 android:layout_height="36dp"
                 android:src="@drawable/ic_nav_home"
                 android:tint="#FFFFFF"
+                android:visibility="gone"
                 android:background="@drawable/bg_circle_white"
                 android:padding="9dp"
                 app:layout_constraintEnd_toStartOf="@id/ivNotification"
@@ -121,6 +123,7 @@
             <LinearLayout
                 android:id="@+id/layoutCompanyText"
                 android:layout_width="0dp"
+                app:layout_goneMarginStart="5dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 app:layout_constraintStart_toEndOf="@id/ivCompanyIcon"
@@ -134,7 +137,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Active company"
-                    android:textSize="10sp"
+                    android:textSize="@dimen/text_caption_small"
+                    android:fontFamily="@font/satoshi_medium"
                     android:textColor="#99ffffff"/>
 
                 <TextView
@@ -142,8 +146,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Loading..."
-                    android:textSize="13sp"
-                    android:textStyle="bold"
+                    android:textSize="@dimen/text_caption_md"
+                    android:fontFamily="@font/satoshi_medium"                    android:textStyle="bold"
                     android:textColor="#FFFFFF"
                     android:layout_marginTop="1dp"/>
             </LinearLayout>
@@ -241,108 +245,14 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
-            <!-- Today's attendance section -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Today's attendance"
-                    android:textColor="#212121"
-                    android:textSize="13sp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tvViewAll"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="View all"
-                    android:textColor="#185FA5"
-                    android:textSize="11sp" />
-            </LinearLayout>
-
-            <!-- Attendance card -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="14dp"
-                app:cardBackgroundColor="#FFFFFF"
-                app:cardCornerRadius="14dp"
-                app:cardElevation="2dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="12dp">
-
-                    <!-- Date row -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/tvTodayDate"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:textColor="#212121"
-                            android:textSize="12sp"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/tvActiveShift"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@drawable/bg_badge_blue"
-                            android:paddingStart="8dp"
-                            android:paddingTop="3dp"
-                            android:paddingEnd="8dp"
-                            android:paddingBottom="3dp"
-                            android:text="No Active Shift"
-                            android:textColor="#0C447C"
-                            android:textSize="10sp" />
-                    </LinearLayout>
-
-                    <!-- Shifts container -->
-                    <LinearLayout
-                        android:id="@+id/layoutShifts"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="vertical" />
-
-                    <!-- Mark attendance button -->
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btnMarkAttendance"
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:layout_marginTop="8dp"
-                        android:text="Mark Attendance"
-                        android:textSize="13sp"
-                        android:textStyle="bold"
-                        app:backgroundTint="#1565C0"
-                        app:cornerRadius="11dp" />
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- Modules section -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="8dp"
-                android:text="Modules"
+                android:text="Quick Modules"
                 android:textColor="#212121"
-                android:textSize="13sp"
+                android:textSize="@dimen/text_caption_md"
+                android:fontFamily="@font/satoshi_medium"
                 android:textStyle="bold" />
         </LinearLayout>
 

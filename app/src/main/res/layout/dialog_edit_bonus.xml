@@ -17,8 +17,8 @@
 
         <ImageView
             android:id="@+id/ivClose"
-            android:layout_width="22dp"
-            android:layout_height="22dp"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
             android:src="@android:drawable/ic_menu_close_clear_cancel"
             android:tint="#FFFFFF"
             android:layout_marginEnd="10dp"
@@ -35,7 +35,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Edit bonus"
-                android:textSize="13sp"
+                android:textSize="@dimen/text_caption_md"
+                android:fontFamily="@font/satoshi_medium"
                 android:textStyle="bold"
                 android:textColor="#FFFFFF"/>
 
@@ -43,7 +44,8 @@
                 android:id="@+id/tvEmpInfo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="9sp"
+                android:textSize="@dimen/text_caption_vs"
+                android:fontFamily="@font/satoshi_medium"
                 android:textColor="#CCFFFFFF"
                 android:layout_marginTop="1dp"/>
         </LinearLayout>
@@ -60,8 +62,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="DATE"
-            android:textSize="8sp"
+            android:text="Date"
+            android:textSize="@dimen/text_caption_small"
+            android:fontFamily="@font/satoshi_medium"
             android:textStyle="bold"
             android:textColor="#9E9E9E"
             android:letterSpacing="0.06"
@@ -91,8 +94,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textSize="11sp"
-                android:textStyle="bold"
+                android:textSize="@dimen/text_caption_small"
+                android:fontFamily="@font/satoshi_medium"                 android:textStyle="bold"
                 android:textColor="#212121"/>
 
             <ImageView
@@ -106,9 +109,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="BONUS TYPE"
-            android:textSize="8sp"
-            android:textStyle="bold"
+            android:text="Bonus Type"
+            android:textSize="@dimen/text_caption_small"
+            android:fontFamily="@font/satoshi_medium"             android:textStyle="bold"
             android:textColor="#9E9E9E"
             android:letterSpacing="0.06"
             android:layout_marginBottom="5dp"/>
@@ -126,8 +129,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="Festival"
-                android:textSize="9sp"
-                android:textStyle="bold"
+                android:textSize="@dimen/text_caption_small"
+                android:fontFamily="@font/satoshi_medium"                 android:textStyle="bold"
                 android:padding="9dp"
                 android:layout_marginEnd="6dp"
                 android:background="@drawable/bg_edit_field_normal"
@@ -141,8 +144,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="Performance"
-                android:textSize="9sp"
-                android:textStyle="bold"
+                android:textSize="@dimen/text_caption_small"
+                android:fontFamily="@font/satoshi_medium"                 android:textStyle="bold"
                 android:padding="9dp"
                 android:layout_marginEnd="6dp"
                 android:background="@drawable/bg_edit_field_normal"
@@ -156,8 +159,8 @@
                 android:layout_weight="1"
                 android:gravity="center"
                 android:text="Attendance"
-                android:textSize="9sp"
-                android:textStyle="bold"
+                android:textSize="@dimen/text_caption_small"
+                android:fontFamily="@font/satoshi_medium"                 android:textStyle="bold"
                 android:padding="9dp"
                 android:background="@drawable/bg_edit_field_normal"
                 android:clickable="true"
@@ -168,9 +171,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="AMOUNT"
-            android:textSize="8sp"
-            android:textStyle="bold"
+            android:text="Amount"
+            android:textSize="@dimen/text_caption_small"
+            android:fontFamily="@font/satoshi_medium"             android:textStyle="bold"
             android:textColor="#9E9E9E"
             android:letterSpacing="0.06"
             android:layout_marginBottom="5dp"/>
@@ -188,8 +191,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="₹"
-                android:textSize="13sp"
-                android:textStyle="bold"
+                android:textSize="@dimen/text_caption_small"
+                android:fontFamily="@font/satoshi_medium"                 android:textStyle="bold"
                 android:textColor="#085041"
                 android:layout_marginEnd="6dp"/>
 
@@ -200,8 +203,8 @@
                 android:layout_weight="1"
                 android:background="@null"
                 android:inputType="numberDecimal"
-                android:textSize="13sp"
-                android:textStyle="bold"
+                android:textSize="@dimen/text_caption_small"
+                android:fontFamily="@font/satoshi_medium"                 android:textStyle="bold"
                 android:textColor="#212121"
                 android:hint="0.00"
                 android:padding="0dp"/>
@@ -211,9 +214,9 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="REMARKS"
-            android:textSize="8sp"
-            android:textStyle="bold"
+            android:text="Remarks"
+            android:textSize="@dimen/text_caption_small"
+            android:fontFamily="@font/satoshi_medium"             android:textStyle="bold"
             android:textColor="#9E9E9E"
             android:letterSpacing="0.06"
             android:layout_marginBottom="5dp"/>
@@ -226,8 +229,8 @@
             android:gravity="top"
             android:background="@drawable/bg_edit_field_normal"
             android:padding="11dp"
-            android:textSize="10sp"
-            android:textColor="#424242"
+            android:textSize="@dimen/text_caption_small"
+            android:fontFamily="@font/satoshi_medium"             android:textColor="#424242"
             android:hint="Reason / notes..."
             android:layout_marginBottom="16dp"/>
 
@@ -245,8 +248,8 @@
                 android:layout_marginEnd="8dp"
                 android:text="Cancel"
                 android:textAllCaps="false"
-                android:textSize="11sp"
-                android:textStyle="bold"
+                android:textSize="@dimen/text_caption_small"
+                android:fontFamily="@font/satoshi_medium"                 android:textStyle="bold"
                 android:textColor="#757575"
                 style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                 app:strokeColor="#D3D1C7"
@@ -259,8 +262,8 @@
                 android:layout_weight="1"
                 android:text="Save changes"
                 android:textAllCaps="false"
-                android:textSize="11sp"
-                android:textStyle="bold"
+                android:textSize="@dimen/text_caption_small"
+                android:fontFamily="@font/satoshi_medium"                 android:textStyle="bold"
                 app:backgroundTint="#085041"
                 app:cornerRadius="10dp"/>
         </LinearLayout>

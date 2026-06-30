@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F4F6F9">
+    android:background="@color/clr_backgroundscreen">
 
     <!-- Topbar -->
     <LinearLayout
@@ -23,11 +23,10 @@
 
             <ImageView
                 android:id="@+id/ivBack"
-                android:layout_width="27dp"
-                android:layout_height="27dp"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
                 android:src="@drawable/ic_arrow_back"
                 android:tint="#FFFFFF"
-                android:background="@drawable/bg_circle_white18"
                 android:padding="5dp"
                 android:layout_marginEnd="8dp"
                 android:clickable="true"
@@ -43,7 +42,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Overtime Report"
-                    android:textSize="13sp"
+                    android:textSize="@dimen/text_caption_lg"
+                    android:fontFamily="@font/satoshi_medium"
                     android:textStyle="bold"
                     android:textColor="#FFFFFF"/>
 
@@ -51,8 +51,8 @@
                     android:id="@+id/tvCompanyName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="9sp"
-                    android:textColor="#99FFFFFF"
+                    android:textSize="@dimen/text_caption_small"
+                    android:fontFamily="@font/satoshi_medium"                    android:textColor="#99FFFFFF"
                     android:layout_marginTop="1dp"/>
             </LinearLayout>
         </LinearLayout>
@@ -86,8 +86,8 @@
                     android:id="@+id/tvMonthLabel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:textStyle="bold"
+                    android:textSize="@dimen/text_caption_md"
+                    android:fontFamily="@font/satoshi_medium"                    android:textStyle="bold"
                     android:textColor="#FFFFFF"/>
 
                 <TextView

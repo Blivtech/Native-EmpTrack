@@ -35,7 +35,7 @@ class HomeFragment : Fragment() {
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
-    private lateinit var adapter: ModuleCardAdapter
+    private lateinit var adapter: DashboardAdapter
     private val viewModel: HomeViewModel by viewModels()
 
     @Inject
@@ -59,7 +59,6 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         setGreeting()
-        setTodayDate()
         setupModules()
         setupAvatarClick()
         observeData()
@@ -78,15 +77,8 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun setTodayDate() {
-        binding.tvTodayDate.text =
-            SimpleDateFormat("EEE, d MMM yyyy", Locale.getDefault())
-                .format(Date())
-    }
 
-    // ─────────────────────────────────
-    // ✅ Avatar → opens drawer (in host Activity)
-    // ─────────────────────────────────
+
     private fun setupAvatarClick() {
         binding.tvAvatar.setOnClickListener {
             (activity as? HomeActivity)?.openDrawer()
@@ -105,8 +97,8 @@ class HomeFragment : Fragment() {
     // ✅ Modules grid
     // ─────────────────────────────────
     private fun setupModules() {
-        adapter = ModuleCardAdapter(viewModel.moduleCards) { card ->
-            navigateToModule(card.cardName)
+        adapter = DashboardAdapter(viewModel.items) { card ->
+            navigateToModule(card.title)
         }
         binding.rvModules.apply {
             layoutManager = GridLayoutManager(requireContext(), 2)
@@ -127,7 +119,7 @@ class HomeFragment : Fragment() {
                 }
             )
             "Salary" -> { /* TODO */ }
-            "Advance" -> startActivity(
+            "Extra Pay & Advances" -> startActivity(
                 Intent(requireContext(), AddEntryActivity::class.java).apply {
                     putExtra("btCode", btCode)
                     putExtra("companyName", selectedCompanyName)
@@ -135,7 +127,7 @@ class HomeFragment : Fragment() {
                 }
             )
             "Inventory" -> { /* TODO */ }
-            "Shift Mgmt" -> startActivity(
+            "Shift Management" -> startActivity(
                 Intent(requireContext(), ShiftPlanActivity::class.java)
             )
         }
@@ -155,15 +147,6 @@ class HomeFragment : Fragment() {
                     } ?: companies.first()
 
                     currentCompany = company
-                    binding.tvCompanyName.text =
-                        "${company.name} · ${company.city ?: ""}"
-                    binding.tvTotalEmp.text = "50"
-
-                    viewModel.getShifts(company.companyCode)
-                        .observe(viewLifecycleOwner) { shifts ->
-                            currentShifts = shifts
-                            updateShiftCards(shifts)
-                        }
                 } else {
                     binding.tvCompanyName.text = "No company — tap to add"
                 }
@@ -177,22 +160,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    private fun updateShiftCards(shifts: List<ShiftEntity>) {
-        binding.layoutShifts.removeAllViews()
-        if (shifts.isEmpty()) {
-            binding.tvActiveShift.text = "No shifts"
-            return
-        }
-        shifts.forEachIndexed { index, shift ->
-            val shiftView = LayoutInflater.from(requireContext())
-                .inflate(R.layout.item_shift_row, binding.layoutShifts, false)
-            shiftView.findViewById<TextView>(R.id.tvShiftRowName).text =
-                "Shift ${index + 1} · ${shift.shiftName} · " +
-                "${shift.startTime.take(5)}–${shift.endTime.take(5)}"
-            binding.layoutShifts.addView(shiftView)
-        }
-        binding.tvActiveShift.text = "Shift 1 Active"
-    }
+
 
     // ─────────────────────────────────
     // ✅ Refresh after sync completes (replaces old observeData() re-call)
@@ -214,11 +182,6 @@ class HomeFragment : Fragment() {
             selectedCompanyName = preferenceManager.selectedCompanyName.first()
             binding.tvCompanyName.text = selectedCompanyName
 
-            viewModel.getShifts(selectedCompanyCode)
-                .observe(viewLifecycleOwner) { shifts ->
-                    currentShifts = shifts
-                    updateShiftCards(shifts)
-                }
         }
     }
 
