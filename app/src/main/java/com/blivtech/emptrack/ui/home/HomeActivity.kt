@@ -30,6 +30,7 @@ import com.blivtech.emptrack.ui.employee.EmployeeListActivity
 import com.blivtech.emptrack.ui.entry.AddEntryActivity
 import com.blivtech.emptrack.ui.login.LoginActivity
 import com.blivtech.emptrack.ui.shiftplan.ShiftPlanActivity
+import com.blivtech.emptrack.ui.work.SelectEmployeeActivity
 import com.blivtech.emptrack.utils.PreferenceManager
 import com.blivtech.emptrack.utils.Resource
 import com.google.android.material.snackbar.Snackbar
@@ -252,7 +253,13 @@ class HomeActivity : AppCompatActivity() {
                 putExtra("companyName", currentCompany?.name ?: "")
                 putExtra("companyCode", currentCompany?.companyCode ?: "")
             })}
-            "Work Progress" -> { /* TODO */ }
+            "Work Progress" -> { startActivity(
+                Intent(this, SelectEmployeeActivity::class.java).apply {
+                    putExtra("btCode", btCode)
+                    putExtra("companyName", currentCompany?.name ?: "")
+                    putExtra("companyCode", currentCompany?.companyCode ?: "")
+                }
+            )}
             "Salary" -> { /* TODO */ }
             "Advance" -> {// From any module card
                 startActivity(
