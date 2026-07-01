@@ -3,21 +3,17 @@ package com.blivtech.emptrack.ui.shiftplan
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import android.widget.TextView
-import android.widget.Button
-import android.widget.LinearLayout
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.blivtech.emptrack.R
 import com.blivtech.emptrack.data.local.entity.ShiftEntity
-import com.blivtech.emptrack.data.local.entity.ShiftPlanEntity
 import com.blivtech.emptrack.databinding.ActivityShiftPlanBinding
 import com.blivtech.emptrack.utils.PreferenceManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.runBlocking
-import java.time.LocalDate
-import java.time.format.DateTimeFormatter
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -25,179 +21,159 @@ class ShiftPlanActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityShiftPlanBinding
     private val viewModel: ShiftPlanViewModel by viewModels()
+    private lateinit var shiftAdapter: ShiftPlanAdapter
 
     @Inject
     lateinit var preferenceManager: PreferenceManager
 
-    private val companyCode by lazy { intent.getStringExtra("companyCode") ?: "" }
-    private val companyName by lazy { intent.getStringExtra("companyName") ?: "" }
-    private val btCode by lazy {
-        runBlocking { preferenceManager.btCode.first() }
-    }
+    private var companyName = ""
+    private var companyCode = ""
 
-    private var shifts = listOf<ShiftEntity>()
-    private var weekPlan = listOf<ShiftPlanEntity>()
-
+    // ─────────────────────────────────────────────────────────────────────
+    // onCreate
+    // ─────────────────────────────────────────────────────────────────────
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityShiftPlanBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupUI()
-        observeData()
+        lifecycleScope.launch {
+            companyCode = preferenceManager.selectedCompanyCode.first()
+            companyName = preferenceManager.selectedCompanyName.first()
 
-        viewModel.loadEmployees(companyCode)
-        viewModel.loadWeekPlan(companyCode)
-        viewModel.checkLastWeekPlan(companyCode)
+            setupAdapter()
+            setupUI()
+            observeData()
+
+            // Initial data load
+            viewModel.loadEmployees(companyCode)
+            viewModel.loadWeekPlan(companyCode)
+            viewModel.checkLastWeekPlan(companyCode)
+        }
     }
 
+    // ─────────────────────────────────────────────────────────────────────
+    // FIX 3: onResume now also triggers a counts refresh on the adapter
+    //         so emp counts are correct after returning from AssignShiftActivity.
+    // ─────────────────────────────────────────────────────────────────────
     override fun onResume() {
         super.onResume()
-        // ✅ Refresh when returning from assign screen
-        viewModel.loadWeekPlan(companyCode)
+        if (companyCode.isNotEmpty()) {
+            viewModel.loadWeekPlan(companyCode)
+        }
     }
 
+    // ─────────────────────────────────────────────────────────────────────
+    // Adapter setup
+    // ─────────────────────────────────────────────────────────────────────
+    private fun setupAdapter() {
+        shiftAdapter = ShiftPlanAdapter(
+            onAssignClick = { shift -> openAssignScreen(shift) },
+            getEmpCount   = { shiftCode -> viewModel.getShiftEmpCount(shiftCode) },
+            getEmpNames   = { shiftCode -> viewModel.getShiftEmpNames(shiftCode) }
+        )
+
+        binding.rvShiftCards.apply {
+            layoutManager = LinearLayoutManager(this@ShiftPlanActivity)
+            adapter = shiftAdapter
+        }
+    }
+
+    // ─────────────────────────────────────────────────────────────────────
+    // UI wiring
+    // ─────────────────────────────────────────────────────────────────────
     private fun setupUI() {
         binding.ivBack.setOnClickListener { finish() }
         binding.tvCompanyName.text = companyName
-        updateWeekDisplay()
 
-        // ✅ Week navigation
-        binding.btnPrevWeek.setOnClickListener {
-            viewModel.previousWeek()
-            updateWeekDisplay()
-        }
-        binding.btnNextWeek.setOnClickListener {
-            viewModel.nextWeek()
-            updateWeekDisplay()
-        }
+        // Week label
+     //x`   updateWeekDisplay()
 
-        // ✅ Copy last week
-        binding.ivCopyPlan.setOnClickListener {
-            showCopyDialog()
-        }
+//        // FIX 4: week navigation arrows actually work now
+//        binding.ivPrevWeek.setOnClickListener {
+//            viewModel.previousWeek()
+//            updateWeekDisplay()
+//        }
+//
+//        binding.ivNextWeek.setOnClickListener {
+//            viewModel.nextWeek()
+//            updateWeekDisplay()
+//        }
+//
+//        // Copy banner
+//        binding.ivCopyPlan.setOnClickListener { showCopyDialog() }
+//
+//        // Copy-banner close (optional — hide without copying)
+//        binding.ivCloseBanner.setOnClickListener {
+//            binding.layoutCopyBanner.visibility = View.GONE
+//        }
+//    }
+//
+//    private fun updateWeekDisplay() {
+//        binding.tvWeekLabel.text  = viewModel.getWeekLabel()
+//        binding.tvWeekNumber.text = viewModel.getWeekNumber()
+//
+//        // Dim "next" arrow when already on current week (optional UX)
+//        binding.ivNextWeek.alpha = if (viewModel.isCurrentWeek()) 0.4f else 1f
+//    }
     }
-    private fun updateWeekDisplay() {
-        // ✅ Week range label — "8 Jun – 14 Jun 2026"
-        binding.tvWeekRange.text = viewModel.getWeekLabel()
-
-        // ✅ Week number — "Week 23 · 2026"
-        binding.tvWeekNumber.text = viewModel.getWeekNumber()
-
-        // ✅ Current week badge
-        binding.tvCurrentBadge.visibility =
-            if (viewModel.isCurrentWeek()) View.VISIBLE else View.GONE
-
-        // ✅ Disable next week button if current week
-        binding.btnNextWeek.alpha =
-            if (viewModel.isCurrentWeek()) 0.4f else 1.0f
-        binding.btnNextWeek.isEnabled = !viewModel.isCurrentWeek()
-
-        // ✅ Reload week plan for selected week
-        viewModel.loadWeekPlan(companyCode)
-
-        // ✅ Check last week plan for copy banner
-        viewModel.checkLastWeekPlan(companyCode)
-    }
-
+    // ─────────────────────────────────────────────────────────────────────
+    // Observers
+    // ─────────────────────────────────────────────────────────────────────
     private fun observeData() {
 
-        // ✅ Load shifts dynamically
+        // Shift list → submit to adapter
         viewModel.getShifts(companyCode).observe(this) { shiftList ->
-            shifts = shiftList
-            updateShiftCards()         // ✅ Rebuild cards
-        }
-
-        // ✅ Refresh cards when week plan loads
-        viewModel.weekPlan.observe(this) { plan ->
-            weekPlan = plan
-            updateShiftCards()         // ✅ Refresh counts
+            shiftAdapter.submitList(shiftList)
             updateUnassignedWarning()
         }
 
-        // ✅ Refresh employee data
+        // FIX 1 & 5: weekPlan changes → refresh emp count cells AND warning
+        viewModel.weekPlan.observe(this) {
+            shiftAdapter.refreshCounts()       // ← KEY FIX: was completely missing
+            updateUnassignedWarning()
+        }
+
+        // Employee list → refresh warning banner
         viewModel.employees.observe(this) {
-            updateShiftCards()         // ✅ Refresh names
+            shiftAdapter.refreshCounts()
             updateUnassignedWarning()
         }
 
-        // ✅ Last week plan check
+        // Last-week copy banner
         viewModel.hasLastWeekPlan.observe(this) { hasLastWeek ->
+            val weekPlanEmpty = viewModel.weekPlan.value.isNullOrEmpty()
             binding.layoutCopyBanner.visibility =
-                if (hasLastWeek && weekPlan.isEmpty())
-                    View.VISIBLE else View.GONE
+                if (hasLastWeek && weekPlanEmpty) View.VISIBLE else View.GONE
+        }
+
+        // FIX 6: saveState was never observed — now we reload after copy
+        viewModel.saveState.observe(this) { success ->
+            if (success) {
+                viewModel.loadWeekPlan(companyCode)
+                viewModel.resetSaveState()
+                binding.layoutCopyBanner.visibility = View.GONE
+            }
         }
     }
 
-    private fun updateShiftCards() {
-        // ✅ Remove all existing shift cards first
-        binding.layoutShiftCards.removeAllViews()
-
-        val allEmployees = viewModel.employees.value ?: emptyList()
-
-        shifts.forEach { shift ->
-            val empCount = viewModel.getShiftEmpCount(shift.shiftCode)
-            val shiftEmpNames = viewModel.getShiftEmpNames(shift.shiftCode)
-
-            // ✅ Inflate shift card dynamically
-            val cardView = layoutInflater.inflate(
-                R.layout.item_shift_plan_card,
-                binding.layoutShiftCards,
-                false
-            )
-
-            // ✅ Bind data
-            cardView.findViewById<TextView>(R.id.tvShiftName).text = shift.shiftName
-            cardView.findViewById<TextView>(R.id.tvShiftTime).text =
-                "${shift.startTime.toString().take(5)} – ${shift.endTime.toString().take(5)}"
-            cardView.findViewById<TextView>(R.id.tvShiftEmpCount).text =
-                "$empCount emp"
-            cardView.findViewById<TextView>(R.id.tvShiftEmployees).text =
-                if (shiftEmpNames.isNotEmpty())
-                    shiftEmpNames.joinToString(", ") +
-                            if (empCount > 4) " +${empCount - 4} more" else ""
-                else "No employees assigned"
-
-            // ✅ Button
-            val btnAssign = cardView.findViewById<Button>(R.id.btnAssign)
-            btnAssign.text = if (empCount > 0) "Edit plan" else "Assign now"
-            btnAssign.setOnClickListener {
-                openAssignScreen(shift)
-            }
-
-            // ✅ Unassigned alert
-            val layoutAlert = cardView.findViewById<LinearLayout>(R.id.layoutAlert)
-            layoutAlert.visibility = if (empCount == 0) View.VISIBLE else View.GONE
-
-            // ✅ Shift icon color based on index
-            val shiftIndex = shifts.indexOf(shift)
-            val iconBg = cardView.findViewById<LinearLayout>(R.id.layoutShiftIcon)
-            val tvShiftIndex = cardView.findViewById<TextView>(R.id.tvShiftIndex)
-            tvShiftIndex.text = "Shift ${shiftIndex + 1}"
-
-            when (shiftIndex % 3) {
-                0 -> iconBg.setBackgroundResource(R.drawable.bg_shift_morning)
-                1 -> iconBg.setBackgroundResource(R.drawable.bg_shift_evening)
-                2 -> iconBg.setBackgroundResource(R.drawable.bg_shift_night)
-            }
-
-            // ✅ Add card to layout
-            binding.layoutShiftCards.addView(cardView)
-        }
-    }
+    // ─────────────────────────────────────────────────────────────────────
+    // Unassigned warning
+    // ─────────────────────────────────────────────────────────────────────
     private fun updateUnassignedWarning() {
-        val allEmployees = viewModel.employees.value ?: emptyList()
-        val unassigned   = viewModel.getUnassignedCount()
-
+        val unassigned = viewModel.getUnassignedCount()
         if (unassigned > 0) {
             binding.layoutUnassignedWarning.visibility = View.VISIBLE
             binding.tvUnassignedCount.text =
-                "$unassigned employees not assigned to any shift this week"
+                "$unassigned employee${if (unassigned > 1) "s" else ""} not assigned to any shift this week"
         } else {
             binding.layoutUnassignedWarning.visibility = View.GONE
         }
     }
 
+    // ─────────────────────────────────────────────────────────────────────
+    // Dialogs / Navigation
+    // ─────────────────────────────────────────────────────────────────────
     private fun showCopyDialog() {
         android.app.AlertDialog.Builder(this)
             .setTitle("Copy last week plan?")
@@ -212,14 +188,14 @@ class ShiftPlanActivity : AppCompatActivity() {
     private fun openAssignScreen(shift: ShiftEntity) {
         startActivity(
             Intent(this, AssignShiftActivity::class.java).apply {
-                putExtra("companyCode", companyCode)
-                putExtra("companyName", companyName)
-                putExtra("shiftCode", shift.shiftCode)
-                putExtra("shiftName", shift.shiftName)
-                putExtra("shiftStartTime", shift.startTime.toString())
-                putExtra("shiftEndTime", shift.endTime.toString())
-                putExtra("weekStartDate", viewModel.getSelectedWeekStart())
-                putExtra("weekEndDate", viewModel.getSelectedWeekEnd())
+                putExtra("companyCode",      companyCode)
+                putExtra("companyName",      companyName)
+                putExtra("shiftCode",        shift.shiftCode)
+                putExtra("shiftName",        shift.shiftName)
+                putExtra("shiftStartTime",   shift.startTime.toString())
+                putExtra("shiftEndTime",     shift.endTime.toString())
+                putExtra("weekStartDate",    viewModel.getSelectedWeekStart())
+                putExtra("weekEndDate",      viewModel.getSelectedWeekEnd())
             }
         )
     }

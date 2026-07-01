@@ -1,0 +1,430 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F4F6F9">
+
+    <!-- ✅ Topbar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#27500A">
+
+        <!-- Title row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:padding="13dp"
+            android:paddingBottom="10dp">
+
+            <ImageView
+                android:id="@+id/ivBack"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_arrow_back"
+                android:tint="#FFFFFF"
+                android:padding="5dp"
+                android:layout_marginEnd="8dp"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvEmpTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_caption_lg"
+                    android:fontFamily="@font/satoshi_medium"
+                    android:textStyle="bold"
+                    android:textColor="#FFFFFF" />
+
+                <TextView
+                    android:id="@+id/tvEmpSubtitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/text_caption_md"
+                    android:fontFamily="@font/satoshi_medium"                    android:textColor="#99FFFFFF"
+                    android:layout_marginTop="1dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- Count bar -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="#1B4007"
+            android:paddingStart="13dp"
+            android:paddingEnd="13dp"
+            android:paddingTop="8dp"
+            android:paddingBottom="8dp">
+
+            <!-- Present -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="@drawable/bg_circle_white15"
+                android:padding="6dp"
+                android:layout_marginEnd="4dp">
+
+                <TextView
+                    android:id="@+id/tvCountPresent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="@dimen/text_caption_small"
+                    android:fontFamily="@font/satoshi_medium"                      android:textStyle="bold"
+                    android:textColor="#69F0AE" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Present"
+                    android:textSize="@dimen/text_caption_md"
+                    android:fontFamily="@font/satoshi_medium"                      android:textColor="#88FFFFFF"
+                    android:layout_marginTop="1dp" />
+            </LinearLayout>
+
+            <!-- Absent -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="@drawable/bg_circle_white15"
+                android:padding="6dp"
+                android:layout_marginEnd="4dp">
+
+                <TextView
+                    android:id="@+id/tvCountAbsent"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="@dimen/text_caption_small"
+                    android:fontFamily="@font/satoshi_medium"                     android:textStyle="bold"
+                    android:textColor="#FF8A80" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Leave"
+                    android:textSize="@dimen/text_caption_small"
+                    android:fontFamily="@font/satoshi_medium"                     android:textColor="#88FFFFFF"
+                    android:layout_marginTop="1dp" />
+            </LinearLayout>
+
+            <!-- Holiday -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="@drawable/bg_circle_white15"
+                android:padding="6dp"
+                android:layout_marginEnd="4dp">
+
+                <TextView
+                    android:id="@+id/tvCountHoliday"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="@dimen/text_caption_small"
+                    android:fontFamily="@font/satoshi_medium"                     android:textStyle="bold"
+                    android:textColor="#CE93D8" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Holiday"
+                    android:textSize="@dimen/text_caption_small"
+                    android:fontFamily="@font/satoshi_medium"                     android:textColor="#88FFFFFF"
+                    android:layout_marginTop="1dp" />
+            </LinearLayout>
+
+            <!-- Week Off -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:background="@drawable/bg_circle_white15"
+                android:padding="6dp">
+
+                <TextView
+                    android:id="@+id/tvCountWeekOff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="0"
+                    android:textSize="@dimen/text_caption_small"
+                    android:fontFamily="@font/satoshi_medium"                     android:textStyle="bold"
+                    android:textColor="#B0BEC5" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Week Off"
+                    android:textSize="@dimen/text_caption_small"
+                    android:fontFamily="@font/satoshi_medium"                     android:textColor="#88FFFFFF"
+                    android:layout_marginTop="1dp" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <!-- ✅ Tabs -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:background="@drawable/bg_circle_white18">
+
+            <TextView
+                android:id="@+id/tabPresent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="✅ Present"
+                android:textSize="@dimen/text_caption_small"
+                android:fontFamily="@font/satoshi_medium"                 android:textStyle="bold"
+                android:textColor="#FFFFFF"
+                android:gravity="center"
+                android:padding="8dp"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:id="@+id/tabAbsent"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="❌ Leave"
+                android:textSize="@dimen/text_caption_small"
+                android:fontFamily="@font/satoshi_medium"                 android:textStyle="bold"
+                android:textColor="#88FFFFFF"
+                android:gravity="center"
+                android:padding="8dp"
+                android:clickable="true"
+                android:focusable="true" />
+
+            <TextView
+                android:id="@+id/tabHolidayWO"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="🏖️ H/WO"
+                android:textSize="@dimen/text_caption_small"
+                android:fontFamily="@font/satoshi_medium"                 android:textStyle="bold"
+                android:textColor="#88FFFFFF"
+                android:gravity="center"
+                android:padding="8dp"
+                android:clickable="true"
+                android:focusable="true" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Progress bar -->
+    <ProgressBar
+        android:id="@+id/progressBar"
+        android:layout_width="match_parent"
+        android:layout_height="3dp"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+        android:indeterminate="true"
+        android:indeterminateTint="#27500A"
+        android:visibility="gone" />
+
+    <!-- Scrollable content -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="11dp"
+            android:paddingBottom="16dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="#FFFFFF"
+                android:padding="11dp"
+                android:layout_marginBottom="8dp">
+
+                <TextView
+                    android:id="@+id/tvAvatar"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:gravity="center"
+                    android:textSize="@dimen/text_caption_small"
+                    android:fontFamily="@font/satoshi_medium"                     android:textStyle="bold"
+                    android:background="@drawable/bg_card_working"
+                    android:layout_marginEnd="10dp" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvEmpName2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_caption_md"
+                        android:fontFamily="@font/satoshi_medium"                         android:textStyle="bold"
+                        android:textColor="#212121" />
+
+                    <TextView
+                        android:id="@+id/tvEmpInfo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_caption_small"
+                        android:fontFamily="@font/satoshi_medium"                         android:textColor="#9E9E9E"
+                        android:layout_marginTop="2dp" />
+
+                    <TextView
+                        android:id="@+id/tvShiftTag"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_caption_small"
+                        android:fontFamily="@font/satoshi_medium"                         android:textStyle="bold"
+                        android:textColor="#0C447C"
+                        android:background="@drawable/bg_badge_blue"
+                        android:paddingStart="7dp"
+                        android:paddingEnd="7dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
+                        android:layout_marginTop="4dp" />
+                </LinearLayout>
+
+                <!-- Attendance % -->
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:background="@drawable/bg_card_working"
+                    android:padding="8dp"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp">
+
+                    <TextView
+                        android:id="@+id/tvAttendancePct"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_caption_lg"
+                        android:fontFamily="@font/satoshi_medium"                         android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Attendance"
+                        android:textSize="@dimen/text_caption_small"
+                        android:fontFamily="@font/satoshi_medium"                         android:textColor="#9E9E9E"
+                        android:layout_marginTop="1dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- ✅ Date section label -->
+            <TextView
+                android:id="@+id/tvDateSectionLabel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_caption_small"
+                android:fontFamily="@font/satoshi_medium"                 android:textStyle="bold"
+                android:letterSpacing="0.05"
+                android:layout_marginBottom="8dp" />
+
+            <!-- ✅ Date pills — FlexboxLayout for wrap -->
+            <com.google.android.flexbox.FlexboxLayout
+                android:id="@+id/layoutDatePills"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:flexWrap="wrap"
+                app:flexDirection="row"
+                app:justifyContent="flex_start"
+                app:alignItems="flex_start" />
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- Download bar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#FFFFFF"
+        android:padding="9dp"
+        android:elevation="6dp">
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@drawable/bg_badge_red_light"
+            android:layout_marginEnd="6dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="PDF"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:textColor="#C62828" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@drawable/bg_badge_green_light"
+            android:layout_marginEnd="6dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Excel"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:textColor="#1B5E20" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="44dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@drawable/bg_badge_blue">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Share"
+                android:textSize="10sp"
+                android:textStyle="bold"
+                android:textColor="#0C447C" />
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

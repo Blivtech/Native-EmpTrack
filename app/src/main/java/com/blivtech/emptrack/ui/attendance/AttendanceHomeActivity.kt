@@ -1,29 +1,24 @@
 package com.blivtech.emptrack.ui.attendance
 
+import android.app.DatePickerDialog
 import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.widget.Button
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.ProgressBar
-import android.widget.TextView
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
-import com.blivtech.emptrack.R
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.blivtech.emptrack.data.local.entity.ShiftEntity
 import com.blivtech.emptrack.data.model.ShiftStatusResponse
 import com.blivtech.emptrack.databinding.ActivityAttendanceHomeBinding
 import com.blivtech.emptrack.utils.PreferenceManager
 import com.blivtech.emptrack.utils.Resource
-import com.google.android.material.card.MaterialCardView
+import com.blivtech.emptrack.utils.ShimmerHelper
+import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.runBlocking
-import java.text.SimpleDateFormat
-import java.util.Date
-import java.util.Locale
+import kotlinx.coroutines.launch
+import java.util.Calendar
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -35,43 +30,134 @@ class AttendanceHomeActivity : AppCompatActivity() {
     @Inject
     lateinit var preferenceManager: PreferenceManager
 
-    private val btCode by lazy { intent.getStringExtra("btCode") ?: "" }
-    private val companyCode by lazy { intent.getStringExtra("companyCode") ?: "" }
-    private val companyName by lazy { intent.getStringExtra("companyName") ?: "" }
+    // ✅ Adapter
+    private lateinit var shiftCardAdapter: ShiftCardAdapter
 
-    private var shifts = listOf<ShiftEntity>()
+    // ✅ State
+    private var shifts          = listOf<ShiftEntity>()
     private var todayStatusList = listOf<ShiftStatusResponse>()
 
-    private val displayFmt = SimpleDateFormat("EEE, d MMM yyyy", Locale.getDefault())
-    private val dateFmt = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+    private var btCode      = ""
+    private var companyCode = ""
+    private var companyName = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityAttendanceHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setupUI()
-        observeData()
+        lifecycleScope.launch {
+            btCode      = preferenceManager.btCode.first()
+            companyCode = preferenceManager.selectedCompanyCode.first()
+            companyName = preferenceManager.selectedCompanyName.first()
 
-        viewModel.loadEmpCount(companyCode)
+            setupUI()
+            setupRecyclerView()
+            observeData()
+
+            viewModel.loadEmpCount(companyCode)
+            viewModel.loadTodayStatus(btCode, companyCode)
+        }
+    }
+
+    // ─────────────────────────────────
+    // ✅ Setup UI
+    // ─────────────────────────────────
+    private fun setupUI() {
+        binding.tvCompanyName.text = companyName
+        binding.tvDate.text        = viewModel.selectedDateLabel.value
+
+        binding.ivBack.setOnClickListener { finish() }
+
+        // ✅ Calendar tap → open date picker
+        binding.ivCalendar.setOnClickListener {
+            showDatePicker()
+        }
+    }
+
+    // ─────────────────────────────────
+    // ✅ Date picker — past dates allowed, future dates blocked
+    // ─────────────────────────────────
+    private fun showDatePicker() {
+        val cal = viewModel.getSelectedCalendar()
+
+        val dialog = DatePickerDialog(
+            this,
+            { _, year, month, day ->
+                viewModel.setSelectedDate(year, month, day)
+                onDateChanged()
+            },
+            cal.get(Calendar.YEAR),
+            cal.get(Calendar.MONTH),
+            cal.get(Calendar.DAY_OF_MONTH)
+        )
+
+        // ✅ Block future dates — greyed out / unselectable in the picker UI itself
+        dialog.datePicker.maxDate = System.currentTimeMillis()
+
+        dialog.show()
+    }
+
+    // ─────────────────────────────────
+    // ✅ Called whenever the selected date changes
+    // ─────────────────────────────────
+    private fun onDateChanged() {
+        binding.tvDate.text = viewModel.selectedDateLabel.value
+
+        // ✅ Re-fetch attendance status for the newly selected date
         viewModel.loadTodayStatus(btCode, companyCode)
     }
 
-    // ─────────────────────────────────────
-    // ✅ Setup UI
-    // ─────────────────────────────────────
-    private fun setupUI() {
-        binding.ivBack.setOnClickListener { finish() }
-        binding.ivCalendar.setOnClickListener {
-            // TODO: Open calendar activity
+    // ─────────────────────────────────
+    // ✅ Setup RecyclerView
+    // ─────────────────────────────────
+    private fun setupRecyclerView() {
+        shiftCardAdapter = ShiftCardAdapter(
+
+            // ✅ Mark now clicked
+            onMarkClick = { item ->
+                if (!viewModel.isToday()) {
+                    Snackbar.make(
+                        binding.root,
+                        "Attendance can only be marked for today",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                    return@ShiftCardAdapter
+                }
+                openMarkAttendance(item.shift)
+            },
+
+            // ✅ Edit clicked
+            onEditClick = { item ->
+                if (!viewModel.isToday()) {
+                    Snackbar.make(
+                        binding.root,
+                        "Attendance can only be edited for today",
+                        Snackbar.LENGTH_SHORT
+                    ).show()
+                    return@ShiftCardAdapter
+                }
+                openMarkAttendance(
+                    shift        = item.shift,
+                    attendanceId = item.status?.attendanceId,
+                    mode         = "EDIT"
+                )
+            }
+        )
+
+        binding.rvShiftCards.apply {
+            adapter       = shiftCardAdapter
+            layoutManager = LinearLayoutManager(
+                this@AttendanceHomeActivity
+            )
+            // ✅ Disable nested scroll — parent ScrollView handles it
+            isNestedScrollingEnabled = false
         }
-        binding.tvCompanyName.text = companyName
-        binding.tvDate.text = displayFmt.format(Date())
     }
 
-    // ─────────────────────────────────────
+    // ─────────────────────────────────
     // ✅ Observe data
-    // ─────────────────────────────────────
+    // ─────────────────────────────────
     private fun observeData() {
 
         // ✅ Employee count
@@ -79,210 +165,102 @@ class AttendanceHomeActivity : AppCompatActivity() {
             binding.tvEmpCount.text = "$count employees"
         }
 
-        // ✅ Load shifts dynamically
+        // ✅ Shifts from Room
         viewModel.getShifts(companyCode).observe(this) { shiftList ->
             shifts = shiftList
-            buildShiftCards()
+            submitShiftCards()
         }
 
-        // ✅ Today's status
+        // ✅ Today's (or selected date's) attendance status from API
         viewModel.todayStatus.observe(this) { resource ->
-            binding.progressBar.visibility = View.GONE
             when (resource) {
                 is Resource.Loading -> {
-                    binding.progressBar.visibility = View.VISIBLE
+                    ShimmerHelper.show(
+                        binding.shimmerLayout,
+                        binding.layoutMain
+                    )
                 }
                 is Resource.Success -> {
+                    ShimmerHelper.hide(
+                        binding.shimmerLayout,
+                        binding.layoutMain
+                    )
                     todayStatusList = resource.data
-                    updateShiftCards()
+                    submitShiftCards()
                     updateStatsBar()
                 }
                 is Resource.Error -> {
-                    // ✅ Show default state — not marked
-                    updateShiftCards()
+                    ShimmerHelper.hide(
+                        binding.shimmerLayout,
+                        binding.layoutMain
+                    )
+                    todayStatusList = emptyList()
+                    submitShiftCards()
                 }
             }
         }
     }
 
-    // ─────────────────────────────────────
-    // ✅ Build shift cards dynamically
-    // ─────────────────────────────────────
-    private fun buildShiftCards() {
-        binding.layoutShiftCards.removeAllViews()
-
+    // ─────────────────────────────────
+    // ✅ Build shift cards
+    // ─────────────────────────────────
+    private fun submitShiftCards() {
         if (shifts.isEmpty()) {
-            val emptyView = layoutInflater.inflate(
-                R.layout.item_empty_state,
-                binding.layoutShiftCards,
-                false
-            )
-            binding.layoutShiftCards.addView(emptyView)
+            binding.layoutEmpty.visibility  = View.VISIBLE
+            binding.rvShiftCards.visibility = View.GONE
             return
         }
 
-        shifts.forEachIndexed { index, shift ->
-            val cardView = layoutInflater.inflate(
-                R.layout.item_attendance_shift_card,
-                binding.layoutShiftCards,
-                false
+        binding.layoutEmpty.visibility  = View.GONE
+        binding.rvShiftCards.visibility = View.VISIBLE
+
+        // ✅ Map shifts → ShiftCardItem with status
+        val items = shifts.mapIndexed { index, shift ->
+            ShiftCardItem(
+                shift  = shift,
+                index  = index,
+                status = todayStatusList.find {
+                    it.shiftCode == shift.shiftCode
+                }
             )
-
-            // ✅ Shift icon color
-            val iconLayout = cardView.findViewById<LinearLayout>(R.id.layoutShiftIcon)
-            val iconView   = cardView.findViewById<ImageView>(R.id.ivShiftIcon)
-
-            when (index % 3) {
-                0 -> {
-                    iconLayout.setBackgroundResource(R.drawable.bg_shift_morning)
-                    iconView.setColorFilter(
-                        android.graphics.Color.parseColor("#27500A")
-                    )
-                }
-                1 -> {
-                    iconLayout.setBackgroundResource(R.drawable.bg_shift_evening)
-                    iconView.setColorFilter(
-                        android.graphics.Color.parseColor("#0C447C")
-                    )
-                }
-                2 -> {
-                    iconLayout.setBackgroundResource(R.drawable.bg_shift_night)
-                    iconView.setColorFilter(
-                        android.graphics.Color.parseColor("#534AB7")
-                    )
-                }
-            }
-
-            // ✅ Shift name + time
-            cardView.findViewById<TextView>(R.id.tvShiftName).text =
-                "Shift ${index + 1} · ${shift.shiftName}"
-            cardView.findViewById<TextView>(R.id.tvShiftTime).text =
-                "${shift.startTime.take(5)} – ${shift.endTime.take(5)}"
-
-            // ✅ Default — not marked
-            cardView.findViewById<TextView>(R.id.tvShiftBadge).text = "Not marked"
-            cardView.findViewById<TextView>(R.id.tvShiftCount).text =
-                "Tap to mark attendance"
-            cardView.findViewById<ProgressBar>(R.id.progShift).progress = 0
-
-            // ✅ Mark now button
-            cardView.findViewById<Button>(R.id.btnMarkAttendance)
-                .setOnClickListener {
-                    openMarkAttendance(shift)
-                }
-
-            binding.layoutShiftCards.addView(cardView)
         }
 
-        // ✅ Update with today's status if available
-        if (todayStatusList.isNotEmpty()) updateShiftCards()
+        // ✅ DiffUtil handles smart updates automatically
+        shiftCardAdapter.submitList(items)
     }
 
-    // ─────────────────────────────────────
-    // ✅ Update shift cards with today's status
-    // ─────────────────────────────────────
-    private fun updateShiftCards() {
-        shifts.forEachIndexed { index, shift ->
-            val cardView = binding.layoutShiftCards
-                .getChildAt(index) ?: return@forEachIndexed
-
-            val status = todayStatusList.find {
-                it.shiftCode == shift.shiftCode
-            }
-
-            val badge  = cardView.findViewById<TextView>(R.id.tvShiftBadge)
-            val count  = cardView.findViewById<TextView>(R.id.tvShiftCount)
-            val prog   = cardView.findViewById<ProgressBar>(R.id.progShift)
-            val btn    = cardView.findViewById<Button>(R.id.btnMarkAttendance)
-            val card   = cardView as? MaterialCardView
-
-            if (status != null && status.isMarked) {
-                // ✅ Marked — show counts
-                val total   = status.presentCount.toInt() +
-                        status.absentCount +
-                        status.weekoffCount +
-                        status.leaveCount +
-                        status.holidayCount
-                val present = status.presentCount.toInt()
-                val pct     = if (total > 0) (present * 100 / total) else 0
-
-                badge.text = "Marked ✓"
-                badge.setBackgroundResource(R.drawable.bg_badge_green)
-                badge.setTextColor(android.graphics.Color.parseColor("#27500A"))
-
-                count.text = "$present present · ${status.absentCount} absent · ${status.weekoffCount} off"
-                count.setTextColor(android.graphics.Color.parseColor("#27500A"))
-
-                prog.progress = pct
-                prog.progressDrawable = getDrawable(R.drawable.progress_drawable)
-
-                btn.text = "Edit"
-                btn.backgroundTintList =
-                    android.content.res.ColorStateList.valueOf(
-                        android.graphics.Color.parseColor("#27500A")
-                    )
-                btn.setOnClickListener {
-                    openMarkAttendance(shift, status.attendanceId, "EDIT")
-                }
-
-                // ✅ Green stroke for marked card
-                card?.strokeColor = android.graphics.Color.parseColor("#639922")
-                card?.strokeWidth = 2
-
-            } else {
-                // ✅ Not marked
-                badge.text = "Not marked"
-                badge.setBackgroundResource(R.drawable.bg_badge_blue)
-                badge.setTextColor(android.graphics.Color.parseColor("#0C447C"))
-
-                count.text = "Tap to mark attendance"
-                count.setTextColor(android.graphics.Color.parseColor("#757575"))
-
-                prog.progress = 0
-
-                btn.text = "Mark now"
-                btn.backgroundTintList =
-                    android.content.res.ColorStateList.valueOf(
-                        android.graphics.Color.parseColor("#1565C0")
-                    )
-                btn.setOnClickListener {
-                    openMarkAttendance(shift)
-                }
-
-                card?.strokeColor = android.graphics.Color.parseColor("#E0E0E0")
-                card?.strokeWidth = 0
-            }
-        }
-    }
-
-    // ─────────────────────────────────────
+    // ─────────────────────────────────
     // ✅ Update stats bar
-    // ─────────────────────────────────────
+    // ─────────────────────────────────
     private fun updateStatsBar() {
-        var totalPresent = 0.0
-        var totalAbsent  = 0
+        var totalPresent  = 0.0
+        var totalAbsent   = 0
         var totalOffLeave = 0
 
         todayStatusList.forEach { status ->
             totalPresent  += status.presentCount
             totalAbsent   += status.absentCount
-            totalOffLeave += status.weekoffCount + status.leaveCount + status.holidayCount
+            totalOffLeave += status.weekoffCount +
+                    status.leaveCount   +
+                    status.holidayCount
         }
 
         binding.tvPresent.text  = totalPresent.toInt().toString()
         binding.tvAbsent.text   = totalAbsent.toString()
         binding.tvOffLeave.text = totalOffLeave.toString()
+        binding.tvTotalEmp.text =
+            (totalOffLeave + totalPresent.toInt() + totalAbsent).toString()
     }
 
-    // ─────────────────────────────────────
-    // ✅ Open mark attendance
-    // ─────────────────────────────────────
+    // ─────────────────────────────────
+    // ✅ Open mark attendance — uses the SELECTED date, not always today
+    // ─────────────────────────────────
     private fun openMarkAttendance(
         shift: ShiftEntity,
         attendanceId: String? = null,
         mode: String = "NEW"
     ) {
-        val today = dateFmt.format(Date())
+        val date = viewModel.getTodayDate()   // ✅ now returns selected date
         startActivity(
             Intent(this, MarkAttendanceActivity::class.java).apply {
                 putExtra("btCode",         btCode)
@@ -292,10 +270,21 @@ class AttendanceHomeActivity : AppCompatActivity() {
                 putExtra("shiftName",      shift.shiftName)
                 putExtra("shiftStartTime", shift.startTime)
                 putExtra("shiftEndTime",   shift.endTime)
-                putExtra("date",           today)
+                putExtra("date",           date)
                 putExtra("mode",           mode)
                 attendanceId?.let { putExtra("attendanceId", it) }
             }
         )
+    }
+
+    // ─────────────────────────────────
+    // ✅ Refresh after returning from MarkAttendance
+    // — only matters when viewing today (edits happen on today only)
+    // ─────────────────────────────────
+    override fun onResume() {
+        super.onResume()
+        if (btCode.isNotEmpty() && companyCode.isNotEmpty()) {
+            viewModel.loadTodayStatus(btCode, companyCode)
+        }
     }
 }

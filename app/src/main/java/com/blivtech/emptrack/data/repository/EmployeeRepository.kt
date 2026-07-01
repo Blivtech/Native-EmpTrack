@@ -9,6 +9,7 @@ import com.blivtech.emptrack.data.local.entity.EmployeeEntity
 import com.blivtech.emptrack.data.model.EmployeeRequest
 import com.blivtech.emptrack.data.model.EmployeeResponse
 import com.blivtech.emptrack.data.network.ApiService
+import com.blivtech.emptrack.utils.CommonClass
 import com.blivtech.emptrack.utils.Resource
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
@@ -26,8 +27,8 @@ class EmployeeRepository @Inject constructor(
         employeeDao.getEmployeesByCompany(companyId)
 
     // ✅ Get employee by id
-    suspend fun getEmployeeById(id: Long): EmployeeEntity? =
-        employeeDao.getEmployeeById(id)
+    suspend fun getEmployeeById(empCode: String, companyCode: String): EmployeeEntity? =
+        employeeDao.getEmployeeById(empCode,companyCode)
 
     // ✅ Get departments from Room
     fun getDepartments(btCode: String) =
@@ -48,16 +49,19 @@ class EmployeeRepository @Inject constructor(
                     employeeDao.insert(entity)
                     Resource.Success(entity)
                 } else Resource.Error(body.message)
-            } else Resource.Error("Failed to create employee")
+            } else{ val errorBody = response.errorBody()?.string()
+                  val errorMessage =CommonClass. parseErrorMessage(errorBody)
+                    ?: "Failed to create employee"
+                Resource.Error(errorMessage)}
         } catch (e: Exception) {
             Resource.Error(e.localizedMessage ?: "Network error")
         }
     }
 
     // ✅ Update employee
-    suspend fun updateEmployee(id: Long, request: EmployeeRequest): Resource<EmployeeEntity> {
+    suspend fun updateEmployee(empCode: String, request: EmployeeRequest): Resource<EmployeeEntity> {
         return try {
-            val response = apiService.updateEmployee(id, request)
+            val response = apiService.updateEmployee(empCode, request.companyCode,request)
             if (response.isSuccessful && response.body() != null) {
                 val body = response.body()!!
                 if (body.code == 200 && body.data != null) {
@@ -72,13 +76,13 @@ class EmployeeRepository @Inject constructor(
     }
 
     // ✅ Delete employee
-    suspend fun deleteEmployee(id: Long): Resource<Any> {
+    suspend fun deleteEmployee(empCode: String, companyCode: String): Resource<Any> {
         return try {
-            val response = apiService.deleteEmployee(id)
+            val response = apiService.deleteEmployee(empCode,companyCode)
             if (response.isSuccessful && response.body() != null) {
                 val body = response.body()!!
                 if (body.code == 200) {
-                    employeeDao.deleteById(id)
+                    employeeDao.deleteById(empCode,companyCode)
                     Resource.Success(Any())
                 } else Resource.Error(body.message)
             } else Resource.Error("Failed to delete employee")

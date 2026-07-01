@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="#FFFFFF"
+    android:padding="11dp"
+    android:layout_marginBottom="1dp">
+
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="#212121"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginTop="2dp">
+
+            <ImageView
+                android:layout_width="10dp"
+                android:layout_height="10dp"
+                android:src="@android:drawable/ic_menu_day"
+                android:tint="#27500A"
+                android:layout_marginEnd="4dp"/>
+
+            <TextView
+                android:id="@+id/tvShift"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:textColor="#9E9E9E"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvProductCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:textColor="#757575"
+            android:layout_marginTop="2dp"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/tvAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="#27500A"
+        android:layout_marginEnd="8dp"/>
+
+    <LinearLayout
+        android:id="@+id/btnEdit"
+        android:layout_width="28dp"
+        android:layout_height="28dp"
+        android:gravity="center"
+        android:background="@drawable/bg_circle_blue"
+        android:clickable="true"
+        android:focusable="true">
+
+        <ImageView
+            android:layout_width="14dp"
+            android:layout_height="14dp"
+            android:src="@android:drawable/ic_menu_edit"
+            android:tint="#0C447C"/>
+    </LinearLayout>
+</LinearLayout>

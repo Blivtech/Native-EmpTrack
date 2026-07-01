@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F5F7FA">
+
+    <!-- Topbar -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="#1565C0"
+        android:padding="14dp">
+
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:src="@drawable/ic_nav_home"
+            android:tint="#FFFFFF"
+            android:layout_marginEnd="10dp"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Product Rates"
+                android:textSize="15sp"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Product · Work name · Rate · Unit"
+                android:textSize="10sp"
+                android:textColor="#CCffffff"
+                android:layout_marginTop="1dp"/>
+        </LinearLayout>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btnAddProduct"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:text="+ Add"
+            android:textSize="11sp"
+            android:textColor="#FFFFFF"
+            app:strokeColor="#FFFFFF"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            app:cornerRadius="20dp"/>
+    </LinearLayout>
+
+    <!-- Content -->
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scrollbars="none">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="12dp">
+
+            <!-- Empty state -->
+            <LinearLayout
+                android:id="@+id/layoutEmpty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="40dp"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No products configured"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="#9E9E9E"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Tap + Add to configure product rates"
+                    android:textSize="12sp"
+                    android:textColor="#BDBDBD"
+                    android:layout_marginTop="6dp"/>
+            </LinearLayout>
+
+            <!-- Product list (dynamic) -->
+            <LinearLayout
+                android:id="@+id/layoutProducts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

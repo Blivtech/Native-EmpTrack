@@ -30,7 +30,7 @@
                 android:id="@+id/ivBack"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@drawable/ic_nav_home"
+                android:src="@drawable/ic_back"
                 android:tint="#FFFFFF"
                 android:padding="4dp"
                 android:layout_marginEnd="10dp"/>
@@ -40,13 +40,15 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Shift Plan"
-                android:textSize="18sp"
+                android:textSize="@dimen/text_caption_th"
                 android:textStyle="bold"
+                android:fontFamily="@font/satoshi_medium"
                 android:textColor="#FFFFFF"/>
 
             <ImageView
                 android:id="@+id/ivCopyPlan"
                 android:layout_width="30dp"
+                android:visibility="gone"
                 android:layout_height="30dp"
                 android:src="@android:drawable/ic_menu_share"
                 android:tint="#FFFFFF"
@@ -58,6 +60,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
+
             android:gravity="center_vertical"
             android:background="@drawable/bg_company_pill"
             android:padding="9dp"
@@ -70,38 +73,22 @@
                 android:tint="#CCffffff"
                 android:layout_marginEnd="8dp"/>
 
-            <LinearLayout
-                android:layout_width="0dp"
+            <TextView
+                android:id="@+id/tvCompanyName"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
+                android:layout_marginStart="5dp"
+                android:textSize="@dimen/text_caption_md"
+                android:fontFamily="@font/satoshi_medium"
+                android:layout_gravity="center"
+                android:textStyle="bold"
+                android:textColor="#FFFFFF"/>
 
-                <TextView
-                    android:id="@+id/tvCompanyName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="13sp"
-                    android:textStyle="bold"
-                    android:textColor="#FFFFFF"/>
-
-                <TextView
-                    android:id="@+id/tvEmpCountLabel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="10sp"
-                    android:textColor="#99ffffff"
-                    android:layout_marginTop="1dp"/>
-            </LinearLayout>
-
-            <ImageView
-                android:layout_width="16dp"
-                android:layout_height="16dp"
-                android:src="@android:drawable/arrow_down_float"
-                android:tint="#99ffffff"/>
         </LinearLayout>
 
         <!-- Week navigation -->
         <LinearLayout
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -269,7 +256,9 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="Shift assignments"
-                    android:textSize="13sp"
+                    android:textSize="@dimen/text_caption_md"
+                    android:fontFamily="@font/satoshi_medium"
+
                     android:textStyle="bold"
                     android:textColor="#212121"/>
 
@@ -281,12 +270,11 @@
                     android:textColor="#1565C0"/>
             </LinearLayout>
 
-            <!-- ✅ Dynamic shift cards container -->
-            <LinearLayout
-                android:id="@+id/layoutShiftCards"
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvShiftCards"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"/>
+                />
 
             <!-- Unassigned warning -->
             <LinearLayout
@@ -295,7 +283,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
-                android:background="@drawable/bg_badge_amber"
+                android:background="@drawable/bg_badge_red_light"
                 android:padding="10dp"
                 android:layout_marginTop="4dp"
                 android:visibility="gone">
@@ -312,8 +300,8 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textSize="11sp"
-                    android:textColor="#633806"/>
+                    android:textSize="@dimen/text_caption_small"
+                    android:fontFamily="@font/satoshi_medium"                     android:textColor="#633806"/>
             </LinearLayout>
 
             <!-- Empty state — no shifts -->
@@ -337,16 +325,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="No shifts found"
-                    android:textSize="14sp"
-                    android:textStyle="bold"
+                    android:textSize="@dimen/text_caption_md"
+                    android:fontFamily="@font/satoshi_medium"                     android:textStyle="bold"
                     android:textColor="#9E9E9E"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Add shifts to this company first"
-                    android:textSize="11sp"
-                    android:textColor="#BDBDBD"
+                    android:textSize="@dimen/text_caption_small"
+                    android:fontFamily="@font/satoshi_medium"                     android:textColor="#BDBDBD"
                     android:layout_marginTop="4dp"/>
             </LinearLayout>
 

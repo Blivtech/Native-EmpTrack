@@ -1,10 +1,19 @@
 package com.blivtech.emptrack.data.network
 
+import com.blivtech.emptrack.data.model.AdvanceEmployeeDetailDto
+import com.blivtech.emptrack.data.model.AdvanceEntryDto
+import com.blivtech.emptrack.data.model.AdvanceEntryRequest
+import com.blivtech.emptrack.data.model.AdvanceMonthlyDto
+import com.blivtech.emptrack.data.model.AdvanceReportDto
 import com.blivtech.emptrack.data.model.AdvanceRequest
 import com.blivtech.emptrack.data.model.AdvanceResponse
 import com.blivtech.emptrack.data.model.ApiResponse
+import com.blivtech.emptrack.data.model.AttendanceEmployeeDto
 import com.blivtech.emptrack.data.model.AttendanceRequest
 import com.blivtech.emptrack.data.model.AttendanceResponse
+import com.blivtech.emptrack.data.model.BonusEntryDto
+import com.blivtech.emptrack.data.model.BonusEntryRequest
+import com.blivtech.emptrack.data.model.BonusMonthlyDto
 import com.blivtech.emptrack.data.model.BonusRequest
 import com.blivtech.emptrack.data.model.BonusResponse
 import com.blivtech.emptrack.data.model.LoginRequest
@@ -12,14 +21,26 @@ import com.blivtech.emptrack.data.model.LoginResponse
 import com.blivtech.emptrack.data.model.RegisterRequest
 import com.blivtech.emptrack.data.model.CompanyRequest
 import com.blivtech.emptrack.data.model.CompanyData
+import com.blivtech.emptrack.data.model.ContractEntryRequest
+import com.blivtech.emptrack.data.model.ContractProductRequest
+import com.blivtech.emptrack.data.model.DailyReportSummaryDto
 import com.blivtech.emptrack.data.model.EmployeeRequest
 import com.blivtech.emptrack.data.model.EmployeeResponse
+import com.blivtech.emptrack.data.model.EmployeeWeeklyDetailDto
 import com.blivtech.emptrack.data.model.MasterResponse
+import com.blivtech.emptrack.data.model.MonthlyEmployeeDetailDto
+import com.blivtech.emptrack.data.model.MonthlyReportDto
+import com.blivtech.emptrack.data.model.MonthlyShiftReportDto
+import com.blivtech.emptrack.data.model.OvertimeEntryDto
+import com.blivtech.emptrack.data.model.OvertimeEntryRequest
+import com.blivtech.emptrack.data.model.OvertimeMonthlyDto
 import com.blivtech.emptrack.data.model.OvertimeRequest
 import com.blivtech.emptrack.data.model.OvertimeResponse
 import com.blivtech.emptrack.data.model.ProductRequest
 import com.blivtech.emptrack.data.model.ProductResponse
 import com.blivtech.emptrack.data.model.ShiftStatusResponse
+import com.blivtech.emptrack.data.model.WeeklyOverallReportDto
+import com.blivtech.emptrack.data.model.WeeklyShiftReportDto
 import com.blivtech.emptrack.data.model.WorkEntryRequest
 import com.blivtech.emptrack.data.model.WorkEntryResponse
 import retrofit2.Response
@@ -48,14 +69,14 @@ interface ApiService {
         @Query("btCode") btCode: String
     ): Response<MasterResponse>
 
-    @POST("api/company")
+    @POST("api/companies/save")
     suspend fun createCompany(
         @Body request: CompanyRequest
     ): Response<ApiResponse<CompanyData>>
 
-    @PUT("api/company/{id}")
+    @PUT("api/companies/{id}")
     suspend fun updateCompany(
-        @Path("id") id: Long,
+        @Path("companyCode") companyCode: String,
         @Body request: CompanyRequest
     ): Response<ApiResponse<CompanyData>>
 
@@ -75,37 +96,39 @@ interface ApiService {
         @Body request: EmployeeRequest
     ): Response<ApiResponse<EmployeeResponse>>
 
-    @PUT("api/employee/{id}")
+
+    @PUT("api/employees/{empCode}/{companyCode}")
     suspend fun updateEmployee(
-        @Path("id") id: Long,
+        @Path("empCode") empCode: String,
+        @Path("companyCode") companyCode: String,
         @Body request: EmployeeRequest
     ): Response<ApiResponse<EmployeeResponse>>
 
-    @DELETE("api/employee/{id}")
+
+    @DELETE("api/employees/{empCode}")
     suspend fun deleteEmployee(
-        @Path("id") id: Long
+        @Path("empCode") empCode: String,
+        @Query("companyCode") companyCode: String
     ): Response<ApiResponse<Any>>
 
-    // ✅ Mark attendance
+
     @POST("api/attendance/mark")
     suspend fun markAttendance(
         @Body request: AttendanceRequest
     ): Response<ApiResponse<AttendanceResponse>>
 
-    // ✅ Update attendance
     @PUT("api/attendance/update/{attendanceId}")
     suspend fun updateAttendance(
         @Path("attendanceId") attendanceId: String,
         @Body request: AttendanceRequest
     ): Response<ApiResponse<AttendanceResponse>>
 
-    // ✅ Get attendance by ID
     @GET("api/attendance/{attendanceId}")
     suspend fun getAttendanceById(
         @Path("attendanceId") attendanceId: String
     ): Response<ApiResponse<AttendanceResponse>>
 
-    // ✅ Check attendance
+
     @GET("api/attendance/check")
     suspend fun checkAttendance(
         @Query("btCode") btCode: String,
@@ -114,11 +137,11 @@ interface ApiService {
         @Query("date") date: String
     ): Response<ApiResponse<Map<String, Any>>>
 
-    // ✅ Today's shifts status
     @GET("api/attendance/today")
     suspend fun getTodayStatus(
         @Query("btCode") btCode: String,
-        @Query("companyId") companyId: String
+        @Query("companyId") companyId: String,
+        @Query("date") date: String
     ): Response<ApiResponse<List<ShiftStatusResponse>>>
 
 
@@ -176,4 +199,181 @@ interface ApiService {
         @Query("date") date: String? = null,
         @Query("month") month: String? = null
     ): Response<ApiResponse<List<WorkEntryResponse>>>
+
+    // ✅ Contract Wage APIs
+    @POST("api/contract-products/add")
+    suspend fun addContractProduct(
+        @Body request: ContractProductRequest
+    ): Response<ApiResponse<Any>>
+
+    @POST("api/contract-entries/add")
+    suspend fun addContractEntries(
+        @Body request: ContractEntryRequest
+    ): Response<ApiResponse<Any>>
+
+    @GET("api/contract-entries")
+    suspend fun getContractEntries(
+        @Query("btCode") btCode: String,
+        @Query("companyCode") companyCode: String,
+        @Query("month") month: String
+    ): Response<ApiResponse<List<Any>>>
+
+    // ✅ Daily report APIs
+    @GET("api/reports/attendance/daily")
+    suspend fun getDailyReport(
+        @Query("btCode") btCode: String,
+        @Query("companyCode") companyCode: String,
+        @Query("date") date: String
+    ): Response<ApiResponse<DailyReportSummaryDto>>
+
+    @GET("api/reports/attendance/daily/employees")
+    suspend fun getShiftEmployees(
+        @Query("btCode") btCode: String,
+        @Query("companyCode") companyCode: String,
+        @Query("date") date: String,
+        @Query("shiftCode") shiftCode: String,
+        @Query("type") type: String   // PRESENT or LEAVE
+    ): Response<ApiResponse<List<AttendanceEmployeeDto>>>
+
+
+    // ✅ Weekly overall report
+    @GET("api/reports/attendance/weekly/overall")
+    suspend fun getWeeklyOverallReport(
+        @Query("btCode") btCode: String,
+        @Query("companyCode") companyCode: String,
+        @Query("weekStart") weekStart: String,
+        @Query("weekEnd") weekEnd: String
+    ): Response<ApiResponse<WeeklyOverallReportDto>>
+
+    // ✅ Weekly shift report
+    @GET("api/reports/attendance/weekly/shift")
+    suspend fun getWeeklyShiftReport(
+        @Query("btCode") btCode: String,
+        @Query("companyCode") companyCode: String,
+        @Query("weekStart") weekStart: String,
+        @Query("weekEnd") weekEnd: String,
+        @Query("shiftCode") shiftCode: String
+    ): Response<ApiResponse<WeeklyShiftReportDto>>
+
+    @GET("api/reports/attendance/weekly/employee-detail")
+    suspend fun getEmployeeWeeklyDetail(
+        @Query("btCode") btCode: String,
+        @Query("companyCode") companyCode: String,
+        @Query("weekStart") weekStart: String,
+        @Query("weekEnd") weekEnd: String,
+        @Query("shiftCode") shiftCode: String,
+        @Query("empCode") empCode: String
+    ): Response<ApiResponse<EmployeeWeeklyDetailDto>>
+
+    // ✅ Monthly overall report
+    @GET("api/reports/attendance/monthly")
+    suspend fun getMonthlyReport(
+        @Query("btCode") btCode: String,
+        @Query("companyCode") companyCode: String,
+        @Query("month") month: String   // "2026-06"
+    ): Response<ApiResponse<MonthlyReportDto>>
+
+    // ✅ Monthly shift wise report
+    @GET("api/reports/attendance/monthly/shift")
+    suspend fun getMonthlyShiftReport(
+        @Query("btCode") btCode: String,
+        @Query("companyCode") companyCode: String,
+        @Query("month") month: String,
+        @Query("shiftCode") shiftCode: String
+    ): Response<ApiResponse<MonthlyShiftReportDto>>
+
+    // ✅ Monthly employee detail
+    @GET("api/reports/attendance/monthly/employee-detail")
+    suspend fun getMonthlyEmployeeDetail(
+        @Query("btCode") btCode: String,
+        @Query("companyCode") companyCode: String,
+        @Query("month") month: String,
+        @Query("shiftCode") shiftCode: String,
+        @Query("empCode") empCode: String
+    ): Response<ApiResponse<MonthlyEmployeeDetailDto>>
+
+
+    // ✅ Advance report — month wise
+    @GET("api/reports/advance")
+    suspend fun getAdvanceReport(
+        @Query("btCode") btCode: String,
+        @Query("companyCode") companyCode: String,
+        @Query("month") month: String
+    ): Response<ApiResponse<AdvanceReportDto>>
+
+    // ✅ Employee advance detail
+    @GET("api/reports/advance/employee-detail")
+    suspend fun getAdvanceEmployeeDetail(
+        @Query("btCode") btCode: String,
+        @Query("companyCode") companyCode: String,
+        @Query("month") month: String,
+        @Query("empCode") empCode: String
+    ): Response<ApiResponse<AdvanceEmployeeDetailDto>>
+
+
+
+
+    // ─── Advance ───────────────────────────
+    @GET("api/reports/advance")
+    suspend fun getAdvanceList(
+        @Query("btCode")      btCode: String,
+        @Query("companyCode") companyCode: String,
+        @Query("month")       month: String
+    ): Response<ApiResponse<AdvanceMonthlyDto>>
+
+    @PUT("api/reports/advance/{advanceId}")
+    suspend fun updateAdvance(
+        @Path("advanceId") advanceId: String,
+        @Body request: AdvanceEntryRequest
+    ): Response<ApiResponse<AdvanceEntryDto>>
+
+    @DELETE("api/reports/advance/{advanceId}")
+    suspend fun deleteAdvance(
+        @Path("advanceId") advanceId: String,
+        @Query("btCode")      btCode: String,
+        @Query("companyCode") companyCode: String
+    ): Response<ApiResponse<Unit>>
+
+    // ─── Bonus ─────────────────────────────
+    @GET("api/reports/bonus")
+    suspend fun getBonusList(
+        @Query("btCode")      btCode: String,
+        @Query("companyCode") companyCode: String,
+        @Query("month")       month: String
+    ): Response<ApiResponse<BonusMonthlyDto>>
+
+    @PUT("api/reports/bonus/{bonusId}")
+    suspend fun updateBonus(
+        @Path("bonusId") bonusId: String,
+        @Body request: BonusEntryRequest
+    ): Response<ApiResponse<BonusEntryDto>>
+
+    @DELETE("api/reports/bonus/{bonusId}")
+    suspend fun deleteBonus(
+        @Path("bonusId") bonusId: String,
+        @Query("btCode")      btCode: String,
+        @Query("companyCode") companyCode: String
+    ): Response<ApiResponse<Unit>>
+
+    // ─── Overtime ──────────────────────────
+    @GET("api/reports/overtime")
+    suspend fun getOvertimeList(
+        @Query("btCode")      btCode: String,
+        @Query("companyCode") companyCode: String,
+        @Query("month")       month: String
+    ): Response<ApiResponse<OvertimeMonthlyDto>>
+
+    @PUT("api/reports/overtime/{otId}")
+    suspend fun updateOvertime(
+        @Path("otId") otId: String,
+        @Body request: OvertimeEntryRequest
+    ): Response<ApiResponse<OvertimeEntryDto>>
+
+    @DELETE("api/reports/overtime/{otId}")
+    suspend fun deleteOvertime(
+        @Path("otId") otId: String,
+        @Query("btCode")      btCode: String,
+        @Query("companyCode") companyCode: String
+    ): Response<ApiResponse<Unit>>
+
 }

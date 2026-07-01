@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import com.blivtech.emptrack.R
 import com.blivtech.emptrack.data.local.entity.DepartmentEntity
 import com.blivtech.emptrack.data.local.entity.DesignationEntity
@@ -14,12 +15,16 @@ import com.blivtech.emptrack.ui.employee.bottomsheet.DepartmentBottomSheet
 import com.blivtech.emptrack.ui.employee.bottomsheet.DesignationBottomSheet
 import com.blivtech.emptrack.ui.employee.bottomsheet.GenderBottomSheet
 import com.blivtech.emptrack.ui.employee.bottomsheet.SalaryBottomSheet
+import com.blivtech.emptrack.utils.PreferenceManager
 import com.blivtech.emptrack.utils.Resource
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import java.text.NumberFormat
 import java.util.Calendar
 import java.util.Locale
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class AddEditEmployeeActivity : AppCompatActivity() {
@@ -27,18 +32,17 @@ class AddEditEmployeeActivity : AppCompatActivity() {
     private lateinit var binding: ActivityAddEditEmployeeBinding
     private val viewModel: AddEditEmployeeViewModel by viewModels()
 
-    // ─────────────────────────────────────────
-    // Intent data
-    // ─────────────────────────────────────────
-    private val btCode by lazy { intent.getStringExtra("btCode") ?: "" }
-    private val companyId by lazy { intent.getLongExtra("companyId", -1L) }
-    private val companyName by lazy { intent.getStringExtra("companyName") ?: "" }
-    private val editEmployeeId by lazy { intent.getLongExtra("employeeId", -1L) }
-    private val isEditMode get() = editEmployeeId != -1L
 
-    // ─────────────────────────────────────────
-    // Selected values
-    // ─────────────────────────────────────────
+    private var btCode  = ""
+    private var companyCode= ""
+    private var companyName = ""
+    private val editEmployeeCode by lazy { intent.getStringExtra("employeeCode")?:"" }
+    private val isEditMode get() = editEmployeeCode != ""
+
+    @Inject
+    lateinit var preferenceManager: PreferenceManager
+
+
     private var selectedDepartment: DepartmentEntity? = null
     private var selectedDesignation: DesignationEntity? = null
     private var selectedGender: Int? = null
@@ -60,24 +64,23 @@ class AddEditEmployeeActivity : AppCompatActivity() {
 
         setupUI()
         setupClickListeners()
-        observeViewModel()
 
-        if (isEditMode) prefillData()
+        lifecycleScope.launch {
+            btCode = preferenceManager.btCode.first()
+            companyCode = preferenceManager.selectedCompanyCode.first()
+            companyName = preferenceManager.selectedCompanyName.first()
+
+            binding.tvCompanyValue.text = companyName
+
+            observeViewModel()
+
+            if (isEditMode) prefillData()
+        }
     }
-
-    // ─────────────────────────────────────────
-    // UI Setup
-    // ─────────────────────────────────────────
 
     private fun setupUI() {
         binding.tvTitle.text = if (isEditMode) "Edit employee" else "Add employee"
-        // ✅ Company is pre-filled and locked
-        binding.tvCompanyValue.text = companyName
     }
-
-    // ─────────────────────────────────────────
-    // Click Listeners
-    // ─────────────────────────────────────────
 
     private fun setupClickListeners() {
         binding.ivBack.setOnClickListener { finish() }
@@ -369,26 +372,26 @@ class AddEditEmployeeActivity : AppCompatActivity() {
     // ─────────────────────────────────────────
 
     private fun saveEmployee() {
-        val empCode = if (isEditMode) "" else "EMP${System.currentTimeMillis()}"
+        val empCode = if (isEditMode) editEmployeeCode else ""
 
         val request = EmployeeRequest(
-            btCode        = btCode,
-            empCode       = empCode,
-            companyId     = companyId,
-            departmentId  = selectedDepartment?.id ?: -1L,
-            designationId = selectedDesignation?.id ?: -1L,
-            name          = binding.etName.text.toString().trim(),
-            email         = binding.etEmail.text.toString().trim().ifEmpty { null },
-            phone         = binding.etPhone.text.toString().trim(),
-            gender        = selectedGender,
-            dob           = selectedDob,
-            joiningDate   = selectedJoiningDate,
-            salaryType    = selectedSalaryType,
-            salaryAmount  = selectedSalaryAmount,
-            status        = 1
+            btCode = btCode,
+            empCode = empCode,
+            companyCode = companyCode,
+            deptCode = selectedDepartment?.deptCode ?: "",
+            desgCode = selectedDesignation?.desgCode ?: "",
+            name = binding.etName.text.toString().trim(),
+            email = binding.etEmail.text.toString().trim().ifEmpty { null },
+            phone = binding.etPhone.text.toString().trim(),
+            gender = selectedGender,
+            dob = selectedDob,
+            joiningDate = selectedJoiningDate,
+            salaryType = selectedSalaryType,
+            salaryAmount = selectedSalaryAmount,
+            status = 1
         )
 
-        if (isEditMode) viewModel.updateEmployee(editEmployeeId, request)
+        if (isEditMode) viewModel.updateEmployee(editEmployeeCode, request)
         else viewModel.createEmployee(request)
     }
 }

@@ -3,9 +3,9 @@ package com.blivtech.emptrack.data.model
 data class EmployeeRequest(
     val btCode: String,
     val empCode: String,
-    val companyId: Long,
-    val departmentId: Long,
-    val designationId: Long,
+    val companyCode: String,
+    val deptCode: String,
+    val desgCode: String,
     val name: String,
     val email: String?,
     val phone: String?,

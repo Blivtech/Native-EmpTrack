@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+    android:padding="11px"
+    android:layout_marginBottom="8dp">
+
+    <!-- Top row -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="8dp">
+
+        <!-- Color dot -->
+        <View
+            android:id="@+id/viewDot"
+            android:layout_width="10dp"
+            android:layout_height="10dp"
+            android:background="@drawable/bg_circle_blue"
+            android:layout_marginEnd="10dp"/>
+
+        <!-- Product + work name -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvProductName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="#212121"/>
+
+            <TextView
+                android:id="@+id/tvWorkName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="10sp"
+                android:textColor="#9E9E9E"
+                android:layout_marginTop="1dp"/>
+        </LinearLayout>
+
+        <!-- Rate badge -->
+        <TextView
+            android:id="@+id/tvRate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:textColor="#1565C0"
+            android:background="@drawable/bg_badge_blue"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"/>
+    </LinearLayout>
+
+    <!-- Action buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="end">
+
+        <TextView
+            android:id="@+id/btnEdit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Edit"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:textColor="#0C447C"
+            android:background="@drawable/bg_badge_blue"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:layout_marginEnd="8dp"
+            android:clickable="true"
+            android:focusable="true"/>
+
+        <TextView
+            android:id="@+id/btnDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Delete"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:textColor="#E24B4A"
+            android:background="@drawable/bg_circle_red"
+            android:paddingStart="10dp"
+            android:paddingEnd="10dp"
+            android:paddingTop="4dp"
+            android:paddingBottom="4dp"
+            android:clickable="true"
+            android:focusable="true"/>
+    </LinearLayout>
+</LinearLayout>

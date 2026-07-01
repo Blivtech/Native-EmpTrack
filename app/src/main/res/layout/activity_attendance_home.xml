@@ -6,10 +6,34 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#F5F7FA">
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:shimmer_duration="1000"
+        app:shimmer_base_color="#F0F0F0"
+        app:shimmer_highlight_color="#FFFFFF"
+        android:visibility="gone">
 
-    <!-- ═══════════════════════════════ -->
-    <!-- BLUE HEADER                     -->
-    <!-- ═══════════════════════════════ -->
+        <include layout="@layout/layout_shimmer_list"/>
+        <include layout="@layout/layout_shimmer_list"/>
+        <include layout="@layout/layout_shimmer_list"/>
+        <include layout="@layout/layout_shimmer_list"/>
+        <include layout="@layout/layout_shimmer_list"/>
+        <include layout="@layout/layout_shimmer_list"/>
+        <include layout="@layout/layout_shimmer_list"/>
+        <include layout="@layout/layout_shimmer_list"/>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+
+<LinearLayout
+    android:id="@+id/layoutMain"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="visible"
+    android:orientation="vertical"
+    android:background="#F5F7FA">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -67,6 +91,7 @@
                 android:id="@+id/ivCalendar"
                 android:layout_width="28dp"
                 android:layout_height="28dp"
+                android:visibility="visible"
                 android:src="@android:drawable/ic_menu_my_calendar"
                 android:tint="#FFFFFF"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -233,7 +258,7 @@
         style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:indeterminate="true"
         android:indeterminateTint="#1565C0"
-        android:visibility="gone"/>
+        android:visibility="visible"/>
 
     <!-- Scrollable content -->
     <ScrollView
@@ -256,13 +281,40 @@
                 android:textColor="#212121"
                 android:layout_marginBottom="10dp"/>
 
-            <!-- ✅ Dynamic shift cards container -->
-            <LinearLayout
-                android:id="@+id/layoutShiftCards"
+            <!-- ✅ Replace with RecyclerView -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvShiftCards"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"/>
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="never"/>
+            <!-- ✅ Also add empty state -->
+            <LinearLayout
+                android:id="@+id/layoutEmpty"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:padding="40dp"
+                android:visibility="gone">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="No shifts configured"
+                    android:textSize="13sp"
+                    android:textStyle="bold"
+                    android:textColor="#9E9E9E"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Add shifts in company settings"
+                    android:textSize="11sp"
+                    android:textColor="#BDBDBD"
+                    android:layout_marginTop="6dp"/>
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
+</LinearLayout>
 </LinearLayout>

@@ -1,0 +1,313 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="5dp"
+    android:background="@color/white"
+    android:layout_marginBottom="8dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="11dp"
+        android:paddingBottom="9dp">
+
+        <TextView
+            android:id="@+id/tvShiftEmoji"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:background="@drawable/bg_card_working"
+            android:layout_marginEnd="9dp"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvShiftName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/satoshi_medium"
+                android:textSize="@dimen/text_caption_md"
+                android:textStyle="bold"
+                android:textColor="#212121"/>
+
+            <TextView
+                android:id="@+id/tvShiftTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/satoshi_medium"
+
+                android:textSize="@dimen/text_caption_small"
+                android:textColor="#9E9E9E"
+                android:layout_marginTop="1dp"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvSubmitBadge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/text_caption_small"
+            android:textStyle="bold"
+            android:fontFamily="@font/satoshi_medium"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:background="#F8F9FB"
+        android:padding="9dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp">
+
+        <!-- Date row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layout_marginBottom="4dp">
+
+            <TextView
+                android:layout_width="65dp"
+                android:layout_height="wrap_content"
+                android:text="Date"
+                android:textSize="@dimen/text_caption_small"
+                android:fontFamily="@font/satoshi_medium"
+
+                android:textStyle="bold"
+                android:textColor="#BDBDBD"
+                android:letterSpacing="0.05"/>
+
+            <TextView
+                android:id="@+id/tvMetaDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_caption_small"
+                android:fontFamily="@font/satoshi_medium"
+
+                android:textStyle="bold"
+                android:textColor="#424242"/>
+        </LinearLayout>
+
+        <!-- Submitted row -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Submitted Date"
+
+                android:textSize="@dimen/text_caption_small"
+                android:textStyle="bold"
+                android:fontFamily="@font/satoshi_medium"
+
+                android:textColor="#BDBDBD"
+                android:letterSpacing="0.05"/>
+
+            <TextView
+                android:id="@+id/tvMetaSubmit"
+                android:layout_width="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_height="wrap_content"
+                android:textSize="@dimen/text_caption_small"
+                android:textStyle="bold"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- ✅ Count pills — 4 pills -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:paddingTop="10dp"
+        android:paddingBottom="11dp">
+
+        <!-- ✅ Present pill -->
+        <LinearLayout
+            android:id="@+id/pillPresent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/bg_card_working"
+            android:padding="8dp"
+            android:layout_marginEnd="4dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <TextView
+                android:id="@+id/tvPresentCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="—"
+                android:fontFamily="@font/satoshi_medium"
+
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#27500A"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Present"
+                android:textSize="@dimen/text_caption_md"
+                android:fontFamily="@font/satoshi_medium"
+
+                android:textStyle="bold"
+                android:textColor="#639922"
+                android:layout_marginTop="2dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tap to view"
+                android:textSize="6sp"
+                android:textColor="#9E9E9E"
+                android:layout_marginTop="1dp"/>
+        </LinearLayout>
+
+        <!-- ✅ Leave / Absent pill -->
+        <LinearLayout
+            android:id="@+id/pillLeave"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/bg_card_unselected"
+            android:padding="8dp"
+            android:layout_marginEnd="4dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <TextView
+                android:id="@+id/tvLeaveCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="—"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#E24B4A"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Leave"
+                android:textSize="@dimen/text_caption_md"
+                android:fontFamily="@font/satoshi_medium"
+
+                android:textStyle="bold"
+                android:textColor="#E24B4A"
+                android:layout_marginTop="2dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tap to view"
+                android:textSize="6sp"
+                android:textColor="#9E9E9E"
+                android:layout_marginTop="1dp"/>
+        </LinearLayout>
+
+        <!-- ✅ Holiday / Week Off pill -->
+        <LinearLayout
+            android:id="@+id/pillHoliday"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/bg_badge_purple_light"
+            android:padding="8dp"
+            android:layout_marginEnd="4dp"
+            android:clickable="false"
+            android:focusable="false">
+
+            <TextView
+                android:id="@+id/tvHolidayCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="—"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#3C3489"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="H / WO"
+                android:textSize="@dimen/text_caption_md"
+                android:fontFamily="@font/satoshi_medium"
+                android:textStyle="bold"
+                android:textColor="#3C3489"
+                android:layout_marginTop="2dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Holiday + WO"
+                android:textSize="6sp"
+                android:textColor="#7E6FD8"
+                android:layout_marginTop="1dp"/>
+        </LinearLayout>
+
+        <!-- ✅ Total pill -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/bg_field_selector"
+            android:padding="8dp">
+
+            <TextView
+                android:id="@+id/tvTotalCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="—"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:textColor="#1565C0"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Total"
+                android:textSize="@dimen/text_caption_md"
+                android:textStyle="bold"
+                android:fontFamily="@font/satoshi_medium"
+                android:textColor="#1565C0"
+                android:layout_marginTop="2dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="All employees"
+                android:textSize="6sp"
+                android:textColor="#9E9E9E"
+                android:layout_marginTop="1dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

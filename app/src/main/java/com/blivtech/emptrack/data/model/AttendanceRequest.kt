@@ -68,10 +68,6 @@ data class ShiftStatusResponse(
     val mode: String
 )
 
-// ─────────────────────────────────────
-// ✅ CALENDAR MODELS
-// ─────────────────────────────────────
-
 data class CalendarDayResponse(
     val date: String,
     val hasMissing: Boolean,

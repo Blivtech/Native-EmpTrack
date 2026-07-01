@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:background="#FFFFFF"
+    android:padding="11px"
+    android:layout_marginBottom="7dp"
+    android:clickable="true"
+    android:focusable="true"
+    >
+
+    <!-- Avatar -->
+    <FrameLayout
+        android:layout_width="34dp"
+        android:layout_height="34dp"
+        android:layout_marginEnd="9dp">
+
+        <View
+            android:id="@+id/viewAvatarBg"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:background="@drawable/bg_shift_morning"/>
+
+        <TextView
+            android:id="@+id/tvAvatar"
+            android:layout_width="34dp"
+            android:layout_height="34dp"
+            android:gravity="center"
+            android:textSize="9sp"
+            android:textStyle="bold"/>
+    </FrameLayout>
+
+    <!-- Info -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvEmpName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:textColor="#212121"/>
+
+        <TextView
+            android:id="@+id/tvEmpCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="7sp"
+            android:textColor="#BDBDBD"
+            android:layout_marginTop="1dp"/>
+
+        <TextView
+            android:id="@+id/tvDeptName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="7sp"
+            android:textStyle="bold"
+            android:textColor="#0C447C"
+            android:background="@drawable/bg_badge_blue"
+            android:paddingStart="6dp"
+            android:paddingEnd="6dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:layout_marginTop="3dp"/>
+    </LinearLayout>
+
+    <!-- Amount + date -->
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="end">
+
+        <TextView
+            android:id="@+id/tvAmount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13sp"
+            android:textStyle="bold"
+            android:textColor="#633806"/>
+
+        <TextView
+            android:id="@+id/tvDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="7sp"
+            android:textColor="#9E9E9E"
+            android:layout_marginTop="2dp"/>
+    </LinearLayout>
+
+    <!-- Arrow -->
+    <ImageView
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:src="@android:drawable/arrow_down_float"
+        android:tint="#BDBDBD"
+        android:rotation="-90"
+        android:layout_marginStart="6dp"/>
+
+</LinearLayout>

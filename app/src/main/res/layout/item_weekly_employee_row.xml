@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:padding="10dp"
+    android:paddingStart="11dp"
+    android:paddingEnd="11dp"
+    android:background="?attr/selectableItemBackground">
+
+    <!-- Avatar -->
+    <FrameLayout
+        android:layout_width="32dp"
+        android:layout_height="32dp"
+        android:layout_marginEnd="9dp">
+
+        <View
+            android:id="@+id/viewAvatarBg"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:background="@drawable/bg_shift_morning"/>
+
+        <TextView
+            android:id="@+id/tvAvatar"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:gravity="center"
+            android:textSize="9sp"
+            android:textStyle="bold"/>
+    </FrameLayout>
+
+    <!-- Info -->
+    <LinearLayout
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvEmpName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="10sp"
+            android:textStyle="bold"
+            android:textColor="#212121"/>
+
+        <TextView
+            android:id="@+id/tvEmpCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="8sp"
+            android:textColor="#BDBDBD"
+            android:layout_marginTop="1dp"/>
+
+        <TextView
+            android:id="@+id/tvEmpDept"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="7sp"
+            android:textColor="#9E9E9E"
+            android:layout_marginTop="1dp"/>
+    </LinearLayout>
+
+    <!-- Days pill -->
+    <LinearLayout
+        android:id="@+id/viewDaysPill"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="6dp"
+        android:paddingStart="10dp"
+        android:paddingEnd="10dp"
+        android:layout_marginEnd="6dp">
+
+        <TextView
+            android:id="@+id/tvDaysCount"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:gravity="center"/>
+
+        <TextView
+            android:id="@+id/tvDaysLabel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="7sp"
+            android:textStyle="bold"
+            android:gravity="center"
+            android:layout_marginTop="1dp"/>
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="14dp"
+        android:layout_height="14dp"
+        android:src="@android:drawable/arrow_down_float"
+        android:tint="#BDBDBD"
+        android:rotation="-90"/>
+</LinearLayout>

@@ -4,6 +4,7 @@ import android.content.Context
 import androidx.room.Room
 import com.blivtech.emptrack.data.local.dao.*
 import com.blivtech.emptrack.data.local.db.AppDatabase
+import com.blivtech.emptrack.data.local.entity.ContractProductDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -30,4 +31,15 @@ object DatabaseModule {
     fun provideDesignationDao(db: AppDatabase): DesignationDao = db.designationDao()
     @Provides
     fun provideShiftPlanDao (db: AppDatabase): ShiftPlanDao = db.shiftPlanDao()
-}
+
+    @Provides
+    fun provideContractProductDao(db: AppDatabase): ContractProductDao =
+        db.contractProductDao()
+
+    @Provides
+    fun provideUnitDao(db: AppDatabase): UnitDao =
+        db.unitDao()
+
+    @Provides
+    fun provideContractEntryDao(db: AppDatabase): ContractEntryDao =
+        db.contractEntryDao()}

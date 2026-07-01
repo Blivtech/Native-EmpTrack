@@ -50,6 +50,10 @@ dependencies {
 
     // ✅ Hilt — using KSP now
     implementation(libs.hilt.android)
+    implementation(libs.androidx.navigation.fragment.ktx)
+    implementation(libs.androidx.navigation.ui.ktx)
+    implementation(libs.androidx.navigation.runtime.android)
+    androidTestImplementation(libs.junit)
     ksp(libs.hilt.compiler)             // ✅ ksp() instead of kapt()
 
     // ✅ Retrofit
@@ -73,4 +77,18 @@ dependencies {
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
     ksp(libs.room.compiler)
+
+    implementation("androidx.datastore:datastore-preferences:1.1.1")
+    implementation ("com.google.android.flexbox:flexbox:3.0.0")
+    androidTestImplementation("androidx.test.ext:junit:1.2.1")
+    androidTestImplementation("androidx.test:runner:1.6.2")
+
+    testImplementation("junit:junit:4.13.2")
+    implementation ("com.facebook.shimmer:shimmer:0.5.0")
+
+    implementation("androidx.navigation:navigation-fragment-ktx:2.7.7")
+    implementation("androidx.navigation:navigation-ui-ktx:2.7.7")
+    implementation ("com.google.android.material:material:1.12.0")
+
+
 }

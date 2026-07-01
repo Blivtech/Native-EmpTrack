@@ -1,0 +1,213 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+    android:layout_marginBottom="8dp">
+
+    <!-- Shift header -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:padding="11dp"
+        android:paddingBottom="9dp">
+
+        <TextView
+            android:id="@+id/tvShiftEmoji"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:gravity="center"
+            android:textSize="18sp"
+            android:background="@drawable/bg_card_working"
+            android:layout_marginEnd="9dp"/>
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvShiftName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:textColor="#212121"/>
+
+            <TextView
+                android:id="@+id/tvShiftTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="9sp"
+                android:textColor="#9E9E9E"
+                android:layout_marginTop="1dp"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvSubmitBadge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="8sp"
+            android:textStyle="bold"
+            android:paddingStart="8dp"
+            android:paddingEnd="8dp"
+            android:paddingTop="3dp"
+            android:paddingBottom="3dp"/>
+    </LinearLayout>
+
+    <!-- Week range -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="#F8F9FB"
+        android:padding="7dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="WEEK"
+            android:textSize="7sp"
+            android:textStyle="bold"
+            android:textColor="#BDBDBD"
+            android:letterSpacing="0.05"
+            android:layout_marginEnd="8dp"/>
+
+        <TextView
+            android:id="@+id/tvWeekRange"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="9sp"
+            android:textStyle="bold"
+            android:textColor="#424242"/>
+    </LinearLayout>
+
+    <!-- Count pills -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="10dp"
+        android:paddingBottom="11dp">
+
+        <!-- Total -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/bg_field_selector"
+            android:padding="9dp"
+            android:layout_marginEnd="5dp">
+
+            <TextView
+                android:id="@+id/tvTotalCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="—"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#3C3489"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Employees"
+                android:textSize="8sp"
+                android:textStyle="bold"
+                android:textColor="#3C3489"
+                android:layout_marginTop="2dp"/>
+        </LinearLayout>
+
+        <!-- Present — tappable -->
+        <LinearLayout
+            android:id="@+id/pillPresent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/bg_card_working"
+            android:padding="9dp"
+            android:layout_marginEnd="5dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <TextView
+                android:id="@+id/tvPresentCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="—"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#27500A"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Present"
+                android:textSize="8sp"
+                android:textStyle="bold"
+                android:textColor="#639922"
+                android:layout_marginTop="2dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tap to view"
+                android:textSize="6sp"
+                android:textColor="#9E9E9E"
+                android:layout_marginTop="2dp"/>
+        </LinearLayout>
+
+        <!-- Absent — tappable -->
+        <LinearLayout
+            android:id="@+id/pillAbsent"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:background="@drawable/bg_card_unselected"
+            android:padding="9dp"
+            android:clickable="true"
+            android:focusable="true">
+
+            <TextView
+                android:id="@+id/tvAbsentCount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="—"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#E24B4A"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Absent"
+                android:textSize="8sp"
+                android:textStyle="bold"
+                android:textColor="#E24B4A"
+                android:layout_marginTop="2dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tap to view"
+                android:textSize="6sp"
+                android:textColor="#9E9E9E"
+                android:layout_marginTop="2dp"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</LinearLayout>

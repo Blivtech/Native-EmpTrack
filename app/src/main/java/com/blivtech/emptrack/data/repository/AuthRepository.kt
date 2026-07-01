@@ -20,7 +20,7 @@ class AuthRepository @Inject constructor(
                 if (body.code == 200) Resource.Success(body.data ?: Any())
                 else Resource.Error(body.message)
             } else {
-                Resource.Error("Registration failed. Please try again.")
+                Resource.Error(response.body()!!.message)
             }
         } catch (e: Exception) {
             Resource.Error(e.localizedMessage ?: "Network error occurred")
@@ -42,4 +42,5 @@ class AuthRepository @Inject constructor(
             Resource.Error(e.localizedMessage ?: "Network error occurred")
         }
     }
+
 }

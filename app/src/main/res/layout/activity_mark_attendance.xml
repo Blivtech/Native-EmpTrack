@@ -6,7 +6,34 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="#F5F7FA">
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:shimmer_duration="1000"
+        app:shimmer_base_color="#F0F0F0"
+        app:shimmer_highlight_color="#FFFFFF"
+        android:visibility="gone">
 
+        <include layout="@layout/layout_shimmer_list"/>
+        <include layout="@layout/layout_shimmer_list"/>
+        <include layout="@layout/layout_shimmer_list"/>
+        <include layout="@layout/layout_shimmer_list"/>
+        <include layout="@layout/layout_shimmer_list"/>
+        <include layout="@layout/layout_shimmer_list"/>
+        <include layout="@layout/layout_shimmer_list"/>
+        <include layout="@layout/layout_shimmer_list"/>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+
+    <LinearLayout
+        android:id="@+id/layoutMain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        android:orientation="vertical"
+        android:background="#F5F7FA">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,7 +54,7 @@
                 android:id="@+id/ivBack"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:src="@drawable/ic_nav_home"
+                android:src="@drawable/ic_arrow_back"
                 android:tint="#FFFFFF"
                 android:padding="4dp"
                 android:layout_marginEnd="10dp"/>
@@ -37,7 +64,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Mark Attendance"
-                android:textSize="17sp"
+                android:fontFamily="@font/satoshi_medium"
+                android:textSize="@dimen/text_caption_th"
                 android:textStyle="bold"
                 android:textColor="#FFFFFF"/>
 
@@ -45,8 +73,9 @@
                 android:id="@+id/tvProgress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:textSize="@dimen/text_caption_md"
+                android:fontFamily="@font/satoshi_medium"
                 android:text="0/0"
-                android:textSize="12sp"
                 android:textColor="#CCffffff"/>
         </LinearLayout>
 
@@ -81,7 +110,8 @@
                     android:id="@+id/tvShiftBanner"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
+                    android:fontFamily="@font/satoshi_medium"
+                    android:textSize="@dimen/text_caption_md"
                     android:textStyle="bold"
                     android:textColor="#FFFFFF"/>
 
@@ -89,7 +119,8 @@
                     android:id="@+id/tvShiftTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="10sp"
+                    android:fontFamily="@font/satoshi_medium"
+                    android:textSize="@dimen/text_caption_small"
                     android:textColor="#CCffffff"
                     android:layout_marginTop="2dp"/>
             </LinearLayout>
@@ -99,8 +130,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Deviation"
-                android:textSize="9sp"
+                android:textSize="@dimen/text_caption_small"
                 android:textStyle="bold"
+                android:fontFamily="@font/satoshi_medium"
                 android:textColor="#FFFFFF"
                 android:background="@drawable/bg_stat_pill"
                 android:paddingStart="9dp"
@@ -174,8 +206,8 @@
         android:orientation="horizontal"
         android:gravity="center_vertical"
         android:background="#FFFFFF"
-        android:paddingStart="14dp"
-        android:paddingEnd="14dp"
+        android:paddingVertical="5dp"
+        android:paddingHorizontal="10dp"
         android:paddingTop="8dp"
         android:paddingBottom="8dp">
 
@@ -189,11 +221,14 @@
         <EditText
             android:id="@+id/etSearch"
             android:layout_width="0dp"
-            android:layout_height="36dp"
+            android:layout_height="wrap_content"
             android:layout_weight="1"
             android:hint="Search name or emp code..."
-            android:textSize="12sp"
+            android:textSize="@dimen/text_caption_md"
+            android:fontFamily="@font/satoshi_medium"
             android:textColor="#212121"
+            android:paddingVertical="5dp"
+            android:paddingHorizontal="10dp"
             android:textColorHint="#BDBDBD"
             android:background="@null"
             android:singleLine="true"
@@ -231,13 +266,15 @@
             <TextView
                 android:id="@+id/tabUnselected"
                 android:layout_width="wrap_content"
-                android:layout_height="34dp"
+                android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Pending (0)"
-                android:textSize="11sp"
+                android:textSize="@dimen/text_caption_md"
+                android:fontFamily="@font/satoshi_medium"
                 android:textStyle="bold"
-                android:paddingStart="14dp"
-                android:paddingEnd="14dp"
+                android:paddingVertical="5dp"
+                android:paddingHorizontal="10dp"
+
                 android:layout_marginEnd="4dp"
                 android:background="@drawable/bg_tab_active"
                 android:textColor="@color/blue_dark"/>
@@ -249,9 +286,10 @@
                 android:layout_height="34dp"
                 android:gravity="center"
                 android:text="All (0)"
-                android:textSize="11sp"
-                android:paddingStart="14dp"
-                android:paddingEnd="14dp"
+                android:textSize="@dimen/text_caption_md"
+                android:fontFamily="@font/satoshi_medium"
+                android:paddingVertical="5dp"
+                android:paddingHorizontal="10dp"
                 android:layout_marginEnd="4dp"
                 android:background="@drawable/bg_tab_inactive"
                 android:textColor="#757575"/>
@@ -263,9 +301,10 @@
                 android:layout_height="34dp"
                 android:gravity="center"
                 android:text="Working (0)"
-                android:textSize="11sp"
-                android:paddingStart="14dp"
-                android:paddingEnd="14dp"
+                android:textSize="@dimen/text_caption_md"
+                android:fontFamily="@font/satoshi_medium"
+                android:paddingVertical="5dp"
+                android:paddingHorizontal="10dp"
                 android:layout_marginEnd="4dp"
                 android:background="@drawable/bg_tab_inactive"
                 android:textColor="#757575"/>
@@ -277,9 +316,10 @@
                 android:layout_height="34dp"
                 android:gravity="center"
                 android:text="Off (0)"
-                android:textSize="11sp"
-                android:paddingStart="14dp"
-                android:paddingEnd="14dp"
+                android:textSize="@dimen/text_caption_md"
+                android:fontFamily="@font/satoshi_medium"
+                android:paddingVertical="5dp"
+                android:paddingHorizontal="10dp"
                 android:layout_marginEnd="4dp"
                 android:background="@drawable/bg_tab_inactive"
                 android:textColor="#757575"/>
@@ -291,9 +331,10 @@
                 android:layout_height="34dp"
                 android:gravity="center"
                 android:text="Leave (0)"
-                android:textSize="11sp"
-                android:paddingStart="14dp"
-                android:paddingEnd="14dp"
+                android:textSize="@dimen/text_caption_md"
+                android:fontFamily="@font/satoshi_medium"
+                android:paddingVertical="5dp"
+                android:paddingHorizontal="10dp"
                 android:layout_marginEnd="4dp"
                 android:background="@drawable/bg_tab_inactive"
                 android:textColor="#757575"/>
@@ -305,9 +346,10 @@
                 android:layout_height="34dp"
                 android:gravity="center"
                 android:text="Holiday (0)"
-                android:textSize="11sp"
-                android:paddingStart="14dp"
-                android:paddingEnd="14dp"
+                android:textSize="@dimen/text_caption_md"
+                android:fontFamily="@font/satoshi_medium"
+                android:paddingVertical="5dp"
+                android:paddingHorizontal="10dp"
                 android:background="@drawable/bg_tab_inactive"
                 android:textColor="#757575"/>
 
@@ -400,15 +442,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
+                    android:textSize="@dimen/text_caption_md"
+                    android:fontFamily="@font/satoshi_medium"                    android:textStyle="bold"
                     android:textColor="#27500A"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Working"
-                    android:textSize="9sp"
-                    android:textColor="#757575"
+                    android:textSize="@dimen/text_caption_small"
+                    android:fontFamily="@font/satoshi_medium"                     android:textColor="#757575"
                     android:layout_marginTop="2dp"/>
             </LinearLayout>
 
@@ -424,15 +466,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
+                    android:textSize="@dimen/text_caption_md"
+                    android:fontFamily="@font/satoshi_medium"                    android:textStyle="bold"
                     android:textColor="#633806"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Off"
-                    android:textSize="9sp"
-                    android:textColor="#757575"
+                    android:textSize="@dimen/text_caption_small"
+                    android:fontFamily="@font/satoshi_medium"                       android:textColor="#757575"
                     android:layout_marginTop="2dp"/>
             </LinearLayout>
 
@@ -448,15 +490,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
+                    android:textSize="@dimen/text_caption_md"
+                    android:fontFamily="@font/satoshi_medium"                    android:textStyle="bold"
                     android:textColor="#0C447C"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Leave"
-                    android:textSize="9sp"
-                    android:textColor="#757575"
+                    android:textSize="@dimen/text_caption_small"
+                    android:fontFamily="@font/satoshi_medium"                       android:textColor="#757575"
                     android:layout_marginTop="2dp"/>
             </LinearLayout>
 
@@ -472,15 +514,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
+                    android:textSize="@dimen/text_caption_md"
+                    android:fontFamily="@font/satoshi_medium"                    android:textStyle="bold"
                     android:textColor="#3C3489"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Holiday"
-                    android:textSize="9sp"
-                    android:textColor="#757575"
+                    android:textSize="@dimen/text_caption_small"
+                    android:fontFamily="@font/satoshi_medium"                       android:textColor="#757575"
                     android:layout_marginTop="2dp"/>
             </LinearLayout>
 
@@ -496,15 +538,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="0"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
+                    android:textSize="@dimen/text_caption_md"
+                    android:fontFamily="@font/satoshi_medium"                    android:textStyle="bold"
                     android:textColor="#E24B4A"/>
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Pending"
-                    android:textSize="9sp"
-                    android:textColor="#757575"
+                    android:textSize="@dimen/text_caption_small"
+                    android:fontFamily="@font/satoshi_medium"                       android:textColor="#757575"
                     android:layout_marginTop="2dp"/>
             </LinearLayout>
 
@@ -514,14 +556,16 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSubmit"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
             android:text="Submit attendance →"
-            android:textSize="14sp"
+            android:textSize="@dimen/text_caption_md"
+            android:fontFamily="@font/satoshi_medium"
             android:textStyle="bold"
+            android:textAllCaps="false"
             android:enabled="false"
-            app:cornerRadius="12dp"
+            app:cornerRadius="4dp"
             app:backgroundTint="#BDBDBD"/>
 
     </LinearLayout>
-
+    </LinearLayout>
 </LinearLayout>

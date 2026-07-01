@@ -103,7 +103,6 @@ class MarkAttendanceViewModel @Inject constructor(
         shiftCode: String
     ) {
         viewModelScope.launch {
-            // ✅ Generate yesterday's attendance ID
             val yesterday = Calendar.getInstance().apply {
                 add(Calendar.DAY_OF_YEAR, -1)
             }

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:cardCornerRadius="4dp"
+    android:layout_marginHorizontal="8dp"
+    android:layout_marginTop="8dp"
+    app:cardBackgroundColor="@android:color/white"
+    app:strokeWidth="1dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="5dp">
+
+        <LinearLayout
+            android:id="@+id/layoutModuleIcon"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:gravity="center"
+            android:background="@drawable/bg_circle_blue">
+
+            <ImageView
+                android:id="@+id/ivModuleIcon"
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/ic_nav_attendance" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvModuleName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:text="Attendance"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/tvModuleSub"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
+            android:text="Day plan · Shifts"
+            android:textSize="12sp"
+            android:textColor="#9E9E9E" />
+
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

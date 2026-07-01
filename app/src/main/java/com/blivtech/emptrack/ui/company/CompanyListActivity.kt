@@ -2,10 +2,12 @@ package com.blivtech.emptrack.ui.company
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blivtech.emptrack.data.local.entity.CompanyEntity
 import com.blivtech.emptrack.data.local.entity.ShiftEntity
@@ -13,8 +15,12 @@ import com.blivtech.emptrack.databinding.ActivityCompanyListBinding
 import com.blivtech.emptrack.ui.company.adapter.CompanyAdapter
 import com.blivtech.emptrack.utils.Resource
 import com.blivtech.emptrack.utils.EntityExtensions.toParcel
+import com.blivtech.emptrack.utils.PreferenceManager
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class CompanyListActivity : AppCompatActivity() {
@@ -23,7 +29,10 @@ class CompanyListActivity : AppCompatActivity() {
     private val viewModel: CompanyListViewModel by viewModels()
     private lateinit var adapter: CompanyAdapter
 
-    private val btCode by lazy { intent.getStringExtra("btCode") ?: "BT0017" }
+    @Inject
+    lateinit var preferenceManager: PreferenceManager
+
+    private var btCode = ""
 
     // ✅ Hold all shifts in memory for display
     private val allShifts = mutableMapOf<String, List<ShiftEntity>>()
@@ -34,9 +43,17 @@ class CompanyListActivity : AppCompatActivity() {
         binding = ActivityCompanyListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
+        getValuesFromDataStore()
         setupRecyclerView()
         setupClickListeners()
         observeData()
+    }
+
+
+    private fun  getValuesFromDataStore() {
+        lifecycleScope.launch {
+            btCode = preferenceManager.btCode.first()
+        }
     }
 
     private fun setupRecyclerView() {
@@ -65,8 +82,10 @@ class CompanyListActivity : AppCompatActivity() {
     }
 
     private fun observeData() {
+
+        Log.d("getCompaniesgetCompanies", "observeData: $btCode")
         // ✅ Observe companies
-        viewModel.getCompanies(btCode).observe(this) { list ->
+        viewModel.getCompanies().observe(this) { list ->
             companies = list
             binding.layoutEmpty.visibility =
                 if (list.isEmpty()) View.VISIBLE else View.GONE
@@ -98,16 +117,13 @@ class CompanyListActivity : AppCompatActivity() {
             }
         }
 
-        // ✅ Observe selected company — pass back to HomeActivity
+
         viewModel.selectedCompany.observe(this) { company ->
             company?.let {
-                val resultIntent = Intent().apply {
-                    putExtra("selectedCompanyId", it.id)
-                    putExtra("selectedCompanyName", it.name)
-                    putExtra("selectedCompanyCode", it.companyCode)
+                lifecycleScope.launch {
+                    preferenceManager.saveSelectedCompany(it.companyCode, it.name)
+                    finish()
                 }
-                setResult(RESULT_OK, resultIntent)
-                finish()
             }
         }
     }
@@ -132,7 +148,7 @@ class CompanyListActivity : AppCompatActivity() {
         startActivity(
             Intent(this, AddEditCompanyActivity::class.java).apply {
                 putExtra("btCode", btCode)
-                putExtra("companyId", company.id)
+                putExtra("companyCode", company.companyCode)
                 putExtra("company", company.toParcel())
                 putParcelableArrayListExtra(
                     "shifts",

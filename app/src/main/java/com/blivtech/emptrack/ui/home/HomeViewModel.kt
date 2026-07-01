@@ -5,8 +5,11 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.asLiveData
 import androidx.lifecycle.viewModelScope
+import com.blivtech.emptrack.R
 import com.blivtech.emptrack.data.local.entity.CompanyEntity
 import com.blivtech.emptrack.data.local.entity.ShiftEntity
+import com.blivtech.emptrack.data.model.CardDetailsForHomeActivity
+import com.blivtech.emptrack.data.model.DashboardItem
 import com.blivtech.emptrack.data.repository.MasterRepository
 import com.blivtech.emptrack.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -36,8 +39,8 @@ class HomeViewModel @Inject constructor(
         }
     }
 
-    fun getCompanies(btCode: String) =
-        masterRepository.getCompanies(btCode).asLiveData()
+    fun getCompanies() =
+        masterRepository.getCompanies().asLiveData()
 
     fun getShifts(companyId: String) =
         masterRepository.getShiftsByCompany(companyId).asLiveData()
@@ -53,6 +56,25 @@ class HomeViewModel @Inject constructor(
     fun setSelectedShifts(shifts: List<ShiftEntity>) {
         _selectedShifts.value = shifts
     }
+
+
+
+    val moduleCards = listOf(
+        CardDetailsForHomeActivity(id = "1", iconRes = R.drawable.ic_nav_reports, bgColorRes = R.drawable.bg_circle_red, cardName = "Advance", subtitle = "advance,overtime,bonus", needFlag = true),
+        CardDetailsForHomeActivity(id = "2", iconRes = R.drawable.ic_nav_attendance, bgColorRes = R.drawable.bg_circle_blue, cardName = "Shift Mgmt", subtitle = "Pre Plan Shift", needFlag = false),
+        CardDetailsForHomeActivity(id = "3", iconRes = R.drawable.ic_nav_work, bgColorRes = R.drawable.bg_circle_amber, cardName = "Work Progress", subtitle = "Task · Entry · Status", needFlag = false),
+        CardDetailsForHomeActivity(id = "4", iconRes = R.drawable.ic_nav_reports, bgColorRes = R.drawable.bg_circle_blue, cardName = "Salary", subtitle = "Work based · Pay", needFlag = false),
+        CardDetailsForHomeActivity(id = "5", iconRes = R.drawable.ic_nav_work, bgColorRes = R.drawable.bg_circle_green, cardName = "Inventory", subtitle = "Stock · Issue · Track", needFlag = false),
+    )
+    val items = listOf(
+        DashboardItem("Extra Pay & Advances", R.drawable.ic_extra_pay, R.color.icon_pay, R.color.bg_pay),
+        DashboardItem("Shift Management", R.drawable.ic_shift, R.color.icon_shift, R.color.bg_shift),
+        DashboardItem("Work-Based Pay", R.drawable.ic_work_pay, R.color.icon_work, R.color.bg_work),
+        DashboardItem("Salary", R.drawable.ic_salary, R.color.icon_salary, R.color.bg_salary),
+        DashboardItem("Inventory", R.drawable.ic_inventory, R.color.icon_inventory, R.color.bg_inventory),
+        DashboardItem("Contractor Billing", R.drawable.ic_billing, R.color.icon_billing, R.color.bg_billing)
+    )
+
 }
 
 data class SyncResult(
@@ -60,3 +82,5 @@ data class SyncResult(
     val shiftsCount: Int,
     val departmentsCount: Int
 )
+
+

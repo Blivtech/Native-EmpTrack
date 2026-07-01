@@ -25,9 +25,9 @@
 
             <ImageView
                 android:id="@+id/ivBack"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:src="@drawable/ic_nav_home"
+                android:layout_width="32dp"
+                android:layout_height="32dp"
+                android:src="@drawable/ic_arrow_back"
                 android:tint="#FFFFFF"
                 android:padding="4dp"
                 android:layout_marginEnd="10dp"/>
@@ -41,14 +41,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Add Entry"
-                    android:textSize="17sp"
+                    android:textSize="@dimen/text_caption_th"
+                    android:fontFamily="@font/satoshi_medium"
                     android:textStyle="bold"
                     android:textColor="#FFFFFF"/>
                 <TextView
                     android:id="@+id/tvCompanyName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="10sp"
+                    android:fontFamily="@font/satoshi_medium"
+
+                    android:textSize="@dimen/text_caption_small"
                     android:textColor="#CCffffff"
                     android:layout_marginTop="1dp"/>
             </LinearLayout>
@@ -72,10 +75,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="SELECT TYPE"
-                android:textSize="9sp"
+                android:text="Select Type"
+                android:textSize="@dimen/text_caption_md"
+                android:fontFamily="@font/satoshi_medium"
+
                 android:textStyle="bold"
-                android:textColor="#BDBDBD"
+                android:textColor="#757575"
                 android:letterSpacing="0.08"
                 android:layout_marginBottom="8dp"/>
 
@@ -107,7 +112,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Overtime"
-                        android:textSize="11sp"
+                        android:textSize="@dimen/text_caption_md"
+                        android:fontFamily="@font/satoshi_medium"
+
                         android:textStyle="bold"
                         android:textColor="#27500A"/>
                 </LinearLayout>
@@ -120,6 +127,7 @@
                     android:orientation="vertical"
                     android:gravity="center"
                     android:padding="12dp"
+
                     android:layout_marginEnd="6dp"
                     android:background="@drawable/bg_card_unselected"
                     android:clickable="true"
@@ -128,15 +136,17 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:src="@android:drawable/ic_menu_manage"
-                        android:tint="#BDBDBD"
+                        android:tint="#EF9F27"
                         android:layout_marginBottom="4dp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Advance"
-                        android:textSize="11sp"
+                        android:textSize="@dimen/text_caption_md"
+                        android:fontFamily="@font/satoshi_medium"
+
                         android:textStyle="bold"
-                        android:textColor="#BDBDBD"/>
+                        android:textColor="#EF9F27"/>
                 </LinearLayout>
 
                 <LinearLayout
@@ -154,15 +164,17 @@
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:src="@android:drawable/ic_menu_agenda"
-                        android:tint="#BDBDBD"
+                        android:tint="#7F77DD"
                         android:layout_marginBottom="4dp"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Bonus"
-                        android:textSize="11sp"
+                        android:textSize="@dimen/text_caption_md"
+                        android:fontFamily="@font/satoshi_medium"
+
                         android:textStyle="bold"
-                        android:textColor="#BDBDBD"/>
+                        android:textColor="#7F77DD"/>
                 </LinearLayout>
             </LinearLayout>
 
@@ -170,10 +182,12 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="SELECT MODE"
-                android:textSize="9sp"
+                android:text="Select Mode"
+                android:textSize="@dimen/text_caption_md"
                 android:textStyle="bold"
-                android:textColor="#BDBDBD"
+                android:fontFamily="@font/satoshi_medium"
+
+                android:textColor="#757575"
                 android:letterSpacing="0.08"
                 android:layout_marginBottom="8dp"/>
 
@@ -192,7 +206,7 @@
                     android:gravity="center"
                     android:padding="12dp"
                     android:layout_marginEnd="8dp"
-                    android:background="@drawable/bg_badge_blue"
+                    android:background="@drawable/bg_badge_blue_light"
                     android:clickable="true"
                     android:focusable="true">
                     <ImageView
@@ -205,15 +219,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Single"
-                        android:textSize="11sp"
-                        android:textStyle="bold"
-                        android:textColor="#0C447C"/>
+                        android:textSize="@dimen/text_caption_md"
+                        android:fontFamily="@font/satoshi_medium"
+
+                        android:textStyle="bold" />
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Own amount each"
-                        android:textSize="9sp"
-                        android:textColor="#185FA5"
+                        android:fontFamily="@font/satoshi_medium"
+
+                        android:textSize="@dimen/text_caption_small"
                         android:layout_marginTop="2dp"/>
                 </LinearLayout>
 
@@ -238,7 +254,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Multiple"
-                        android:textSize="11sp"
+                        android:textSize="@dimen/text_caption_md"
+                        android:fontFamily="@font/satoshi_medium"
+
                         android:textStyle="bold"
                         android:textColor="#9E9E9E"/>
                     <TextView
@@ -246,6 +264,8 @@
                         android:layout_height="wrap_content"
                         android:text="Same amount all"
                         android:textSize="9sp"
+                        android:fontFamily="@font/satoshi_medium"
+
                         android:textColor="#BDBDBD"
                         android:layout_marginTop="2dp"/>
                 </LinearLayout>
@@ -256,7 +276,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Date"
-                android:textSize="10sp"
+                android:textSize="@dimen/text_caption_md"
+                android:fontFamily="@font/satoshi_medium"
+
                 android:textStyle="bold"
                 android:textColor="#757575"
                 android:layout_marginBottom="4dp"/>
@@ -286,9 +308,11 @@
                         android:id="@+id/tvDate"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="13sp"
+                        android:textSize="@dimen/text_caption_md"
+                        android:fontFamily="@font/satoshi_medium"
+
                         android:textStyle="bold"
-                        android:textColor="#212121"/>
+                        android:textColor="@color/black_overlay_80"/>
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -315,7 +339,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Shift"
-                    android:textSize="10sp"
+                    android:textSize="@dimen/text_caption_md"
                     android:textStyle="bold"
                     android:textColor="#757575"
                     android:layout_marginBottom="4dp"/>
@@ -345,9 +369,12 @@
                             android:id="@+id/tvShift"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Select shift"
-                            android:textSize="13sp"
-                            android:textColor="#BDBDBD"/>
+                            android:hint="Select shift"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/satoshi_medium"
+
+                            android:textSize="@dimen/text_caption_md"
+                            android:textColor="@color/black_overlay_80"/>
                         <TextView
                             android:id="@+id/tvShiftTime"
                             android:layout_width="wrap_content"
@@ -374,7 +401,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Employee"
-                    android:textSize="10sp"
+                    android:textSize="@dimen/text_caption_md"
+                    android:fontFamily="@font/satoshi_medium"
+
                     android:textStyle="bold"
                     android:textColor="#757575"
                     android:layout_marginBottom="4dp"/>
@@ -394,8 +423,11 @@
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:gravity="center"
-                        android:textSize="10sp"
+                        android:textSize="@dimen/text_caption_md"
+
                         android:textStyle="bold"
+                        android:fontFamily="@font/satoshi_medium"
+
                         android:textColor="#0C447C"
                         android:background="@drawable/bg_circle_blue"
                         android:layout_marginEnd="10dp"/>
@@ -408,9 +440,12 @@
                             android:id="@+id/tvEmpName"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Select employee"
-                            android:textSize="12sp"
-                            android:textColor="#BDBDBD"/>
+                            android:hint="Select employee"
+                            android:textSize="@dimen/text_caption_md"
+                            android:textStyle="bold"
+                            android:fontFamily="@font/satoshi_medium"
+
+                            android:textColor="@color/black_overlay_80"/>
                         <TextView
                             android:id="@+id/tvEmpCode"
                             android:layout_width="wrap_content"
@@ -423,10 +458,12 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Change"
-                        android:textSize="10sp"
+                        android:textSize="@dimen/text_caption_md"
                         android:textStyle="bold"
                         android:textColor="#0C447C"
-                        android:background="@drawable/bg_badge_blue"
+                        android:fontFamily="@font/satoshi_medium"
+
+                        android:background="@drawable/bg_badge_blue_light"
                         android:paddingStart="8dp"
                         android:paddingEnd="8dp"
                         android:paddingTop="3dp"
@@ -445,7 +482,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Employees"
-                    android:textSize="10sp"
+                    android:textSize="@dimen/text_caption_md"
+                    android:fontFamily="@font/satoshi_medium"
+
                     android:textStyle="bold"
                     android:textColor="#757575"
                     android:layout_marginBottom="4dp"/>
@@ -458,11 +497,13 @@
                     android:id="@+id/btnAddMore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="+ Select employees"
-                    android:textSize="11sp"
+                    android:hint="+ Select employees"
+                    android:textSize="@dimen/text_caption_md"
+                    android:fontFamily="@font/satoshi_medium"
+
                     android:textStyle="bold"
                     android:textColor="#1565C0"
-                    android:background="@drawable/bg_badge_blue"
+                    android:background="@drawable/bg_badge_blue_light"
                     android:paddingStart="12dp"
                     android:paddingEnd="12dp"
                     android:paddingTop="6dp"
@@ -482,7 +523,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="OT Hours"
-                    android:textSize="10sp"
+                    android:textSize="@dimen/text_caption_md"
+                    android:fontFamily="@font/satoshi_medium"
+
                     android:textStyle="bold"
                     android:textColor="#757575"
                     android:layout_marginBottom="4dp"/>
@@ -506,8 +549,11 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:hint="e.g. 2.5"
-                        android:textSize="13sp"
-                        android:textColor="#212121"
+                        android:textSize="@dimen/text_caption_md"
+                        android:fontFamily="@font/satoshi_medium"
+
+                        android:textStyle="bold"
+                        android:textColor="@color/black_overlay_80"
                         android:textColorHint="#BDBDBD"
                         android:background="@null"
                         android:inputType="numberDecimal"
@@ -521,15 +567,14 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- ✅ Amount -->
             <TextView
                 android:id="@+id/tvAmountLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Amount"
-                android:textSize="10sp"
+                android:textSize="@dimen/text_caption_md"
+                android:fontFamily="@font/satoshi_medium"
                 android:textStyle="bold"
-                android:textColor="#757575"
                 android:layout_marginBottom="4dp"/>
             <LinearLayout
                 android:layout_width="match_parent"
@@ -553,9 +598,11 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:hint="0.00"
-                    android:textSize="22sp"
+                    android:textSize="@dimen/text_caption_md"
+                    android:fontFamily="@font/satoshi_medium"
+
                     android:textStyle="bold"
-                    android:textColor="#212121"
+                    android:textColor="@color/black_overlay_80"
                     android:textColorHint="#BDBDBD"
                     android:background="@null"
                     android:inputType="numberDecimal"
@@ -573,7 +620,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Repay Month"
-                    android:textSize="10sp"
+                    android:textSize="@dimen/text_caption_md"
+                    android:fontFamily="@font/satoshi_medium"
                     android:textStyle="bold"
                     android:textColor="#757575"
                     android:layout_marginBottom="4dp"/>
@@ -599,7 +647,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:textSize="13sp"
+                        android:textSize="@dimen/text_caption_md"
+                        android:fontFamily="@font/satoshi_medium"
                         android:textColor="#212121"/>
                     <ImageView
                         android:layout_width="16dp"
@@ -609,7 +658,6 @@
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- ✅ Bonus type (Bonus only) -->
             <LinearLayout
                 android:id="@+id/layoutBonusType"
                 android:layout_width="match_parent"
@@ -621,7 +669,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Bonus Type"
-                    android:textSize="10sp"
+                    android:textSize="@dimen/text_caption_md"
+                    android:fontFamily="@font/satoshi_medium"
                     android:textStyle="bold"
                     android:textColor="#757575"
                     android:layout_marginBottom="6dp"/>
@@ -636,7 +685,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Remarks (optional)"
-                android:textSize="10sp"
+                android:textSize="@dimen/text_caption_md"
+                android:fontFamily="@font/satoshi_medium"
+
                 android:textStyle="bold"
                 android:textColor="#757575"
                 android:layout_marginBottom="4dp"/>
@@ -646,9 +697,11 @@
                 android:layout_height="wrap_content"
                 android:minHeight="70dp"
                 android:hint="Add remarks..."
-                android:textSize="12sp"
-                android:textColor="#212121"
+                android:textSize="@dimen/text_caption_md"
+                android:fontFamily="@font/satoshi_medium"
+                android:textColor="@color/black_overlay_80"
                 android:textColorHint="#BDBDBD"
+                android:textStyle="bold"
                 android:background="@drawable/bg_field_trigger"
                 android:padding="12dp"
                 android:gravity="top"
@@ -658,7 +711,6 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- ✅ Save button -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -670,12 +722,14 @@
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSave"
             android:layout_width="match_parent"
-            android:layout_height="50dp"
+            android:layout_height="wrap_content"
+            android:textAllCaps="false"
             android:text="Save"
-            android:textSize="14sp"
+            android:textSize="@dimen/text_caption_md"
+            android:fontFamily="@font/satoshi_medium"
             android:textStyle="bold"
             android:enabled="false"
-            app:cornerRadius="12dp"
+            app:cornerRadius="4dp"
             app:backgroundTint="#BDBDBD"/>
     </LinearLayout>
 

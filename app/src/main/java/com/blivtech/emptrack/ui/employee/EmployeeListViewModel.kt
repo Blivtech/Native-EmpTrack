@@ -24,20 +24,19 @@ class EmployeeListViewModel @Inject constructor(
     private val _employee = MutableLiveData<EmployeeEntity?>()
     val employee: LiveData<EmployeeEntity?> = _employee
 
-    fun getEmployees(companyId: String) =
-        repository.getEmployees(companyId).asLiveData()
+    fun getEmployees(companyId: String) = repository.getEmployees(companyId).asLiveData()
 
     // ✅ Load single employee into LiveData
-    fun loadEmployeeById(id: Long) {
+    fun loadEmployeeById(empCode: String, companyCode: String) {
         viewModelScope.launch {
-            _employee.value = repository.getEmployeeById(id)
+            _employee.value = repository.getEmployeeById(empCode,companyCode)
         }
     }
 
-    fun deleteEmployee(id: Long) {
+    fun deleteEmployee(empCode: String, companyCode: String) {
         _deleteState.value = Resource.Loading
         viewModelScope.launch {
-            _deleteState.value = repository.deleteEmployee(id)
+            _deleteState.value = repository.deleteEmployee(empCode,companyCode)
         }
     }
 }

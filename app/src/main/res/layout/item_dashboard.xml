@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_margin="8dp"
+    android:background="@drawable/bg_card"
+    android:elevation="4dp"
+    android:clickable="true"
+    android:focusable="true"
+    android:foreground="?android:attr/selectableItemBackground"
+     android:padding="20dp">
+
+    <!-- Colored rounded-square icon holder -->
+    <FrameLayout
+        android:id="@+id/iconHolder"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:background="@drawable/bg_icon_squircle">
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center"
+            android:contentDescription="@null"
+            android:src="@drawable/ic_extra_pay" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:text="Title"
+        android:textColor="@color/title_text"
+        android:fontFamily="@font/satoshi_medium"
+        android:textSize="@dimen/text_caption_md"
+        android:textStyle="bold"
+        android:gravity="center" />
+</LinearLayout>

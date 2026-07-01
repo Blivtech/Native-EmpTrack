@@ -88,10 +88,10 @@ class AttendanceRepository @Inject constructor(
     // ✅ Today's shifts status
     suspend fun getTodayStatus(
         btCode: String,
-        companyId: String
+        companyId: String, date: String
     ): Resource<List<ShiftStatusResponse>> {
         return try {
-            val response = apiService.getTodayStatus(btCode, companyId)
+            val response = apiService.getTodayStatus(btCode, companyId,date)
             if (response.isSuccessful && response.body() != null) {
                 val body = response.body()!!
                 if (body.code == 200 && body.data != null)

@@ -1,0 +1,204 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="#F5F7FA">
+    <com.facebook.shimmer.ShimmerFrameLayout
+        android:id="@+id/shimmerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:shimmer_duration="1000"
+        app:shimmer_base_color="#F0F0F0"
+        app:shimmer_highlight_color="#FFFFFF"
+        android:visibility="gone">
+
+        <include layout="@layout/layout_shimmer_list"/>
+        <include layout="@layout/layout_shimmer_list"/>
+        <include layout="@layout/layout_shimmer_list"/>
+        <include layout="@layout/layout_shimmer_list"/>
+        <include layout="@layout/layout_shimmer_list"/>
+        <include layout="@layout/layout_shimmer_list"/>
+        <include layout="@layout/layout_shimmer_list"/>
+        <include layout="@layout/layout_shimmer_list"/>
+
+    </com.facebook.shimmer.ShimmerFrameLayout>
+
+
+    <LinearLayout
+        android:id="@+id/layoutMain"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        android:orientation="vertical"
+        android:background="#F5F7FA">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:background="#1565C0"
+            android:padding="16dp"
+            android:paddingBottom="20dp">
+
+            <!-- Top row -->
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="12dp">
+                <LinearLayout
+                    android:id="@+id/layoutTitles"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginStart="10dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintEnd_toStartOf="@id/ivCalendar"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Attendance"
+                        android:fontFamily="@font/satoshi_medium"
+                        android:textSize="@dimen/text_caption_th"
+                        android:textStyle="bold"
+                        android:textColor="#FFFFFF"/>
+
+                    <TextView
+                        android:id="@+id/tvDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/satoshi_medium"
+
+                        android:textSize="@dimen/text_caption_small"
+                        android:textColor="#CCffffff"
+                        android:layout_marginTop="1dp"/>
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/ivCalendar"
+                    android:layout_width="28dp"
+                    android:layout_height="28dp"
+                    android:visibility="visible"
+                    android:src="@android:drawable/ic_menu_my_calendar"
+                    android:tint="#FFFFFF"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintBottom_toBottomOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <!-- Company pill -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_company_pill"
+                android:padding="9dp">
+
+                <ImageView
+                    android:layout_width="16dp"
+                    android:layout_height="16dp"
+                    android:src="@android:drawable/ic_dialog_map"
+                    android:tint="#CCffffff"
+                    android:layout_marginEnd="8dp"/>
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvCompanyName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_caption_md"
+                        android:textStyle="bold"
+                        android:textColor="#FFFFFF"/>
+
+                    <TextView
+                        android:id="@+id/tvEmpCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_caption_small"
+                        android:textColor="#99ffffff"
+                        android:layout_marginTop="1dp"/>
+                </LinearLayout>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <!-- Progress bar -->
+        <ProgressBar
+            android:id="@+id/progressBar"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            style="@style/Widget.AppCompat.ProgressBar.Horizontal"
+            android:indeterminate="true"
+            android:indeterminateTint="#1565C0"
+            android:visibility="visible"/>
+
+        <!-- Scrollable content -->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="14dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Today's shifts"
+                    android:fontFamily="@font/satoshi_medium"
+                    android:textSize="@dimen/text_caption_lg"
+                    android:textStyle="bold"
+                    android:textColor="@color/black_overlay_80"
+                    android:layout_marginBottom="10dp"/>
+
+                <!-- ✅ Replace with RecyclerView -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvShiftCards"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"
+                    android:overScrollMode="never"/>
+                <!-- ✅ Also add empty state -->
+                <LinearLayout
+                    android:id="@+id/layoutEmpty"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="40dp"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="No shifts configured"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:textColor="#9E9E9E"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Add shifts in company settings"
+                        android:textSize="11sp"
+                        android:textColor="#BDBDBD"
+                        android:layout_marginTop="6dp"/>
+                </LinearLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</LinearLayout>

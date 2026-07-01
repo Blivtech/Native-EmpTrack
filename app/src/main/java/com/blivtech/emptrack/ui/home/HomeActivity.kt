@@ -8,175 +8,151 @@ import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.view.Gravity
-import android.view.LayoutInflater
-import android.view.View
+import android.view.ViewGroup
 import android.view.Window
-import android.widget.ImageView
+import android.view.WindowManager
 import android.widget.TextView
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.GravityCompat
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import com.blivtech.emptrack.R
-import com.blivtech.emptrack.data.local.entity.CompanyEntity
-import com.blivtech.emptrack.data.local.entity.ShiftEntity
 import com.blivtech.emptrack.databinding.ActivityHomeBinding
 import com.blivtech.emptrack.databinding.DialogSyncBinding
-import com.blivtech.emptrack.ui.attendance.AttendanceHomeActivity
 import com.blivtech.emptrack.ui.company.CompanyListActivity
-import com.blivtech.emptrack.ui.employee.EmployeeListActivity
-import com.blivtech.emptrack.ui.entry.AddEntryActivity
 import com.blivtech.emptrack.ui.login.LoginActivity
-import com.blivtech.emptrack.ui.shiftplan.ShiftPlanActivity
-import com.blivtech.emptrack.ui.work.SelectEmployeeActivity
 import com.blivtech.emptrack.utils.PreferenceManager
 import com.blivtech.emptrack.utils.Resource
-import com.google.android.material.snackbar.Snackbar
+import com.blivtech.emptrack.utils.SyncEventBus
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.Calendar
-import java.util.Date
-import java.util.Locale
 import javax.inject.Inject
 
 @AndroidEntryPoint
 class HomeActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityHomeBinding
+    private lateinit var navController: NavController
+
+    // ✅ Sync dialog — kept here since it's app-wide, not per-fragment
     private lateinit var syncDialogBinding: DialogSyncBinding
     private lateinit var syncDialog: Dialog
-    private val viewModel: HomeViewModel by viewModels()
+    private val syncViewModel: HomeViewModel by viewModels()
 
     @Inject
     lateinit var preferenceManager: PreferenceManager
 
-    private val btCode by lazy { intent.getStringExtra("btCode") ?: "" }
+    private var btCode = ""
     private val fromLogin by lazy { intent.getBooleanExtra("fromLogin", false) }
-    private var currentCompany: CompanyEntity? = null
-    private var currentShifts = listOf<ShiftEntity>()
-
-    // ✅ Company list launcher
-    private val companyLauncher = registerForActivityResult(
-        ActivityResultContracts.StartActivityForResult()
-    ) { result ->
-        if (result.resultCode == RESULT_OK) {
-            val data = result.data
-            val companyName = data?.getStringExtra("selectedCompanyName") ?: ""
-            val companyCode = data?.getStringExtra("selectedCompanyCode") ?: ""
-            binding.tvCompanyName.text = companyName
-            viewModel.getShifts(companyCode).observe(this) { shifts ->
-                currentShifts = shifts
-                updateShiftCards(shifts)
-            }
-            Snackbar.make(binding.root, "Switched to $companyName", Snackbar.LENGTH_SHORT).show()
-        }
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityHomeBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setGreeting()
-        setTodayDate()
+        setupNavController()
         setupBottomNav()
-        setupModules()
-        setupDrawer()
-        observeData()
+        setupDrawerActions()
 
-        // ✅ Only sync on first login
-        if (fromLogin) showSyncDialog()
-    }
-
-    // ─────────────────────────────────────────
-    // Greeting & Date
-    // ─────────────────────────────────────────
-
-    private fun setGreeting() {
-        val hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
-        binding.tvGreeting.text = when {
-            hour < 12 -> "Good morning,"
-            hour < 17 -> "Good afternoon,"
-            else      -> "Good evening,"
+        lifecycleScope.launch {
+            btCode = preferenceManager.btCode.first()
+            if (fromLogin) showSyncDialog()
         }
     }
 
-    private fun setTodayDate() {
-        val date = SimpleDateFormat("EEE, d MMM yyyy", Locale.getDefault()).format(Date())
-        binding.tvTodayDate.text = date
+    // ─────────────────────────────────
+    // ✅ NavController setup
+    // ─────────────────────────────────
+    private fun setupNavController() {
+        val navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.navHostFragment) as NavHostFragment
+        navController = navHostFragment.navController
     }
 
-    // ─────────────────────────────────────────
-    // Drawer Setup
-    // ─────────────────────────────────────────
-
-    private fun setupDrawer() {
-
-        // ✅ Open drawer on avatar tap
-        binding.tvAvatar.setOnClickListener {
-            binding.drawerLayout.openDrawer(GravityCompat.END)
-        }
-
-        // ✅ Sync from drawer
-        binding.menuSync.setOnClickListener {
-            binding.drawerLayout.closeDrawer(GravityCompat.END)
-            showSyncDialog()
-        }
-
-        // ✅ Sync button in header
-        binding.ivSync.setOnClickListener {
-            showSyncDialog()
-        }
-
-        // ✅ Companies from drawer
-        binding.menuCompanies.setOnClickListener {
-            binding.drawerLayout.closeDrawer(GravityCompat.END)
-            companyLauncher.launch(
-                Intent(this, CompanyListActivity::class.java).apply {
-                    putExtra("btCode", btCode)
+    // ─────────────────────────────────
+    // ✅ Bottom nav — manual mapping (menu ids ≠ destination ids)
+    // ─────────────────────────────────
+    private fun setupBottomNav() {
+        binding.bottomNav.setOnItemSelectedListener { item ->
+            when (item.itemId) {
+                R.id.nav_home -> {
+                    navController.navigate(R.id.homeFragment)
+                    true
                 }
-            )
+                R.id.nav_attendance -> {
+                    navController.navigate(R.id.attendanceFragment)
+                    true
+                }
+                R.id.nav_employee -> {
+                    navController.navigate(R.id.employeeFragment)
+                    true
+                }
+                R.id.nav_reports -> {
+                    navController.navigate(R.id.reportsFragment)
+                    true
+                }
+                else -> false
+            }
         }
+    }
 
-        // ✅ Profile from drawer
-        binding.menuProfile.setOnClickListener {
+    // ─────────────────────────────────
+    // ✅ Drawer — opened from HomeFragment via avatar tap
+    // (see openDrawer() helper below)
+    // ─────────────────────────────────
+    fun openDrawer() {
+        binding.drawerLayout.openDrawer(GravityCompat.END)
+    }
+
+    private fun setupDrawerActions() {
+        binding.layout.menuSync.setOnClickListener {
+            binding.drawerLayout.closeDrawer(GravityCompat.END)
+            showSyncDialog()
+        }
+        binding.layout.menuCompanies.setOnClickListener {
+            binding.drawerLayout.closeDrawer(GravityCompat.END)
+            startActivity(Intent(this, CompanyListActivity::class.java))
+        }
+        binding.layout.menuProfile.setOnClickListener {
             binding.drawerLayout.closeDrawer(GravityCompat.END)
             // TODO: ProfileActivity
         }
-
-        // ✅ Settings from drawer
-        binding.menuSettings.setOnClickListener {
+        binding.layout.menuSettings.setOnClickListener {
             binding.drawerLayout.closeDrawer(GravityCompat.END)
             // TODO: SettingsActivity
         }
-
-        // ✅ Help from drawer
-        binding.menuHelp.setOnClickListener {
+        binding.layout.menuHelp.setOnClickListener {
             binding.drawerLayout.closeDrawer(GravityCompat.END)
             // TODO: HelpActivity
         }
-
-        // ✅ Logout
-        binding.layoutLogout.setOnClickListener {
+        binding.layout.layoutLogout.setOnClickListener {
             showLogoutDialog()
+        }
+
+        // ✅ Drawer user info — same as old HomeActivity.observeData() tail
+        lifecycleScope.launch {
+            val name = preferenceManager.userName.first()
+            val initials = name.split(" ")
+                .take(2).joinToString("") { it.first().uppercase() }
+            binding.layout.tvDrawerAvatar.text = initials
+            binding.layout.tvDrawerName.text   = name
+            binding.layout.tvDrawerPhone.text  = preferenceManager.btCode.first()
+            binding.layout.tvDrawerCode.text   = "${preferenceManager.btCode.first()} · Admin"
         }
     }
 
-    // ─────────────────────────────────────────
-    // Logout
-    // ─────────────────────────────────────────
-
+    // ─────────────────────────────────
+    // ✅ Logout
+    // ─────────────────────────────────
     private fun showLogoutDialog() {
-        androidx.appcompat.app.AlertDialog.Builder(this)
+        AlertDialog.Builder(this)
             .setTitle("Logout")
             .setMessage("Are you sure you want to logout?")
-            .setPositiveButton("Logout") { _, _ ->
-                logout()
-            }
+            .setPositiveButton("Logout") { _, _ -> logout() }
             .setNegativeButton("Cancel", null)
             .show()
     }
@@ -194,166 +170,9 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    // ─────────────────────────────────────────
-    // Modules Grid
-    // ─────────────────────────────────────────
-
-    private fun setupModules() {
-        data class Module(
-            val name: String,
-            val sub: String,
-            val iconRes: Int,
-            val bgColor: Int,
-            val iconColor: Int
-        )
-
-        val modules = listOf(
-            Module("Attendance",    "Day plan · Shifts",      R.drawable.ic_nav_attendance, R.drawable.bg_circle_blue,  android.R.color.holo_blue_dark),
-            Module("Employees",     "Profile · Role · Team",  R.drawable.ic_nav_profile,    R.drawable.bg_circle_green, android.R.color.holo_green_dark),
-            Module("Work Progress", "Task · Entry · Status",  R.drawable.ic_nav_work,       R.drawable.bg_circle_amber, android.R.color.holo_orange_dark),
-            Module("Salary",        "Work based · Pay",       R.drawable.ic_nav_reports,    R.drawable.bg_circle_blue,  android.R.color.holo_blue_dark),
-            Module("Advance",       "Request · Approve",      R.drawable.ic_nav_reports,    R.drawable.bg_circle_red,   android.R.color.holo_red_dark),
-            Module("Inventory",     "Stock · Issue · Track",  R.drawable.ic_nav_work,       R.drawable.bg_circle_green, android.R.color.holo_green_dark),
-            Module("Shift Mgmt",    "Plan · Assign · Track",  R.drawable.ic_nav_attendance, R.drawable.bg_circle_blue,  android.R.color.holo_blue_dark),
-            Module("Reports",       "Summary · Export",       R.drawable.ic_nav_reports,    R.drawable.bg_circle_white, android.R.color.darker_gray)
-        )
-
-        binding.gridModules.removeAllViews()
-
-        modules.forEach { module ->
-            val card = LayoutInflater.from(this)
-                .inflate(R.layout.item_module_card, binding.gridModules, false)
-
-            card.findViewById<TextView>(R.id.tvModuleName).text = module.name
-            card.findViewById<TextView>(R.id.tvModuleSub).text = module.sub
-
-            val iconLayout = card.findViewById<View>(R.id.layoutModuleIcon)
-            iconLayout.setBackgroundResource(module.bgColor)
-
-            val icon = card.findViewById<ImageView>(R.id.ivModuleIcon)
-            icon.setImageResource(module.iconRes)
-            icon.setColorFilter(getColor(module.iconColor))
-
-            card.setOnClickListener { navigateToModule(module.name) }
-            binding.gridModules.addView(card)
-        }
-    }
-
-    private fun navigateToModule(name: String) {
-        when (name) {
-            "Employee" -> startActivity(
-                Intent(this, EmployeeListActivity::class.java).apply {
-                    putExtra("btCode", btCode)
-                    putExtra("companyCode", currentCompany?.companyCode ?: "")
-                    putExtra("companyName", currentCompany?.name ?: "")
-                }
-            )
-            "Attendance" -> { startActivity( Intent(this, AttendanceHomeActivity::class.java).apply {
-                putExtra("btCode", btCode)
-                putExtra("companyName", currentCompany?.name ?: "")
-                putExtra("companyCode", currentCompany?.companyCode ?: "")
-            })}
-            "Work Progress" -> { startActivity(
-                Intent(this, SelectEmployeeActivity::class.java).apply {
-                    putExtra("btCode", btCode)
-                    putExtra("companyName", currentCompany?.name ?: "")
-                    putExtra("companyCode", currentCompany?.companyCode ?: "")
-                }
-            )}
-            "Salary" -> { /* TODO */ }
-            "Advance" -> {// From any module card
-                startActivity(
-                    Intent(this, AddEntryActivity::class.java).apply {
-                        putExtra("btCode", btCode)
-                        putExtra("companyName", currentCompany?.name ?: "")
-                        putExtra("companyCode", currentCompany?.companyCode ?: "")
-                    }
-                ) }
-            "Inventory" -> { /* TODO */ }
-            "Shift Mgmt" -> { startActivity(
-                Intent(this, ShiftPlanActivity::class.java).apply {
-                    putExtra("btCode", btCode)
-                    putExtra("companyCode", currentCompany?.companyCode ?: "")
-                    putExtra("companyName", currentCompany?.name ?: "")
-                }
-            )}
-            "Reports" -> { /* TODO */ }
-        }
-    }
-
-    // ─────────────────────────────────────────
-    // Observe Data
-    // ─────────────────────────────────────────
-
-    private fun observeData() {
-        viewModel.getCompanies(btCode).observe(this) { companies ->
-            if (companies.isNotEmpty()) {
-                val company = companies.first()
-                currentCompany = company
-                binding.tvCompanyName.text = "${company.name} · ${company.city ?: ""}"
-                binding.tvTotalEmp.text = "50"
-
-                // ✅ Load shifts
-                viewModel.getShifts(company.companyCode).observe(this) { shifts ->
-                    currentShifts = shifts
-                    updateShiftCards(shifts)
-                }
-            } else {
-                binding.tvCompanyName.text = "No company — tap to add"
-            }
-        }
-
-        // ✅ Load user name
-        lifecycleScope.launch {
-            val name = preferenceManager.userName.first()
-            val initials = name.split(" ").take(2)
-                .joinToString("") { it.first().uppercase() }
-            binding.tvUserName.text = name
-            binding.tvAvatar.text = initials
-            binding.tvDrawerAvatar.text = initials
-            binding.tvDrawerName.text = name
-            binding.tvDrawerPhone.text = preferenceManager.btCode.first()
-            binding.tvDrawerCode.text = "${preferenceManager.btCode.first()} · Admin"
-        }
-    }
-
-    private fun updateShiftCards(shifts: List<ShiftEntity>) {
-        binding.layoutShifts.removeAllViews()
-        if (shifts.isEmpty()) {
-            binding.tvActiveShift.text = "No shifts"
-            return
-        }
-        shifts.forEachIndexed { index, shift ->
-            val shiftView = LayoutInflater.from(this)
-                .inflate(R.layout.item_shift_row, binding.layoutShifts, false)
-            shiftView.findViewById<TextView>(R.id.tvShiftRowName).text =
-                "Shift ${index + 1} · ${shift.shiftName} · ${shift.startTime.take(5)}–${shift.endTime.take(5)}"
-            binding.layoutShifts.addView(shiftView)
-        }
-        binding.tvActiveShift.text = "Shift 1 Active"
-    }
-
-    // ─────────────────────────────────────────
-    // Bottom Nav
-    // ─────────────────────────────────────────
-
-    private fun setupBottomNav() {
-        binding.bottomNav.setOnItemSelectedListener { item ->
-            when (item.itemId) {
-                R.id.nav_home       -> true
-                R.id.nav_attendance -> { navigateToModule("Attendance"); true }
-                R.id.nav_work       -> { navigateToModule("Work Progress"); true }
-                R.id.nav_reports    -> { navigateToModule("Reports"); true }
-                R.id.nav_employee    -> { navigateToModule("Employee");true}
-                else -> false
-            }
-        }
-    }
-
-    // ─────────────────────────────────────────
-    // Sync Dialog
-    // ─────────────────────────────────────────
-
+    // ─────────────────────────────────
+    // ✅ Sync dialog — unchanged logic from old HomeActivity
+    // ─────────────────────────────────
     private fun showSyncDialog() {
         syncDialogBinding = DialogSyncBinding.inflate(layoutInflater)
         syncDialog = Dialog(this).apply {
@@ -361,17 +180,17 @@ class HomeActivity : AppCompatActivity() {
             setContentView(syncDialogBinding.root)
             window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             window?.setDimAmount(0.6f)
-            window?.addFlags(android.view.WindowManager.LayoutParams.FLAG_DIM_BEHIND)
+            window?.addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND)
             window?.setLayout(
                 (resources.displayMetrics.widthPixels * 0.88).toInt(),
-                android.view.ViewGroup.LayoutParams.WRAP_CONTENT
+                ViewGroup.LayoutParams.WRAP_CONTENT
             )
             setCancelable(false)
         }
         syncDialog.show()
         observeSyncState()
         animateSyncSteps()
-        viewModel.syncMasterData(btCode)
+        syncViewModel.syncMasterData(btCode)
     }
 
     private fun animateSyncSteps() {
@@ -396,7 +215,7 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun observeSyncState() {
-        viewModel.syncState.observe(this) { resource ->
+        syncViewModel.syncState.observe(this) { resource ->
             when (resource) {
                 is Resource.Loading -> {
                     syncDialogBinding.btnSyncAction.isEnabled = false
@@ -417,15 +236,13 @@ class HomeActivity : AppCompatActivity() {
                         ColorStateList.valueOf(Color.parseColor("#1565C0"))
                     syncDialogBinding.btnSyncAction.setOnClickListener {
                         syncDialog.dismiss()
-                        observeData()
-                        // ✅ Update last synced time
-                        binding.tvLastSynced.text = "Last synced: just now"
+                        // ✅ Tell HomeFragment to refresh — via simple broadcast LiveData
+                        SyncEventBus.notifySyncComplete()
                     }
                     Handler(Looper.getMainLooper()).postDelayed({
                         if (syncDialog.isShowing) {
                             syncDialog.dismiss()
-                            observeData()
-                            binding.tvLastSynced.text = "Last synced: just now"
+                            SyncEventBus.notifySyncComplete()
                         }
                     }, 2000)
                 }
@@ -440,13 +257,9 @@ class HomeActivity : AppCompatActivity() {
                         ColorStateList.valueOf(Color.parseColor("#E24B4A"))
                     syncDialogBinding.btnSyncAction.setOnClickListener {
                         animateSyncSteps()
-                        viewModel.syncMasterData(btCode)
+                        syncViewModel.syncMasterData(btCode)
                     }
                 }
-
-                is Resource.Error -> TODO()
-                Resource.Loading -> TODO()
-                is Resource.Success -> TODO()
             }
         }
     }
@@ -465,7 +278,7 @@ class HomeActivity : AppCompatActivity() {
     override fun onBackPressed() {
         if (binding.drawerLayout.isDrawerOpen(GravityCompat.END)) {
             binding.drawerLayout.closeDrawer(GravityCompat.END)
-        } else {
+        } else if (!navController.popBackStack()) {
             super.onBackPressed()
         }
     }

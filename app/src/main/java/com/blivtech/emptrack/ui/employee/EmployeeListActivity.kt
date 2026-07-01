@@ -5,16 +5,22 @@ import android.net.Uri
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blivtech.emptrack.data.local.entity.EmployeeEntity
 import com.blivtech.emptrack.databinding.ActivityEmployeeListBinding
 import com.blivtech.emptrack.ui.employee.adapter.EmployeeAdapter
+import com.blivtech.emptrack.utils.PreferenceManager
 import com.blivtech.emptrack.utils.Resource
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class EmployeeListActivity : AppCompatActivity() {
@@ -23,9 +29,12 @@ class EmployeeListActivity : AppCompatActivity() {
     private val viewModel: EmployeeListViewModel by viewModels()
     private lateinit var adapter: EmployeeAdapter
 
-    private val companyCode by lazy { intent.getStringExtra("companyCode")?: "" }
-    private val companyName by lazy { intent.getStringExtra("companyName") ?: "" }
-    private val btCode by lazy { intent.getStringExtra("btCode") ?: "" }
+    @Inject
+    lateinit var preferenceManager: PreferenceManager
+
+    private var companyCode  = ""
+    private var companyName = ""
+    private var btCode = ""
 
     private var allEmployees = listOf<EmployeeEntity>()
 
@@ -34,14 +43,25 @@ class EmployeeListActivity : AppCompatActivity() {
         binding = ActivityEmployeeListBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        binding.tvTitle.text = "Employees"
-        binding.tvSubtitle.text = companyName
-
         setupRecyclerView()
         setupClickListeners()
         setupSearch()
-        observeData()
+
+        lifecycleScope.launch {
+            btCode = preferenceManager.btCode.first()
+            companyCode = preferenceManager.selectedCompanyCode.first()
+            companyName = preferenceManager.selectedCompanyName.first()
+
+            binding.tvTitle.text = "Employees"
+            binding.tvSubtitle.text = companyName
+
+            Log.d("companyCodecompanyCodeonCreate", "onCreate: $companyCode")
+
+            observeData()
+        }
     }
+
+
 
     private fun setupRecyclerView() {
         adapter = EmployeeAdapter(
@@ -59,15 +79,10 @@ class EmployeeListActivity : AppCompatActivity() {
 
         binding.btnAdd.setOnClickListener {
             startActivity(
-                Intent(this, AddEditEmployeeActivity::class.java).apply {
-                    putExtra("btCode", btCode)
-                    putExtra("companyCode", companyCode)
-                    putExtra("companyName", companyName)
-                }
+                Intent(this, AddEditEmployeeActivity::class.java)
             )
         }
 
-        // ✅ Filter chips
         binding.chipAll.setOnCheckedChangeListener { _, checked ->
             if (checked) filterEmployees("all")
         }
@@ -104,7 +119,9 @@ class EmployeeListActivity : AppCompatActivity() {
     }
 
     private fun observeData() {
+        Log.d("companyCodecompanyCode", "observeData: $companyCode")
         viewModel.getEmployees(companyCode).observe(this) { employees ->
+            Log.d("employeesemployeesemployees", "observeData: $employees")
             allEmployees = employees
             binding.tvSubtitle.text = "$companyName · ${employees.size} employees"
             adapter.submitList(employees)
@@ -142,7 +159,7 @@ class EmployeeListActivity : AppCompatActivity() {
     private fun openDetail(employee: EmployeeEntity) {
         startActivity(
             Intent(this, EmployeeDetailActivity::class.java).apply {
-                putExtra("employeeId", employee.id)
+                putExtra("empCode", employee.empCode)
                 putExtra("btCode", btCode)
             }
         )

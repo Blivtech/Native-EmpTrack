@@ -50,10 +50,10 @@ class AddEditCompanyViewModel @Inject constructor(
         }
     }
 
-    fun updateCompany(id: Long, request: CompanyRequest) {
+    fun updateCompany(companyCode: String, request: CompanyRequest) {
         _saveState.value = Resource.Loading
         viewModelScope.launch {
-            _saveState.value = repository.updateCompany(id, request)
+            _saveState.value = repository.updateCompany(companyCode, request)
         }
     }
 }

@@ -24,11 +24,11 @@ interface EmployeeDao {
     @Query("SELECT COUNT(*) FROM tbl_employees WHERE companyCode = :companyCode AND status = 1")
     fun getEmployeeCount(companyCode: String): Flow<Int>
 
-    @Query("SELECT * FROM tbl_employees WHERE id = :id")
-    suspend fun getEmployeeById(id: Long): EmployeeEntity?
+    @Query("SELECT * FROM tbl_employees WHERE empCode = :empCode and companyCode =:companyCode")
+    suspend fun getEmployeeById(empCode: String, companyCode: String): EmployeeEntity?
 
-    @Query("DELETE FROM tbl_employees WHERE id = :id")
-    suspend fun deleteById(id: Long)
+    @Query("DELETE FROM tbl_employees WHERE empCode = :empCode and companyCode =:companyCode")
+    suspend fun deleteById(empCode: String, companyCode: String)
 
 
 }
