@@ -2,6 +2,7 @@ package com.blivtech.emptrack.ui.employee
 
 import android.app.DatePickerDialog
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
@@ -195,11 +196,47 @@ class AddEditEmployeeActivity : AppCompatActivity() {
         // ✅ Load departments from Room
         viewModel.getDepartments(btCode).observe(this) { depts ->
             departments = depts
+
+            if (isEditMode && selectedDepartment == null) {
+                val emp = intent.getParcelableExtra<com.blivtech.emptrack.data.model.parcel.EmployeeParcel>("employee")
+
+                emp?.let {
+                    selectedDepartment = departments.firstOrNull { dept ->
+                        dept.deptCode == it.deptCode
+                    }
+
+                    selectedDepartment?.let { dept ->
+                        setFieldSelected(
+                            layout = binding.layoutDeptTrigger,
+                            valueView = binding.tvDeptValue,
+                            value = dept.name
+                        )
+                    }
+                }
+            }
         }
 
         // ✅ Load designations from Room
         viewModel.getDesignations(btCode).observe(this) { desgs ->
             designations = desgs
+
+            if (isEditMode && selectedDesignation == null) {
+                val emp = intent.getParcelableExtra<com.blivtech.emptrack.data.model.parcel.EmployeeParcel>("employee")
+
+                emp?.let {
+                    selectedDesignation = designations.firstOrNull { desg ->
+                        desg.desgCode == it.desgCode
+                    }
+
+                    selectedDesignation?.let { desg ->
+                        setFieldSelected(
+                            layout = binding.layoutDesgTrigger,
+                            valueView = binding.tvDesgValue,
+                            value = desg.name
+                        )
+                    }
+                }
+            }
         }
 
         // ✅ Save state
@@ -389,7 +426,12 @@ class AddEditEmployeeActivity : AppCompatActivity() {
             salaryType = selectedSalaryType,
             salaryAmount = selectedSalaryAmount,
             status = 1
+
         )
+        Log.d("CHECK", "deptCode = ${selectedDepartment?.deptCode}")
+        Log.d("CHECK", "desgCode = ${selectedDesignation?.desgCode}")
+        Log.d("CHECK", "btCode = $btCode")
+        Log.d("CHECK", "companyCode = $companyCode")
 
         if (isEditMode) viewModel.updateEmployee(editEmployeeCode, request)
         else viewModel.createEmployee(request)

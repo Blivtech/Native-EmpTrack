@@ -152,6 +152,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Save"
+                android:textColor="@color/white"
                 app:cornerRadius="4dp"
                 app:backgroundTint="#1565C0"/>
         </LinearLayout>
