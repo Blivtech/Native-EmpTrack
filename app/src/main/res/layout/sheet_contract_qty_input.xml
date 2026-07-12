@@ -9,104 +9,108 @@
 
     <!-- Handle -->
     <View
-        android:layout_width="36dp"
-        android:layout_height="4dp"
+        android:layout_width="@dimen/bottom_sheet_handle_width"
+        android:layout_height="@dimen/bottom_sheet_handle_height"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="@dimen/margin_md"
         android:background="@drawable/bg_sheet_handle"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="14dp">
+        android:padding="@dimen/padding_lg">
 
-        <!-- ✅ Product + work name -->
+        <!-- Product + Work Name -->
         <TextView
             android:id="@+id/tvQtyProduct"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="13sp"
-            android:textStyle="bold"
-            android:textColor="#212121"
-            android:layout_marginBottom="10dp"/>
+            android:layout_marginBottom="@dimen/margin_md"
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/text_caption_small"
+            android:fontFamily="@font/satoshi_bold"/>
 
-        <!-- ✅ Rate info row — replaces suffixTextId -->
+        <!-- Rate Info -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
+            android:layout_marginBottom="@dimen/margin_md"
             android:background="@drawable/bg_field_selector"
-            android:padding="10dp"
-            android:layout_marginBottom="12dp">
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:padding="@dimen/padding_md">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Rate: "
-                android:textSize="11sp"
-                android:textColor="#9E9E9E"/>
+                android:text="Rate : "
+                android:textColor="@color/text_secondary"
+                android:textSize="@dimen/text_caption_vs"
+                android:fontFamily="@font/satoshi_regular"/>
 
-            <!-- ✅ tvQtyUnit — shows "₹2.00 per kg" -->
             <TextView
                 android:id="@+id/tvQtyUnit"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:textSize="11sp"
-                android:textStyle="bold"
-                android:textColor="#1565C0"/>
+                android:textColor="@color/primary"
+                android:textSize="@dimen/text_caption_vs"
+                android:fontFamily="@font/satoshi_bold"/>
+
         </LinearLayout>
 
-        <!-- ✅ Qty input — no suffixTextId -->
+        <!-- Quantity -->
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="@dimen/margin_md"
             android:hint="Enter quantity"
-            app:boxCornerRadiusTopStart="12dp"
-            app:boxCornerRadiusTopEnd="12dp"
-            app:boxCornerRadiusBottomStart="12dp"
-            app:boxCornerRadiusBottomEnd="12dp"
-            app:boxStrokeColor="#1565C0"
-            app:hintTextColor="#1565C0">
+            app:boxCornerRadiusTopStart="@dimen/radius_lg"
+            app:boxCornerRadiusTopEnd="@dimen/radius_lg"
+            app:boxCornerRadiusBottomStart="@dimen/radius_lg"
+            app:boxCornerRadiusBottomEnd="@dimen/radius_lg"
+            app:boxStrokeColor="@color/primary"
+            app:hintTextColor="@color/primary">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etQty"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/satoshi_bold"
+                android:imeOptions="actionDone"
                 android:inputType="numberDecimal"
-                android:textSize="22sp"
-                android:textStyle="bold"
-                android:textColor="#1565C0"
-                android:imeOptions="actionDone"/>
+                android:textColor="@color/primary"
+                android:textSize="22sp"/>
+
         </com.google.android.material.textfield.TextInputLayout>
 
-        <!-- ✅ Preview -->
+        <!-- Preview -->
         <TextView
             android:id="@+id/tvQtyPreview"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="0 × ₹0.00 = ₹0"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:textColor="#1565C0"
+            android:layout_marginBottom="@dimen/margin_lg"
             android:background="@drawable/bg_field_selector"
-            android:padding="10dp"
-            android:layout_marginBottom="14dp"/>
+            android:padding="@dimen/padding_md"
+            android:text="0 × ₹0.00 = ₹0"
+            android:textColor="@color/primary"
+            android:textSize="@dimen/text_caption_small"
+            android:fontFamily="@font/satoshi_bold"/>
 
-        <!-- ✅ Save button -->
+        <!-- Save -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnQtySave"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
+            android:layout_height="@dimen/button_height"
+            android:fontFamily="@font/satoshi_bold"
             android:text="Confirm Quantity"
-            android:textSize="13sp"
-            android:textStyle="bold"
-            app:cornerRadius="12dp"
-            app:backgroundTint="#1565C0"/>
+            android:textAllCaps="false"
+            android:textSize="@dimen/text_caption_small"
+            app:backgroundTint="@color/primary"
+            app:cornerRadius="@dimen/radius_lg"/>
 
     </LinearLayout>
+
 </LinearLayout>

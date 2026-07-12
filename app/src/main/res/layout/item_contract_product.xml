@@ -4,27 +4,27 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:background="#FFFFFF"
-    android:padding="11px"
-    android:layout_marginBottom="8dp">
+    android:background="@color/white"
+    android:padding="@dimen/padding_md"
+    android:layout_marginBottom="@dimen/margin_sm">
 
-    <!-- Top row -->
+    <!-- Top Row -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:layout_marginBottom="8dp">
+        android:layout_marginBottom="@dimen/margin_sm">
 
-        <!-- Color dot -->
+        <!-- Color Dot -->
         <View
             android:id="@+id/viewDot"
             android:layout_width="10dp"
             android:layout_height="10dp"
-            android:background="@drawable/bg_circle_blue"
-            android:layout_marginEnd="10dp"/>
+            android:layout_marginEnd="@dimen/margin_sm"
+            android:background="@drawable/bg_circle_blue"/>
 
-        <!-- Product + work name -->
+        <!-- Product + Work -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -35,35 +35,38 @@
                 android:id="@+id/tvProductName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="13sp"
-                android:textStyle="bold"
-                android:textColor="#212121"/>
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/text_caption_small"
+                android:fontFamily="@font/satoshi_bold"/>
 
             <TextView
                 android:id="@+id/tvWorkName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="10sp"
-                android:textColor="#9E9E9E"
-                android:layout_marginTop="1dp"/>
+                android:layout_marginTop="1dp"
+                android:textColor="@color/text_secondary"
+                android:textSize="@dimen/text_caption_vs"
+                android:fontFamily="@font/satoshi_regular"/>
+
         </LinearLayout>
 
-        <!-- Rate badge -->
+        <!-- Rate Badge -->
         <TextView
             android:id="@+id/tvRate"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:textColor="#1565C0"
             android:background="@drawable/bg_badge_blue"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"/>
+            android:fontFamily="@font/satoshi_bold"
+            android:textColor="@color/primary"
+            android:textSize="@dimen/text_caption_small"
+            android:paddingStart="@dimen/padding_md"
+            android:paddingEnd="@dimen/padding_md"
+            android:paddingTop="@dimen/padding_xs"
+            android:paddingBottom="@dimen/padding_xs"/>
+
     </LinearLayout>
 
-    <!-- Action buttons -->
+    <!-- Action Buttons -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -74,33 +77,35 @@
             android:id="@+id/btnEdit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Edit"
-            android:textSize="10sp"
-            android:textStyle="bold"
-            android:textColor="#0C447C"
+            android:layout_marginEnd="@dimen/margin_sm"
             android:background="@drawable/bg_badge_blue"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
-            android:layout_marginEnd="8dp"
             android:clickable="true"
-            android:focusable="true"/>
+            android:focusable="true"
+            android:fontFamily="@font/satoshi_bold"
+            android:paddingStart="@dimen/padding_md"
+            android:paddingEnd="@dimen/padding_md"
+            android:paddingTop="@dimen/padding_xs"
+            android:paddingBottom="@dimen/padding_xs"
+            android:text="Edit"
+            android:textColor="@color/blue_dark"
+            android:textSize="@dimen/text_caption_vs"/>
 
         <TextView
             android:id="@+id/btnDelete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Delete"
-            android:textSize="10sp"
-            android:textStyle="bold"
-            android:textColor="#E24B4A"
             android:background="@drawable/bg_circle_red"
-            android:paddingStart="10dp"
-            android:paddingEnd="10dp"
-            android:paddingTop="4dp"
-            android:paddingBottom="4dp"
             android:clickable="true"
-            android:focusable="true"/>
+            android:focusable="true"
+            android:fontFamily="@font/satoshi_bold"
+            android:paddingStart="@dimen/padding_md"
+            android:paddingEnd="@dimen/padding_md"
+            android:paddingTop="@dimen/padding_xs"
+            android:paddingBottom="@dimen/padding_xs"
+            android:text="Delete"
+            android:textColor="@color/red_dark"
+            android:textSize="@dimen/text_caption_vs"/>
+
     </LinearLayout>
+
 </LinearLayout>

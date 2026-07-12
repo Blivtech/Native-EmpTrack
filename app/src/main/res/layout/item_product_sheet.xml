@@ -5,25 +5,27 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:gravity="center_vertical"
-    android:padding="11px"
+    android:padding="@dimen/padding_md"
     android:background="?attr/selectableItemBackground"
-    android:layout_marginBottom="4dp">
+    android:layout_marginBottom="@dimen/margin_xs">
 
     <!-- Icon -->
     <LinearLayout
         android:layout_width="36dp"
         android:layout_height="36dp"
+        android:layout_marginEnd="@dimen/margin_md"
         android:gravity="center"
-        android:background="@drawable/bg_circle_blue"
-        android:layout_marginEnd="12dp">
+        android:background="@drawable/bg_circle_blue">
+
         <ImageView
-            android:layout_width="18dp"
-            android:layout_height="18dp"
+            android:layout_width="@dimen/icon_sm"
+            android:layout_height="@dimen/icon_sm"
             android:src="@android:drawable/ic_menu_agenda"
-            android:tint="#0C447C"/>
+            android:tint="@color/blue_dark"/>
+
     </LinearLayout>
 
-    <!-- Info -->
+    <!-- Product Info -->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -34,17 +36,19 @@
             android:id="@+id/tvProductName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="13sp"
-            android:textStyle="bold"
-            android:textColor="#212121"/>
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/text_caption_small"
+            android:fontFamily="@font/satoshi_bold"/>
 
         <TextView
             android:id="@+id/tvWorkTypeCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="10sp"
-            android:textColor="#9E9E9E"
-            android:layout_marginTop="2dp"/>
+            android:layout_marginTop="2dp"
+            android:textColor="@color/text_secondary"
+            android:textSize="@dimen/text_caption_vs"
+            android:fontFamily="@font/satoshi_regular"/>
+
     </LinearLayout>
 
     <!-- Arrow -->
@@ -52,6 +56,6 @@
         android:layout_width="16dp"
         android:layout_height="16dp"
         android:src="@android:drawable/ic_media_next"
-        android:tint="#BDBDBD"/>
+        android:tint="@color/hint_color"/>
 
 </LinearLayout>

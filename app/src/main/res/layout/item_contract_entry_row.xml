@@ -5,177 +5,180 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@drawable/bg_field_selector"
-    android:padding="10dp"
-    android:layout_marginBottom="8dp">
+    android:padding="@dimen/padding_md"
+    android:layout_marginBottom="@dimen/margin_sm">
 
-    <!-- Row header -->
+    <!-- Row Header -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_marginBottom="@dimen/margin_sm"
         android:gravity="center_vertical"
-        android:layout_marginBottom="8dp">
+        android:orientation="horizontal">
 
-        <!-- ✅ Row number badge -->
+        <!-- Row Number -->
         <TextView
             android:id="@+id/tvRowNum"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:gravity="center"
-            android:textSize="9sp"
-            android:textStyle="bold"
-            android:textColor="#FFFFFF"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_marginEnd="@dimen/margin_sm"
             android:background="@drawable/bg_circle_blue"
-            android:layout_marginEnd="7dp"/>
+            android:fontFamily="@font/satoshi_bold"
+            android:gravity="center"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_caption_vs"/>
 
-        <!-- ✅ Product picker -->
+        <!-- Product Picker -->
         <LinearLayout
             android:id="@+id/layoutProductPicker"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical"
             android:background="@drawable/bg_field_selector"
-            android:padding="8dp"
             android:clickable="true"
-            android:focusable="true">
+            android:focusable="true"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_sm">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="PRODUCT"
-                android:textSize="7sp"
-                android:textStyle="bold"
-                android:textColor="#9E9E9E"
+                android:textColor="@color/text_secondary"
+                android:textSize="8sp"
+                android:fontFamily="@font/satoshi_bold"
                 android:letterSpacing="0.06"/>
 
-            <!-- ✅ tvProductLabel -->
             <TextView
                 android:id="@+id/tvProductLabel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:fontFamily="@font/satoshi_bold"
                 android:text="Tap to select"
-                android:textSize="11sp"
-                android:textStyle="bold"
-                android:textColor="#BDBDBD"
-                android:layout_marginTop="2dp"/>
+                android:textColor="@color/hint_color"
+                android:textSize="@dimen/text_caption_small"/>
 
-            <!-- ✅ tvProductSub -->
             <TextView
                 android:id="@+id/tvProductSub"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="9sp"
-                android:textColor="#1565C0"
-                android:layout_marginTop="1dp"/>
+                android:layout_marginTop="1dp"
+                android:fontFamily="@font/satoshi_regular"
+                android:textColor="@color/primary"
+                android:textSize="@dimen/text_caption_vs"/>
+
         </LinearLayout>
 
-        <!-- ✅ Delete -->
+        <!-- Delete -->
         <ImageView
             android:id="@+id/btnDelete"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
-            android:src="@android:drawable/ic_menu_delete"
-            android:tint="#E24B4A"
-            android:layout_marginStart="8dp"
+            android:layout_width="@dimen/icon_sm"
+            android:layout_height="@dimen/icon_sm"
+            android:layout_marginStart="@dimen/margin_sm"
             android:clickable="true"
-            android:focusable="true"/>
+            android:focusable="true"
+            android:src="@android:drawable/ic_menu_delete"
+            android:tint="@color/red_dark"/>
+
     </LinearLayout>
 
-    <!-- Qty + Amount -->
+    <!-- Quantity + Amount -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical">
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
 
-        <!-- ✅ layoutQty -->
+        <!-- Quantity -->
         <LinearLayout
             android:id="@+id/layoutQty"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:orientation="vertical"
             android:background="@drawable/bg_pieces_input"
-            android:padding="8dp"
             android:clickable="true"
-            android:focusable="true">
+            android:focusable="true"
+            android:orientation="vertical"
+            android:padding="@dimen/padding_sm">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="QUANTITY"
-                android:textSize="7sp"
-                android:textStyle="bold"
-                android:textColor="#9E9E9E"
+                android:textColor="@color/text_secondary"
+                android:textSize="8sp"
+                android:fontFamily="@font/satoshi_bold"
                 android:letterSpacing="0.06"/>
 
-            <!-- ✅ gravity bottom — fixes baseline error -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="bottom">
+                android:gravity="bottom"
+                android:orientation="horizontal">
 
-                <!-- ✅ tvQtyVal -->
                 <TextView
                     android:id="@+id/tvQtyVal"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:fontFamily="@font/satoshi_bold"
                     android:text="0"
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:textColor="#1565C0"/>
+                    android:textColor="@color/primary"
+                    android:textSize="20sp"/>
 
-                <!-- ✅ tvQtyUnit -->
                 <TextView
                     android:id="@+id/tvQtyUnit"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="—"
-                    android:textSize="10sp"
-                    android:textColor="#9E9E9E"
                     android:layout_marginStart="4dp"
-                    android:layout_marginBottom="2dp"/>
+                    android:layout_marginBottom="2dp"
+                    android:fontFamily="@font/satoshi_regular"
+                    android:text="—"
+                    android:textColor="@color/text_secondary"
+                    android:textSize="@dimen/text_caption_vs"/>
+
             </LinearLayout>
+
         </LinearLayout>
 
         <!-- Arrow -->
         <ImageView
             android:layout_width="16dp"
             android:layout_height="16dp"
-            android:src="@android:drawable/ic_media_next"
-            android:tint="#BDBDBD"
             android:layout_marginStart="6dp"
-            android:layout_marginEnd="6dp"/>
+            android:layout_marginEnd="6dp"
+            android:src="@android:drawable/ic_media_next"
+            android:tint="@color/hint_color"/>
 
-        <!-- Amount box -->
+        <!-- Amount -->
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
             android:background="@drawable/bg_amount_box"
-            android:padding="8dp">
+            android:orientation="vertical"
+            android:padding="@dimen/padding_sm">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="AMOUNT"
-                android:textSize="7sp"
-                android:textStyle="bold"
-                android:textColor="#639922"
+                android:textColor="@color/green_stroke"
+                android:textSize="8sp"
+                android:fontFamily="@font/satoshi_bold"
                 android:letterSpacing="0.06"/>
 
-            <!-- ✅ tvAmount -->
             <TextView
                 android:id="@+id/tvAmount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="2dp"
+                android:fontFamily="@font/satoshi_bold"
                 android:text="₹0"
-                android:textSize="20sp"
-                android:textStyle="bold"
-                android:textColor="#27500A"
-                android:layout_marginTop="2dp"/>
+                android:textColor="@color/green_dark"
+                android:textSize="20sp"/>
+
         </LinearLayout>
+
     </LinearLayout>
+
 </LinearLayout>

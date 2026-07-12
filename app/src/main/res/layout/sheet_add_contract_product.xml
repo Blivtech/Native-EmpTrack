@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -9,143 +8,130 @@
 
     <!-- Handle -->
     <View
-        android:layout_width="36dp"
-        android:layout_height="4dp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="4dp"
+        android:layout_width="@dimen/bottom_sheet_handle_width"
+        android:layout_height="@dimen/bottom_sheet_handle_height"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/margin_md"
         android:background="@drawable/bg_sheet_handle"/>
 
-    <!-- Header -->
-    <LinearLayout
+    <TextView
+        android:id="@+id/tvSheetTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="14dp"
-        android:paddingBottom="8dp">
+        android:layout_marginTop="@dimen/margin_lg"
+        android:gravity="center"
+        android:text="Add Product Rate"
+        android:fontFamily="@font/satoshi_bold"
+        android:textColor="@color/text_primary"
+        android:textSize="@dimen/text_heading"
+        android:textStyle="bold"/>
 
-        <!-- ✅ tvSheetTitle -->
-        <TextView
-            android:id="@+id/tvSheetTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add Product Rate"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:textColor="#212121"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Product · Work name · Rate · Unit"
-            android:textSize="10sp"
-            android:textColor="#9E9E9E"
-            android:layout_marginTop="2dp"/>
-    </LinearLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="Product • Work • Rate • Unit"
+        android:textColor="@color/text_secondary"
+        android:fontFamily="@font/satoshi_medium"
+        android:textSize="@dimen/text_small"/>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="#F0F0F0"
-        android:layout_marginBottom="4dp"/>
+        android:layout_height="1dp"
+        android:layout_marginTop="@dimen/margin_lg"
+        android:background="@color/divider"/>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
+        android:fillViewport="true"
         android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="14dp"
-            android:paddingBottom="24dp">
-
-            <!-- ✅ etProductName -->
+            android:padding="@dimen/padding_lg">
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:hint="Product name *"
-                app:boxCornerRadiusTopStart="12dp"
-                app:boxCornerRadiusTopEnd="12dp"
-                app:boxCornerRadiusBottomStart="12dp"
-                app:boxCornerRadiusBottomEnd="12dp"
-                app:boxStrokeColor="#1565C0"
-                app:hintTextColor="#1565C0">
+                android:hint="Product Name"
+                app:placeholderText="e.g. Shirt, Pant, Jacket"
+                app:boxStrokeColor="@color/primary"
+                app:boxCornerRadiusTopStart="@dimen/radius_lg"
+                app:boxCornerRadiusTopEnd="@dimen/radius_lg"
+                app:boxCornerRadiusBottomStart="@dimen/radius_lg"
+                app:boxCornerRadiusBottomEnd="@dimen/radius_lg">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etProductName"
+                    android:fontFamily="@font/satoshi_medium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textCapWords"
-                    android:imeOptions="actionNext"
-                    android:hint="e.g. Shirt, Pant, Jacket"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:inputType="textCapWords"/>
 
-            <!-- ✅ etWorkName -->
+            </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                android:hint="Work name *"
-                app:boxCornerRadiusTopStart="12dp"
-                app:boxCornerRadiusTopEnd="12dp"
-                app:boxCornerRadiusBottomStart="12dp"
-                app:boxCornerRadiusBottomEnd="12dp"
-                app:boxStrokeColor="#1565C0"
-                app:hintTextColor="#1565C0">
+                android:layout_marginTop="@dimen/margin_md"
+                android:hint="Work Name"
+                app:placeholderText="e.g. Coil Winding, Stitching"
+                app:boxStrokeColor="@color/primary"
+                app:boxCornerRadiusTopStart="@dimen/radius_lg"
+                app:boxCornerRadiusTopEnd="@dimen/radius_lg"
+                app:boxCornerRadiusBottomStart="@dimen/radius_lg"
+                app:boxCornerRadiusBottomEnd="@dimen/radius_lg">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etWorkName"
+                    android:fontFamily="@font/satoshi_medium"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textCapWords"
-                    android:imeOptions="actionNext"
-                    android:hint="e.g. Coil Winding, Stitching"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:inputType="textCapWords"/>
 
-            <!-- ✅ etRate -->
-            <com.google.android.material.textfield.TextInputLayout
+            </com.google.android.material.textfield.TextInputLayout>            <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp"
-                android:hint="Rate per unit (₹) *"
+                android:layout_marginTop="@dimen/margin_md"
+                android:hint="Rate per Unit"
                 app:prefixText="₹ "
-                app:boxCornerRadiusTopStart="12dp"
-                app:boxCornerRadiusTopEnd="12dp"
-                app:boxCornerRadiusBottomStart="12dp"
-                app:boxCornerRadiusBottomEnd="12dp"
-                app:boxStrokeColor="#1565C0"
-                app:hintTextColor="#1565C0">
+                app:prefixTextColor="@color/primary"
+                app:boxStrokeColor="@color/primary"
+                app:boxCornerRadiusTopStart="@dimen/radius_lg"
+                app:boxCornerRadiusTopEnd="@dimen/radius_lg"
+                app:boxCornerRadiusBottomStart="@dimen/radius_lg"
+                app:boxCornerRadiusBottomEnd="@dimen/radius_lg">
+
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/etRate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="numberDecimal"
-                    android:imeOptions="actionDone"
-                    android:textSize="18sp"
+                    android:fontFamily="@font/satoshi_bold"
+
                     android:textStyle="bold"
-                    android:textColor="#1565C0"/>
+                    android:textSize="@dimen/text_heading"/>
+
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Unit label -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Unit * (saved locally)"
-                android:textSize="10sp"
+                android:layout_marginTop="@dimen/margin_lg"
+                android:text="Unit"
                 android:textStyle="bold"
-                android:textColor="#757575"
-                android:layout_marginBottom="8dp"/>
+                android:textColor="@color/text_primary"
+                android:textSize="@dimen/text_body"/>
 
-            <!-- ✅ layoutUnitChips — horizontal scroll -->
             <HorizontalScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:scrollbars="none"
-                android:layout_marginBottom="10dp">
+                android:layout_marginTop="@dimen/margin_sm"
+                android:scrollbars="none">
 
                 <LinearLayout
                     android:id="@+id/layoutUnitChips"
@@ -153,59 +139,68 @@
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
                     android:padding="2dp"/>
+
             </HorizontalScrollView>
 
-            <!-- Add custom unit row -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/margin_lg"
                 android:gravity="center_vertical"
-                android:layout_marginBottom="14dp">
-
-                <!-- ✅ etCustomUnit -->
+                android:orientation="horizontal">
                 <com.google.android.material.textfield.TextInputLayout
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginEnd="8dp"
-                    android:hint="New unit name"
-                    app:boxCornerRadiusTopStart="10dp"
-                    app:boxCornerRadiusTopEnd="10dp"
-                    app:boxCornerRadiusBottomStart="10dp"
-                    app:boxCornerRadiusBottomEnd="10dp"
-                    app:boxStrokeColor="#1565C0">
+                    android:hint="New Unit"
+                    app:placeholderText="e.g. Yard, Roll"
+                    app:boxStrokeColor="@color/primary"
+                    app:boxCornerRadiusTopStart="@dimen/radius_lg"
+                    app:boxCornerRadiusTopEnd="@dimen/radius_lg"
+                    app:boxCornerRadiusBottomStart="@dimen/radius_lg"
+                    app:boxCornerRadiusBottomEnd="@dimen/radius_lg">
+
                     <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etCustomUnit"
+                        android:fontFamily="@font/satoshi_medium"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:inputType="text"
-                        android:hint="e.g. yard, roll"/>
-                </com.google.android.material.textfield.TextInputLayout>
+                        android:inputType="textCapWords"/>
 
-                <!-- ✅ btnAddUnit -->
+                </com.google.android.material.textfield.TextInputLayout>
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnAddUnit"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/button_height"
+                    android:layout_marginStart="@dimen/margin_sm"
+                    android:background="@drawable/bg_button_primary"
                     android:text="+ Add"
-                    android:textSize="11sp"
-                    app:cornerRadius="10dp"
-                    app:backgroundTint="#1565C0"/>
-            </LinearLayout>
+                    android:fontFamily="@font/satoshi_bold"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    app:backgroundTint="@null"
+                    app:cornerRadius="@dimen/radius_lg"/>
 
-            <!-- ✅ btnSaveProduct -->
+            </LinearLayout>
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSaveProduct"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
+                android:layout_height="@dimen/button_height"
+                android:layout_marginTop="@dimen/margin_xl"
+                android:layout_marginBottom="@dimen/margin_lg"
+                android:background="@drawable/bg_button_primary"
                 android:text="Save Product Rate"
-                android:textSize="13sp"
+                android:fontFamily="@font/satoshi_bold"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
                 android:textStyle="bold"
-                app:cornerRadius="12dp"
-                app:backgroundTint="#1565C0"/>
+                android:textSize="@dimen/text_body"
+                app:backgroundTint="@null"
+                app:cornerRadius="@dimen/radius_lg"/>
 
         </LinearLayout>
+
     </ScrollView>
+
 </LinearLayout>

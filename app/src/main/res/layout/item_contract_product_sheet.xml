@@ -5,43 +5,51 @@
     android:layout_height="wrap_content"
     android:orientation="horizontal"
     android:gravity="center_vertical"
-    android:padding="11dp"
+    android:padding="@dimen/padding_md"
     android:background="?attr/selectableItemBackground"
-    android:layout_marginBottom="4dp">
+    android:layout_marginBottom="@dimen/margin_xs">
 
+    <!-- Status Dot -->
     <View
         android:id="@+id/viewDot"
         android:layout_width="10dp"
         android:layout_height="10dp"
-        android:background="@drawable/bg_circle_blue"
-        android:layout_marginEnd="12dp"/>
+        android:layout_marginEnd="@dimen/margin_md"
+        android:background="@drawable/bg_circle_blue"/>
 
+    <!-- Product Details -->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
         android:orientation="vertical">
+
         <TextView
             android:id="@+id/tvProductName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="12sp"
-            android:textStyle="bold"
-            android:textColor="#212121"/>
+            android:textColor="@color/text_primary"
+            android:textSize="@dimen/text_caption_small"
+            android:fontFamily="@font/satoshi_bold"/>
+
         <TextView
             android:id="@+id/tvWorkName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="9sp"
-            android:textColor="#9E9E9E"
-            android:layout_marginTop="1dp"/>
+            android:layout_marginTop="1dp"
+            android:textColor="@color/text_secondary"
+            android:textSize="@dimen/text_caption_vs"
+            android:fontFamily="@font/satoshi_regular"/>
+
     </LinearLayout>
 
+    <!-- Selected Icon -->
     <ImageView
         android:id="@+id/ivCheck"
-        android:layout_width="16dp"
-        android:layout_height="16dp"
+        android:layout_width="@dimen/icon_sm"
+        android:layout_height="@dimen/icon_sm"
         android:src="@android:drawable/checkbox_on_background"
-        android:tint="#1565C0"
+        android:tint="@color/primary"
         android:visibility="gone"/>
+
 </LinearLayout>
