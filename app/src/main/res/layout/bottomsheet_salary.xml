@@ -28,7 +28,8 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Salary information"
-            android:textSize="15sp"
+            android:textSize="@dimen/text_caption_md"
+            android:fontFamily="@font/satoshi_medium"
             android:textStyle="bold"
             android:textColor="#212121"/>
 
@@ -45,7 +46,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="SALARY TYPE"
-        android:textSize="11sp"
+        android:textSize="@dimen/text_caption_small"
+        android:fontFamily="@font/satoshi_medium"
         android:textStyle="bold"
         android:textColor="#757575"
         android:letterSpacing="0.05"
@@ -74,18 +76,14 @@
             android:layout_marginEnd="5dp"
             android:background="@drawable/bg_salary_type_selected">
 
-            <ImageView
-                android:layout_width="26dp"
-                android:layout_height="26dp"
-                android:src="@android:drawable/ic_menu_day"
-                android:tint="#0C447C"
-                android:layout_marginBottom="4dp"/>
+
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Daily"
-                android:textSize="12sp"
+                android:textSize="@dimen/text_caption_md"
+                android:fontFamily="@font/satoshi_medium"
                 android:textStyle="bold"
                 android:textColor="#0C447C"/>
 
@@ -93,7 +91,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Per day"
-                android:textSize="10sp"
+                android:textSize="@dimen/text_caption_small"
+                android:fontFamily="@font/satoshi_medium"
                 android:textColor="#185FA5"
                 android:layout_marginTop="1dp"/>
         </LinearLayout>
@@ -110,18 +109,14 @@
             android:layout_marginEnd="5dp"
             android:background="@drawable/bg_salary_type">
 
-            <ImageView
-                android:layout_width="26dp"
-                android:layout_height="26dp"
-                android:src="@android:drawable/ic_menu_agenda"
-                android:tint="#633806"
-                android:layout_marginBottom="4dp"/>
+
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Weekly"
-                android:textSize="12sp"
+                android:textSize="@dimen/text_caption_md"
+                android:fontFamily="@font/satoshi_medium"
                 android:textStyle="bold"
                 android:textColor="#212121"/>
 
@@ -129,7 +124,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Per week"
-                android:textSize="10sp"
+                android:textSize="@dimen/text_caption_small"
+                android:fontFamily="@font/satoshi_medium"
                 android:textColor="#757575"
                 android:layout_marginTop="1dp"/>
         </LinearLayout>
@@ -145,18 +141,12 @@
             android:padding="10dp"
             android:background="@drawable/bg_salary_type">
 
-            <ImageView
-                android:layout_width="26dp"
-                android:layout_height="26dp"
-                android:src="@android:drawable/ic_menu_month"
-                android:tint="#27500A"
-                android:layout_marginBottom="4dp"/>
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Monthly"
-                android:textSize="12sp"
+                android:textSize="@dimen/text_caption_md"
+                android:fontFamily="@font/satoshi_medium"
                 android:textStyle="bold"
                 android:textColor="#212121"/>
 
@@ -164,7 +154,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Per month"
-                android:textSize="10sp"
+                android:textSize="@dimen/text_caption_small"
+                android:fontFamily="@font/satoshi_medium"
                 android:textColor="#757575"
                 android:layout_marginTop="1dp"/>
         </LinearLayout>
@@ -175,7 +166,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="SALARY AMOUNT"
-        android:textSize="11sp"
+        android:textSize="@dimen/text_caption_md"
+        android:fontFamily="@font/satoshi_medium"
         android:textStyle="bold"
         android:textColor="#757575"
         android:letterSpacing="0.05"
@@ -205,7 +197,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="numberDecimal"
-            android:textSize="18sp"
+            android:textSize="@dimen/text_caption_md"
+            android:fontFamily="@font/satoshi_medium"
             android:imeOptions="actionDone"/>
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -231,14 +224,16 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Daily rate"
-                android:textSize="12sp"
+                android:textSize="@dimen/text_caption_md"
+                android:fontFamily="@font/satoshi_medium"
                 android:textColor="#757575"/>
             <TextView
                 android:id="@+id/tvDailyRate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="₹ 0"
-                android:textSize="12sp"
+                android:textSize="@dimen/text_caption_md"
+                android:fontFamily="@font/satoshi_medium"
                 android:textStyle="bold"
                 android:textColor="#212121"/>
         </LinearLayout>
@@ -253,14 +248,16 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Weekly estimate"
-                android:textSize="12sp"
+                android:textSize="@dimen/text_caption_md"
+                android:fontFamily="@font/satoshi_medium"
                 android:textColor="#757575"/>
             <TextView
                 android:id="@+id/tvWeeklyRate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="₹ 0"
-                android:textSize="12sp"
+                android:textSize="@dimen/text_caption_md"
+                android:fontFamily="@font/satoshi_medium"
                 android:textStyle="bold"
                 android:textColor="#212121"/>
         </LinearLayout>
@@ -275,13 +272,15 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:text="Working days/month"
-                android:textSize="12sp"
+                android:textSize="@dimen/text_caption_md"
+                android:fontFamily="@font/satoshi_medium"
                 android:textColor="#757575"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="26 days"
-                android:textSize="12sp"
+                android:textSize="@dimen/text_caption_md"
+                android:fontFamily="@font/satoshi_medium"
                 android:textStyle="bold"
                 android:textColor="#212121"/>
         </LinearLayout>
@@ -300,8 +299,8 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Monthly estimate"
-                android:textSize="13sp"
+                android:textSize="@dimen/text_caption_md"
+                android:fontFamily="@font/satoshi_medium"
                 android:textStyle="bold"
                 android:textColor="#212121"/>
             <TextView
@@ -316,17 +315,20 @@
     </LinearLayout>
 
     <!-- Confirm button -->
-    <com.google.android.material.button.MaterialButton
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnConfirmSalary"
         android:layout_width="match_parent"
         android:layout_height="52dp"
         android:layout_marginStart="14dp"
         android:layout_marginEnd="14dp"
         android:layout_marginBottom="16dp"
+        android:textColor="@color/white"
+        android:textAllCaps="false"
         android:text="Confirm salary"
-        android:textSize="14sp"
+        android:textSize="@dimen/text_caption_md"
+        android:fontFamily="@font/satoshi_medium"
         android:textStyle="bold"
-        app:cornerRadius="14dp"
+        app:cornerRadius="4dp"
         app:backgroundTint="#1565C0"/>
 
 </LinearLayout>

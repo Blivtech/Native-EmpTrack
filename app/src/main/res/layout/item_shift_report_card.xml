@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:padding="5dp"
-    android:background="@color/white"
+    android:background="@drawable/bg_search"
     android:layout_marginBottom="8dp">
 
     <LinearLayout

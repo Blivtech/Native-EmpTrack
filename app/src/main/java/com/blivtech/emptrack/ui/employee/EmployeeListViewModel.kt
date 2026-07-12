@@ -26,6 +26,8 @@ class   EmployeeListViewModel @Inject constructor(
 
     fun getEmployees(companyId: String) = repository.getEmployees(companyId).asLiveData()
 
+    fun getEmployeess(companyId: String) = repository.getEmployeess(companyId).asLiveData()
+
     // ✅ Load single employee into LiveData
     fun loadEmployeeById(empCode: String, companyCode: String) {
         viewModelScope.launch {

@@ -189,18 +189,15 @@ class MarkAttendanceActivity : AppCompatActivity() {
         }
     }
 
-    // ─────────────────────────────────────
-    // ✅ Observe Data
-    // ─────────────────────────────────────
+
     private fun observeData() {
 
-        // ✅ Show/hide deviation button
         viewModel.showDeviation.observe(this) { show ->
             binding.btnDeviation.visibility =
                 if (show) View.VISIBLE else View.VISIBLE
         }
 
-        // ✅ Employees loaded
+
         viewModel.employees.observe(this) { employees ->
             allEmployees = employees
             filterAndRefresh()

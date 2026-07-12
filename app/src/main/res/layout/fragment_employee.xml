@@ -39,7 +39,8 @@
                 android:layout_height="wrap_content"
                 android:text="Loading..."
                 android:textSize="@dimen/text_caption_small"
-                android:fontFamily="@font/satoshi_medium"                android:textColor="#CCffffff"/>
+                android:fontFamily="@font/satoshi_medium"
+                android:textColor="#CCffffff"/>
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
@@ -63,28 +64,20 @@
         android:background="#FFFFFF"
         android:padding="10dp">
 
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/tilSearch"
-            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        <EditText
+            android:id="@+id/etSearch"
             android:layout_width="match_parent"
+            android:padding="10dp"
             android:layout_height="wrap_content"
+            android:background="@drawable/bg_search"
+            android:drawableLeft="@drawable/ic_search"
+            android:drawablePadding="8dp"
+            android:gravity="center_vertical"
             android:hint="Search by name, code, phone..."
-            app:startIconDrawable="@android:drawable/ic_menu_search"
-            app:startIconTint="#1565C0"
-            app:boxCornerRadiusTopStart="4dp"
-            app:boxCornerRadiusTopEnd="4dp"
-            app:boxCornerRadiusBottomStart="4dp"
-            app:boxCornerRadiusBottomEnd="4dp"
-            app:boxStrokeColor="#1565C0">
-
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etSearch"
-                android:layout_width="match_parent"
-                android:fontFamily="@font/satoshi_medium"
-                android:textSize="@dimen/text_caption_md"
-                android:layout_height="wrap_content"
-                android:inputType="text"/>
-        </com.google.android.material.textfield.TextInputLayout>
+            android:textSize="@dimen/text_caption_md"
+            android:fontFamily="@font/satoshi_medium"
+            android:inputType="text"
+            android:singleLine="true"/>
 
         <!-- Filter chips -->
         <HorizontalScrollView

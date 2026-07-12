@@ -20,6 +20,7 @@ import com.blivtech.emptrack.ui.entry.AddEntryActivity
 
 import com.blivtech.emptrack.ui.shiftplan.ShiftPlanActivity
 import com.blivtech.emptrack.ui.work.AddWorkEntryActivity
+import com.blivtech.emptrack.ui.work.SelectEmployeeActivity
 import com.blivtech.emptrack.utils.PreferenceManager
 import com.blivtech.emptrack.utils.SyncEventBus
 import dagger.hilt.android.AndroidEntryPoint
@@ -113,8 +114,8 @@ class HomeFragment : Fragment() {
             "Attendance" -> navController.navigate(R.id.attendanceFragment)
             "Reports"    -> navController.navigate(R.id.reportsFragment)
 
-            "Work Progress" -> startActivity(
-                Intent(requireContext(), ContractWageActivity::class.java).apply {
+            "Work-Based Pay" -> startActivity(
+                Intent(requireContext(), AddWorkEntryActivity::class.java).apply {
                     putExtra("companyCode", currentCompany?.companyCode ?: "")
                 }
             )
@@ -126,7 +127,11 @@ class HomeFragment : Fragment() {
                     putExtra("companyCode", selectedCompanyCode)
                 }
             )
-            "Inventory" -> { /* TODO */ }
+            "Inventory" -> {    startActivity( Intent(requireContext(), ContractWageActivity::class.java).apply {
+                putExtra("btCode", btCode)
+                putExtra("companyName", selectedCompanyName)
+                putExtra("companyCode", selectedCompanyCode)
+            } )}
             "Shift Management" -> startActivity(
                 Intent(requireContext(), ShiftPlanActivity::class.java)
             )

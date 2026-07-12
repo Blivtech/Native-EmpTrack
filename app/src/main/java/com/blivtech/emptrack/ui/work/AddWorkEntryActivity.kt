@@ -18,7 +18,6 @@ import com.blivtech.emptrack.utils.Resource
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.card.MaterialCardView
 import com.google.android.material.snackbar.Snackbar
-import com.google.android.material.textfield.TextInputEditText
 import dagger.hilt.android.AndroidEntryPoint
 import java.text.SimpleDateFormat
 import java.util.*
@@ -35,6 +34,23 @@ class AddWorkEntryActivity : AppCompatActivity() {
 
     private val dateFmt = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
     private val displayFmt = SimpleDateFormat("d MMM yyyy", Locale.getDefault())
+
+    // ─────────────────────────────────────
+    // ✅ Modern Activity Result API — replaces the broken
+    //    startActivity() + onActivityResult() pattern.
+    //    THIS is the "proper order" fix: the result now
+    //    actually comes back into this screen.
+    // ─────────────────────────────────────
+    private val employeePickerLauncher = registerForActivityResult(
+        ActivityResultContracts.StartActivityForResult()
+    ) { result ->
+        if (result.resultCode == RESULT_OK) {
+            val data = result.data ?: return@registerForActivityResult
+            val empCode = data.getStringExtra("empCode") ?: ""
+            val empName = data.getStringExtra("empName") ?: ""
+            setEmployee(empCode, empName)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,19 +80,13 @@ class AddWorkEntryActivity : AppCompatActivity() {
         binding.layoutDate.setOnClickListener { showDatePicker() }
 
         // ✅ Employee picker — tap empty banner
-        binding.layoutNoEmployee.setOnClickListener {
-            openEmployeePicker()
-        }
+        binding.layoutNoEmployee.setOnClickListener { openEmployeePicker() }
 
         // ✅ Change employee button
-        binding.btnChangeEmployee.setOnClickListener {
-            openEmployeePicker()
-        }
+        binding.btnChangeEmployee.setOnClickListener { openEmployeePicker() }
 
         // ✅ Add another product row
-        binding.btnAddRow.setOnClickListener {
-            viewModel.addRow()
-        }
+        binding.btnAddRow.setOnClickListener { viewModel.addRow() }
 
         // ✅ Save button
         binding.btnSave.setOnClickListener {
@@ -85,14 +95,14 @@ class AddWorkEntryActivity : AppCompatActivity() {
             }
         }
     }
+
     // ─────────────────────────────────────
     // ✅ Observe ViewModel
     // ─────────────────────────────────────
     private fun observeViewModel() {
 
-        // ✅ Products loaded
+        // ✅ Products loaded — rebuild rows so dropdowns refresh
         viewModel.products.observe(this) {
-            // ✅ Rebuild rows to update dropdowns
             val rows = viewModel.rows.value ?: mutableListOf()
             buildEntryRows(rows)
         }
@@ -109,23 +119,21 @@ class AddWorkEntryActivity : AppCompatActivity() {
             when (resource) {
                 is Resource.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
-                    binding.btnSave.isEnabled      = false
-                    binding.btnSave.text           = "Saving..."
+                    binding.btnSave.isEnabled = false
+                    binding.btnSave.text = "Saving..."
                 }
                 is Resource.Success -> {
                     binding.progressBar.visibility = View.GONE
-                    binding.btnSave.isEnabled      = true
-                    binding.btnSave.text           = "Save Work Entry"
-                    Snackbar.make(binding.root, resource.data, Snackbar.LENGTH_SHORT)
-                        .show()
+                    binding.btnSave.isEnabled = true
+                    binding.btnSave.text = "Save Work Entry"
+                    Snackbar.make(binding.root, resource.data, Snackbar.LENGTH_SHORT).show()
                     finish()
                 }
                 is Resource.Error -> {
                     binding.progressBar.visibility = View.GONE
-                    binding.btnSave.isEnabled      = true
-                    binding.btnSave.text           = "Save Work Entry"
-                    Snackbar.make(binding.root, resource.message, Snackbar.LENGTH_LONG)
-                        .show()
+                    binding.btnSave.isEnabled = true
+                    binding.btnSave.text = "Save Work Entry"
+                    Snackbar.make(binding.root, resource.message, Snackbar.LENGTH_LONG).show()
                 }
             }
         }
@@ -145,12 +153,10 @@ class AddWorkEntryActivity : AppCompatActivity() {
             )
 
             // ─── Row number badge ─────────────
-            val badge = cardView.findViewById<TextView>(R.id.tvRowBadge)
-            badge.text = "${index + 1}"
+            cardView.findViewById<TextView>(R.id.tvRowBadge).text = "${index + 1}"
 
             // ─── Row label ────────────────────
-            val tvRowLabel = cardView.findViewById<TextView>(R.id.tvRowLabel)
-            tvRowLabel.text = if (row.isValid)
+            cardView.findViewById<TextView>(R.id.tvRowLabel).text = if (row.isValid)
                 "${row.productName} · ${row.workTypeName}"
             else
                 "Select product & work type"
@@ -163,9 +169,7 @@ class AddWorkEntryActivity : AppCompatActivity() {
                 if (row.productId.isEmpty()) Color.parseColor("#BDBDBD")
                 else Color.parseColor("#212121")
             )
-            layoutProduct.setOnClickListener {
-                showProductPicker(index, row)
-            }
+            layoutProduct.setOnClickListener { showProductPicker(index, row) }
 
             // ─── Work type picker ─────────────
             val layoutWorkType = cardView.findViewById<LinearLayout>(R.id.layoutWorkType)
@@ -183,8 +187,7 @@ class AddWorkEntryActivity : AppCompatActivity() {
 
             layoutWorkType.setOnClickListener {
                 if (row.productId.isEmpty()) {
-                    Snackbar.make(binding.root, "Select product first", Snackbar.LENGTH_SHORT)
-                        .show()
+                    Snackbar.make(binding.root, "Select product first", Snackbar.LENGTH_SHORT).show()
                     return@setOnClickListener
                 }
                 showWorkTypePicker(index, row)
@@ -197,7 +200,7 @@ class AddWorkEntryActivity : AppCompatActivity() {
                 override fun afterTextChanged(s: Editable?) {
                     val pieces = s.toString().toDoubleOrNull() ?: 0.0
                     val updatedRow = row.copy(
-                        piecesDone  = pieces,
+                        piecesDone = pieces,
                         totalAmount = pieces * row.ratePerPiece
                     )
                     viewModel.updateRow(index, updatedRow)
@@ -224,9 +227,7 @@ class AddWorkEntryActivity : AppCompatActivity() {
             // ─── Delete button ────────────────
             val ivDelete = cardView.findViewById<ImageView>(R.id.ivDeleteRow)
             ivDelete.visibility = if (rows.size > 1) View.VISIBLE else View.INVISIBLE
-            ivDelete.setOnClickListener {
-                viewModel.removeRow(index)
-            }
+            ivDelete.setOnClickListener { viewModel.removeRow(index) }
 
             binding.layoutEntries.addView(cardView)
         }
@@ -249,9 +250,7 @@ class AddWorkEntryActivity : AppCompatActivity() {
         val container = sheetView.findViewById<LinearLayout>(R.id.layoutProducts)
 
         products.forEach { product ->
-            val item = layoutInflater.inflate(
-                R.layout.item_product_sheet, container, false
-            )
+            val item = layoutInflater.inflate(R.layout.item_product_sheet, container, false)
             item.findViewById<TextView>(R.id.tvProductName).text = product.productName
             item.findViewById<TextView>(R.id.tvWorkTypeCount).text =
                 "${product.workTypes.size} work types"
@@ -262,13 +261,13 @@ class AddWorkEntryActivity : AppCompatActivity() {
 
             item.setOnClickListener {
                 val updatedRow = row.copy(
-                    productId    = product.productId,
-                    productName  = product.productName,
+                    productId = product.productId,
+                    productName = product.productName,
                     // ✅ Reset work type when product changes
-                    workTypeId   = "",
+                    workTypeId = "",
                     workTypeName = "",
                     ratePerPiece = 0.0,
-                    totalAmount  = 0.0
+                    totalAmount = 0.0
                 )
                 viewModel.updateRow(rowIndex, updatedRow)
                 dialog.dismiss()
@@ -286,8 +285,7 @@ class AddWorkEntryActivity : AppCompatActivity() {
     private fun showWorkTypePicker(rowIndex: Int, row: WorkEntryRow) {
         val workTypes = viewModel.getWorkTypesForProduct(row.productId)
         if (workTypes.isEmpty()) {
-            Snackbar.make(binding.root, "No work types for this product", Snackbar.LENGTH_SHORT)
-                .show()
+            Snackbar.make(binding.root, "No work types for this product", Snackbar.LENGTH_SHORT).show()
             return
         }
 
@@ -295,15 +293,13 @@ class AddWorkEntryActivity : AppCompatActivity() {
         val dialog = BottomSheetDialog(this)
         dialog.setContentView(sheetView)
 
-        val tvSheetSub = sheetView.findViewById<TextView>(R.id.tvSheetSub)
-        tvSheetSub.text = "${row.productName} — tap to select"
+        sheetView.findViewById<TextView>(R.id.tvSheetSub).text =
+            "${row.productName} — tap to select"
 
         val container = sheetView.findViewById<LinearLayout>(R.id.layoutWorkTypes)
 
         workTypes.forEach { wt ->
-            val item = layoutInflater.inflate(
-                R.layout.item_worktype_sheet, container, false
-            )
+            val item = layoutInflater.inflate(R.layout.item_worktype_sheet, container, false)
             val colorDot = item.findViewById<View>(R.id.viewDot)
             colorDot.setBackgroundColor(
                 try { Color.parseColor(wt.colorTag) }
@@ -320,10 +316,10 @@ class AddWorkEntryActivity : AppCompatActivity() {
 
             item.setOnClickListener {
                 val updatedRow = row.copy(
-                    workTypeId   = wt.workTypeId,
+                    workTypeId = wt.workTypeId,
                     workTypeName = wt.workTypeName,
                     ratePerPiece = wt.ratePerPiece,
-                    totalAmount  = row.piecesDone * wt.ratePerPiece
+                    totalAmount = row.piecesDone * wt.ratePerPiece
                 )
                 viewModel.updateRow(rowIndex, updatedRow)
                 dialog.dismiss()
@@ -357,11 +353,11 @@ class AddWorkEntryActivity : AppCompatActivity() {
     // ─────────────────────────────────────
     private fun updateSaveButton() {
         val hasEmployee = viewModel.selectedEmpCode.isNotEmpty()
-        val hasEntries  = viewModel.getValidRowCount() > 0
-        val isReady     = hasEmployee && hasEntries
+        val hasEntries = viewModel.getValidRowCount() > 0
+        val isReady = hasEmployee && hasEntries
 
         binding.btnSave.isEnabled = isReady
-        binding.btnSave.alpha     = if (isReady) 1.0f else 0.5f
+        binding.btnSave.alpha = if (isReady) 1.0f else 0.5f
 
         val total = viewModel.getTotalAmount()
         binding.btnSave.text = if (isReady)
@@ -381,13 +377,10 @@ class AddWorkEntryActivity : AppCompatActivity() {
                 val cal2 = Calendar.getInstance()
                 cal2.set(year, month, day)
                 viewModel.selectedDate = dateFmt.format(cal2.time)
-                binding.tvDate.text    = displayFmt.format(cal2.time)
+                binding.tvDate.text = displayFmt.format(cal2.time)
 
-                val today  = dateFmt.format(Date())
-                binding.tvDateSub.text = when (viewModel.selectedDate) {
-                    today -> "Today"
-                    else  -> ""
-                }
+                val today = dateFmt.format(Date())
+                binding.tvDateSub.text = if (viewModel.selectedDate == today) "Today" else ""
             },
             cal.get(Calendar.YEAR),
             cal.get(Calendar.MONTH),
@@ -396,41 +389,33 @@ class AddWorkEntryActivity : AppCompatActivity() {
     }
 
     // ─────────────────────────────────────
-    // ✅ Open employee picker
+    // ✅ Open employee picker (via result launcher)
     // ─────────────────────────────────────
     private fun openEmployeePicker() {
-        startActivity(
+        employeePickerLauncher.launch(
             Intent(this, SelectEmployeeActivity::class.java).apply {
-                putExtra("btCode",      btCode)
-                putExtra("companyId",   companyId)
+                putExtra("btCode", btCode)
+                putExtra("companyId", companyId)
                 putExtra("companyCode", companyCode)
             }
         )
     }
 
     // ─────────────────────────────────────
-    // ✅ Receive selected employee
+    // ✅ Apply selected employee to UI
     // ─────────────────────────────────────
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == RESULT_OK && data != null) {
-            val empCode = data.getStringExtra("empCode") ?: ""
-            val empName = data.getStringExtra("empName") ?: ""
-            setEmployee(empCode, empName)
-        }
-    }
-
     private fun setEmployee(empCode: String, empName: String) {
         viewModel.selectedEmpCode = empCode
         viewModel.selectedEmpName = empName
 
-        // ✅ Show employee banner
-        binding.layoutNoEmployee.visibility  = View.GONE
+        binding.layoutNoEmployee.visibility = View.GONE
         binding.layoutEmployeeBanner.visibility = View.VISIBLE
         binding.tvEmpInitials.text = empName.split(" ")
-            .take(2).joinToString("") { it.first().uppercase() }
-        binding.tvEmpName.text    = empName
-        binding.tvEmpCode.text    = empCode
+            .take(2)
+            .filter { it.isNotEmpty() }
+            .joinToString("") { it.first().uppercase() }
+        binding.tvEmpName.text = empName
+        binding.tvEmpCode.text = empCode
 
         updateSaveButton()
     }
@@ -440,21 +425,15 @@ class AddWorkEntryActivity : AppCompatActivity() {
     // ─────────────────────────────────────
     private fun validateInputs(): Boolean {
         if (viewModel.selectedEmpCode.isEmpty()) {
-            Snackbar.make(binding.root, "Please select an employee", Snackbar.LENGTH_SHORT)
-                .show()
+            Snackbar.make(binding.root, "Please select an employee", Snackbar.LENGTH_SHORT).show()
             return false
         }
         if (viewModel.selectedDate.isEmpty()) {
-            Snackbar.make(binding.root, "Please select a date", Snackbar.LENGTH_SHORT)
-                .show()
+            Snackbar.make(binding.root, "Please select a date", Snackbar.LENGTH_SHORT).show()
             return false
         }
         if (viewModel.getValidRowCount() == 0) {
-            Snackbar.make(
-                binding.root,
-                "Add at least one work entry",
-                Snackbar.LENGTH_SHORT
-            ).show()
+            Snackbar.make(binding.root, "Add at least one work entry", Snackbar.LENGTH_SHORT).show()
             return false
         }
         return true

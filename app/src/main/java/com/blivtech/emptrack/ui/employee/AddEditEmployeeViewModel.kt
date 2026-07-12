@@ -23,9 +23,15 @@ class AddEditEmployeeViewModel @Inject constructor(
     private val _saveState = MutableLiveData<Resource<EmployeeEntity>>()
     val saveState: LiveData<Resource<EmployeeEntity>> = _saveState
 
-    // ✅ New dept/desg created
+
+
+
     private val _deptCreated = MutableLiveData<DepartmentEntity?>()
     val deptCreated: LiveData<DepartmentEntity?> = _deptCreated
+
+
+    private val _errorMessage = MutableLiveData<String>()
+    val errorMessage: LiveData<String> = _errorMessage
 
     private val _desgCreated = MutableLiveData<DesignationEntity?>()
     val desgCreated: LiveData<DesignationEntity?> = _desgCreated
@@ -50,19 +56,27 @@ class AddEditEmployeeViewModel @Inject constructor(
         }
     }
 
+
     // ✅ Create department on the fly
     fun createDepartment(btCode: String, name: String, desc: String) {
         viewModelScope.launch {
-            val entity = repository.createDepartment(btCode, name, desc)
-            _deptCreated.value = entity
+            when (val result = repository.createDepartment(btCode, name, desc)) {
+                is Resource.Success -> _deptCreated.value = result.data
+                is Resource.Error   -> _errorMessage.value = result.message
+                Resource.Loading -> TODO()
+            }
         }
     }
 
     // ✅ Create designation on the fly
     fun createDesignation(btCode: String, name: String, desc: String) {
         viewModelScope.launch {
-            val entity = repository.createDesignation(btCode, name, desc)
-            _desgCreated.value = entity
+            when (val result = repository.createDesignation(btCode, name, desc)) {
+                is Resource.Success -> _desgCreated.value = result.data
+                is Resource.Error   -> _errorMessage.value = result.message
+                Resource.Loading -> TODO()
+            }
         }
     }
+
 }

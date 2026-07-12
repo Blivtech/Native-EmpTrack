@@ -18,7 +18,8 @@
             android:id="@+id/tvItemName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="13sp"
+            android:textSize="@dimen/text_caption_md"
+            android:fontFamily="@font/satoshi_medium"
             android:textStyle="bold"
             android:textColor="#212121"/>
 
@@ -26,7 +27,8 @@
             android:id="@+id/tvItemSub"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="11sp"
+            android:textSize="@dimen/text_caption_small"
+            android:fontFamily="@font/satoshi_medium"
             android:textColor="#757575"
             android:layout_marginTop="1dp"/>
     </LinearLayout>
@@ -36,7 +38,6 @@
         android:layout_width="20dp"
         android:layout_height="20dp"
         android:src="@android:drawable/checkbox_on_background"
-        android:tint="#185FA5"
         android:visibility="gone"/>
 
 </LinearLayout>
