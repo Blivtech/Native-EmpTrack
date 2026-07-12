@@ -16,6 +16,7 @@ import com.blivtech.emptrack.databinding.ActivityEmployeeListBinding
 import com.blivtech.emptrack.ui.employee.adapter.EmployeeAdapter
 import com.blivtech.emptrack.utils.PreferenceManager
 import com.blivtech.emptrack.utils.Resource
+import com.blivtech.emptrack.data.local.entity.DesignationEntity
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
@@ -28,6 +29,7 @@ class EmployeeListActivity : AppCompatActivity() {
     private lateinit var binding: ActivityEmployeeListBinding
     private val viewModel: EmployeeListViewModel by viewModels()
     private lateinit var adapter: EmployeeAdapter
+    private var designationList = listOf<DesignationEntity>()
 
     @Inject
     lateinit var preferenceManager: PreferenceManager
@@ -120,6 +122,16 @@ class EmployeeListActivity : AppCompatActivity() {
 
     private fun observeData() {
         Log.d("companyCodecompanyCode", "observeData: $companyCode")
+        viewModel.getDesignations(btCode).observe(this) { list ->
+
+            Log.e("AAAA", "Designation Size = ${list.size}")
+
+            list.forEach {
+                Log.e("AAAA", "Code=${it.desgCode} Name=${it.name}")
+            }
+
+            adapter.setDesignationList(list)
+        }
         viewModel.getEmployees(companyCode).observe(this) { employees ->
             Log.d("employeesemployeesemployees", "observeData: $employees")
             allEmployees = employees

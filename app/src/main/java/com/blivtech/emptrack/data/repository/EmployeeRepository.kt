@@ -26,6 +26,7 @@ class EmployeeRepository @Inject constructor(
     fun getEmployees(companyId: String): Flow<List<EmployeeEntity>> =
         employeeDao.getEmployeesByCompany(companyId)
 
+
     // ✅ Get employee by id
     suspend fun getEmployeeById(empCode: String, companyCode: String): EmployeeEntity? =
         employeeDao.getEmployeeById(empCode,companyCode)
@@ -33,6 +34,7 @@ class EmployeeRepository @Inject constructor(
     // ✅ Get departments from Room
     fun getDepartments(btCode: String) =
         departmentDao.getDepartmentsByBtCode(btCode)
+
 
     // ✅ Get designations from Room
     fun getDesignations(btCode: String) =

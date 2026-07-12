@@ -13,7 +13,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class EmployeeListViewModel @Inject constructor(
+class   EmployeeListViewModel @Inject constructor(
     private val repository: EmployeeRepository
 ) : ViewModel() {
 
@@ -39,4 +39,6 @@ class EmployeeListViewModel @Inject constructor(
             _deleteState.value = repository.deleteEmployee(empCode,companyCode)
         }
     }
+    fun getDesignations(btCode: String) =
+        repository.getDesignations(btCode).asLiveData()
 }

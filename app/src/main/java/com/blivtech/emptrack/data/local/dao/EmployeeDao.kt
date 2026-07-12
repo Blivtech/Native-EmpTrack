@@ -29,6 +29,4 @@ interface EmployeeDao {
 
     @Query("DELETE FROM tbl_employees WHERE empCode = :empCode and companyCode =:companyCode")
     suspend fun deleteById(empCode: String, companyCode: String)
-
-
 }
