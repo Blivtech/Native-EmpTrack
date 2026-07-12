@@ -24,7 +24,7 @@
             android:layout_width="42dp"
             android:layout_height="42dp"
             android:gravity="center"
-            android:textSize="14sp"
+            android:textSize="@dimen/text_caption_md"
             android:textStyle="bold"
             android:textColor="#0C447C"
             android:background="@drawable/bg_circle_blue"
@@ -51,7 +51,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/satoshi_medium"
-                android:textSize="@dimen/text_caption_small"                android:textColor="#757575"
+                android:textSize="@dimen/text_caption_small"
                 android:layout_marginTop="2dp"/>
 
             <TextView
@@ -59,7 +59,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/satoshi_medium"
-                android:textSize="@dimen/text_caption_small"                android:textColor="#9E9E9E"
+                android:textSize="@dimen/text_caption_small"
+                android:textColor="@color/clr_blue_80"
                 android:layout_marginTop="1dp"/>
         </LinearLayout>
 
@@ -87,7 +88,7 @@
                 android:id="@+id/ivCall"
                 android:layout_width="30dp"
                 android:layout_height="30dp"
-                android:src="@drawable/ic_nav_profile"
+                android:src="@drawable/ic_phone"
                 android:tint="#27500A"
                 android:background="@drawable/bg_circle_green"
                 android:padding="7dp"/>

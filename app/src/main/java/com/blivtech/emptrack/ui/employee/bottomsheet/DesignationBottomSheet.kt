@@ -31,10 +31,10 @@ class DesignationBottomSheet(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-//        // ✅ Change title
-//        binding.root.findViewById<android.widget.TextView>(
-//            com.blivtech.emptrack.R.id.tvShee
-//        )?.text = "Select designation"
+        // ✅ Change title
+        binding.root.findViewById<android.widget.TextView>(
+            com.blivtech.emptrack.R.id.tvSheetTitle
+        )?.text = "Select designation"
 
         setupRecyclerView()
         setupSearch()

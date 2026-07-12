@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blivtech.emptrack.data.local.entity.EmployeeEntity
+import com.blivtech.emptrack.data.model.EmployeeWithDetails
 import com.blivtech.emptrack.databinding.ActivityEmployeeListBinding
 import com.blivtech.emptrack.ui.employee.adapter.EmployeeAdapter
 import com.blivtech.emptrack.utils.PreferenceManager
@@ -36,7 +37,7 @@ class EmployeeListActivity : AppCompatActivity() {
     private var companyName = ""
     private var btCode = ""
 
-    private var allEmployees = listOf<EmployeeEntity>()
+    private var allEmployees = listOf<EmployeeWithDetails>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -120,7 +121,7 @@ class EmployeeListActivity : AppCompatActivity() {
 
     private fun observeData() {
         Log.d("companyCodecompanyCode", "observeData: $companyCode")
-        viewModel.getEmployees(companyCode).observe(this) { employees ->
+        viewModel.getEmployeess(companyCode).observe(this) { employees ->
             Log.d("employeesemployeesemployees", "observeData: $employees")
             allEmployees = employees
             binding.tvSubtitle.text = "$companyName · ${employees.size} employees"
@@ -156,7 +157,7 @@ class EmployeeListActivity : AppCompatActivity() {
         binding.rvEmployees.visibility = if (isEmpty) View.GONE else View.VISIBLE
     }
 
-    private fun openDetail(employee: EmployeeEntity) {
+    private fun openDetail(employee: EmployeeWithDetails) {
         startActivity(
             Intent(this, EmployeeDetailActivity::class.java).apply {
                 putExtra("empCode", employee.empCode)
@@ -165,7 +166,7 @@ class EmployeeListActivity : AppCompatActivity() {
         )
     }
 
-    private fun callEmployee(employee: EmployeeEntity) {
+    private fun callEmployee(employee: EmployeeWithDetails) {
         employee.phone?.let { phone ->
             startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phone")))
         } ?: Snackbar.make(binding.root, "No phone number!", Snackbar.LENGTH_SHORT).show()

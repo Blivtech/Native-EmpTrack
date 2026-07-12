@@ -123,21 +123,18 @@ class EmployeeDetailActivity : AppCompatActivity() {
     private fun setupClickListeners() {
         binding.ivBack.setOnClickListener { finish() }
 
-        // ✅ Call
         binding.layoutCall.setOnClickListener {
             employee?.phone?.let { phone ->
                 startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phone")))
             } ?: Snackbar.make(binding.root, "No phone number!", Snackbar.LENGTH_SHORT).show()
         }
 
-        // ✅ Message
         binding.layoutMessage.setOnClickListener {
             employee?.phone?.let { phone ->
                 startActivity(Intent(Intent.ACTION_SENDTO, Uri.parse("smsto:$phone")))
             }
         }
 
-        // ✅ WhatsApp
         binding.layoutWhatsapp.setOnClickListener {
             employee?.phone?.let { phone ->
                 try {
@@ -165,7 +162,6 @@ class EmployeeDetailActivity : AppCompatActivity() {
             }
         }
 
-        // ✅ Delete
         binding.btnDelete.setOnClickListener {
             AlertDialog.Builder(this)
                 .setTitle("Delete employee")

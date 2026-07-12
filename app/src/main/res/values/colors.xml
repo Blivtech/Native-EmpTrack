@@ -79,6 +79,7 @@
         <color name="teal_700">#FF018786</color>
 
         <color name="appBackGround">#000113</color>
+        <color name="clr_icon">#757575</color>
         <color name="edtTextColor">#CCCCCC</color>
         <color name="loginHintColor">#94A3B8</color>
         <color name="ripple">#10000000</color>

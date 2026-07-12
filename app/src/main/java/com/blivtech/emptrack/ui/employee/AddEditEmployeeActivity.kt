@@ -255,9 +255,6 @@ class AddEditEmployeeActivity : AppCompatActivity() {
         }
     }
 
-    // ─────────────────────────────────────────
-    // Pre-fill for edit mode
-    // ─────────────────────────────────────────
 
     private fun prefillData() {
         val emp = intent.getParcelableExtra<com.blivtech.emptrack.data.model.parcel.EmployeeParcel>("employee")
@@ -292,11 +289,7 @@ class AddEditEmployeeActivity : AppCompatActivity() {
         }
     }
 
-    // ─────────────────────────────────────────
-    // Helpers
-    // ─────────────────────────────────────────
 
-    // ✅ Mark field as selected (blue border + value)
     private fun setFieldSelected(
         layout: View,
         valueView: android.widget.TextView,
@@ -342,17 +335,17 @@ class AddEditEmployeeActivity : AppCompatActivity() {
         val phone = binding.etPhone.text.toString().trim()
 
         if (name.isEmpty()) {
-            binding.tilName.error = "Name is required"
+            Snackbar.make(binding.root, "Name is required", Snackbar.LENGTH_SHORT).show()
             isValid = false
-        } else binding.tilName.error = null
+        }
 
         if (phone.isEmpty()) {
-            binding.tilPhone.error = "Phone is required"
+            Snackbar.make(binding.root, "Phone is required", Snackbar.LENGTH_SHORT).show()
             isValid = false
         } else if (phone.length < 10) {
-            binding.tilPhone.error = "Enter valid phone number"
+            Snackbar.make(binding.root, "Enter valid phone number", Snackbar.LENGTH_SHORT).show()
             isValid = false
-        } else binding.tilPhone.error = null
+        }
 
         if (selectedDepartment == null) {
             Snackbar.make(binding.root, "Please select a department", Snackbar.LENGTH_SHORT).show()

@@ -116,27 +116,27 @@ class AttendanceHomeActivity : AppCompatActivity() {
 
             // ✅ Mark now clicked
             onMarkClick = { item ->
-                if (!viewModel.isToday()) {
-                    Snackbar.make(
-                        binding.root,
-                        "Attendance can only be marked for today",
-                        Snackbar.LENGTH_SHORT
-                    ).show()
-                    return@ShiftCardAdapter
-                }
+//                if (!viewModel.isToday()) {
+//                    Snackbar.make(
+//                        binding.root,
+//                        "Attendance can only be marked for today",
+//                        Snackbar.LENGTH_SHORT
+//                    ).show()
+//                    return@ShiftCardAdapter
+//                }
                 openMarkAttendance(item.shift)
             },
 
             // ✅ Edit clicked
             onEditClick = { item ->
-                if (!viewModel.isToday()) {
-                    Snackbar.make(
-                        binding.root,
-                        "Attendance can only be edited for today",
-                        Snackbar.LENGTH_SHORT
-                    ).show()
-                    return@ShiftCardAdapter
-                }
+//                if (!viewModel.isToday()) {
+//                    Snackbar.make(
+//                        binding.root,
+//                        "Attendance can only be edited for today",
+//                        Snackbar.LENGTH_SHORT
+//                    ).show()
+//                    return@ShiftCardAdapter
+//                }
                 openMarkAttendance(
                     shift        = item.shift,
                     attendanceId = item.status?.attendanceId,

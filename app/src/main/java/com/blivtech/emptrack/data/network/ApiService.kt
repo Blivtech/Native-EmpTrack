@@ -24,6 +24,10 @@ import com.blivtech.emptrack.data.model.CompanyData
 import com.blivtech.emptrack.data.model.ContractEntryRequest
 import com.blivtech.emptrack.data.model.ContractProductRequest
 import com.blivtech.emptrack.data.model.DailyReportSummaryDto
+import com.blivtech.emptrack.data.model.DepartmentRequest
+import com.blivtech.emptrack.data.model.DepartmentResponse
+import com.blivtech.emptrack.data.model.DesignationRequest
+import com.blivtech.emptrack.data.model.DesignationResponse
 import com.blivtech.emptrack.data.model.EmployeeRequest
 import com.blivtech.emptrack.data.model.EmployeeResponse
 import com.blivtech.emptrack.data.model.EmployeeWeeklyDetailDto
@@ -375,5 +379,16 @@ interface ApiService {
         @Query("btCode")      btCode: String,
         @Query("companyCode") companyCode: String
     ): Response<ApiResponse<Unit>>
+
+    @POST("api/designations/save")
+    suspend fun saveDesignation(
+        @Body body: DesignationRequest
+    ): Response<ApiResponse<DesignationResponse>>
+
+    @POST("api/departments/save")
+    suspend fun saveDepartment(
+        @Body body: DepartmentRequest
+    ): Response<ApiResponse<DepartmentResponse>>
+
 
 }

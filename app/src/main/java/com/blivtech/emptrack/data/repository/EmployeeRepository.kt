@@ -6,8 +6,13 @@ import com.blivtech.emptrack.data.local.dao.EmployeeDao
 import com.blivtech.emptrack.data.local.entity.DepartmentEntity
 import com.blivtech.emptrack.data.local.entity.DesignationEntity
 import com.blivtech.emptrack.data.local.entity.EmployeeEntity
+import com.blivtech.emptrack.data.model.DepartmentRequest
+import com.blivtech.emptrack.data.model.DepartmentResponse
+import com.blivtech.emptrack.data.model.DesignationRequest
+import com.blivtech.emptrack.data.model.DesignationResponse
 import com.blivtech.emptrack.data.model.EmployeeRequest
 import com.blivtech.emptrack.data.model.EmployeeResponse
+import com.blivtech.emptrack.data.model.EmployeeWithDetails
 import com.blivtech.emptrack.data.network.ApiService
 import com.blivtech.emptrack.utils.CommonClass
 import com.blivtech.emptrack.utils.Resource
@@ -22,15 +27,14 @@ class EmployeeRepository @Inject constructor(
     private val departmentDao: DepartmentDao,
     private val designationDao: DesignationDao
 ) {
-    // ✅ Get employees from Room
     fun getEmployees(companyId: String): Flow<List<EmployeeEntity>> =
         employeeDao.getEmployeesByCompany(companyId)
 
-    // ✅ Get employee by id
+    fun getEmployeess(companyId: String): Flow<List<EmployeeWithDetails>> =
+        employeeDao.getEmployeesByCompanys(companyId)
     suspend fun getEmployeeById(empCode: String, companyCode: String): EmployeeEntity? =
         employeeDao.getEmployeeById(empCode,companyCode)
 
-    // ✅ Get departments from Room
     fun getDepartments(btCode: String) =
         departmentDao.getDepartmentsByBtCode(btCode)
 
@@ -113,31 +117,83 @@ class EmployeeRepository @Inject constructor(
     )
 
 
+
     // ✅ Create department on the fly
-    suspend fun createDepartment(btCode: String, name: String, desc: String): DepartmentEntity {
-        val entity = DepartmentEntity(
-            id          = System.currentTimeMillis(),
-            btCode      = btCode,
-            deptCode    = "DEP${System.currentTimeMillis()}",
-            name        = name,
-            description = desc,
-            status      = 1
-        )
-        departmentDao.insertAll(listOf(entity))
-        return entity
+    suspend fun createDepartment(btCode: String, name: String, desc: String): Resource<DepartmentEntity> {
+        return try {
+            val response = apiService.saveDepartment(
+                DepartmentRequest(
+                    btCode      = btCode,
+                    deptCode    = "DEP${System.currentTimeMillis()}",
+                    name        = name,
+                    description = desc,
+                    createdAt ="2026-07-06T15:30:00",
+                    updatedAt = "2026-07-06T15:30:00",
+                    status      = 1
+                )
+            )
+            if (response.isSuccessful && response.body() != null) {
+                val body = response.body()!!
+                if (body.code == 200 && body.data != null) {
+                    val entity = body.data.toDepartmentEntity()
+                    departmentDao.insertAll(listOf(entity))
+                    Resource.Success(entity)
+                } else Resource.Error(body.message)
+            } else {
+                val errorMessage = CommonClass.parseErrorMessage(response.errorBody()?.string())
+                    ?: "Failed to create department"
+                Resource.Error(errorMessage)
+            }
+        } catch (e: Exception) {
+            Resource.Error(e.localizedMessage ?: "Network error")
+        }
     }
 
     // ✅ Create designation on the fly
-    suspend fun createDesignation(btCode: String, name: String, desc: String): DesignationEntity {
-        val entity = DesignationEntity(
-            id          = System.currentTimeMillis(),
-            btCode      = btCode,
-            desgCode    = "DESG${System.currentTimeMillis()}",
-            name        = name,
-            description = desc,
-            status      = 1
-        )
-        designationDao.insertAll(listOf(entity))
-        return entity
+    suspend fun createDesignation(btCode: String, name: String, desc: String): Resource<DesignationEntity> {
+        return try {
+            val response = apiService.saveDesignation(
+                DesignationRequest(
+                    btCode      = btCode,
+                    desgCode    = "DESG${System.currentTimeMillis()}",
+                    name        = name,
+                    description = desc,
+                    createdAt   ="2026-07-06T15:30:00",
+                    updatedAt   = "2026-07-06T15:30:00",
+                    status      = 1
+                )
+            )
+            if (response.isSuccessful && response.body() != null) {
+                val body = response.body()!!
+                if (body.code == 200 && body.data != null) {
+                    val entity = body.data.toDesignationEntity()
+                    designationDao.insertAll(listOf(entity))
+                    Resource.Success(entity)
+                } else Resource.Error(body.message)
+            } else {
+                val errorMessage = CommonClass.parseErrorMessage(response.errorBody()?.string())
+                    ?: "Failed to create designation"
+                Resource.Error(errorMessage)
+            }
+        } catch (e: Exception) {
+            Resource.Error(e.localizedMessage ?: "Network error")
+        }
     }
+    private fun DepartmentResponse.toDepartmentEntity() = DepartmentEntity(
+        id          = id,
+        btCode      = btCode,
+        deptCode    = deptCode,
+        name        = name,
+        description = description,
+        status      = status
+    )
+
+    private fun DesignationResponse.toDesignationEntity() = DesignationEntity(
+        id          = id,
+        btCode      = btCode,
+        desgCode    = desgCode,
+        name        = name,
+        description = description,
+        status      = status
+    )
 }

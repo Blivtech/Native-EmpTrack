@@ -120,27 +120,27 @@ class AttendanceHomeFragment : Fragment() {
 
             // ✅ Mark now clicked
             onMarkClick = mark@{ item ->
-                if (!viewModel.isToday()) {
-                    Snackbar.make(
-                        binding.root,
-                        "Attendance can only be marked for today",
-                        Snackbar.LENGTH_SHORT
-                    ).show()
-                    return@mark
-                }
+//                if (!viewModel.isToday()) {
+//                    Snackbar.make(
+//                        binding.root,
+//                        "Attendance can only be marked for today",
+//                        Snackbar.LENGTH_SHORT
+//                    ).show()
+//                    return@mark
+//                }
                 openMarkAttendance(item.shift)
             },
 
             // ✅ Edit clicked
             onEditClick = edit@{ item ->
-                if (!viewModel.isToday()) {
-                    Snackbar.make(
-                        binding.root,
-                        "Attendance can only be edited for today",
-                        Snackbar.LENGTH_SHORT
-                    ).show()
-                    return@edit
-                }
+//                if (!viewModel.isToday()) {
+//                    Snackbar.make(
+//                        binding.root,
+//                        "Attendance can only be edited for today",
+//                        Snackbar.LENGTH_SHORT
+//                    ).show()
+//                    return@edit
+//                }
                 openMarkAttendance(
                     shift        = item.shift,
                     attendanceId = item.status?.attendanceId,

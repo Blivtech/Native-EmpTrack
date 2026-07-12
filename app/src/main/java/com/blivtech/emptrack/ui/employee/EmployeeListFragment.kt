@@ -14,6 +14,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.blivtech.emptrack.data.local.entity.EmployeeEntity
+import com.blivtech.emptrack.data.model.EmployeeWithDetails
 import com.blivtech.emptrack.databinding.FragmentEmployeeBinding
 import com.blivtech.emptrack.ui.employee.adapter.EmployeeAdapter
 import com.blivtech.emptrack.utils.PreferenceManager
@@ -40,7 +41,7 @@ class EmployeeListFragment : Fragment() {
     private var companyName  = ""
     private var btCode       = ""
 
-    private var allEmployees = listOf<EmployeeEntity>()
+    private var allEmployees = listOf<EmployeeWithDetails>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -125,7 +126,7 @@ class EmployeeListFragment : Fragment() {
     }
 
     private fun observeData() {
-        viewModel.getEmployees(companyCode).observe(viewLifecycleOwner) { employees ->
+        viewModel.getEmployeess(companyCode).observe(viewLifecycleOwner) { employees ->
             allEmployees = employees
             binding.tvSubtitle.text = "$companyName · ${employees.size} employees"
             adapter.submitList(employees)
@@ -160,7 +161,7 @@ class EmployeeListFragment : Fragment() {
         binding.rvEmployees.visibility = if (isEmpty) View.GONE else View.VISIBLE
     }
 
-    private fun openDetail(employee: EmployeeEntity) {
+    private fun openDetail(employee: EmployeeWithDetails) {
         startActivity(
             Intent(requireContext(), EmployeeDetailActivity::class.java).apply {
                 putExtra("empCode", employee.empCode)
@@ -169,7 +170,7 @@ class EmployeeListFragment : Fragment() {
         )
     }
 
-    private fun callEmployee(employee: EmployeeEntity) {
+    private fun callEmployee(employee: EmployeeWithDetails) {
         employee.phone?.let { phone ->
             startActivity(Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phone")))
         } ?: Snackbar.make(binding.root, "No phone number!", Snackbar.LENGTH_SHORT).show()

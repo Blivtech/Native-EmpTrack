@@ -1,15 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#F5F7FA">
+    android:background="#F5F7FA"
+    android:orientation="vertical">
 
-    <!-- ═══════════════════════════════ -->
-    <!-- TOP BAR                         -->
-    <!-- ═══════════════════════════════ -->
+
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -20,26 +17,27 @@
             android:id="@+id/ivBack"
             android:layout_width="32dp"
             android:layout_height="32dp"
-            android:src="@android:drawable/ic_media_previous"
-            android:tint="#FFFFFF"
             android:padding="4dp"
+            android:src="@drawable/ic_arrow_back"
+            android:tint="#FFFFFF"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="12dp"
             android:text="Add employee"
+            android:textColor="#FFFFFF"
             android:textSize="@dimen/text_caption_th"
             android:textStyle="bold"
-            android:textColor="#FFFFFF"
-            android:layout_marginStart="12dp"
-            app:layout_constraintStart_toEndOf="@id/ivBack"
-            app:layout_constraintTop_toTopOf="parent"
+            android:fontFamily="@font/satoshi_medium"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"/>
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/ivBack"
+            app:layout_constraintTop_toTopOf="parent" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -62,9 +60,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
+                app:cardBackgroundColor="#FFFFFF"
                 app:cardCornerRadius="4dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="#FFFFFF">
+                app:cardElevation="2dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -75,157 +73,152 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="14dp"
                         android:text="Personal information"
-                        android:textSize="@dimen/text_caption_lg"
-                        android:textStyle="bold"
+                        android:fontFamily="@font/satoshi_medium"
+
                         android:textColor="#1565C0"
-                        android:layout_marginBottom="14dp"/>
+                        android:textSize="@dimen/text_caption_lg"
+                        android:textStyle="bold" />
 
                     <!-- Full Name -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Full name *"
-                        android:textSize="@dimen/text_caption_md"
-                        android:textStyle="bold"
-                        android:textColor="#757575"
-                        android:layout_marginBottom="4dp"/>
+                        android:layout_marginBottom="4dp"
+                        android:fontFamily="@font/satoshi_medium"
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tilName"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:text="Full name *"
+                        android:textColor="#757575"
+                        android:textSize="@dimen/text_caption_md"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/etName"
+                        android:fontFamily="@font/satoshi_medium"
+
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:padding="10dp"
                         android:layout_marginBottom="10dp"
+                        android:background="@drawable/bg_search"
+                        android:drawableStart="@android:drawable/ic_menu_myplaces"
+                        android:drawableTint="#1565C0"
+                        android:gravity="center_vertical"
                         android:hint="Enter full name"
-                        app:startIconDrawable="@android:drawable/ic_menu_myplaces"
-                        app:startIconTint="#1565C0"
-                        app:boxCornerRadiusTopStart="4dp"
-                        app:boxCornerRadiusTopEnd="4dp"
-                        app:boxCornerRadiusBottomStart="4dp"
-                        app:boxCornerRadiusBottomEnd="4dp"
-                        app:boxStrokeColor="#1565C0"
-                        app:hintTextColor="#1565C0">
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/etName"
-                            android:textSize="@dimen/text_caption_md"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="textPersonName"
-                            android:imeOptions="actionNext"/>
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:imeOptions="actionNext"
+                        android:inputType="textPersonName"
+                        android:textColor="#212121"
+                        android:textSize="@dimen/text_caption_md" />
 
                     <!-- Phone -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
                         android:text="Phone *"
-                        android:textSize="@dimen/text_caption_md"
-                        android:textStyle="bold"
-                        android:textColor="#757575"
-                        android:layout_marginBottom="4dp"/>
+                        android:fontFamily="@font/satoshi_medium"
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tilPhone"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:textColor="#757575"
+                        android:textSize="@dimen/text_caption_md"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/etPhone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
-                        android:hint="Phone number"
-                        app:startIconDrawable="@android:drawable/ic_menu_call"
-                        app:startIconTint="#1565C0"
-                        app:boxCornerRadiusTopStart="4dp"
-                        app:boxCornerRadiusTopEnd="4dp"
-                        app:boxCornerRadiusBottomStart="4dp"
-                        app:boxCornerRadiusBottomEnd="4dp"
-                        app:boxStrokeColor="#1565C0"
-                        app:hintTextColor="#1565C0">
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/etPhone"
-                            android:layout_width="match_parent"
+                        android:background="@drawable/bg_search"
+                        android:drawableStart="@android:drawable/ic_menu_call"
+                        android:drawableTint="#1565C0"
+                        android:padding="10dp"
+                        android:fontFamily="@font/satoshi_medium"
 
-                            android:textSize="@dimen/text_caption_md"
-                            android:layout_height="wrap_content"
-                            android:inputType="phone"
-                            android:imeOptions="actionNext"/>
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:gravity="center_vertical"
+                        android:hint="Phone number"
+                        android:textSize="@dimen/text_caption_md"
+                        android:inputType="phone"
+                        android:imeOptions="actionNext"
+                        android:textColor="#212121"
+                        />
 
                     <!-- Gender trigger -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
                         android:text="Gender"
-                        android:textSize="@dimen/text_caption_md"
-                        android:textStyle="bold"
+                        android:fontFamily="@font/satoshi_medium"
+
                         android:textColor="#757575"
-                        android:layout_marginBottom="4dp"/>
+                        android:textSize="@dimen/text_caption_md"
+                        android:textStyle="bold" />
 
                     <LinearLayout
                         android:id="@+id/layoutGenderTrigger"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
+                        android:layout_marginBottom="10dp"
                         android:background="@drawable/bg_field_trigger"
-                        android:padding="10dp"
-                        android:layout_marginBottom="10dp">
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="10dp">
 
                         <ImageView
                             android:layout_width="18dp"
                             android:layout_height="18dp"
+                            android:layout_marginEnd="10dp"
                             android:src="@android:drawable/ic_menu_myplaces"
-                            android:tint="#9E9E9E"
-                            android:layout_marginEnd="10dp"/>
+                            android:tint="#9E9E9E" />
 
                         <TextView
                             android:id="@+id/tvGenderValue"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:fontFamily="@font/satoshi_medium"
+
                             android:layout_weight="1"
                             android:text="Select gender"
-                            android:textSize="@dimen/text_caption_md"
-                            android:textColor="#9E9E9E"/>
+                            android:textColor="#9E9E9E"
+                            android:textSize="@dimen/text_caption_md" />
 
                         <ImageView
                             android:layout_width="16dp"
                             android:layout_height="16dp"
                             android:src="@android:drawable/arrow_down_float"
-                            android:tint="#BDBDBD"/>
+                            android:tint="#BDBDBD" />
                     </LinearLayout>
 
                     <!-- Email -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
                         android:text="Email"
-                        android:textSize="@dimen/text_caption_md"
-                        android:textStyle="bold"
-                        android:textColor="#757575"
-                        android:layout_marginBottom="4dp"/>
+                        android:fontFamily="@font/satoshi_medium"
 
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tilEmail"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                        android:textColor="#757575"
+                        android:textSize="@dimen/text_caption_md"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/etEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="10dp"
+                        android:background="@drawable/bg_search"
+                        android:drawableStart="@android:drawable/ic_dialog_email"
+                        android:drawableTint="#1565C0"
+                        android:drawablePadding="8dp"
+                        android:gravity="center_vertical"
                         android:hint="Email address"
-                        app:startIconDrawable="@android:drawable/ic_dialog_email"
-                        app:startIconTint="#1565C0"
-                        app:boxCornerRadiusTopStart="4dp"
-                        app:boxCornerRadiusTopEnd="4dp"
-                        app:boxCornerRadiusBottomStart="4dp"
-                        app:boxCornerRadiusBottomEnd="4dp"
-                        app:boxStrokeColor="#1565C0"
-                        app:hintTextColor="#1565C0">
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/etEmail"
-                            android:textSize="@dimen/text_caption_md"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="textEmailAddress"
-                            android:imeOptions="actionNext"/>
-                    </com.google.android.material.textfield.TextInputLayout>
+                        android:padding="10dp"
+                        android:textSize="@dimen/text_caption_md"
+                        android:fontFamily="@font/satoshi_medium"
+                        android:inputType="textEmailAddress"
+                        android:imeOptions="actionNext"
+                        android:textColor="#212121"
+                        />
 
                     <!-- DOB & Joining Row -->
                     <LinearLayout
@@ -237,35 +230,36 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginEnd="6dp"
                             android:layout_weight="1"
-                            android:orientation="vertical"
-                            android:layout_marginEnd="6dp">
+                            android:orientation="vertical">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginBottom="4dp"
                                 android:text="Date of birth"
-                                android:textSize="@dimen/text_caption_lg"
+                                android:fontFamily="@font/satoshi_medium"
 
-                                android:textStyle="bold"
                                 android:textColor="#757575"
-                                android:layout_marginBottom="4dp"/>
+                                android:textSize="@dimen/text_caption_lg"
+                                android:textStyle="bold" />
 
                             <LinearLayout
                                 android:id="@+id/layoutDobTrigger"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:gravity="center_vertical"
                                 android:background="@drawable/bg_field_trigger"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal"
                                 android:padding="10dp">
 
                                 <ImageView
                                     android:layout_width="16dp"
                                     android:layout_height="16dp"
+                                    android:layout_marginEnd="6dp"
                                     android:src="@android:drawable/ic_menu_my_calendar"
-                                    android:tint="#9E9E9E"
-                                    android:layout_marginEnd="6dp"/>
+                                    android:tint="#9E9E9E" />
 
                                 <TextView
                                     android:id="@+id/tvDobValue"
@@ -273,9 +267,10 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:text="DD/MM/YYYY"
-                                    android:textSize="@dimen/text_caption_md"
+                                    android:textColor="#9E9E9E"
+                                    android:fontFamily="@font/satoshi_medium"
 
-                                    android:textColor="#9E9E9E"/>
+                                    android:textSize="@dimen/text_caption_md" />
                             </LinearLayout>
                         </LinearLayout>
 
@@ -289,28 +284,29 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginBottom="4dp"
                                 android:text="Joining date"
-                                android:textSize="@dimen/text_caption_md"
+                                android:fontFamily="@font/satoshi_medium"
 
-                                android:textStyle="bold"
                                 android:textColor="#757575"
-                                android:layout_marginBottom="4dp"/>
+                                android:textSize="@dimen/text_caption_md"
+                                android:textStyle="bold" />
 
                             <LinearLayout
                                 android:id="@+id/layoutJoiningTrigger"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:gravity="center_vertical"
                                 android:background="@drawable/bg_field_trigger"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal"
                                 android:padding="10dp">
 
                                 <ImageView
                                     android:layout_width="16dp"
                                     android:layout_height="16dp"
+                                    android:layout_marginEnd="6dp"
                                     android:src="@android:drawable/ic_menu_my_calendar"
-                                    android:tint="#9E9E9E"
-                                    android:layout_marginEnd="6dp"/>
+                                    android:tint="#9E9E9E" />
 
                                 <TextView
                                     android:id="@+id/tvJoiningValue"
@@ -318,9 +314,10 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:text="DD/MM/YYYY"
-                                    android:textSize="@dimen/text_caption_md"
+                                    android:textColor="#9E9E9E"
+                                    android:fontFamily="@font/satoshi_medium"
 
-                                    android:textColor="#9E9E9E"/>
+                                    android:textSize="@dimen/text_caption_md" />
                             </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
@@ -328,16 +325,14 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- ─────────────────────── -->
-            <!-- JOB INFO CARD           -->
-            <!-- ─────────────────────── -->
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
+                app:cardBackgroundColor="#FFFFFF"
                 app:cardCornerRadius="4dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="#FFFFFF">
+                app:cardElevation="2dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -348,53 +343,56 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="14dp"
                         android:text="Job information"
-                        android:textSize="@dimen/text_caption_lg"
-                        android:textStyle="bold"
                         android:textColor="#1565C0"
-                        android:layout_marginBottom="14dp"/>
+                        android:fontFamily="@font/satoshi_medium"
+
+                        android:textSize="@dimen/text_caption_lg"
+                        android:textStyle="bold" />
 
                     <!-- Company (locked) -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
                         android:text="Company"
-                        android:textSize="@dimen/text_caption_md"
+                        android:fontFamily="@font/satoshi_medium"
 
-                        android:textStyle="bold"
                         android:textColor="#757575"
-                        android:layout_marginBottom="4dp"/>
+                        android:textSize="@dimen/text_caption_md"
+                        android:textStyle="bold" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
+                        android:layout_marginBottom="10dp"
                         android:background="@drawable/bg_field_selected"
-                        android:padding="10dp"
-                        android:layout_marginBottom="10dp">
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:padding="10dp">
 
                         <ImageView
                             android:layout_width="18dp"
                             android:layout_height="18dp"
+                            android:layout_marginEnd="10dp"
                             android:src="@android:drawable/ic_dialog_map"
-                            android:tint="#0C447C"
-                            android:layout_marginEnd="10dp"/>
+                            android:tint="#0C447C" />
 
                         <TextView
                             android:id="@+id/tvCompanyValue"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
-                            android:textSize="@dimen/text_caption_md"
                             android:textColor="#0C447C"
-                            android:textStyle="bold"/>
+                            android:textSize="@dimen/text_caption_md"
+                            android:textStyle="bold" />
 
                         <ImageView
                             android:layout_width="16dp"
                             android:layout_height="16dp"
                             android:src="@android:drawable/ic_lock_idle_lock"
-                            android:tint="#BDBDBD"/>
+                            android:tint="#BDBDBD" />
                     </LinearLayout>
 
                     <!-- Department & Designation Row -->
@@ -407,35 +405,36 @@
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginEnd="6dp"
                             android:layout_weight="1"
-                            android:orientation="vertical"
-                            android:layout_marginEnd="6dp">
+                            android:orientation="vertical">
 
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginBottom="4dp"
                                 android:text="Department *"
-                                android:textSize="@dimen/text_caption_md"
+                                android:fontFamily="@font/satoshi_medium"
 
-                                android:textStyle="bold"
                                 android:textColor="#757575"
-                                android:layout_marginBottom="4dp"/>
+                                android:textSize="@dimen/text_caption_md"
+                                android:textStyle="bold" />
 
                             <LinearLayout
                                 android:id="@+id/layoutDeptTrigger"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:gravity="center_vertical"
                                 android:background="@drawable/bg_field_trigger"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal"
                                 android:padding="10dp">
 
                                 <ImageView
                                     android:layout_width="16dp"
                                     android:layout_height="16dp"
+                                    android:layout_marginEnd="6dp"
                                     android:src="@android:drawable/ic_menu_myplaces"
-                                    android:tint="#9E9E9E"
-                                    android:layout_marginEnd="6dp"/>
+                                    android:tint="#9E9E9E" />
 
                                 <TextView
                                     android:id="@+id/tvDeptValue"
@@ -443,15 +442,16 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:text="Select"
-                                    android:textSize="@dimen/text_caption_md"
+                                    android:textColor="#9E9E9E"
+                                    android:fontFamily="@font/satoshi_medium"
 
-                                    android:textColor="#9E9E9E"/>
+                                    android:textSize="@dimen/text_caption_md" />
 
                                 <ImageView
                                     android:layout_width="14dp"
                                     android:layout_height="14dp"
                                     android:src="@android:drawable/arrow_down_float"
-                                    android:tint="#BDBDBD"/>
+                                    android:tint="#BDBDBD" />
                             </LinearLayout>
                         </LinearLayout>
 
@@ -465,28 +465,27 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
+                                android:layout_marginBottom="4dp"
                                 android:text="Designation *"
-                                android:textSize="@dimen/text_caption_md"
-
-                                android:textStyle="bold"
                                 android:textColor="#757575"
-                                android:layout_marginBottom="4dp"/>
+                                android:textSize="@dimen/text_caption_md"
+                                android:textStyle="bold" />
 
                             <LinearLayout
                                 android:id="@+id/layoutDesgTrigger"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:gravity="center_vertical"
                                 android:background="@drawable/bg_field_trigger"
+                                android:gravity="center_vertical"
+                                android:orientation="horizontal"
                                 android:padding="10dp">
 
                                 <ImageView
                                     android:layout_width="16dp"
                                     android:layout_height="16dp"
+                                    android:layout_marginEnd="6dp"
                                     android:src="@android:drawable/ic_menu_myplaces"
-                                    android:tint="#9E9E9E"
-                                    android:layout_marginEnd="6dp"/>
+                                    android:tint="#9E9E9E" />
 
                                 <TextView
                                     android:id="@+id/tvDesgValue"
@@ -494,15 +493,16 @@
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
                                     android:text="Select"
-                                    android:textSize="@dimen/text_caption_md"
+                                    android:textColor="#9E9E9E"
+                                    android:fontFamily="@font/satoshi_medium"
 
-                                    android:textColor="#9E9E9E"/>
+                                    android:textSize="@dimen/text_caption_md" />
 
                                 <ImageView
                                     android:layout_width="14dp"
                                     android:layout_height="14dp"
                                     android:src="@android:drawable/arrow_down_float"
-                                    android:tint="#BDBDBD"/>
+                                    android:tint="#BDBDBD" />
                             </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
@@ -510,16 +510,14 @@
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- ─────────────────────── -->
-            <!-- SALARY INFO CARD        -->
-            <!-- ─────────────────────── -->
+
             <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
+                app:cardBackgroundColor="#FFFFFF"
                 app:cardCornerRadius="4dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="#FFFFFF">
+                app:cardElevation="2dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -530,70 +528,72 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="14dp"
                         android:text="Salary information"
-                        android:textSize="@dimen/text_caption_lg"
-                        android:textStyle="bold"
                         android:textColor="#1565C0"
-                        android:layout_marginBottom="14dp"/>
+                        android:textSize="@dimen/text_caption_lg"
+                        android:textStyle="bold" />
 
-                    <!-- Salary trigger (full width) -->
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginBottom="4dp"
                         android:text="Salary type &amp; amount"
-                        android:textSize="@dimen/text_caption_md"
+                        android:fontFamily="@font/satoshi_medium"
 
-                        android:textStyle="bold"
                         android:textColor="#757575"
-                        android:layout_marginBottom="4dp"/>
+                        android:textSize="@dimen/text_caption_md"
+                        android:textStyle="bold" />
 
                     <LinearLayout
                         android:id="@+id/layoutSalaryTrigger"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
                         android:background="@drawable/bg_field_trigger"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
                         android:padding="14dp">
 
                         <ImageView
                             android:layout_width="20dp"
                             android:layout_height="20dp"
+                            android:layout_marginEnd="10dp"
                             android:src="@android:drawable/ic_menu_myplaces"
-                            android:tint="#9E9E9E"
-                            android:layout_marginEnd="10dp"/>
+                            android:tint="#9E9E9E" />
 
                         <TextView
                             android:id="@+id/tvSalaryValue"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:fontFamily="@font/satoshi_medium"
+
                             android:text="Tap to set salary"
-                            android:textSize="@dimen/text_caption_md"
-                            android:textColor="#9E9E9E"/>
+                            android:textColor="#9E9E9E"
+                            android:textSize="@dimen/text_caption_md" />
 
                         <ImageView
                             android:layout_width="16dp"
                             android:layout_height="16dp"
                             android:src="@android:drawable/arrow_down_float"
-                            android:tint="#BDBDBD"/>
+                            android:tint="#BDBDBD" />
                     </LinearLayout>
 
                 </LinearLayout>
             </androidx.cardview.widget.CardView>
 
-            <!-- ─────────────────────── -->
-            <!-- SAVE BUTTON             -->
-            <!-- ─────────────────────── -->
+
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSave"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Save employee"
+                android:fontFamily="@font/satoshi_medium"
+
                 android:textSize="@dimen/text_caption_lg"
                 android:textStyle="bold"
-                app:cornerRadius="4dp"
-                app:backgroundTint="#1565C0"/>
+                app:backgroundTint="#1565C0"
+                app:cornerRadius="4dp" />
 
             <ProgressBar
                 android:id="@+id/progressBar"
@@ -601,8 +601,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="10dp"
-                android:visibility="gone"
-                android:indeterminateTint="#1565C0"/>
+                android:indeterminateTint="#1565C0"
+                android:visibility="gone" />
 
         </LinearLayout>
     </ScrollView>
