@@ -16,7 +16,7 @@ class ShiftAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: CompanyRequest.ShiftRequest, position: Int) {
-            binding.tvShiftNum.text = (position + 1).toString()
+            binding.tvShiftNumber.text = (position + 1).toString()
             binding.tvShiftName.text = item.shiftName
             binding.tvShiftTime.text = "${item.startTime} → ${item.endTime}"
             binding.ivDeleteShift.setOnClickListener { onDelete(position) }

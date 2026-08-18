@@ -4,6 +4,7 @@ import com.blivtech.emptrack.data.model.LoginRequest
 import com.blivtech.emptrack.data.model.LoginResponse
 import com.blivtech.emptrack.data.model.RegisterRequest
 import com.blivtech.emptrack.data.network.ApiService
+import com.blivtech.emptrack.utils.CommonClass
 import com.blivtech.emptrack.utils.Resource
 import javax.inject.Inject
 import javax.inject.Singleton
@@ -20,8 +21,12 @@ class AuthRepository @Inject constructor(
                 if (body.code == 200) Resource.Success(body.data ?: Any())
                 else Resource.Error(body.message)
             } else {
-                Resource.Error(response.body()!!.message)
+                val errorBody = response.errorBody()?.string()
+                val errorMessage = CommonClass. parseErrorMessage(errorBody)
+                    ?: "Failed to create employee"
+                Resource.Error(errorMessage)
             }
+
         } catch (e: Exception) {
             Resource.Error(e.localizedMessage ?: "Network error occurred")
         }

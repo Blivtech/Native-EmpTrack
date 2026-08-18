@@ -3,607 +3,287 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F7FA"
+    android:background="#EEF2F8"
     android:orientation="vertical">
 
-
-    <androidx.constraintlayout.widget.ConstraintLayout
+    <!-- Header -->
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#1565C0"
-        android:padding="15dp">
+        android:background="@drawable/bg_header"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="18dp"
+        android:paddingTop="18dp"
+        android:paddingEnd="18dp"
+        android:paddingBottom="20dp">
 
         <ImageView
             android:id="@+id/ivBack"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
-            android:padding="4dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/bg_icon_btn"
+            android:padding="10dp"
             android:src="@drawable/ic_arrow_back"
-            android:tint="#FFFFFF"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:tint="#FFFFFF" />
 
         <TextView
-            android:id="@+id/tvTitle"
-            android:layout_width="0dp"
+            android:id="@+id/tvHeaderTitle"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="12dp"
+            android:fontFamily="@font/satoshi_medium"
             android:text="Add employee"
             android:textColor="#FFFFFF"
-            android:textSize="@dimen/text_caption_th"
-            android:textStyle="bold"
-            android:fontFamily="@font/satoshi_medium"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@id/ivBack"
-            app:layout_constraintTop_toTopOf="parent" />
+            android:textSize="21sp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <!-- ═══════════════════════════════ -->
-    <!-- SCROLLABLE CONTENT              -->
-    <!-- ═══════════════════════════════ -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:fillViewport="true">
+        android:overScrollMode="never">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="10dp">
+            android:paddingBottom="18dp">
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                app:cardBackgroundColor="#FFFFFF"
-                app:cardCornerRadius="4dp"
-                app:cardElevation="2dp">
+            <!-- PERSONAL -->
+            <LinearLayout style="@style/AddEmpCard">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="10dp">
+                <TextView
+                    style="@style/AddEmpSection"
+                    android:text="Personal information" />
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="14dp"
-                        android:text="Personal information"
-                        android:fontFamily="@font/satoshi_medium"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilFullName"
+                    style="@style/AddEmpTil"
+                    android:hint="Full name *"
+                    app:startIconDrawable="@drawable/ic_person">
 
-                        android:textColor="#1565C0"
-                        android:textSize="@dimen/text_caption_lg"
-                        android:textStyle="bold" />
-
-                    <!-- Full Name -->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp"
-                        android:fontFamily="@font/satoshi_medium"
-
-                        android:text="Full name *"
-                        android:textColor="#757575"
-                        android:textSize="@dimen/text_caption_md"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:id="@+id/etName"
-                        android:fontFamily="@font/satoshi_medium"
-
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etFullName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:padding="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="@drawable/bg_search"
-                        android:drawableStart="@android:drawable/ic_menu_myplaces"
-                        android:drawableTint="#1565C0"
-                        android:gravity="center_vertical"
-                        android:hint="Enter full name"
-                        android:imeOptions="actionNext"
-                        android:inputType="textPersonName"
-                        android:textColor="#212121"
-                        android:textSize="@dimen/text_caption_md" />
+                        android:inputType="textPersonName" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                    <!-- Phone -->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp"
-                        android:text="Phone *"
-                        android:fontFamily="@font/satoshi_medium"
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilPhone"
+                    style="@style/AddEmpTil"
+                    android:hint="Phone *"
+                    app:startIconDrawable="@drawable/ic_phone">
 
-                        android:textColor="#757575"
-                        android:textSize="@dimen/text_caption_md"
-                        android:textStyle="bold" />
-
-                    <EditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etPhone"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:background="@drawable/bg_search"
-                        android:drawableStart="@android:drawable/ic_menu_call"
-                        android:drawableTint="#1565C0"
-                        android:padding="10dp"
-                        android:fontFamily="@font/satoshi_medium"
+                        android:inputType="phone" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                        android:gravity="center_vertical"
-                        android:hint="Phone number"
-                        android:textSize="@dimen/text_caption_md"
-                        android:inputType="phone"
-                        android:imeOptions="actionNext"
-                        android:textColor="#212121"
-                        />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilGender"
+                    style="@style/AddEmpDropdown"
+                    android:hint="Gender"
+                    app:startIconDrawable="@drawable/ic_person">
 
-                    <!-- Gender trigger -->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp"
-                        android:text="Gender"
-                        android:fontFamily="@font/satoshi_medium"
-
-                        android:textColor="#757575"
-                        android:textSize="@dimen/text_caption_md"
-                        android:textStyle="bold" />
-
-                    <LinearLayout
-                        android:id="@+id/layoutGenderTrigger"
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        android:id="@+id/actvGender"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:background="@drawable/bg_field_trigger"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:padding="10dp">
+                        android:inputType="none" />
+                </com.google.android.material.textfield.TextInputLayout>
 
-                        <ImageView
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
-                            android:layout_marginEnd="10dp"
-                            android:src="@android:drawable/ic_menu_myplaces"
-                            android:tint="#9E9E9E" />
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilEmail"
+                    style="@style/AddEmpTil"
+                    android:hint="Email"
+                    app:startIconDrawable="@drawable/ic_email">
 
-                        <TextView
-                            android:id="@+id/tvGenderValue"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="@font/satoshi_medium"
-
-                            android:layout_weight="1"
-                            android:text="Select gender"
-                            android:textColor="#9E9E9E"
-                            android:textSize="@dimen/text_caption_md" />
-
-                        <ImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:src="@android:drawable/arrow_down_float"
-                            android:tint="#BDBDBD" />
-                    </LinearLayout>
-
-                    <!-- Email -->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp"
-                        android:text="Email"
-                        android:fontFamily="@font/satoshi_medium"
-
-                        android:textColor="#757575"
-                        android:textSize="@dimen/text_caption_md"
-                        android:textStyle="bold" />
-
-                    <EditText
+                    <com.google.android.material.textfield.TextInputEditText
                         android:id="@+id/etEmail"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:background="@drawable/bg_search"
-                        android:drawableStart="@android:drawable/ic_dialog_email"
-                        android:drawableTint="#1565C0"
-                        android:drawablePadding="8dp"
-                        android:gravity="center_vertical"
-                        android:hint="Email address"
-                        android:padding="10dp"
-                        android:textSize="@dimen/text_caption_md"
-                        android:fontFamily="@font/satoshi_medium"
-                        android:inputType="textEmailAddress"
-                        android:imeOptions="actionNext"
-                        android:textColor="#212121"
-                        />
-
-                    <!-- DOB & Joining Row -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <!-- DOB -->
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="6dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="4dp"
-                                android:text="Date of birth"
-                                android:fontFamily="@font/satoshi_medium"
-
-                                android:textColor="#757575"
-                                android:textSize="@dimen/text_caption_lg"
-                                android:textStyle="bold" />
-
-                            <LinearLayout
-                                android:id="@+id/layoutDobTrigger"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/bg_field_trigger"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal"
-                                android:padding="10dp">
-
-                                <ImageView
-                                    android:layout_width="16dp"
-                                    android:layout_height="16dp"
-                                    android:layout_marginEnd="6dp"
-                                    android:src="@android:drawable/ic_menu_my_calendar"
-                                    android:tint="#9E9E9E" />
-
-                                <TextView
-                                    android:id="@+id/tvDobValue"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="DD/MM/YYYY"
-                                    android:textColor="#9E9E9E"
-                                    android:fontFamily="@font/satoshi_medium"
-
-                                    android:textSize="@dimen/text_caption_md" />
-                            </LinearLayout>
-                        </LinearLayout>
-
-                        <!-- Joining Date -->
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="4dp"
-                                android:text="Joining date"
-                                android:fontFamily="@font/satoshi_medium"
-
-                                android:textColor="#757575"
-                                android:textSize="@dimen/text_caption_md"
-                                android:textStyle="bold" />
-
-                            <LinearLayout
-                                android:id="@+id/layoutJoiningTrigger"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/bg_field_trigger"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal"
-                                android:padding="10dp">
-
-                                <ImageView
-                                    android:layout_width="16dp"
-                                    android:layout_height="16dp"
-                                    android:layout_marginEnd="6dp"
-                                    android:src="@android:drawable/ic_menu_my_calendar"
-                                    android:tint="#9E9E9E" />
-
-                                <TextView
-                                    android:id="@+id/tvJoiningValue"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="DD/MM/YYYY"
-                                    android:textColor="#9E9E9E"
-                                    android:fontFamily="@font/satoshi_medium"
-
-                                    android:textSize="@dimen/text_caption_md" />
-                            </LinearLayout>
-                        </LinearLayout>
-                    </LinearLayout>
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                app:cardBackgroundColor="#FFFFFF"
-                app:cardCornerRadius="4dp"
-                app:cardElevation="2dp">
+                        android:inputType="textEmailAddress" />
+                </com.google.android.material.textfield.TextInputLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="10dp">
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="14dp"
-                        android:text="Job information"
-                        android:textColor="#1565C0"
-                        android:fontFamily="@font/satoshi_medium"
-
-                        android:textSize="@dimen/text_caption_lg"
-                        android:textStyle="bold" />
-
-                    <!-- Company (locked) -->
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp"
-                        android:text="Company"
-                        android:fontFamily="@font/satoshi_medium"
-
-                        android:textColor="#757575"
-                        android:textSize="@dimen/text_caption_md"
-                        android:textStyle="bold" />
-
-                    <LinearLayout
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilDob"
+                        style="@style/AddEmpTil"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:background="@drawable/bg_field_selected"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:padding="10dp">
+                        android:layout_marginEnd="6dp"
+                        android:layout_weight="1"
+                        android:hint="Date of birth"
+                        app:startIconDrawable="@drawable/ic_calendar">
 
-                        <ImageView
-                            android:layout_width="18dp"
-                            android:layout_height="18dp"
-                            android:layout_marginEnd="10dp"
-                            android:src="@android:drawable/ic_dialog_map"
-                            android:tint="#0C447C" />
-
-                        <TextView
-                            android:id="@+id/tvCompanyValue"
-                            android:layout_width="0dp"
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etDob"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:textColor="#0C447C"
-                            android:textSize="@dimen/text_caption_md"
-                            android:textStyle="bold" />
+                            android:focusable="false"
+                            android:inputType="none" />
+                    </com.google.android.material.textfield.TextInputLayout>
 
-                        <ImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:src="@android:drawable/ic_lock_idle_lock"
-                            android:tint="#BDBDBD" />
-                    </LinearLayout>
-
-                    <!-- Department & Designation Row -->
-                    <LinearLayout
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilJoining"
+                        style="@style/AddEmpTil"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:layout_marginStart="6dp"
+                        android:layout_weight="1"
+                        android:hint="Joining date"
+                        app:startIconDrawable="@drawable/ic_calendar">
 
-                        <!-- Department -->
-                        <LinearLayout
-                            android:layout_width="0dp"
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/etJoiningDate"
+                            android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="6dp"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="4dp"
-                                android:text="Department *"
-                                android:fontFamily="@font/satoshi_medium"
-
-                                android:textColor="#757575"
-                                android:textSize="@dimen/text_caption_md"
-                                android:textStyle="bold" />
-
-                            <LinearLayout
-                                android:id="@+id/layoutDeptTrigger"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/bg_field_trigger"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal"
-                                android:padding="10dp">
-
-                                <ImageView
-                                    android:layout_width="16dp"
-                                    android:layout_height="16dp"
-                                    android:layout_marginEnd="6dp"
-                                    android:src="@android:drawable/ic_menu_myplaces"
-                                    android:tint="#9E9E9E" />
-
-                                <TextView
-                                    android:id="@+id/tvDeptValue"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="Select"
-                                    android:textColor="#9E9E9E"
-                                    android:fontFamily="@font/satoshi_medium"
-
-                                    android:textSize="@dimen/text_caption_md" />
-
-                                <ImageView
-                                    android:layout_width="14dp"
-                                    android:layout_height="14dp"
-                                    android:src="@android:drawable/arrow_down_float"
-                                    android:tint="#BDBDBD" />
-                            </LinearLayout>
-                        </LinearLayout>
-
-                        <!-- Designation -->
-                        <LinearLayout
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginBottom="4dp"
-                                android:text="Designation *"
-                                android:textColor="#757575"
-                                android:textSize="@dimen/text_caption_md"
-                                android:textStyle="bold" />
-
-                            <LinearLayout
-                                android:id="@+id/layoutDesgTrigger"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:background="@drawable/bg_field_trigger"
-                                android:gravity="center_vertical"
-                                android:orientation="horizontal"
-                                android:padding="10dp">
-
-                                <ImageView
-                                    android:layout_width="16dp"
-                                    android:layout_height="16dp"
-                                    android:layout_marginEnd="6dp"
-                                    android:src="@android:drawable/ic_menu_myplaces"
-                                    android:tint="#9E9E9E" />
-
-                                <TextView
-                                    android:id="@+id/tvDesgValue"
-                                    android:layout_width="0dp"
-                                    android:layout_height="wrap_content"
-                                    android:layout_weight="1"
-                                    android:text="Select"
-                                    android:textColor="#9E9E9E"
-                                    android:fontFamily="@font/satoshi_medium"
-
-                                    android:textSize="@dimen/text_caption_md" />
-
-                                <ImageView
-                                    android:layout_width="14dp"
-                                    android:layout_height="14dp"
-                                    android:src="@android:drawable/arrow_down_float"
-                                    android:tint="#BDBDBD" />
-                            </LinearLayout>
-                        </LinearLayout>
-                    </LinearLayout>
-
+                            android:focusable="false"
+                            android:inputType="none" />
+                    </com.google.android.material.textfield.TextInputLayout>
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
+            </LinearLayout>
 
+            <!-- JOB -->
+            <LinearLayout style="@style/AddEmpCard">
 
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                app:cardBackgroundColor="#FFFFFF"
-                app:cardCornerRadius="4dp"
-                app:cardElevation="2dp">
+                <TextView
+                    style="@style/AddEmpSection"
+                    android:text="Job information" />
+
+                <TextView
+                    style="@style/AddEmpLabel"
+                    android:text="Company" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="10dp">
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/bg_field_locked"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:paddingStart="12dp"
+                    android:paddingTop="12dp"
+                    android:paddingEnd="13dp"
+                    android:paddingBottom="12dp">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginEnd="11dp"
+                        android:src="@drawable/ic_map"
+                        android:tint="#1D4ED8" />
 
                     <TextView
-                        android:layout_width="wrap_content"
+                        android:id="@+id/tvCompanyName"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="14dp"
-                        android:text="Salary information"
-                        android:textColor="#1565C0"
-                        android:textSize="@dimen/text_caption_lg"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="4dp"
-                        android:text="Salary type &amp; amount"
+                        android:layout_weight="1"
                         android:fontFamily="@font/satoshi_medium"
-
-                        android:textColor="#757575"
-                        android:textSize="@dimen/text_caption_md"
+                        android:letterSpacing="0.02"
+                        android:text="PRIVATE LIMITED"
+                        android:textColor="#1D4ED8"
+                        android:textSize="15sp"
                         android:textStyle="bold" />
 
-                    <LinearLayout
-                        android:id="@+id/layoutSalaryTrigger"
+                    <ImageView
+                        android:layout_width="16dp"
+                        android:layout_height="16dp"
+                        android:src="@drawable/ic_lock"
+                        android:tint="#94A3B8" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilDepartment"
+                        style="@style/AddEmpDropdown"
+                        android:layout_width="match_parent"
+                        android:layout_marginEnd="6dp"
+                        android:layout_weight="1"
+                        android:hint="Department *"
+                        app:startIconDrawable="@drawable/ic_department">
+
+                        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                            android:id="@+id/actvDepartment"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="none" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/tilDesignation"
+                        style="@style/AddEmpDropdown"
+                        android:layout_width="match_parent"
+                        android:layout_marginStart="6dp"
+                        android:layout_weight="1"
+                        android:hint="Designation *"
+                        app:startIconDrawable="@drawable/ic_designation">
+
+                        <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                            android:id="@+id/actvDesignation"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:inputType="none" />
+                    </com.google.android.material.textfield.TextInputLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- SALARY -->
+            <LinearLayout style="@style/AddEmpCard">
+
+                <TextView
+                    style="@style/AddEmpSection"
+                    android:text="Salary information" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilSalary"
+                    style="@style/AddEmpTil"
+                    android:hint="Salary type &amp; amount"
+                    app:startIconDrawable="@drawable/ic_salary">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etSalary"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@drawable/bg_field_trigger"
-                        android:gravity="center_vertical"
-                        android:orientation="horizontal"
-                        android:padding="14dp">
-
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_marginEnd="10dp"
-                            android:src="@android:drawable/ic_menu_myplaces"
-                            android:tint="#9E9E9E" />
-
-                        <TextView
-                            android:id="@+id/tvSalaryValue"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:fontFamily="@font/satoshi_medium"
-
-                            android:text="Tap to set salary"
-                            android:textColor="#9E9E9E"
-                            android:textSize="@dimen/text_caption_md" />
-
-                        <ImageView
-                            android:layout_width="16dp"
-                            android:layout_height="16dp"
-                            android:src="@android:drawable/arrow_down_float"
-                            android:tint="#BDBDBD" />
-                    </LinearLayout>
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
+                        android:focusable="false"
+                        android:inputType="none" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
 
             <com.google.android.material.button.MaterialButton
-                android:id="@+id/btnSave"
+                android:id="@+id/btnSaveEmployee"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="54dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/bg_btn_primary"
                 android:text="Save employee"
-                android:fontFamily="@font/satoshi_medium"
-
-                android:textSize="@dimen/text_caption_lg"
+                android:textAllCaps="false"
+                android:textSize="15.5sp"
                 android:textStyle="bold"
-                app:backgroundTint="#1565C0"
-                app:cornerRadius="4dp" />
+                app:backgroundTint="@null"
+                app:elevation="0dp" />
 
             <ProgressBar
                 android:id="@+id/progressBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:indeterminateTint="#1565C0"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="12dp"
+                android:indeterminateTint="#2563EB"
                 android:visibility="gone" />
-
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

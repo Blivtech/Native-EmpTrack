@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Compact module tile: small icon chip + name only -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:layout_margin="6dp"
+    android:paddingVertical="16dp"
+    android:paddingHorizontal="6dp"
+    android:background="@drawable/bg_module_card">
+
+    <!-- iconChip tint is set per-item in the adapter -->
+    <FrameLayout
+        android:id="@+id/iconChip"
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:background="@drawable/bg_module_chip"
+        android:backgroundTint="#EEF0FF">
+
+        <ImageView
+            android:id="@+id/ivModuleIcon"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_nav_home"
+            android:tint="#4F46E5" />
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/tvModuleName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Work-Based Pay"
+        android:gravity="center"
+        android:textSize="11.5sp"
+        android:textStyle="bold"
+        android:fontFamily="@font/satoshi_medium"
+        android:textColor="#0F172A"
+        android:layout_marginTop="10dp" />
+</LinearLayout>

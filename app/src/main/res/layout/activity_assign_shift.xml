@@ -1,37 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#F5F7FA">
+    android:background="#EEF2F8"
+    android:orientation="vertical">
 
-    <!-- Blue header -->
+    <!-- Header -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/bg_header"
         android:orientation="vertical"
-        android:background="#1565C0"
-        android:padding="14dp"
-        android:paddingBottom="16dp">
+        android:paddingStart="16dp"
+        android:paddingTop="42dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="18dp">
 
-        <!-- Top row -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginBottom="10dp">
+            android:orientation="horizontal">
 
             <ImageView
                 android:id="@+id/ivBack"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginEnd="12dp"
+                android:background="@drawable/bg_icon_btn"
+                android:padding="10dp"
                 android:src="@drawable/ic_arrow_back"
-                android:tint="#FFFFFF"
-                android:padding="4dp"
-                android:layout_marginEnd="10dp"/>
+                android:tint="#FFFFFF" />
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -42,50 +42,60 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Assign Employees"
                     android:fontFamily="@font/satoshi_medium"
-                    android:textSize="@dimen/text_caption_th"
-                    android:textStyle="bold"
-                    android:textColor="#FFFFFF"/>
+                    android:text="Assign Employees"
+                    android:textColor="#FFFFFF"
+                    android:textSize="21sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tvShiftName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
                     android:fontFamily="@font/satoshi_medium"
-                    android:textSize="@dimen/text_caption_md"                    android:textColor="#CCffffff"
-                    android:layout_marginTop="1dp"/>
+                    android:textColor="#CFE0FF"
+                    android:textSize="13.5sp" />
             </LinearLayout>
 
             <TextView
                 android:id="@+id/tvProgress"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="0/0"
+                android:background="@drawable/bg_progress_pill"
                 android:fontFamily="@font/satoshi_medium"
-                android:textSize="@dimen/text_caption_md"                 android:textColor="#CCffffff"/>
+                android:paddingStart="12dp"
+                android:paddingTop="5dp"
+                android:paddingEnd="12dp"
+                android:paddingBottom="5dp"
+                android:text="0/0"
+                android:textColor="#FFFFFF"
+                android:textSize="15sp"
+                android:textStyle="bold" />
         </LinearLayout>
 
-        <!-- Shift info banner -->
+        <!-- Shift chip -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/bg_company_chip"
             android:gravity="center_vertical"
-            android:background="@drawable/bg_company_pill"
-            android:padding="8dp">
+            android:orientation="horizontal"
+            android:padding="13dp">
 
             <LinearLayout
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:gravity="center"
-                android:background="@drawable/bg_circle_white"
-                android:layout_marginEnd="10dp">
+                android:layout_width="42dp"
+                android:layout_height="42dp"
+                android:layout_marginEnd="13dp"
+                android:background="@drawable/bg_chip_white"
+                android:gravity="center">
+
                 <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:src="@android:drawable/ic_menu_day"
-                    android:tint="#1565C0"/>
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_clock"
+                    android:tint="#FFFFFF" />
             </LinearLayout>
 
             <LinearLayout
@@ -99,186 +109,183 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/satoshi_medium"
-                    android:textSize="@dimen/text_caption_md"                     android:textStyle="bold"
-                    android:textColor="#FFFFFF"/>
+                    android:textColor="#FFFFFF"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tvWeekRange"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="1dp"
                     android:fontFamily="@font/satoshi_medium"
-                    android:textSize="@dimen/text_caption_small"                     android:textColor="#CCffffff"
-                    android:layout_marginTop="1dp"/>
+                    android:textColor="#CFE0FF"
+                    android:textSize="12.5sp" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
-    <!-- Search bar -->
+    <!-- Search -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:layout_margin="16dp"
+        android:layout_marginBottom="4dp"
+        android:background="@drawable/bg_search"
         android:gravity="center_vertical"
-        android:background="#FFFFFF"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp">
+        android:orientation="horizontal"
+        android:paddingStart="14dp"
+        android:paddingEnd="14dp">
 
         <ImageView
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:src="@android:drawable/ic_menu_search"
-            android:tint="#9E9E9E"
-            android:layout_marginEnd="8dp"/>
+            android:layout_width="19dp"
+            android:layout_height="19dp"
+            android:src="@drawable/ic_search"
+            android:tint="#94A3B8" />
 
         <EditText
             android:id="@+id/etSearch"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:paddingVertical="5dp"
+            android:layout_height="48dp"
             android:layout_weight="1"
-            android:hint="Search by name or code..."
-            android:fontFamily="@font/satoshi_medium"
-            android:textSize="@dimen/text_caption_md"
-            android:textColor="#212121"
-            android:textColorHint="#9E9E9E"
             android:background="@null"
+            android:fontFamily="@font/satoshi_medium"
+            android:hint="Search by name or code…"
+            android:imeOptions="actionSearch"
+            android:paddingStart="10dp"
             android:singleLine="true"
-            android:imeOptions="actionSearch"/>
+            android:textColor="#0F172A"
+            android:textColorHint="#94A3B8"
+            android:textSize="14.5sp" />
 
         <ImageView
             android:id="@+id/ivClearSearch"
             android:layout_width="18dp"
             android:layout_height="18dp"
-            android:src="@android:drawable/ic_menu_close_clear_cancel"
-            android:tint="#9E9E9E"
-            android:visibility="gone"/>
+            android:src="@drawable/ic_close"
+            android:tint="#94A3B8"
+            android:visibility="gone" />
     </LinearLayout>
 
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="#E0E0E0"/>
-
-    <!-- Employee lists -->
+    <!-- Lists -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="12dp">
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="12dp">
 
-            <!-- Assigned section -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="10dp"
                 android:gravity="center_vertical"
-                android:layout_marginBottom="8dp">
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:textAllCaps="false"
-                    android:text="Assigned To This Shift"
                     android:fontFamily="@font/satoshi_medium"
-                    android:textSize="@dimen/text_caption_md"                     android:textStyle="bold"
-                    android:textColor="#757575"
-                    android:letterSpacing="0.05"/>
+                    android:text="Assigned to this shift"
+                    android:textColor="#334155"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tvAssignedCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="#27500A"
                     android:background="@drawable/bg_badge_green"
-                    android:paddingStart="7dp"
                     android:fontFamily="@font/satoshi_medium"
-                    android:textSize="@dimen/text_caption_vs"
-                    android:paddingEnd="7dp"
-                    android:paddingTop="2dp"
-                    android:paddingBottom="2dp"/>
+                    android:gravity="center"
+                    android:minWidth="24dp"
+                    android:paddingStart="8dp"
+                    android:paddingTop="3dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="3dp"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12.5sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvAssigned"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"/>
+                android:nestedScrollingEnabled="false" />
 
-            <!-- Divider -->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="#E0E0E0"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"/>
-
-            <!-- Unassigned section -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
                 android:gravity="center_vertical"
-                android:layout_marginBottom="8dp">
+                android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Unassined Employees"
                     android:fontFamily="@font/satoshi_medium"
-                    android:textSize="@dimen/text_caption_md"                     android:textStyle="bold"
-                    android:textColor="#757575"
-                    android:letterSpacing="0.05"/>
+                    android:text="Unassigned employees"
+                    android:textColor="#334155"
+                    android:textSize="15sp"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tvUnassignedCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/satoshi_medium"
-                    android:textSize="@dimen/text_caption_vs"                     android:textColor="#791F1F"
                     android:background="@drawable/bg_badge_red"
-                    android:paddingStart="7dp"
-                    android:paddingEnd="7dp"
-                    android:paddingTop="2dp"
-                    android:paddingBottom="2dp"/>
+                    android:fontFamily="@font/satoshi_medium"
+                    android:gravity="center"
+                    android:minWidth="24dp"
+                    android:paddingStart="8dp"
+                    android:paddingTop="3dp"
+                    android:paddingEnd="8dp"
+                    android:paddingBottom="3dp"
+                    android:textColor="#FFFFFF"
+                    android:textSize="12.5sp"
+                    android:textStyle="bold" />
             </LinearLayout>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvUnassigned"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:nestedScrollingEnabled="false"/>
-
+                android:nestedScrollingEnabled="false" />
         </LinearLayout>
     </ScrollView>
 
-    <!-- Save button -->
+    <!-- Save -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:background="#FFFFFF"
-        android:padding="12dp"
-        android:elevation="8dp">
+        android:elevation="10dp"
+        android:orientation="vertical"
+        android:padding="14dp">
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnSave"
             android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:text="Save shift plan"
+            android:layout_height="52dp"
+            android:background="@drawable/bg_btn_primary"
             android:fontFamily="@font/satoshi_medium"
-            android:textSize="@dimen/text_caption_md"
+            android:text="Save shift plan"
             android:textAllCaps="false"
+            android:textSize="15.5sp"
             android:textStyle="bold"
-            app:cornerRadius="4dp"
-            app:backgroundTint="#1565C0"/>
+            app:backgroundTint="@null"
+            app:elevation="0dp" />
     </LinearLayout>
 </LinearLayout>

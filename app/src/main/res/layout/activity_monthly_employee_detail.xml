@@ -3,253 +3,70 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#F4F6F9">
+    android:background="#EEF2F8"
+    android:orientation="vertical">
 
-    <!-- ✅ Topbar -->
     <LinearLayout
+        android:id="@+id/layoutTopbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="#27500A">
+        android:background="@drawable/bg_header_green"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingTop="42dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="42dp">
 
-        <!-- Title row -->
+        <ImageView
+            android:id="@+id/ivBack"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/bg_icon_btn"
+            android:padding="9dp"
+            android:src="@drawable/ic_arrow_back"
+            android:tint="#FFFFFF" />
+
         <LinearLayout
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:padding="13dp"
-            android:paddingBottom="10dp">
-
-            <ImageView
-                android:id="@+id/ivBack"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:src="@drawable/ic_arrow_back"
-                android:tint="#FFFFFF"
-                android:padding="5dp"
-                android:layout_marginEnd="8dp"
-                android:clickable="true"
-                android:focusable="true" />
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tvEmpTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_caption_lg"
-                    android:fontFamily="@font/satoshi_medium"
-                    android:textStyle="bold"
-                    android:textColor="#FFFFFF" />
-
-                <TextView
-                    android:id="@+id/tvEmpSubtitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_caption_md"
-                    android:fontFamily="@font/satoshi_medium"                    android:textColor="#99FFFFFF"
-                    android:layout_marginTop="1dp" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <!-- Count bar -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="#1B4007"
-            android:paddingStart="13dp"
-            android:paddingEnd="13dp"
-            android:paddingTop="8dp"
-            android:paddingBottom="8dp">
-
-            <!-- Present -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:background="@drawable/bg_circle_white15"
-                android:padding="6dp"
-                android:layout_marginEnd="4dp">
-
-                <TextView
-                    android:id="@+id/tvCountPresent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textSize="@dimen/text_caption_small"
-                    android:fontFamily="@font/satoshi_medium"                      android:textStyle="bold"
-                    android:textColor="#69F0AE" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Present"
-                    android:textSize="@dimen/text_caption_md"
-                    android:fontFamily="@font/satoshi_medium"                      android:textColor="#88FFFFFF"
-                    android:layout_marginTop="1dp" />
-            </LinearLayout>
-
-            <!-- Absent -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:background="@drawable/bg_circle_white15"
-                android:padding="6dp"
-                android:layout_marginEnd="4dp">
-
-                <TextView
-                    android:id="@+id/tvCountAbsent"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textSize="@dimen/text_caption_small"
-                    android:fontFamily="@font/satoshi_medium"                     android:textStyle="bold"
-                    android:textColor="#FF8A80" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Leave"
-                    android:textSize="@dimen/text_caption_small"
-                    android:fontFamily="@font/satoshi_medium"                     android:textColor="#88FFFFFF"
-                    android:layout_marginTop="1dp" />
-            </LinearLayout>
-
-            <!-- Holiday -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:background="@drawable/bg_circle_white15"
-                android:padding="6dp"
-                android:layout_marginEnd="4dp">
-
-                <TextView
-                    android:id="@+id/tvCountHoliday"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textSize="@dimen/text_caption_small"
-                    android:fontFamily="@font/satoshi_medium"                     android:textStyle="bold"
-                    android:textColor="#CE93D8" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Holiday"
-                    android:textSize="@dimen/text_caption_small"
-                    android:fontFamily="@font/satoshi_medium"                     android:textColor="#88FFFFFF"
-                    android:layout_marginTop="1dp" />
-            </LinearLayout>
-
-            <!-- Week Off -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:background="@drawable/bg_circle_white15"
-                android:padding="6dp">
-
-                <TextView
-                    android:id="@+id/tvCountWeekOff"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textSize="@dimen/text_caption_small"
-                    android:fontFamily="@font/satoshi_medium"                     android:textStyle="bold"
-                    android:textColor="#B0BEC5" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Week Off"
-                    android:textSize="@dimen/text_caption_small"
-                    android:fontFamily="@font/satoshi_medium"                     android:textColor="#88FFFFFF"
-                    android:layout_marginTop="1dp" />
-            </LinearLayout>
-        </LinearLayout>
-
-        <!-- ✅ Tabs -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:background="@drawable/bg_circle_white18">
+            android:layout_weight="1"
+            android:orientation="vertical">
 
             <TextView
-                android:id="@+id/tabPresent"
-                android:layout_width="0dp"
+                android:id="@+id/tvEmpTitle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="✅ Present"
-                android:textSize="@dimen/text_caption_small"
-                android:fontFamily="@font/satoshi_medium"                 android:textStyle="bold"
+                android:fontFamily="@font/satoshi_medium"
                 android:textColor="#FFFFFF"
-                android:gravity="center"
-                android:padding="8dp"
-                android:clickable="true"
-                android:focusable="true" />
+                android:textSize="22sp"
+                android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/tabAbsent"
-                android:layout_width="0dp"
+                android:id="@+id/tvEmpSubtitle"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="❌ Leave"
-                android:textSize="@dimen/text_caption_small"
-                android:fontFamily="@font/satoshi_medium"                 android:textStyle="bold"
-                android:textColor="#88FFFFFF"
-                android:gravity="center"
-                android:padding="8dp"
-                android:clickable="true"
-                android:focusable="true" />
-
-            <TextView
-                android:id="@+id/tabHolidayWO"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="🏖️ H/WO"
-                android:textSize="@dimen/text_caption_small"
-                android:fontFamily="@font/satoshi_medium"                 android:textStyle="bold"
-                android:textColor="#88FFFFFF"
-                android:gravity="center"
-                android:padding="8dp"
-                android:clickable="true"
-                android:focusable="true" />
+                android:layout_marginTop="3dp"
+                android:fontFamily="@font/satoshi_medium"
+                android:textColor="#CDEBD8"
+                android:textSize="13sp" />
         </LinearLayout>
     </LinearLayout>
 
-    <!-- Progress bar -->
     <ProgressBar
         android:id="@+id/progressBar"
+        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:layout_width="match_parent"
         android:layout_height="3dp"
-        style="@style/Widget.AppCompat.ProgressBar.Horizontal"
         android:indeterminate="true"
-        android:indeterminateTint="#27500A"
+        android:indeterminateTint="#2E7D32"
         android:visibility="gone" />
 
-    <!-- Scrollable content -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:layout_marginTop="-30dp"
         android:layout_weight="1"
         android:scrollbars="none">
 
@@ -257,27 +74,98 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="11dp"
-            android:paddingBottom="16dp">
-
+            android:paddingBottom="96dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_marginStart="14dp"
+                android:layout_marginEnd="14dp"
+                android:orientation="horizontal">
+
+                <LinearLayout style="@style/EmTile">
+
+                    <TextView
+                        android:id="@+id/tvSumPresent"
+                        style="@style/EmTileNum"
+                        android:textColor="#16A34A" />
+
+                    <TextView
+                        style="@style/EmTileLbl"
+                        android:text="Present" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="9dp"
+                    android:layout_height="1dp" />
+
+                <LinearLayout style="@style/EmTile">
+
+                    <TextView
+                        android:id="@+id/tvSumLeave"
+                        style="@style/EmTileNum"
+                        android:textColor="#DC2626" />
+
+                    <TextView
+                        style="@style/EmTileLbl"
+                        android:text="Leave" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="9dp"
+                    android:layout_height="1dp" />
+
+                <LinearLayout style="@style/EmTile">
+
+                    <TextView
+                        android:id="@+id/tvSumHoliday"
+                        style="@style/EmTileNum"
+                        android:textColor="#7C3AED" />
+
+                    <TextView
+                        style="@style/EmTileLbl"
+                        android:text="Holiday" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="9dp"
+                    android:layout_height="1dp" />
+
+                <LinearLayout style="@style/EmTile">
+
+                    <TextView
+                        android:id="@+id/tvSumWeekOff"
+                        style="@style/EmTileNum"
+                        android:textColor="#334155" />
+
+                    <TextView
+                        style="@style/EmTileLbl"
+                        android:text="Week Off" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Employee card -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="14dp"
+                android:background="@drawable/bg_card"
                 android:gravity="center_vertical"
-                android:background="#FFFFFF"
-                android:padding="11dp"
-                android:layout_marginBottom="8dp">
+                android:orientation="horizontal"
+                android:padding="15dp">
 
                 <TextView
                     android:id="@+id/tvAvatar"
-                    android:layout_width="38dp"
-                    android:layout_height="38dp"
+                    android:layout_width="52dp"
+                    android:layout_height="52dp"
+                    android:layout_marginEnd="13dp"
+                    android:background="@drawable/bg_avatar"
+                    android:fontFamily="@font/satoshi_medium"
                     android:gravity="center"
-                    android:textSize="@dimen/text_caption_small"
-                    android:fontFamily="@font/satoshi_medium"                     android:textStyle="bold"
-                    android:background="@drawable/bg_card_working"
-                    android:layout_marginEnd="10dp" />
+                    android:textColor="#27500A"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -286,145 +174,235 @@
                     android:orientation="vertical">
 
                     <TextView
-                        android:id="@+id/tvEmpName2"
+                        android:id="@+id/tvEmpName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_caption_md"
-                        android:fontFamily="@font/satoshi_medium"                         android:textStyle="bold"
-                        android:textColor="#212121" />
+                        android:fontFamily="@font/satoshi_medium"
+                        android:textColor="#0F172A"
+                        android:textSize="18sp"
+                        android:textStyle="bold" />
 
                     <TextView
-                        android:id="@+id/tvEmpInfo"
+                        android:id="@+id/tvEmpMeta"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_caption_small"
-                        android:fontFamily="@font/satoshi_medium"                         android:textColor="#9E9E9E"
-                        android:layout_marginTop="2dp" />
+                        android:layout_marginTop="2dp"
+                        android:fontFamily="@font/satoshi_medium"
+                        android:textColor="#94A3B8"
+                        android:textSize="12.5sp" />
 
                     <TextView
-                        android:id="@+id/tvShiftTag"
+                        android:id="@+id/tvShift"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_caption_small"
-                        android:fontFamily="@font/satoshi_medium"                         android:textStyle="bold"
-                        android:textColor="#0C447C"
-                        android:background="@drawable/bg_badge_blue"
-                        android:paddingStart="7dp"
-                        android:paddingEnd="7dp"
-                        android:paddingTop="2dp"
-                        android:paddingBottom="2dp"
-                        android:layout_marginTop="4dp" />
+                        android:layout_marginTop="7dp"
+                        android:background="@drawable/bg_shift_chip"
+                        android:fontFamily="@font/satoshi_medium"
+                        android:paddingStart="12dp"
+                        android:paddingTop="3dp"
+                        android:paddingEnd="12dp"
+                        android:paddingBottom="3dp"
+                        android:textColor="#1D4ED8"
+                        android:textSize="11.5sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
-                <!-- Attendance % -->
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
+                    android:background="@drawable/bg_att"
                     android:gravity="center"
-                    android:background="@drawable/bg_card_working"
-                    android:padding="8dp"
-                    android:paddingStart="10dp"
-                    android:paddingEnd="10dp">
+                    android:orientation="vertical"
+                    android:paddingStart="14dp"
+                    android:paddingTop="9dp"
+                    android:paddingEnd="14dp"
+                    android:paddingBottom="9dp">
 
                     <TextView
-                        android:id="@+id/tvAttendancePct"
+                        android:id="@+id/tvAttendance"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_caption_lg"
-                        android:fontFamily="@font/satoshi_medium"                         android:textStyle="bold" />
+                        android:fontFamily="@font/satoshi_medium"
+                        android:textColor="#DC2626"
+                        android:textSize="20sp"
+                        android:textStyle="bold" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="1dp"
+                        android:fontFamily="@font/satoshi_medium"
                         android:text="Attendance"
-                        android:textSize="@dimen/text_caption_small"
-                        android:fontFamily="@font/satoshi_medium"                         android:textColor="#9E9E9E"
-                        android:layout_marginTop="1dp" />
+                        android:textColor="#64748B"
+                        android:textSize="11sp"
+                        android:textStyle="bold" />
                 </LinearLayout>
             </LinearLayout>
 
-            <!-- ✅ Date section label -->
-            <TextView
-                android:id="@+id/tvDateSectionLabel"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/text_caption_small"
-                android:fontFamily="@font/satoshi_medium"                 android:textStyle="bold"
-                android:letterSpacing="0.05"
-                android:layout_marginBottom="8dp" />
-
-            <!-- ✅ Date pills — FlexboxLayout for wrap -->
-            <com.google.android.flexbox.FlexboxLayout
-                android:id="@+id/layoutDatePills"
+            <!-- Present -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:flexWrap="wrap"
-                app:flexDirection="row"
-                app:justifyContent="flex_start"
-                app:alignItems="flex_start" />
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="14dp"
+                android:orientation="vertical">
 
+                <LinearLayout style="@style/EmSecHead">
+
+                    <TextView
+                        style="@style/EmSecDot"
+                        android:background="@drawable/bg_dot_green"
+                        android:text="✓" />
+
+                    <TextView
+                        android:id="@+id/tvPresentTitle"
+                        style="@style/EmSecTitle"
+                        android:text="Present Dates (0)"
+                        android:textColor="#15803D" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutPresentChips"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+
+                <TextView
+                    android:id="@+id/tvPresentEmpty"
+                    style="@style/EmEmpty"
+                    android:text="No dates in this category 🎉"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <!-- Absent -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="14dp"
+                android:orientation="vertical">
+
+                <LinearLayout style="@style/EmSecHead">
+
+                    <TextView
+                        style="@style/EmSecDot"
+                        android:background="@drawable/bg_dot_red"
+                        android:text="✕" />
+
+                    <TextView
+                        android:id="@+id/tvAbsentTitle"
+                        style="@style/EmSecTitle"
+                        android:text="Absent Dates (0)"
+                        android:textColor="#B91C1C" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutAbsentChips"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+
+                <TextView
+                    android:id="@+id/tvAbsentEmpty"
+                    style="@style/EmEmpty"
+                    android:text="No dates in this category 🎉"
+                    android:visibility="gone" />
+            </LinearLayout>
+
+            <!-- Holiday + Week Off -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="14dp"
+                android:layout_marginTop="18dp"
+                android:layout_marginEnd="14dp"
+                android:orientation="vertical">
+
+                <LinearLayout style="@style/EmSecHead">
+
+                    <TextView
+                        style="@style/EmSecDot"
+                        android:background="@drawable/bg_dot_violet"
+                        android:text="⛱" />
+
+                    <TextView
+                        android:id="@+id/tvHwoTitle"
+                        style="@style/EmSecTitle"
+                        android:text="Holiday + Week Off (0)"
+                        android:textColor="#6D28D9" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layoutHwoChips"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical" />
+
+                <TextView
+                    android:id="@+id/tvHwoEmpty"
+                    style="@style/EmEmpty"
+                    android:text="No dates in this category 🎉"
+                    android:visibility="gone" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 
-    <!-- Download bar -->
+    <!-- Export bar -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
         android:background="#FFFFFF"
-        android:padding="9dp"
-        android:elevation="6dp">
+        android:elevation="10dp"
+        android:orientation="horizontal"
+        android:padding="12dp">
 
-        <LinearLayout
+        <TextView
+            android:id="@+id/btnPdf"
             android:layout_width="0dp"
-            android:layout_height="44dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="10dp"
             android:layout_weight="1"
+            android:background="@drawable/bg_export_pdf"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/satoshi_medium"
             android:gravity="center"
-            android:background="@drawable/bg_badge_red_light"
-            android:layout_marginEnd="6dp">
+            android:text="PDF"
+            android:textColor="#C62828"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="PDF"
-                android:textSize="10sp"
-                android:textStyle="bold"
-                android:textColor="#C62828" />
-        </LinearLayout>
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/btnExcel"
             android:layout_width="0dp"
-            android:layout_height="44dp"
+            android:layout_height="48dp"
+            android:layout_marginEnd="10dp"
             android:layout_weight="1"
+            android:background="@drawable/bg_export_xls"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/satoshi_medium"
             android:gravity="center"
-            android:background="@drawable/bg_badge_green_light"
-            android:layout_marginEnd="6dp">
+            android:text="Excel"
+            android:textColor="#15803D"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Excel"
-                android:textSize="10sp"
-                android:textStyle="bold"
-                android:textColor="#1B5E20" />
-        </LinearLayout>
-
-        <LinearLayout
+        <TextView
+            android:id="@+id/btnShare"
             android:layout_width="0dp"
-            android:layout_height="44dp"
+            android:layout_height="48dp"
             android:layout_weight="1"
+            android:background="@drawable/bg_btn_primary"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/satoshi_medium"
             android:gravity="center"
-            android:background="@drawable/bg_badge_blue">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Share"
-                android:textSize="10sp"
-                android:textStyle="bold"
-                android:textColor="#0C447C" />
-        </LinearLayout>
+            android:text="Share"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp"
+            android:textStyle="bold" />
     </LinearLayout>
-
 </LinearLayout>

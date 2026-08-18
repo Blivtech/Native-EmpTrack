@@ -134,5 +134,9 @@ class ShiftPlanRepository @Inject constructor(
     // ✅ Get shift count for company
     suspend fun getShiftCount(companyCode: String): Int =
         shiftPlanDao.getShiftCount(companyCode)
-// ✅ Extract empId
+
+
+    suspend fun updateDeviationShift(employeeCode :String,companyCode: String,shiftCode: String){
+        shiftPlanDao.updateDeviationShift(employeeCode,companyCode,shiftCode)
+    }
 }

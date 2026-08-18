@@ -1,86 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:padding="14dp"
+    android:layout_marginBottom="11dp"
+    android:background="@drawable/bg_report_card"
+    android:foreground="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
 
-    android:orientation="vertical"
-    android:background="#FFFFFF">
+    <!-- Icon chip — background tinted per item by the adapter -->
+    <FrameLayout
+        android:id="@+id/layoutReportIcon"
+        android:layout_width="46dp"
+        android:layout_height="46dp"
+        android:background="@drawable/bg_report_chip"
+        android:layout_marginEnd="14dp">
+
+        <ImageView
+            android:id="@+id/ivReportIcon"
+            android:layout_width="23dp"
+            android:layout_height="23dp"
+            android:layout_gravity="center"/>
+    </FrameLayout>
 
     <LinearLayout
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:padding="12dp"
-        android:background="?attr/selectableItemBackground">
+        android:layout_weight="1"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/layoutReportIcon"
-            android:layout_width="42dp"
-            android:layout_height="42dp"
-            android:gravity="center"
-            android:layout_marginEnd="11dp">
-
-            <ImageView
-                android:id="@+id/ivReportIcon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="0dp"
+        <TextView
+            android:id="@+id/tvReportName"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
+            android:fontFamily="@font/satoshi_medium"
+            android:textSize="15.5sp"
+            android:textStyle="bold"
+            android:textColor="#0F172A"/>
 
-            <TextView
-                android:id="@+id/tvReportName"
-                android:textSize="@dimen/text_caption_md"
-                android:fontFamily="@font/satoshi_medium"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="bold"
-                android:textColor="#212121"/>
+        <TextView
+            android:id="@+id/tvReportSubtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/satoshi_medium"
+            android:textSize="12.5sp"
+            android:textColor="#94A3B8"
+            android:layout_marginTop="2dp"/>
 
-            <TextView
-                android:id="@+id/tvReportSubtitle"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/text_caption_small"
-                android:fontFamily="@font/satoshi_medium"
-                android:textColor="#9E9E9E"
-                android:layout_marginTop="2dp"/>
-
-            <TextView
-                android:id="@+id/tvReportTag"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="7sp"
-                android:textStyle="bold"
-                android:paddingStart="7dp"
-                android:paddingEnd="7dp"
-                android:visibility="gone"
-                android:paddingTop="2dp"
-                android:paddingBottom="2dp"
-                android:layout_marginTop="4dp"/>
-        </LinearLayout>
-
-        <!-- ✅ Arrow -->
-        <ImageView
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:src="@android:drawable/arrow_down_float"
-            android:tint="@color/black_overlay_80"
-            android:rotation="-90"/>
+        <!-- kept for binding; hidden -->
+        <TextView
+            android:id="@+id/tvReportTag"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="9sp"
+            android:textStyle="bold"
+            android:paddingStart="7dp"
+            android:paddingEnd="7dp"
+            android:paddingTop="2dp"
+            android:paddingBottom="2dp"
+            android:visibility="gone"
+            android:layout_marginTop="4dp"/>
     </LinearLayout>
 
-    <!-- Divider -->
-    <View
-        android:id="@+id/viewDivider"
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="#F5F5F5"
-        android:layout_marginStart="65dp"/>
-
+    <ImageView
+        android:layout_width="18dp"
+        android:layout_height="18dp"
+        android:src="@drawable/ic_chevron_right"
+        android:tint="#C3CEDE"/>
 </LinearLayout>

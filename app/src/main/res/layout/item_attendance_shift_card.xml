@@ -5,43 +5,40 @@
     android:id="@+id/cardShift"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
-    app:cardCornerRadius="4dp"
-    app:cardElevation="2dp"
-    app:strokeWidth="1dp"
+    android:layout_marginBottom="13dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="3dp"
+    app:strokeWidth="0dp"
     app:strokeColor="#E0E0E0">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="12dp">
+        android:padding="16dp">
 
         <!-- Header row -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginBottom="10dp">
+            android:gravity="center_vertical">
 
-            <!-- Shift icon -->
             <LinearLayout
                 android:id="@+id/layoutShiftIcon"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
+                android:layout_width="44dp"
+                android:layout_height="44dp"
                 android:gravity="center"
-                android:background="@drawable/bg_shift_morning"
-                android:layout_marginEnd="10dp">
+                android:background="@drawable/bg_shift_chip"
+                android:layout_marginEnd="12dp">
                 <ImageView
                     android:id="@+id/ivShiftIcon"
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:src="@android:drawable/ic_menu_day"
-                    android:tint="#27500A"/>
+                    android:layout_width="22dp"
+                    android:layout_height="22dp"
+                    android:src="@drawable/ic_calendar"
+                    android:tint="#2563EB"/>
             </LinearLayout>
 
-            <!-- Shift name + time -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -53,31 +50,35 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:fontFamily="@font/satoshi_medium"
-                    android:textSize="@dimen/text_caption_md"
+                    android:textSize="16sp"
                     android:textStyle="bold"
-                    android:textColor="@color/black_overlay_80"/>
+                    android:textColor="#0F172A"/>
 
                 <TextView
                     android:id="@+id/tvShiftTime"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:fontFamily="@font/satoshi_regular"
-                    android:textColor="@color/black_overlay_80"
-                    android:textSize="@dimen/text_caption_small"
-                    android:layout_marginTop="1dp"/>
+                    android:fontFamily="@font/satoshi_medium"
+                    android:textColor="#475569"
+                    android:textSize="12.5sp"
+                    android:textStyle="bold"
+                    android:drawableStart="@drawable/ic_clock"
+                    android:drawableTint="#94A3B8"
+                    android:drawablePadding="5dp"
+                    android:layout_marginTop="3dp"/>
             </LinearLayout>
 
-            <!-- Badge -->
             <TextView
                 android:id="@+id/tvShiftBadge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/text_caption_small"
+                android:layout_gravity="top"
+                android:textSize="11.5sp"
                 android:textStyle="bold"
-                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
-                android:paddingTop="3dp"
-                android:paddingBottom="3dp"/>
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
+                android:paddingTop="6dp"
+                android:paddingBottom="6dp"/>
         </LinearLayout>
 
         <!-- Count text -->
@@ -85,28 +86,34 @@
             android:id="@+id/tvShiftCount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="10sp"
-            android:layout_marginBottom="8dp"/>
+            android:fontFamily="@font/satoshi_medium"
+            android:textStyle="bold"
+            android:textSize="12.5sp"
+            android:layout_marginTop="14dp"/>
 
-        <!-- Progress bar -->
+        <!-- Progress -->
         <ProgressBar
             android:id="@+id/progShift"
             android:layout_width="match_parent"
-            android:layout_height="6dp"
+            android:layout_height="7dp"
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
-            android:progressBackgroundTint="#F0F0F0"
-            android:layout_marginBottom="10dp"/>
+            android:progressDrawable="@drawable/progress_shift"
+            android:layout_marginTop="12dp"/>
 
-        <!-- Mark / Edit button -->
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnMarkAttendance"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Mark now"
             android:textAllCaps="false"
-            android:textSize="@dimen/text_caption_md"
+            android:textColor="#FFFFFF"
+            android:textSize="15sp"
             android:textStyle="bold"
-            app:cornerRadius="4dp"/>
-
+            android:minHeight="50dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:layout_marginTop="14dp"
+            app:cornerRadius="14dp"
+            app:elevation="0dp"/>
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

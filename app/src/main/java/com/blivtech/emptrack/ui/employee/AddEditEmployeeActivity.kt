@@ -71,7 +71,7 @@ class AddEditEmployeeActivity : AppCompatActivity() {
             companyCode = preferenceManager.selectedCompanyCode.first()
             companyName = preferenceManager.selectedCompanyName.first()
 
-            binding.tvCompanyValue.text = companyName
+            binding.tvCompanyName.text = companyName
 
             observeViewModel()
 
@@ -80,21 +80,21 @@ class AddEditEmployeeActivity : AppCompatActivity() {
     }
 
     private fun setupUI() {
-        binding.tvTitle.text = if (isEditMode) "Edit employee" else "Add employee"
+        binding.tvHeaderTitle.text = if (isEditMode) "Edit employee" else "Add employee"
     }
 
     private fun setupClickListeners() {
         binding.ivBack.setOnClickListener { finish() }
 
         // ✅ Gender bottom sheet
-        binding.layoutGenderTrigger.setOnClickListener {
+        binding.actvGender.setOnClickListener {
             GenderBottomSheet(
                 selectedGender = selectedGender,
                 onSelected = { gender, name ->
                     selectedGender = gender
                     setFieldSelected(
-                        layout = binding.layoutGenderTrigger,
-                        valueView = binding.tvGenderValue,
+                        layout = binding.tilGender,
+                        valueView = binding.actvGender,
                         value = name
                     )
                 }
@@ -102,15 +102,15 @@ class AddEditEmployeeActivity : AppCompatActivity() {
         }
 
         // ✅ Department bottom sheet
-        binding.layoutDeptTrigger.setOnClickListener {
+        binding.actvDepartment.setOnClickListener {
             DepartmentBottomSheet(
                 departments = departments,
                 selectedId = selectedDepartment?.id,
                 onSelected = { dept ->
                     selectedDepartment = dept
                     setFieldSelected(
-                        layout = binding.layoutDeptTrigger,
-                        valueView = binding.tvDeptValue,
+                        layout = binding.tilDepartment,
+                        valueView = binding.actvDepartment,
                         value = dept.name
                     )
                 },
@@ -121,15 +121,15 @@ class AddEditEmployeeActivity : AppCompatActivity() {
         }
 
         // ✅ Designation bottom sheet
-        binding.layoutDesgTrigger.setOnClickListener {
+        binding.actvDesignation.setOnClickListener {
             DesignationBottomSheet(
                 designations = designations,
                 selectedId = selectedDesignation?.id,
                 onSelected = { desg ->
                     selectedDesignation = desg
                     setFieldSelected(
-                        layout = binding.layoutDesgTrigger,
-                        valueView = binding.tvDesgValue,
+                        layout = binding.tilJoining,
+                        valueView = binding.actvDesignation,
                         value = desg.name
                     )
                 },
@@ -140,7 +140,7 @@ class AddEditEmployeeActivity : AppCompatActivity() {
         }
 
         // ✅ Salary bottom sheet
-        binding.layoutSalaryTrigger.setOnClickListener {
+        binding.etSalary.setOnClickListener {
             SalaryBottomSheet(
                 selectedType = selectedSalaryType,
                 selectedAmount = selectedSalaryAmount,
@@ -149,8 +149,8 @@ class AddEditEmployeeActivity : AppCompatActivity() {
                     selectedSalaryAmount = amount
                     val fmt = NumberFormat.getNumberInstance(Locale("en", "IN"))
                     setFieldSelected(
-                        layout = binding.layoutSalaryTrigger,
-                        valueView = binding.tvSalaryValue,
+                        layout = binding.tilSalary,
+                        valueView = binding.etSalary,
                         value = "$typeName · ₹ ${fmt.format(amount)}"
                     )
                 }
@@ -158,38 +158,35 @@ class AddEditEmployeeActivity : AppCompatActivity() {
         }
 
         // ✅ Date of birth picker
-        binding.layoutDobTrigger.setOnClickListener {
+        binding.etDob.setOnClickListener {
             showDatePicker { date ->
                 selectedDob = date
                 setFieldSelected(
-                    layout = binding.layoutDobTrigger,
-                    valueView = binding.tvDobValue,
+                    layout = binding.tilDob,
+                    valueView = binding.etDob,
                     value = formatDateDisplay(date)
                 )
             }
         }
 
         // ✅ Joining date picker
-        binding.layoutJoiningTrigger.setOnClickListener {
+        binding.etJoiningDate.setOnClickListener {
             showDatePicker { date ->
                 selectedJoiningDate = date
                 setFieldSelected(
-                    layout = binding.layoutJoiningTrigger,
-                    valueView = binding.tvJoiningValue,
+                    layout = binding.tilJoining,
+                    valueView = binding.etJoiningDate,
                     value = formatDateDisplay(date)
                 )
             }
         }
 
         // ✅ Save button
-        binding.btnSave.setOnClickListener {
+        binding.btnSaveEmployee.setOnClickListener {
             if (validateInputs()) saveEmployee()
         }
     }
 
-    // ─────────────────────────────────────────
-    // Observe ViewModel
-    // ─────────────────────────────────────────
 
     private fun observeViewModel() {
 
@@ -207,8 +204,8 @@ class AddEditEmployeeActivity : AppCompatActivity() {
 
                     selectedDepartment?.let { dept ->
                         setFieldSelected(
-                            layout = binding.layoutDeptTrigger,
-                            valueView = binding.tvDeptValue,
+                            layout = binding.tilDepartment,
+                            valueView = binding.actvDepartment,
                             value = dept.name
                         )
                     }
@@ -230,8 +227,8 @@ class AddEditEmployeeActivity : AppCompatActivity() {
 
                     selectedDesignation?.let { desg ->
                         setFieldSelected(
-                            layout = binding.layoutDesgTrigger,
-                            valueView = binding.tvDesgValue,
+                            layout = binding.tilDesignation,
+                            valueView = binding.actvDesignation,
                             value = desg.name
                         )
                     }
@@ -244,20 +241,20 @@ class AddEditEmployeeActivity : AppCompatActivity() {
             when (resource) {
                 is Resource.Loading -> {
                     binding.progressBar.visibility = View.VISIBLE
-                    binding.btnSave.isEnabled = false
-                    binding.btnSave.text = "Saving..."
+                    binding.btnSaveEmployee.isEnabled = false
+                    binding.btnSaveEmployee.text = "Saving..."
                 }
                 is Resource.Success -> {
                     binding.progressBar.visibility = View.GONE
-                    binding.btnSave.isEnabled = true
-                    binding.btnSave.text = if (isEditMode) "Update employee" else "Save employee"
+                    binding.btnSaveEmployee.isEnabled = true
+                    binding.btnSaveEmployee.text = if (isEditMode) "Update employee" else "Save employee"
                     Snackbar.make(binding.root, "Employee saved! 🎉", Snackbar.LENGTH_SHORT).show()
                     finish()
                 }
                 is Resource.Error -> {
                     binding.progressBar.visibility = View.GONE
-                    binding.btnSave.isEnabled = true
-                    binding.btnSave.text = if (isEditMode) "Update employee" else "Save employee"
+                    binding.btnSaveEmployee.isEnabled = true
+                    binding.btnSaveEmployee.text = if (isEditMode) "Update employee" else "Save employee"
                     Snackbar.make(binding.root, resource.message, Snackbar.LENGTH_LONG).show()
                 }
             }
@@ -269,8 +266,8 @@ class AddEditEmployeeActivity : AppCompatActivity() {
                 departments = departments + it
                 selectedDepartment = it
                 setFieldSelected(
-                    layout = binding.layoutDeptTrigger,
-                    valueView = binding.tvDeptValue,
+                    layout = binding.tilDepartment,
+                    valueView = binding.actvDepartment,
                     value = it.name
                 )
                 Snackbar.make(binding.root, "${it.name} added!", Snackbar.LENGTH_SHORT).show()
@@ -283,8 +280,8 @@ class AddEditEmployeeActivity : AppCompatActivity() {
                 designations = designations + it
                 selectedDesignation = it
                 setFieldSelected(
-                    layout = binding.layoutDesgTrigger,
-                    valueView = binding.tvDesgValue,
+                    layout = binding.tilDesignation,
+                    valueView = binding.actvDesignation,
                     value = it.name
                 )
                 Snackbar.make(binding.root, "${it.name} added!", Snackbar.LENGTH_SHORT).show()
@@ -296,22 +293,22 @@ class AddEditEmployeeActivity : AppCompatActivity() {
     private fun prefillData() {
         val emp = intent.getParcelableExtra<com.blivtech.emptrack.data.model.parcel.EmployeeParcel>("employee")
         emp?.let { e ->
-            binding.etName.setText(e.name)
+            binding.etFullName.setText(e.name)
             binding.etPhone.setText(e.phone)
             binding.etEmail.setText(e.email)
 
             e.gender?.let { g ->
                 selectedGender = g
-                setFieldSelected(binding.layoutGenderTrigger, binding.tvGenderValue,
+                setFieldSelected(binding.tilGender, binding.actvGender,
                     when(g) { 1 -> "Male" 2 -> "Female" else -> "Other" })
             }
             e.dob?.let { d ->
                 selectedDob = d
-                setFieldSelected(binding.layoutDobTrigger, binding.tvDobValue, formatDateDisplay(d))
+                setFieldSelected(binding.tilDob, binding.etDob, formatDateDisplay(d))
             }
             e.joiningDate?.let { j ->
                 selectedJoiningDate = j
-                setFieldSelected(binding.layoutJoiningTrigger, binding.tvJoiningValue, formatDateDisplay(j))
+                setFieldSelected(binding.tilJoining, binding.etJoiningDate, formatDateDisplay(j))
             }
             e.salaryType?.let { t ->
                 e.salaryAmount?.let { a ->
@@ -319,7 +316,7 @@ class AddEditEmployeeActivity : AppCompatActivity() {
                     selectedSalaryAmount = a
                     val typeName = when(t) { 1 -> "Daily" 2 -> "Weekly" else -> "Monthly" }
                     val fmt = NumberFormat.getNumberInstance(Locale("en", "IN"))
-                    setFieldSelected(binding.layoutSalaryTrigger, binding.tvSalaryValue,
+                    setFieldSelected(binding.tilSalary, binding.etSalary,
                         "$typeName · ₹ ${fmt.format(a)}")
                 }
             }
@@ -332,9 +329,9 @@ class AddEditEmployeeActivity : AppCompatActivity() {
         valueView: android.widget.TextView,
         value: String
     ) {
-        layout.setBackgroundResource(R.drawable.bg_field_selected)
+//        layout.setBackgroundResource(R.drawable.bg_field_selected)
         valueView.text = value
-        valueView.setTextColor(getColor(android.R.color.holo_blue_dark))
+//        valueView.setTextColor(getColor(android.R.color.holo_blue_dark))
     }
 
     // ✅ Date picker dialog
@@ -368,7 +365,7 @@ class AddEditEmployeeActivity : AppCompatActivity() {
     private fun validateInputs(): Boolean {
         var isValid = true
 
-        val name = binding.etName.text.toString().trim()
+        val name = binding.etFullName.text.toString().trim()
         val phone = binding.etPhone.text.toString().trim()
 
         if (name.isEmpty()) {
@@ -410,7 +407,7 @@ class AddEditEmployeeActivity : AppCompatActivity() {
             companyCode = companyCode,
             deptCode = selectedDepartment?.deptCode ?: "",
             desgCode = selectedDesignation?.desgCode ?: "",
-            name = binding.etName.text.toString().trim(),
+            name = binding.etFullName.text.toString().trim(),
             email = binding.etEmail.text.toString().trim().ifEmpty { null },
             phone = binding.etPhone.text.toString().trim(),
             gender = selectedGender,

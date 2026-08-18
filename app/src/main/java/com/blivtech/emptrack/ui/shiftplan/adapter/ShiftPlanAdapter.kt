@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
@@ -33,11 +34,11 @@ class ShiftPlanAdapter(
     inner class ShiftViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val tvShiftName: TextView     = view.findViewById(R.id.tvShiftName)
         val tvShiftTime: TextView     = view.findViewById(R.id.tvShiftTime)
-        val tvShiftEmpCount: TextView = view.findViewById(R.id.tvShiftEmpCount)
-        val tvShiftEmployees: TextView = view.findViewById(R.id.tvShiftEmployees)
+        val tvShiftEmpCount: TextView = view.findViewById(R.id.tvEmpCount)
+        val tvNoEmployees: TextView = view.findViewById(R.id.tvNoEmployees)
         val btnAssign: Button         = view.findViewById(R.id.btnAssign)
-        val layoutShiftIcon: LinearLayout = view.findViewById(R.id.layoutShiftIcon)
-        val tvShiftIndex: TextView    = view.findViewById(R.id.tvShiftIndex)
+        val layoutShiftIcon: ImageView = view.findViewById(R.id.ivShiftIcon)
+        val tvShiftLabel: TextView    = view.findViewById(R.id.tvShiftLabel)
     }
 
     // ─────────────────────────────────────────────────────────────────────
@@ -56,6 +57,8 @@ class ShiftPlanAdapter(
         val shift = getItem(position)
         bindShiftMeta(holder, shift, position)
         bindCounts(holder, shift)
+
+
     }
 
     // ─────────────────────────────────────────────────────────────────────
@@ -83,7 +86,7 @@ class ShiftPlanAdapter(
         position: Int
     ) {
         holder.tvShiftName.text  = shift.shiftName
-        holder.tvShiftIndex.text = "Shift ${position + 1}"
+        holder.tvShiftLabel.text = "Shift ${position + 1}"
 
         // Format "HH:mm" from LocalTime (or similar) safely
         val start = shift.startTime.toString().take(5)
@@ -105,7 +108,7 @@ class ShiftPlanAdapter(
 
         holder.tvShiftEmpCount.text = "$empCount emp"
 
-        holder.tvShiftEmployees.text = if (empNames.isNotEmpty()) {
+        holder.tvNoEmployees.text = if (empNames.isNotEmpty()) {
             val display = empNames.take(4).joinToString(", ")
             if (empCount > 4) "$display +${empCount - 4} more" else display
         } else {

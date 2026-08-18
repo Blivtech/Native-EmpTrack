@@ -1,177 +1,34 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@drawable/bg_card_unselected"
-    android:padding="10dp"
-    android:layout_marginBottom="8dp">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:orientation="vertical" android:background="@drawable/bg_card_unselected" android:padding="14dp" android:layout_marginBottom="11dp">
 
-    <!-- Employee info row -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:layout_marginBottom="8dp">
-
-        <TextView
-            android:id="@+id/tvInitials"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:gravity="center"
-            android:textSize="@dimen/text_caption_md"
-            android:fontFamily="@font/satoshi_medium"
-            android:textStyle="bold"
-            android:textColor="#0C447C"
-            android:background="@drawable/bg_circle_blue"
-            android:layout_marginEnd="10dp"/>
-
-        <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/tvEmpName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/text_caption_md"
-                android:fontFamily="@font/satoshi_medium"
-                android:textStyle="bold"
-                android:textColor="#212121"/>
-
-            <TextView
-                android:id="@+id/tvEmpCode"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/text_caption_small"
-                android:fontFamily="@font/satoshi_medium"
-                android:textColor="#757575"
-                android:layout_marginTop="1dp"/>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="12dp">
+        <TextView android:id="@+id/tvInitials" android:layout_width="46dp" android:layout_height="46dp" android:gravity="center"
+            android:textSize="17sp" android:fontFamily="@font/satoshi_medium" android:textStyle="bold" android:textColor="#0C447C"
+            android:background="@drawable/bg_avatar" android:layout_marginEnd="12dp"/>
+        <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical">
+            <TextView android:id="@+id/tvEmpName" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:fontFamily="@font/satoshi_medium" android:textSize="16sp" android:textStyle="bold" android:textColor="#0F172A"/>
+            <TextView android:id="@+id/tvEmpCode" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:fontFamily="@font/satoshi_medium" android:textSize="12.5sp" android:textColor="#94A3B8" android:layout_marginTop="1dp"/>
         </LinearLayout>
-
-        <!-- ✅ Status badge -->
-        <TextView
-            android:id="@+id/tvStatusBadge"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/text_caption_small"
-            android:fontFamily="@font/satoshi_medium"
-            android:paddingStart="7dp"
-            android:textStyle="bold"
-            android:paddingEnd="7dp"
-            android:paddingTop="3dp"
-            android:paddingBottom="3dp"
-            android:visibility="gone"/>
+        <TextView android:id="@+id/tvStatusBadge" android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:fontFamily="@font/satoshi_medium" android:textSize="12sp" android:textStyle="bold" android:textColor="#FFFFFF"
+            android:paddingStart="12dp" android:paddingEnd="12dp" android:paddingTop="6dp" android:paddingBottom="6dp" android:visibility="gone"/>
     </LinearLayout>
 
-    <!-- ✅ Status buttons — Working / Week off / Leave / Holiday -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginBottom="6dp">
-
-        <TextView
-            android:id="@+id/btnWorking"
-            android:layout_width="0dp"
-            android:layout_height="32dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="Working"
-            android:textStyle="bold"
-            android:textSize="@dimen/text_caption_small"
-            android:fontFamily="@font/satoshi_medium"
-            android:textColor="#212121"
-            android:layout_marginEnd="4dp"
-            android:background="@drawable/bg_field_trigger"/>
-
-        <TextView
-            android:id="@+id/btnWeekoff"
-            android:layout_width="0dp"
-            android:layout_height="32dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="Week off"
-            android:textStyle="bold"
-
-            android:textSize="@dimen/text_caption_small"
-            android:fontFamily="@font/satoshi_medium"
-            android:textColor="#212121"
-            android:layout_marginEnd="4dp"
-            android:background="@drawable/bg_field_trigger"/>
-
-        <TextView
-            android:id="@+id/btnLeave"
-            android:layout_width="0dp"
-            android:layout_height="32dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="Leave"
-            android:textSize="@dimen/text_caption_small"
-            android:fontFamily="@font/satoshi_medium"
-            android:textStyle="bold"
-
-            android:textColor="#212121"
-            android:layout_marginEnd="4dp"
-            android:background="@drawable/bg_field_trigger"/>
-
-        <TextView
-            android:id="@+id/btnHoliday"
-            android:layout_width="0dp"
-            android:layout_height="32dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="Holiday"
-            android:textSize="@dimen/text_caption_small"
-            android:fontFamily="@font/satoshi_medium"
-            android:textStyle="bold"
-            android:textColor="#212121"
-            android:background="@drawable/bg_field_trigger"/>
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginBottom="0dp">
+        <TextView android:id="@+id/btnWorking" style="@style/AttStatusBtn" android:text="Working" android:layout_marginEnd="7dp"/>
+        <TextView android:id="@+id/btnWeekoff" style="@style/AttStatusBtn" android:text="Week off" android:layout_marginEnd="7dp"/>
+        <TextView android:id="@+id/btnLeave"   style="@style/AttStatusBtn" android:text="Leave" android:layout_marginEnd="7dp"/>
+        <TextView android:id="@+id/btnHoliday" style="@style/AttStatusBtn" android:text="Holiday"/>
     </LinearLayout>
 
-    <!-- ✅ Full day / Half day sub-options — shown only when Working selected -->
-    <LinearLayout
-        android:id="@+id/layoutSubOptions"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:visibility="gone">
-
-        <TextView
-            android:id="@+id/btnFullDay"
-            android:layout_width="0dp"
-            android:layout_height="30dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:textStyle="bold"
-
-            android:text="Full day"
-            android:textSize="10sp"
-            android:textColor="#212121"
-            android:layout_marginEnd="6dp"
-            android:background="@drawable/bg_field_trigger"/>
-
-        <TextView
-            android:id="@+id/btnHalfDay"
-            android:layout_width="0dp"
-            android:textStyle="bold"
-            android:layout_height="30dp"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:text="Half day"
-            android:textSize="10sp"
-            android:textColor="#212121"
-            android:background="@drawable/bg_field_trigger"/>
-
-        <!-- ✅ Empty spacer to keep buttons left-aligned -->
-        <View
-            android:layout_width="0dp"
-            android:layout_height="1dp"
-            android:layout_weight="2"/>
-
+    <LinearLayout android:id="@+id/layoutSubOptions" android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal" android:layout_marginTop="7dp" android:visibility="gone">
+        <TextView android:id="@+id/btnFullDay" style="@style/AttSubBtn" android:text="Full day" android:layout_marginEnd="7dp"/>
+        <TextView android:id="@+id/btnHalfDay" style="@style/AttSubBtn" android:text="Half day"/>
+        <View android:layout_width="0dp" android:layout_height="1dp" android:layout_weight="2"/>
     </LinearLayout>
 </LinearLayout>

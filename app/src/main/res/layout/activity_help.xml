@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EEF2F8"
+    android:scrollbars="none"
+    android:fillViewport="true">
+
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+
+        <!-- HERO -->
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="vertical" android:background="@drawable/bg_hero"
+            android:paddingTop="42dp" android:paddingBottom="24dp" android:paddingStart="18dp" android:paddingEnd="18dp">
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:gravity="center_vertical">
+                <ImageView android:id="@+id/ivBack" android:layout_width="38dp" android:layout_height="38dp"
+                    android:src="@drawable/ic_arrow_back" android:tint="#FFFFFF" android:padding="9dp" android:background="@drawable/bg_icon_btn"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Help &amp; Support"
+                    android:textColor="#FFFFFF" android:textSize="16sp" android:textStyle="bold" android:fontFamily="@font/satoshi_medium" android:layout_marginStart="12dp"/>
+            </LinearLayout>
+
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="How can we help?"
+                android:textColor="#FFFFFF" android:textSize="25sp" android:textStyle="bold" android:fontFamily="@font/satoshi_medium" android:layout_marginTop="16dp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Search our guides or reach the BlivTech team." android:textColor="#CFE0FF" android:textSize="13.5sp"
+                android:fontFamily="@font/satoshi_medium" android:layout_marginTop="4dp"/>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:gravity="center_vertical" android:background="@drawable/bg_search"
+                android:paddingStart="14dp" android:paddingEnd="14dp" android:layout_marginTop="16dp">
+                <ImageView android:layout_width="19dp" android:layout_height="19dp" android:src="@drawable/ic_search" android:tint="#94A3B8"/>
+                <EditText android:id="@+id/etSearch" android:layout_width="match_parent" android:layout_height="48dp"
+                    android:background="@null" android:hint="Search help articles…" android:textColorHint="#94A3B8"
+                    android:textColor="#0F172A" android:textSize="14.5sp" android:fontFamily="@font/satoshi_medium"
+                    android:paddingStart="10dp" android:singleLine="true" android:imeOptions="actionSearch"/>
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
+
+            <!-- QUICK CONTACT -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal">
+                <LinearLayout android:id="@+id/cardChat" style="@style/HelpQuick" android:layout_marginEnd="10dp">
+                    <ImageView style="@style/HelpQuickIc" android:src="@drawable/ic_chat" android:backgroundTint="#DCFCE7" android:tint="#16A34A"/>
+                    <TextView style="@style/HelpQuickLbl" android:text="Chat"/>
+                </LinearLayout>
+                <LinearLayout android:id="@+id/cardEmail" style="@style/HelpQuick" android:layout_marginEnd="10dp">
+                    <ImageView style="@style/HelpQuickIc" android:src="@drawable/ic_email" android:backgroundTint="#DBEAFE" android:tint="#2563EB"/>
+                    <TextView style="@style/HelpQuickLbl" android:text="Email"/>
+                </LinearLayout>
+                <LinearLayout android:id="@+id/cardCall" style="@style/HelpQuick">
+                    <ImageView style="@style/HelpQuickIc" android:src="@drawable/ic_phone" android:backgroundTint="#EDE9FE" android:tint="#7C3AED"/>
+                    <TextView style="@style/HelpQuickLbl" android:text="Call"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- TOPICS -->
+            <TextView style="@style/HelpLabel" android:text="Browse topics"/>
+            <LinearLayout style="@style/HelpTopic">
+                <ImageView style="@style/HelpTopicIc" android:src="@drawable/ic_book" android:backgroundTint="#DBEAFE" android:tint="#2563EB"/>
+                <LinearLayout style="@style/HelpTopicText"><TextView style="@style/HelpTopicTitle" android:text="Getting started"/><TextView style="@style/HelpTopicSub" android:text="Setup, login &amp; the basics"/></LinearLayout>
+                <ImageView style="@style/HelpChevron"/>
+            </LinearLayout>
+            <LinearLayout style="@style/HelpTopic">
+                <ImageView style="@style/HelpTopicIc" android:src="@drawable/ic_clock" android:backgroundTint="#DCFCE7" android:tint="#16A34A"/>
+                <LinearLayout style="@style/HelpTopicText"><TextView style="@style/HelpTopicTitle" android:text="Attendance &amp; shifts"/><TextView style="@style/HelpTopicSub" android:text="Marking, shifts &amp; assignments"/></LinearLayout>
+                <ImageView style="@style/HelpChevron"/>
+            </LinearLayout>
+            <LinearLayout style="@style/HelpTopic">
+                <ImageView style="@style/HelpTopicIc" android:src="@drawable/ic_rupee" android:backgroundTint="#FEF3E2" android:tint="#D97706"/>
+                <LinearLayout style="@style/HelpTopicText"><TextView style="@style/HelpTopicTitle" android:text="Payroll &amp; pay"/><TextView style="@style/HelpTopicSub" android:text="Salary, advances &amp; bonus"/></LinearLayout>
+                <ImageView style="@style/HelpChevron"/>
+            </LinearLayout>
+            <LinearLayout style="@style/HelpTopic">
+                <ImageView style="@style/HelpTopicIc" android:src="@drawable/ic_people" android:backgroundTint="#EDE9FE" android:tint="#7C3AED"/>
+                <LinearLayout style="@style/HelpTopicText"><TextView style="@style/HelpTopicTitle" android:text="Employees &amp; companies"/><TextView style="@style/HelpTopicSub" android:text="Manage staff &amp; company info"/></LinearLayout>
+                <ImageView style="@style/HelpChevron"/>
+            </LinearLayout>
+
+            <!-- FAQ -->
+            <TextView style="@style/HelpLabel" android:text="Frequently asked"/>
+
+            <LinearLayout style="@style/HelpFaq">
+                <LinearLayout android:id="@+id/faqHeader1" style="@style/HelpFaqHead">
+                    <TextView style="@style/HelpFaqQ" android:text="How do I add a new employee?"/>
+                    <ImageView android:id="@+id/faqIcon1" style="@style/HelpFaqPlus"/>
+                </LinearLayout>
+                <TextView android:id="@+id/faqAnswer1" style="@style/HelpFaqA"
+                    android:text="Go to the Employees tab and tap the + button. Fill in name, phone, department and designation, then Save. The employee is added to the currently selected company."/>
+            </LinearLayout>
+
+            <LinearLayout style="@style/HelpFaq">
+                <LinearLayout android:id="@+id/faqHeader2" style="@style/HelpFaqHead">
+                    <TextView style="@style/HelpFaqQ" android:text="How does attendance marking work?"/>
+                    <ImageView android:id="@+id/faqIcon2" style="@style/HelpFaqPlus"/>
+                </LinearLayout>
+                <TextView android:id="@+id/faqAnswer2" style="@style/HelpFaqA"
+                    android:text="Open Attendance, pick the date, then choose a shift card and tap Mark attendance. You can mark employees present or absent for that shift."/>
+            </LinearLayout>
+
+            <LinearLayout style="@style/HelpFaq">
+                <LinearLayout android:id="@+id/faqHeader3" style="@style/HelpFaqHead">
+                    <TextView style="@style/HelpFaqQ" android:text="How do I assign employees to a shift?"/>
+                    <ImageView android:id="@+id/faqIcon3" style="@style/HelpFaqPlus"/>
+                </LinearLayout>
+                <TextView android:id="@+id/faqAnswer3" style="@style/HelpFaqA"
+                    android:text="From Shift Plan, tap Assign Now on a shift. Add employees from the Unassigned list, remove any you don't want, then Save shift plan."/>
+            </LinearLayout>
+
+            <LinearLayout style="@style/HelpFaq">
+                <LinearLayout android:id="@+id/faqHeader4" style="@style/HelpFaqHead">
+                    <TextView style="@style/HelpFaqQ" android:text="How do I record an advance or bonus?"/>
+                    <ImageView android:id="@+id/faqIcon4" style="@style/HelpFaqPlus"/>
+                </LinearLayout>
+                <TextView android:id="@+id/faqAnswer4" style="@style/HelpFaqA"
+                    android:text="Use Add Entry, choose Advance or Bonus, pick the employee, enter the amount and details, then Save."/>
+            </LinearLayout>
+
+            <LinearLayout style="@style/HelpFaq">
+                <LinearLayout android:id="@+id/faqHeader5" style="@style/HelpFaqHead">
+                    <TextView style="@style/HelpFaqQ" android:text="I forgot my password — what now?"/>
+                    <ImageView android:id="@+id/faqIcon5" style="@style/HelpFaqPlus"/>
+                </LinearLayout>
+                <TextView android:id="@+id/faqAnswer5" style="@style/HelpFaqA"
+                    android:text="Tap Forgot password on the login screen, or contact the BlivTech support team below and we'll help you reset it."/>
+            </LinearLayout>
+
+            <!-- SUPPORT -->
+            <TextView style="@style/HelpLabel" android:text="Still need help?"/>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical" android:background="@drawable/bg_support" android:padding="18dp">
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Contact BlivTech support"
+                    android:textColor="#FFFFFF" android:textSize="16sp" android:textStyle="bold" android:fontFamily="@font/satoshi_medium"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Mon–Sat · 9:30 AM – 6:30 PM IST"
+                    android:textColor="#CFE0FF" android:textSize="12.5sp" android:fontFamily="@font/satoshi_medium" android:layout_marginTop="3dp" android:layout_marginBottom="14dp"/>
+
+                <LinearLayout android:id="@+id/rowWhatsapp" style="@style/HelpSupportRow">
+                    <ImageView style="@style/HelpSupportIc" android:src="@drawable/ic_chat"/>
+                    <LinearLayout style="@style/HelpTopicText"><TextView style="@style/HelpSupportLbl" android:text="WHATSAPP"/><TextView style="@style/HelpSupportVal" android:text="+91 00000 00000"/></LinearLayout>
+                </LinearLayout>
+                <LinearLayout android:id="@+id/rowEmail" style="@style/HelpSupportRow">
+                    <ImageView style="@style/HelpSupportIc" android:src="@drawable/ic_email"/>
+                    <LinearLayout style="@style/HelpTopicText"><TextView style="@style/HelpSupportLbl" android:text="EMAIL"/><TextView style="@style/HelpSupportVal" android:text="support@blivtech.com"/></LinearLayout>
+                </LinearLayout>
+                <LinearLayout android:id="@+id/rowCall" style="@style/HelpSupportRow">
+                    <ImageView style="@style/HelpSupportIc" android:src="@drawable/ic_phone"/>
+                    <LinearLayout style="@style/HelpTopicText"><TextView style="@style/HelpSupportLbl" android:text="CALL"/><TextView style="@style/HelpSupportVal" android:text="+91 00000 00000"/></LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- FEEDBACK -->
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:layout_marginTop="14dp">
+                <LinearLayout android:id="@+id/btnReport" style="@style/HelpMini" android:layout_marginEnd="10dp">
+                    <ImageView style="@style/HelpMiniIc" android:src="@drawable/ic_report"/>
+                    <TextView style="@style/HelpMiniTxt" android:text="Report a problem"/>
+                </LinearLayout>
+                <LinearLayout android:id="@+id/btnFeedback" style="@style/HelpMini">
+                    <ImageView style="@style/HelpMiniIc" android:src="@drawable/ic_star"/>
+                    <TextView style="@style/HelpMiniTxt" android:text="Send feedback"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="EmpTrack v1.0 · © 2026 BlivTech"
+                android:gravity="center" android:textColor="#94A3B8" android:textSize="11.5sp" android:fontFamily="@font/satoshi_medium"
+                android:layout_marginTop="20dp" android:layout_marginBottom="8dp"/>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

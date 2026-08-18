@@ -1,5 +1,6 @@
 package com.blivtech.emptrack.ui.shiftplan.adapter
 
+import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -25,6 +26,7 @@ class AssignShiftAdapter(
 
         fun bind(emp: EmployeeEntity) {
             val initials = emp.name.split(" ")
+                .filter { it.isNotBlank() }
                 .take(2).joinToString("") { it.first().uppercase() }
 
             binding.tvInitials.text = initials
@@ -32,32 +34,20 @@ class AssignShiftAdapter(
             binding.tvEmpCode.text  = emp.empCode
 
             if (isAssigned) {
-                // ✅ Show remove button (red minus)
-                binding.root.setBackgroundResource(
-                    R.drawable.bg_card_working
-                )
-                binding.btnAction.setBackgroundResource(
-                    R.drawable.bg_circle_red
-                )
-                binding.btnAction.setImageResource(
-                    android.R.drawable.ic_delete
-                )
+                // assigned → green card + soft-red remove (✕)
+                binding.root.setBackgroundResource(R.drawable.bg_card_working)
+                binding.btnAction.setBackgroundResource(R.drawable.bg_circle_red)
+                binding.btnAction.setImageResource(R.drawable.ic_close)
+                binding.btnAction.setColorFilter(Color.parseColor("#DC2626"))
             } else {
-                // ✅ Show add button (blue plus)
-                binding.root.setBackgroundResource(
-                    R.drawable.bg_card_unselected
-                )
-                binding.btnAction.setBackgroundResource(
-                    R.drawable.bg_circle_blue
-                )
-                binding.btnAction.setImageResource(
-                    android.R.drawable.ic_input_add
-                )
+                // unassigned → dashed card + soft-blue add (+)
+                binding.root.setBackgroundResource(R.drawable.bg_card_unselected)
+                binding.btnAction.setBackgroundResource(R.drawable.bg_circle_blue)
+                binding.btnAction.setImageResource(R.drawable.ic_add)
+                binding.btnAction.setColorFilter(Color.parseColor("#2563EB"))
             }
 
-            binding.btnAction.setOnClickListener {
-                onAction(emp)
-            }
+            binding.btnAction.setOnClickListener { onAction(emp) }
         }
     }
 

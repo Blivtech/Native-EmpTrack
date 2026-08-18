@@ -34,13 +34,11 @@
     <color name="red_light">#FCEBEB</color>
 
     <!-- ✅ Blue shades -->
-    <color name="blue_dark">#0C447C</color>
-    <color name="blue_light">#E6F1FB</color>
 
     <!-- ✅ Purple shades -->
     <color name="purple_dark">#3C3489</color>
     <color name="purple_light">#EEEDFE</color>
-
+    <color name="blue_dark">#1D4ED8</color>
 
         <color name="clr_line">#DCDCDC</color>
         <color name="clr_radio">#000113</color>
@@ -240,5 +238,35 @@
     <color name="button_disabled">#B0BEC5</color>
 
 
-
+    <color name="et_paper">#EEF3FB</color>
+    <color name="et_surface">#FFFFFF</color>
+    <color name="et_ink">#132038</color>
+    <color name="et_ink2">#3A4A6B</color>
+    <color name="et_muted">#6C7A96</color>
+    <color name="et_line">#D8E2F0</color>
+    <color name="et_line_soft">#E7EEF7</color>
+    <color name="et_primary">#1E5FD1</color>
+    <color name="et_primary_deep">#12408F</color>
+    <color name="et_primary_wash">#E4EDFB</color>
+    <color name="et_cyan">#0C9BC4</color>
+    <color name="et_cyan_wash">#E0F4FA</color>
+    <color name="et_money">#0E9F55</color>
+    <color name="et_money_wash">#E1F5EB</color>
+    <color name="et_danger">#D14343</color>
+    <color name="et_danger_wash">#FBE9E9</color>
+    <color name="et_sky">#4B8DF0</color>
+    <color name="et_sky_wash">#EAF2FE</color>
+    <color name="mod_extra_ic">#4F46E5</color>
+    <color name="mod_extra_bg">#EEF0FF</color>
+    <color name="mod_shift_ic">#059669</color>
+    <color name="mod_shift_bg">#DCFCE7</color>
+    <color name="mod_work_ic">#9333EA</color>
+    <color name="mod_work_bg">#F3E8FF</color>
+    <color name="mod_salary_ic">#E11D48</color>
+    <color name="mod_salary_bg">#FFE4E6</color>
+    <color name="mod_inv_ic">#2563EB</color>
+    <color name="mod_inv_bg">#DBEAFE</color>
+    <color name="mod_contract_ic">#475569</color>
+    <color name="mod_contract_bg">#E7ECF3</color>
+    <color name="blue_light">#EFF6FF</color>
 </resources>

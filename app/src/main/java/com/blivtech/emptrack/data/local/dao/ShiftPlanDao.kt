@@ -106,4 +106,10 @@ interface ShiftPlanDao {
     AND status = 1
 """)
     suspend fun getShiftCount(companyCode: String): Int
+
+    @Query("""
+    UPDATE tbl_shift_plan  set shiftCode = :shiftCode
+    WHERE companyCode = :companyCode AND empCode = :employeeCode
+""")
+    suspend fun updateDeviationShift(employeeCode :String,companyCode: String,shiftCode: String)
 }

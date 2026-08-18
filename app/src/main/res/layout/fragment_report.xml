@@ -1,56 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F4F6F9">
+    android:background="#EEF2F8">
 
-    <!-- ✅ Topbar -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="#1565C0"
-        android:padding="13dp"
-        android:paddingBottom="14dp">
+        android:background="@drawable/bg_header"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="18dp"
+        android:paddingBottom="22dp">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
+            android:text="Reports"
+            android:textSize="24sp"
+            android:fontFamily="@font/satoshi_medium"
+            android:textStyle="bold"
+            android:textColor="#FFFFFF"/>
 
-
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Reports"
-                    android:textSize="@dimen/text_caption_lg"
-                    android:fontFamily="@font/satoshi_medium"
-                    android:textStyle="bold"
-                    android:textColor="#FFFFFF"/>
-
-                <TextView
-                    android:id="@+id/tvCompanyName"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textSize="@dimen/text_caption_small"
-                    android:fontFamily="@font/satoshi_medium"                    android:textColor="#99FFFFFF"
-                    android:layout_marginTop="1dp"/>
-            </LinearLayout>
-
-        </LinearLayout>
+        <TextView
+            android:id="@+id/tvCompanyName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="13.5sp"
+            android:letterSpacing="0.03"
+            android:fontFamily="@font/satoshi_medium"
+            android:textColor="#CFE0FF"
+            android:layout_marginTop="2dp"/>
     </LinearLayout>
 
-    <!-- ✅ Quick stats strip -->
+    <!-- Quick stats strip (kept for binding; hidden) -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -60,106 +45,62 @@
         android:padding="10dp">
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:background="@drawable/bg_circle_white15"
-            android:padding="8dp"
-            android:layout_marginEnd="5dp">
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="7"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="#FFFFFF"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Reports"
-                android:textSize="7sp"
-                android:textColor="#88FFFFFF"
-                android:layout_marginTop="1dp"/>
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:orientation="vertical" android:gravity="center"
+            android:background="@drawable/bg_circle_white15" android:padding="8dp" android:layout_marginEnd="5dp">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="7" android:textSize="16sp" android:textStyle="bold" android:textColor="#FFFFFF"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Reports" android:textSize="7sp" android:textColor="#88FFFFFF"/>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:background="@drawable/bg_circle_white15"
-            android:padding="8dp"
-            android:layout_marginEnd="5dp">
-            <TextView
-                android:id="@+id/tvTotalPresent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="—"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="#69F0AE"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Present"
-                android:textSize="7sp"
-                android:textColor="#88FFFFFF"
-                android:layout_marginTop="1dp"/>
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:orientation="vertical" android:gravity="center"
+            android:background="@drawable/bg_circle_white15" android:padding="8dp" android:layout_marginEnd="5dp">
+            <TextView android:id="@+id/tvTotalPresent" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="—" android:textSize="16sp" android:textStyle="bold" android:textColor="#69F0AE"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Present" android:textSize="7sp" android:textColor="#88FFFFFF"/>
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:background="@drawable/bg_circle_white15"
-            android:padding="8dp">
-            <TextView
-                android:id="@+id/tvTotalAbsent"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="—"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:textColor="#FF8A80"/>
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Absent"
-                android:textSize="7sp"
-                android:textColor="#88FFFFFF"
-                android:layout_marginTop="1dp"/>
+            android:layout_width="0dp" android:layout_height="wrap_content"
+            android:layout_weight="1" android:orientation="vertical" android:gravity="center"
+            android:background="@drawable/bg_circle_white15" android:padding="8dp">
+            <TextView android:id="@+id/tvTotalAbsent" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="—" android:textSize="16sp" android:textStyle="bold" android:textColor="#FF8A80"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:text="Absent" android:textSize="7sp" android:textColor="#88FFFFFF"/>
         </LinearLayout>
     </LinearLayout>
 
-    <!-- ✅ Scrollable content -->
+    <!-- Content -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:scrollbars="none">
+        android:scrollbars="none"
+        android:overScrollMode="never">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="12dp">
+            android:paddingHorizontal="16dp"
+            android:paddingTop="18dp">
 
-            <!-- Attendance section -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Attendance Reports"
-                android:textSize="@dimen/text_caption_lg"
+                android:text="Reports"
+                android:textSize="15sp"
                 android:fontFamily="@font/satoshi_medium"
                 android:textStyle="bold"
-                android:textColor="@color/black_overlay_80"
-                android:letterSpacing="0.07"
-                android:layout_marginBottom="6dp"/>
+                android:textColor="#475569"
+                android:letterSpacing="0.02"
+                android:layout_marginStart="4dp"
+                android:layout_marginBottom="12dp"/>
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rvReports"
@@ -168,9 +109,7 @@
                 android:nestedScrollingEnabled="false"
                 android:overScrollMode="never"/>
 
-            <View android:layout_width="match_parent"
-                android:layout_height="60dp"/>
-
+            <View android:layout_width="match_parent" android:layout_height="24dp"/>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

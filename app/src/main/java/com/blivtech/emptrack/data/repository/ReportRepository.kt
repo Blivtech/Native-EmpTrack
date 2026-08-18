@@ -22,10 +22,7 @@ class ReportRepository @Inject constructor(
     private val apiService: ApiService
 ) {
 
-    // ─────────────────────────────────
-    // ✅ Get shift summaries for a date
-    //    Calls → GET /api/reports/attendance/daily
-    // ─────────────────────────────────
+
     fun getShiftSummaries(
         btCode: String,
         companyCode: String,

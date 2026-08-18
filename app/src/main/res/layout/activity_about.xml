@@ -1,0 +1,576 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EEF2F8"
+    android:fillViewport="true"
+    android:scrollbars="none">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!-- HERO -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_hero"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:paddingStart="18dp"
+            android:paddingTop="42dp"
+            android:paddingEnd="18dp"
+            android:paddingBottom="30dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/ivBack"
+                    android:layout_width="38dp"
+                    android:layout_height="38dp"
+                    android:background="@drawable/bg_icon_btn"
+                    android:padding="9dp"
+                    android:src="@drawable/ic_arrow_back"
+                    android:tint="#FFFFFF" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="12dp"
+                    android:fontFamily="@font/satoshi_medium"
+                    android:text="About"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/bg_logo_card"
+                android:padding="16dp">
+
+                <ImageView
+                    android:layout_width="180dp"
+                    android:layout_height="44dp"
+                    android:adjustViewBounds="true"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/blivtech_logo" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:fontFamily="@font/satoshi_medium"
+                android:text="Makers of EmpTrack · v1.0"
+                android:textColor="#CFE0FF"
+                android:textSize="13.5sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="16dp">
+
+            <!-- WHO WE ARE -->
+            <LinearLayout style="@style/AboutCard">
+
+                <TextView
+                    style="@style/AboutTitle"
+                    android:text="Who we are" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:fontFamily="@font/satoshi_medium"
+                    android:lineSpacingExtra="4dp"
+                    android:text="BlivTech is a product-focused software company building practical tools for the teams that keep industry running. From garment factory floors to retail counters, we design software that's fast, reliable, and genuinely easy to adopt — web and mobile apps, REST APIs, and custom business systems, built end to end."
+                    android:textColor="#475569"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="14dp"
+                    android:background="@drawable/bg_mission"
+                    android:orientation="horizontal"
+                    android:padding="13dp">
+
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_marginTop="1dp"
+                        android:layout_marginEnd="11dp"
+                        android:src="@drawable/ic_target"
+                        android:tint="#2563EB" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/satoshi_medium"
+                        android:lineSpacingExtra="3dp"
+                        android:text="Our mission: simplify everyday operations for growing businesses with software that just works."
+                        android:textColor="#334155"
+                        android:textSize="13.5sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- STATS -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    style="@style/AboutStat"
+                    android:layout_marginEnd="10dp">
+
+                    <TextView
+                        style="@style/AboutStatNum"
+                        android:text="15+" />
+
+                    <TextView
+                        style="@style/AboutStatLbl"
+                        android:text="TEAM" />
+                </LinearLayout>
+
+                <LinearLayout
+                    style="@style/AboutStat"
+                    android:layout_marginEnd="10dp">
+
+                    <TextView
+                        style="@style/AboutStatNum"
+                        android:text="2" />
+
+                    <TextView
+                        style="@style/AboutStatLbl"
+                        android:text="LIVE" />
+                </LinearLayout>
+
+                <LinearLayout style="@style/AboutStat">
+
+                    <TextView
+                        style="@style/AboutStatNum"
+                        android:text="3+" />
+
+                    <TextView
+                        style="@style/AboutStatLbl"
+                        android:text="UPCOMING" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- LEADERSHIP -->
+            <TextView
+                style="@style/AboutLabel"
+                android:text="Leadership" />
+
+            <LinearLayout style="@style/AboutRowCard">
+
+                <TextView
+                    style="@style/AboutAvatar"
+                    android:backgroundTint="#2563EB"
+                    android:text="S" />
+
+                <LinearLayout style="@style/AboutRowText">
+
+                    <TextView
+                        style="@style/AboutName"
+                        android:text="Saravanakumar" />
+
+                    <TextView
+                        style="@style/AboutRole"
+                        android:text="Founder &amp; Technical Head" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_crown"
+                    android:tint="#F59E0B" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/AboutRowCard"
+                android:layout_marginTop="11dp">
+
+                <TextView
+                    style="@style/AboutAvatar"
+                    android:backgroundTint="#7C3AED"
+                    android:text="S" />
+
+                <LinearLayout style="@style/AboutRowText">
+
+                    <TextView
+                        style="@style/AboutName"
+                        android:text="Sakthi" />
+
+                    <TextView
+                        style="@style/AboutRole"
+                        android:text="Co-Founder · Marketing &amp; Sales Head" />
+                </LinearLayout>
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@drawable/ic_crown"
+                    android:tint="#F59E0B" />
+            </LinearLayout>
+
+            <!-- TEAMS -->
+            <TextView
+                style="@style/AboutLabel"
+                android:text="Our team" />
+
+            <!-- Dev -->
+            <LinearLayout style="@style/AboutCard">
+
+                <LinearLayout style="@style/AboutTeamHead">
+
+                    <ImageView
+                        style="@style/AboutTeamIcon"
+                        android:backgroundTint="#DBEAFE"
+                        android:src="@drawable/ic_code"
+                        android:tint="#2563EB" />
+
+                    <TextView
+                        style="@style/AboutTeamTitle"
+                        android:text="Software Development" />
+
+                    <TextView
+                        style="@style/AboutTeamCount"
+                        android:text="7" />
+                </LinearLayout>
+
+                <com.google.android.material.chip.ChipGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:chipSpacingHorizontal="8dp"
+                    app:chipSpacingVertical="8dp">
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/MemberChip"
+                        android:text="Guhan" />
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/MemberChip"
+                        android:text="AjithKumar" />
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/MemberChip"
+                        android:text="Dhanush" />
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/MemberChip"
+                        android:text="Senathipathy" />
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/MemberChip"
+                        android:text="UdhayaKumar" />
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/MemberChip"
+                        android:text="Thambiraj" />
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/MemberChip"
+                        android:text="Santhosh" />
+                </com.google.android.material.chip.ChipGroup>
+            </LinearLayout>
+
+            <!-- Sales -->
+            <LinearLayout
+                style="@style/AboutCard"
+                android:layout_marginTop="12dp">
+
+                <LinearLayout style="@style/AboutTeamHead">
+
+                    <ImageView
+                        style="@style/AboutTeamIcon"
+                        android:backgroundTint="#DCFCE7"
+                        android:src="@drawable/ic_trend"
+                        android:tint="#16A34A" />
+
+                    <TextView
+                        style="@style/AboutTeamTitle"
+                        android:text="Sales &amp; Marketing" />
+
+                    <TextView
+                        style="@style/AboutTeamCount"
+                        android:text="3" />
+                </LinearLayout>
+
+                <com.google.android.material.chip.ChipGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:chipSpacingHorizontal="8dp"
+                    app:chipSpacingVertical="8dp">
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/MemberChip"
+                        android:text="Subash" />
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/MemberChip"
+                        android:text="Sathishkumar" />
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/MemberChip"
+                        android:text="Ajithkumar Arjun" />
+                </com.google.android.material.chip.ChipGroup>
+            </LinearLayout>
+
+            <!-- Support -->
+            <LinearLayout
+                style="@style/AboutCard"
+                android:layout_marginTop="12dp">
+
+                <LinearLayout style="@style/AboutTeamHead">
+
+                    <ImageView
+                        style="@style/AboutTeamIcon"
+                        android:backgroundTint="#EDE9FE"
+                        android:src="@drawable/ic_support"
+                        android:tint="#7C3AED" />
+
+                    <TextView
+                        style="@style/AboutTeamTitle"
+                        android:text="Support &amp; Onboarding" />
+
+                    <TextView
+                        style="@style/AboutTeamCount"
+                        android:text="3" />
+                </LinearLayout>
+
+                <com.google.android.material.chip.ChipGroup
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:chipSpacingHorizontal="8dp"
+                    app:chipSpacingVertical="8dp">
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/MemberChip"
+                        android:text="Varun" />
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/MemberChip"
+                        android:text="NitheshKumar" />
+
+                    <com.google.android.material.chip.Chip
+                        style="@style/MemberChip"
+                        android:text="Premkumar" />
+                </com.google.android.material.chip.ChipGroup>
+            </LinearLayout>
+
+            <!-- PRODUCTS -->
+            <TextView
+                style="@style/AboutLabel"
+                android:text="Products" />
+
+            <LinearLayout style="@style/AboutProd">
+
+                <ImageView
+                    style="@style/AboutTile"
+                    android:background="@drawable/bg_tile_blue"
+                    android:src="@drawable/ic_people" />
+
+                <LinearLayout style="@style/AboutRowText">
+
+                    <TextView
+                        style="@style/AboutName"
+                        android:text="EmpOne" />
+
+                    <TextView
+                        style="@style/AboutRole2"
+                        android:text="Workforce, attendance &amp; shift management" />
+                </LinearLayout>
+
+                <TextView
+                    style="@style/BadgeLive"
+                    android:text="● LIVE" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/AboutProd">
+
+                <ImageView
+                    style="@style/AboutTile"
+                    android:background="@drawable/bg_tile_cyan"
+                    android:src="@drawable/ic_rupee" />
+
+                <LinearLayout style="@style/AboutRowText">
+
+                    <TextView
+                        style="@style/AboutName"
+                        android:text="Payroll System" />
+
+                    <TextView
+                        style="@style/AboutRole2"
+                        android:text="Salary, advances, bonus &amp; payslips" />
+                </LinearLayout>
+
+                <TextView
+                    style="@style/BadgeLive"
+                    android:text="● LIVE" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/AboutProd">
+
+                <ImageView
+                    style="@style/AboutTile"
+                    android:background="@drawable/bg_tile_green"
+                    android:src="@drawable/ic_cart" />
+
+                <LinearLayout style="@style/AboutRowText">
+
+                    <TextView
+                        style="@style/AboutName"
+                        android:text="FMCG Distribution" />
+
+                    <TextView
+                        style="@style/AboutRole2"
+                        android:text="Stock, distribution &amp; field sales" />
+                </LinearLayout>
+
+                <TextView
+                    style="@style/BadgeSoon"
+                    android:text="SOON" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/AboutProd">
+
+                <ImageView
+                    style="@style/AboutTile"
+                    android:background="@drawable/bg_tile_pink"
+                    android:src="@drawable/ic_health" />
+
+                <LinearLayout style="@style/AboutRowText">
+
+                    <TextView
+                        style="@style/AboutName"
+                        android:text="Hospital App" />
+
+                    <TextView
+                        style="@style/AboutRole2"
+                        android:text="Patient, staff &amp; OP management" />
+                </LinearLayout>
+
+                <TextView
+                    style="@style/BadgeSoon"
+                    android:text="SOON" />
+            </LinearLayout>
+
+            <LinearLayout style="@style/AboutProd">
+
+                <ImageView
+                    style="@style/AboutTile"
+                    android:background="@drawable/bg_tile_amber"
+                    android:src="@drawable/ic_orders" />
+
+                <LinearLayout style="@style/AboutRowText">
+
+                    <TextView
+                        style="@style/AboutName"
+                        android:text="Order Management" />
+
+                    <TextView
+                        style="@style/AboutRole2"
+                        android:text="Orders, billing &amp; fulfilment" />
+                </LinearLayout>
+
+                <TextView
+                    style="@style/BadgeSoon"
+                    android:text="SOON" />
+            </LinearLayout>
+
+            <!-- CONTACT -->
+            <TextView
+                style="@style/AboutLabel"
+                android:text="Get in touch" />
+
+            <LinearLayout style="@style/AboutCard">
+
+                <LinearLayout style="@style/ContactRow">
+
+                    <ImageView
+                        style="@style/ContactIcon"
+                        android:src="@drawable/ic_web" />
+
+                    <LinearLayout style="@style/AboutRowText">
+
+                        <TextView
+                            style="@style/ContactLbl"
+                            android:text="WEBSITE" />
+
+                        <TextView
+                            style="@style/ContactVal"
+                            android:text="blivtech.com" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View style="@style/ContactDiv" />
+
+                <LinearLayout style="@style/ContactRow">
+
+                    <ImageView
+                        style="@style/ContactIcon"
+                        android:src="@drawable/ic_email" />
+
+                    <LinearLayout style="@style/AboutRowText">
+
+                        <TextView
+                            style="@style/ContactLbl"
+                            android:text="EMAIL" />
+
+                        <TextView
+                            style="@style/ContactVal"
+                            android:text="hello@blivtech.com" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View style="@style/ContactDiv" />
+
+                <LinearLayout style="@style/ContactRow">
+
+                    <ImageView
+                        style="@style/ContactIcon"
+                        android:src="@drawable/ic_phone" />
+
+                    <LinearLayout style="@style/AboutRowText">
+
+                        <TextView
+                            style="@style/ContactLbl"
+                            android:text="PHONE" />
+
+                        <TextView
+                            style="@style/ContactVal"
+                            android:text="+91 00000 00000" />
+                    </LinearLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="22dp"
+                android:layout_marginBottom="10dp"
+                android:fontFamily="@font/satoshi_medium"
+                android:gravity="center"
+                android:lineSpacingExtra="3dp"
+                android:text="© 2026 BlivTech · EmpTrack v1.0\nMade with care in Tamil Nadu, India"
+                android:textColor="#94A3B8"
+                android:textSize="11.5sp" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

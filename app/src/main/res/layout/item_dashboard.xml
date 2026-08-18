@@ -1,43 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- Compact module tile — matches HTML mock. IDs unchanged so DashboardAdapter works as-is:
+     iconHolder (bg tinted via item.iconBgColor) · icon (glyph tinted via item.iconColor) · title -->
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:gravity="center"
-    android:layout_margin="8dp"
-    android:background="@drawable/bg_card"
-    android:elevation="4dp"
-    android:clickable="true"
-    android:focusable="true"
-    android:foreground="?android:attr/selectableItemBackground"
-     android:padding="20dp">
+    android:layout_margin="6dp"
+    android:paddingVertical="16dp"
+    android:paddingHorizontal="6dp"
+    android:background="@drawable/bg_module_card">
 
-    <!-- Colored rounded-square icon holder -->
     <FrameLayout
         android:id="@+id/iconHolder"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:background="@drawable/bg_icon_squircle">
+        android:layout_width="44dp"
+        android:layout_height="44dp"
+        android:background="@drawable/bg_module_chip">
 
         <ImageView
             android:id="@+id/icon"
-            android:layout_width="24dp"
-            android:layout_height="24dp"
+            android:layout_width="22dp"
+            android:layout_height="22dp"
             android:layout_gravity="center"
-            android:contentDescription="@null"
-            android:src="@drawable/ic_extra_pay" />
+            android:src="@drawable/ic_nav_home" />
     </FrameLayout>
 
     <TextView
         android:id="@+id/title"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Title"
-        android:textColor="@color/title_text"
-        android:fontFamily="@font/satoshi_medium"
-        android:textSize="@dimen/text_caption_md"
+        android:text="Work-Based Pay"
+        android:gravity="center"
+        android:maxLines="2"
+        android:ellipsize="end"
+        android:textSize="11.5sp"
         android:textStyle="bold"
-        android:gravity="center" />
+        android:fontFamily="@font/satoshi_medium"
+        android:textColor="#0F172A"
+        android:layout_marginTop="10dp" />
 </LinearLayout>

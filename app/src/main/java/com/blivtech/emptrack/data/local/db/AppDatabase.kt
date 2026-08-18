@@ -15,9 +15,12 @@ import com.blivtech.emptrack.data.local.entity.*
         EmployeeEntity::class,
         ContractProductEntity::class,
         UnitEntity::class,
-        ContractEntryEntity::class
+        ContractEntryEntity::class,ProductEntity::class,
+        ProductWorkEntity::class,
+        WorkEntryEntity::class
+
     ],
-    version = 1,
+    version = 2,
     exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
@@ -30,4 +33,8 @@ abstract class AppDatabase : RoomDatabase() {
     abstract fun contractProductDao(): ContractProductDao
     abstract fun unitDao(): UnitDao
     abstract fun contractEntryDao(): ContractEntryDao
+    abstract fun productDao(): ProductDao
+    abstract fun workEntryDao(): WorkEntryDao
+
+
 }

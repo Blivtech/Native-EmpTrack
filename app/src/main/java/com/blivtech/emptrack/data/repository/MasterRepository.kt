@@ -2,10 +2,13 @@ package com.blivtech.emptrack.data.repository
 
 import com.blivtech.emptrack.data.local.dao.*
 import com.blivtech.emptrack.data.local.entity.*
+import com.blivtech.emptrack.data.model.ProductRequestDto
 import com.blivtech.emptrack.data.network.ApiService
 import com.blivtech.emptrack.ui.home.SyncResult
 import com.blivtech.emptrack.utils.Resource
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -17,6 +20,7 @@ class MasterRepository @Inject constructor(
     private val departmentDao: DepartmentDao,
     private val employeeDao: EmployeeDao,
     private val designationDao: DesignationDao,
+    private val productDao: ProductDao,
 ) {
     suspend fun syncMasterData(btCode: String): Resource<SyncResult> {
         return try {
@@ -31,7 +35,8 @@ class MasterRepository @Inject constructor(
                     shiftDao.deleteByBtCode(btCode)
                     departmentDao.deleteByBtCode(btCode)
                     designationDao.deleteByBtCode(btCode)
-
+                    productDao.deleteWorksByBtCode(btCode)
+                    productDao.deleteByBtCode(btCode)
                     // Save companies
                     val companies = data.companies.map { c ->
                         CompanyEntity(
@@ -116,6 +121,25 @@ class MasterRepository @Inject constructor(
                     }
                     employeeDao.insertAll(employeeEntities)
 
+                    val products = data.products.map { p ->
+                        ProductEntity(
+                            id = p.id, btCode = p.btCode, companyCode = p.companyCode,
+                            productCode = p.productCode, name = p.name, unit = p.unit,
+                            icon = p.icon, status = p.status
+                        )
+                    }
+                    productDao.insertAll(products)
+
+                    val productWorks = data.products.flatMap { p ->
+                        p.works.map { w ->
+                            ProductWorkEntity(
+                                productId = p.id, btCode = p.btCode, companyCode = p.companyCode,
+                                workTypeId = w.workTypeId, workCode = w.workCode,
+                                workName = w.workName, rate = w.rate
+                            )
+                        }
+                    }
+                    productDao.insertAllWorks(productWorks)
 
 
                     Resource.Success(
@@ -144,4 +168,7 @@ class MasterRepository @Inject constructor(
 
     fun getDepartments(btCode: String): Flow<List<DepartmentEntity>> =
         departmentDao.getDepartmentsByBtCode(btCode)
+
+
+
 }

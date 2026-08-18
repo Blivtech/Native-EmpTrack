@@ -16,6 +16,7 @@ import com.blivtech.emptrack.R
 import com.blivtech.emptrack.data.local.entity.ShiftEntity
 import com.blivtech.emptrack.data.model.WeeklyEmployeeSummaryDto
 import com.blivtech.emptrack.databinding.ActivityWeeklyReportBinding
+import com.blivtech.emptrack.ui.report.adapter.WeeklyReportAdapter
 import com.blivtech.emptrack.utils.PreferenceManager
 import com.blivtech.emptrack.utils.Resource
 import com.blivtech.emptrack.utils.ShimmerHelper
@@ -30,6 +31,9 @@ class WeeklyReportActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityWeeklyReportBinding
     private val viewModel: WeeklyReportViewModel by viewModels()
+    private val weeklyAdapter by lazy {
+        WeeklyReportAdapter { emp, type -> openEmployeeDetail(emp, type) }
+    }
 
     @Inject
     lateinit var preferenceManager: PreferenceManager
@@ -74,6 +78,9 @@ class WeeklyReportActivity : AppCompatActivity() {
             viewModel.nextWeek()
             loadData()
         }
+        binding.rvWeeklyRows.layoutManager =
+            androidx.recyclerview.widget.LinearLayoutManager(this)
+        binding.rvWeeklyRows.adapter = weeklyAdapter
     }
 
     // ─────────────────────────────────
@@ -84,7 +91,7 @@ class WeeklyReportActivity : AppCompatActivity() {
             if (currentTab != "OVERALL") {
                 currentTab = "OVERALL"
                 updateTabUI()
-                binding.scrollShiftChips.visibility = View.GONE
+               // binding.scrollShiftChips.visibility = View.GONE
                 loadData()
             }
         }
@@ -93,7 +100,7 @@ class WeeklyReportActivity : AppCompatActivity() {
             if (currentTab != "SHIFT") {
                 currentTab = "SHIFT"
                 updateTabUI()
-                binding.scrollShiftChips.visibility = View.VISIBLE
+            //    binding.scrollShiftChips.visibility = View.VISIBLE
                 loadData()
             }
         }
@@ -160,12 +167,8 @@ class WeeklyReportActivity : AppCompatActivity() {
         }
     }
 
-    // ─────────────────────────────────
-    // ✅ Observe data
-    // ─────────────────────────────────
     private fun observeData() {
 
-        // ✅ Week labels
         viewModel.weekLabel.observe(this) {
             binding.tvWeekLabel.text = it
         }
@@ -250,72 +253,23 @@ class WeeklyReportActivity : AppCompatActivity() {
         present: Int, absent: Int,
         holiday: Int, weekOff: Int
     ) {
-        binding.tvSumPresent.text = present.toString()
-        binding.tvSumAbsent.text  = absent.toString()
-        binding.tvSumHoliday.text = holiday.toString()
-        binding.tvSumWeekOff.text = weekOff.toString()
+        binding.tvPresent.text = present.toString()
+        binding.tvLeave.text  = absent.toString()
+        binding.tvHoliday.text = holiday.toString()
+        binding.tvWeekOff.text = weekOff.toString()
     }
 
-    // ─────────────────────────────────
-    // ✅ Build table rows
-    // ─────────────────────────────────
-    private fun buildTable(employees: List<WeeklyEmployeeSummaryDto>) {
-        binding.layoutTableRows.removeAllViews()
 
+    private fun buildTable(employees: List<WeeklyEmployeeSummaryDto>) {
         if (employees.isEmpty()) {
             binding.layoutEmpty.visibility     = View.VISIBLE
-            binding.layoutTable.visibility     = View.GONE
-            return
+            binding.rvWeeklyRows.visibility    = View.GONE
+        } else {
+            binding.layoutEmpty.visibility     = View.GONE
+            binding.rvWeeklyRows.visibility    = View.VISIBLE
+            weeklyAdapter.submitList(employees)
         }
-
-        binding.layoutEmpty.visibility     = View.GONE
-        binding.layoutTable.visibility     = View.VISIBLE
-
-        employees.forEach { emp ->
-            val row = LayoutInflater.from(this).inflate(
-                R.layout.item_monthly_report_row,   // ✅ Reuse same layout!
-                binding.layoutTableRows,
-                false
-            )
-
-            // ✅ Employee info
-            row.findViewById<TextView>(R.id.tvEmpName).text = emp.empName
-            row.findViewById<TextView>(R.id.tvEmpCode).text = emp.empCode
-
-            // ✅ Present — tappable
-            val tvPresent = row.findViewById<TextView>(R.id.tvPresent)
-            tvPresent.text = emp.presentDays.toString()
-            tvPresent.setOnClickListener {
-                openEmployeeDetail(emp, "PRESENT")
-            }
-
-            // ✅ Absent — tappable
-            val tvAbsent = row.findViewById<TextView>(R.id.tvAbsent)
-            tvAbsent.text = emp.absentDays.toString()
-            tvAbsent.setOnClickListener {
-                openEmployeeDetail(emp, "ABSENT")
-            }
-
-            // ✅ Holiday — tappable
-            val tvHoliday = row.findViewById<TextView>(R.id.tvHoliday)
-            tvHoliday.text = emp.holidayDays.toString()
-            tvHoliday.setOnClickListener {
-                openEmployeeDetail(emp, "HOLIDAY")
-            }
-
-            // ✅ Week Off — tappable
-            val tvWeekOff = row.findViewById<TextView>(R.id.tvWeekOff)
-            tvWeekOff.text = emp.weekOffDays.toString()
-            tvWeekOff.setOnClickListener {
-                openEmployeeDetail(emp, "WEEKOFF")
-            }
-
-            // ✅ Total
-            row.findViewById<TextView>(R.id.tvTotal).text =
-                emp.totalDays.toString()
-
-            binding.layoutTableRows.addView(row)
-        }
+        binding.layoutTable.visibility = View.VISIBLE
     }
 
     // ─────────────────────────────────

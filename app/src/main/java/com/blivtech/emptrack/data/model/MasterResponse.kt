@@ -10,7 +10,8 @@ data class MasterData(
     val companies: List<CompanyData>,
     val designations: List<DesignationData>,
     val departments: List<DepartmentData>,
-    val employees: List<EmployeeData>
+    val employees: List<EmployeeData>,
+    val products: List<ProductData>
 )
 
 data class CompanyData(
@@ -74,4 +75,22 @@ data class EmployeeData(
     val salaryAmount: Double?,
     val lastAppraisalDate: String?,
     val status: Int
+)
+data class ProductData(
+    val id: Long,
+    val btCode: String,
+    val companyCode: String,
+    val productCode: String,
+    val name: String,
+    val unit: String,
+    val icon: String?,
+    val status: Int,
+    val works: List<ProductWorkData>
+)
+
+data class ProductWorkData(
+    val workTypeId: Long,
+    val workCode: String?,
+    val workName: String,
+    val rate: Double
 )

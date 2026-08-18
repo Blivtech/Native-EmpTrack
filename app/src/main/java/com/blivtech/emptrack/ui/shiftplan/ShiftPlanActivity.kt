@@ -73,7 +73,7 @@ class ShiftPlanActivity : AppCompatActivity() {
             getEmpNames   = { shiftCode -> viewModel.getShiftEmpNames(shiftCode) }
         )
 
-        binding.rvShiftCards.apply {
+        binding.rvShifts.apply {
             layoutManager = LinearLayoutManager(this@ShiftPlanActivity)
             adapter = shiftAdapter
         }
@@ -143,8 +143,8 @@ class ShiftPlanActivity : AppCompatActivity() {
         // Last-week copy banner
         viewModel.hasLastWeekPlan.observe(this) { hasLastWeek ->
             val weekPlanEmpty = viewModel.weekPlan.value.isNullOrEmpty()
-            binding.layoutCopyBanner.visibility =
-                if (hasLastWeek && weekPlanEmpty) View.VISIBLE else View.GONE
+//            binding.layoutCopyBanner.visibility =
+//                if (hasLastWeek && weekPlanEmpty) View.VISIBLE else View.GONE
         }
 
         // FIX 6: saveState was never observed — now we reload after copy
@@ -152,7 +152,7 @@ class ShiftPlanActivity : AppCompatActivity() {
             if (success) {
                 viewModel.loadWeekPlan(companyCode)
                 viewModel.resetSaveState()
-                binding.layoutCopyBanner.visibility = View.GONE
+              //  binding.layoutCopyBanner.visibility = View.GONE
             }
         }
     }
@@ -163,11 +163,11 @@ class ShiftPlanActivity : AppCompatActivity() {
     private fun updateUnassignedWarning() {
         val unassigned = viewModel.getUnassignedCount()
         if (unassigned > 0) {
-            binding.layoutUnassignedWarning.visibility = View.VISIBLE
-            binding.tvUnassignedCount.text =
+            binding.layoutWarning.visibility = View.VISIBLE
+            binding.tvWarning.text =
                 "$unassigned employee${if (unassigned > 1) "s" else ""} not assigned to any shift this week"
         } else {
-            binding.layoutUnassignedWarning.visibility = View.GONE
+            binding.layoutWarning.visibility = View.GONE
         }
     }
 

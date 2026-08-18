@@ -4,11 +4,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="8dp"
+    android:layout_marginBottom="12dp"
     android:clickable="true"
     android:focusable="true"
-    app:cardCornerRadius="4dp"
-    app:cardElevation="2dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="3dp"
     app:cardBackgroundColor="#FFFFFF">
 
     <LinearLayout
@@ -16,19 +16,19 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:padding="10dp">
+        android:padding="15dp">
 
-        <!-- Avatar -->
+        <!-- Avatar (rounded square) -->
         <TextView
             android:id="@+id/tvInitials"
-            android:layout_width="42dp"
-            android:layout_height="42dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:gravity="center"
-            android:textSize="@dimen/text_caption_md"
+            android:textSize="18sp"
             android:textStyle="bold"
-            android:textColor="#0C447C"
-            android:background="@drawable/bg_circle_blue"
-            android:layout_marginEnd="12dp"/>
+            android:textColor="#1D4ED8"
+            android:background="@drawable/bg_ava_blue"
+            android:layout_marginEnd="13dp" />
 
         <!-- Info -->
         <LinearLayout
@@ -42,26 +42,34 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/satoshi_medium"
-                android:textSize="@dimen/text_caption_md"
+                android:textSize="16sp"
                 android:textStyle="bold"
-                android:textColor="#212121"/>
+                android:textColor="#0F172A" />
 
             <TextView
                 android:id="@+id/tvEmpRole"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/satoshi_medium"
-                android:textSize="@dimen/text_caption_small"
-                android:layout_marginTop="2dp"/>
+                android:textAllCaps="true"
+                android:letterSpacing="0.05"
+                android:textSize="10.5sp"
+                android:textStyle="bold"
+                android:textColor="#94A3B8"
+                android:layout_marginTop="2dp" />
 
             <TextView
                 android:id="@+id/tvEmpDept"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/satoshi_medium"
-                android:textSize="@dimen/text_caption_small"
-                android:textColor="@color/clr_blue_80"
-                android:layout_marginTop="1dp"/>
+                android:textSize="13sp"
+                android:textStyle="bold"
+                android:textColor="#2563EB"
+                android:drawableStart="@drawable/ic_phone"
+                android:drawableTint="#2563EB"
+                android:drawablePadding="5dp"
+                android:layout_marginTop="7dp" />
         </LinearLayout>
 
         <!-- Right side -->
@@ -69,7 +77,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:gravity="center"
+            android:gravity="end"
             android:layout_marginStart="8dp">
 
             <TextView
@@ -77,22 +85,25 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/satoshi_medium"
-                android:textSize="@dimen/text_caption_small"                android:paddingStart="8dp"
-                android:paddingEnd="8dp"
-                android:paddingTop="2dp"
-                android:paddingBottom="2dp"
-                android:layout_marginBottom="6dp"/>
+                android:textSize="11sp"
+                android:textStyle="bold"
+                android:textColor="#16A34A"
+                android:paddingStart="11dp"
+                android:paddingEnd="11dp"
+                android:paddingTop="5dp"
+                android:paddingBottom="5dp"
+                android:layout_marginBottom="10dp" />
 
-            <!-- Call button -->
             <ImageView
                 android:id="@+id/ivCall"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+                android:layout_width="42dp"
+                android:layout_height="42dp"
                 android:src="@drawable/ic_phone"
-                android:tint="#27500A"
-                android:background="@drawable/bg_circle_green"
-                android:padding="7dp"/>
+                android:tint="#16A34A"
+                android:background="@drawable/bg_call_green"
+                android:padding="11dp"
+                android:clickable="true"
+                android:focusable="true" />
         </LinearLayout>
-
     </LinearLayout>
 </androidx.cardview.widget.CardView>

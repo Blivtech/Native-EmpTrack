@@ -1,60 +1,58 @@
-<?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:orientation="horizontal"
-    android:gravity="center_vertical"
-    android:background="@drawable/bg_card_unselected"
-    android:padding="9dp"
-    android:layout_marginBottom="6dp">
-
-    <!-- Avatar -->
-    <TextView
-        android:id="@+id/tvInitials"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        android:gravity="center"
-        android:textSize="10sp"
-        android:textStyle="bold"
-        android:textColor="#0C447C"
-        android:background="@drawable/bg_circle_blue"
-        android:layout_marginEnd="10dp"/>
-
-    <!-- Name + code -->
-    <LinearLayout
-        android:layout_width="0dp"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:orientation="vertical">
-
+        android:layout_marginBottom="11dp"
+        android:background="@drawable/bg_card_unselected"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="13dp"
+        android:paddingTop="12dp"
+        android:paddingEnd="12dp"
+        android:paddingBottom="12dp">
+        <!--  Avatar  -->
         <TextView
-            android:id="@+id/tvEmpName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/text_caption_md"
+            android:id="@+id/tvInitials"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:layout_marginEnd="13dp"
+            android:background="@drawable/bg_circle_blue"
             android:fontFamily="@font/satoshi_medium"
-            android:textStyle="bold"
-            android:textColor="#212121"/>
+            android:gravity="center"
+            android:textColor="#1D4ED8"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+        <!--  Name + code  -->
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
 
-        <TextView
-            android:id="@+id/tvEmpCode"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textSize="@dimen/text_caption_small"
-            android:fontFamily="@font/satoshi_medium"
-            android:textColor="#757575"
-            android:layout_marginTop="1dp"/>
+            <TextView
+                android:id="@+id/tvEmpName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/satoshi_medium"
+                android:textColor="#0F172A"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tvEmpCode"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
+                android:fontFamily="@font/satoshi_medium"
+                android:textColor="#94A3B8"
+                android:textSize="13sp" />
+        </LinearLayout>
+        <!--  Add / Remove button  -->
+        <ImageButton
+            android:id="@+id/btnAction"
+            android:layout_width="38dp"
+            android:layout_height="38dp"
+            android:background="@drawable/bg_circle_blue"
+            android:padding="9dp"
+            android:scaleType="centerInside"
+            android:src="@drawable/ic_add" />
     </LinearLayout>
-
-    <!-- Add / Remove button -->
-    <ImageButton
-        android:id="@+id/btnAction"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:background="@drawable/bg_circle_blue"
-        android:src="@android:drawable/ic_input_add"
-        android:tint="#FFFFFF"
-        android:padding="6dp"/>
-
-</LinearLayout>

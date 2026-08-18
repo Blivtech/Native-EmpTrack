@@ -1,319 +1,251 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#F5F7FA">
-
-    <!-- Top Bar -->
+    android:background="#EEF2F8"
+    android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:background="@drawable/bg_header"
         android:gravity="center_vertical"
-        android:background="#1565C0"
-        android:padding="15dp">
+        android:orientation="horizontal"
+        android:paddingStart="16dp"
+        android:paddingTop="42dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="18dp">
 
         <ImageView
             android:id="@+id/ivBack"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="12dp"
+            android:background="@drawable/bg_icon_btn"
+            android:padding="10dp"
             android:src="@drawable/ic_arrow_back"
-            app:tint="@color/white"
-            android:layout_marginEnd="10dp"
-             />
+            app:tint="@color/white" />
 
         <TextView
             android:id="@+id/tvTitle"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:fontFamily="@font/satoshi_medium"
             android:text="Add company"
-            android:textSize="18sp"
-            android:textStyle="bold"
-            android:textColor="#FFFFFF"/>
+            android:textColor="#FFFFFF"
+            android:textSize="21sp"
+            android:textStyle="bold" />
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnDelete"
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="wrap_content"
-            android:layout_height="36dp"
+            android:layout_height="38dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
             android:text="Delete"
-            android:textColor="#FF6B6B"
+            android:textAllCaps="false"
+            android:textColor="#FFFFFF"
             android:textSize="12sp"
             android:visibility="gone"
-            app:strokeColor="#FF6B6B"
-            app:cornerRadius="20dp"/>
+            app:cornerRadius="12dp"
+            app:strokeColor="#66FFFFFF" />
     </LinearLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:scrollbars="none">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="10dp">
-
-            <!-- Company Info Card -->
-            <androidx.cardview.widget.CardView
+            android:padding="16dp">
+            <!--  COMPANY INFO  -->
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                app:cardCornerRadius="4dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="#FFFFFF">
+                android:background="@drawable/bg_form_card"
+                android:orientation="vertical"
+                android:padding="18dp">
+
+                <TextView
+                    style="@style/CoSection"
+                    android:text="Company information" />
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilName"
+                    style="@style/CoTil"
+                    android:hint="Company name *"
+                    app:startIconDrawable="@drawable/ic_company">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionNext"
+                        android:inputType="textCapWords" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilAddress"
+                    style="@style/CoTil"
+                    android:hint="Address"
+                    app:startIconDrawable="@drawable/ic_pin">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="textMultiLine"
+                        android:maxLines="2" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilCity"
+                    style="@style/CoTil"
+                    android:hint="City"
+                    app:startIconDrawable="@drawable/ic_city">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etCity"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionNext" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilState"
+                    style="@style/CoTil"
+                    android:hint="State"
+                    app:startIconDrawable="@drawable/ic_state">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etState"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionNext" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilPhone"
+                    style="@style/CoTil"
+                    android:hint="Phone"
+                    app:startIconDrawable="@drawable/ic_phone">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etPhone"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionNext"
+                        android:inputType="phone" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/tilEmail"
+                    style="@style/CoTil"
+                    android:layout_marginBottom="0dp"
+                    android:hint="Email"
+                    app:startIconDrawable="@drawable/ic_email">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/etEmail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:imeOptions="actionDone"
+                        android:inputType="textEmailAddress" />
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+            <!--  SHIFTS  -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="14dp"
+                android:background="@drawable/bg_form_card"
+                android:orientation="vertical"
+                android:padding="18dp">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="10dp">
+                    android:layout_marginBottom="12dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
                     <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/satoshi_medium"
+                        android:text="Shifts"
+                        android:textColor="#2563EB"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/btnAddShift"
+                        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Company information"
-                        android:textSize="14sp"
-                        android:textStyle="bold"
-                        android:textColor="#1565C0"
-                        android:layout_marginBottom="14dp"/>
-
-                    <!-- Company Name -->
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tilName"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:hint="Company name *"
-                        app:boxCornerRadiusTopStart="4dp"
-                        app:boxCornerRadiusTopEnd="4dp"
-                        app:boxCornerRadiusBottomStart="4dp"
-                        app:boxCornerRadiusBottomEnd="4dp"
-                        app:boxStrokeColor="#1565C0"
-                        app:hintTextColor="#1565C0">
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/etName"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="textCapWords"
-                            android:imeOptions="actionNext"/>
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <!-- Address -->
-                    <com.google.android.material.textfield.TextInputLayout
-                        android:id="@+id/tilAddress"
-                        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:hint="Address"
-                        app:boxCornerRadiusTopStart="4dp"
-                        app:boxCornerRadiusTopEnd="4dp"
-                        app:boxCornerRadiusBottomStart="4dp"
-                        app:boxCornerRadiusBottomEnd="4dp"
-                        app:boxStrokeColor="#1565C0"
-                        app:hintTextColor="#1565C0">
-                        <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/etAddress"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:inputType="textMultiLine"
-                            android:maxLines="2"/>
-                    </com.google.android.material.textfield.TextInputLayout>
-
-                    <!-- City & State Row -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:layout_marginBottom="10dp">
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/tilCity"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_marginEnd="8dp"
-                            android:hint="City"
-                            app:boxCornerRadiusTopStart="4dp"
-                            app:boxCornerRadiusTopEnd="4dp"
-                            app:boxCornerRadiusBottomStart="4dp"
-                            app:boxCornerRadiusBottomEnd="4dp"
-                            app:boxStrokeColor="#1565C0"
-                            app:hintTextColor="#1565C0">
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/etCity"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:imeOptions="actionNext"/>
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/tilState"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:hint="State"
-                            app:boxCornerRadiusTopStart="4dp"
-                            app:boxCornerRadiusTopEnd="4dp"
-                            app:boxCornerRadiusBottomStart="4dp"
-                            app:boxCornerRadiusBottomEnd="4dp"
-                            app:boxStrokeColor="#1565C0"
-                            app:hintTextColor="#1565C0">
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/etState"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:imeOptions="actionNext"/>
-                        </com.google.android.material.textfield.TextInputLayout>
-                    </LinearLayout>
-
-                    <!-- Phone & Email Row -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/tilPhone"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:layout_marginEnd="8dp"
-                            android:hint="Phone"
-                            app:boxCornerRadiusTopStart="4dp"
-                            app:boxCornerRadiusTopEnd="4dp"
-                            app:boxCornerRadiusBottomStart="4dp"
-                            app:boxCornerRadiusBottomEnd="4dp"
-                            app:boxStrokeColor="#1565C0"
-                            app:hintTextColor="#1565C0">
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/etPhone"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:inputType="phone"
-                                android:imeOptions="actionNext"/>
-                        </com.google.android.material.textfield.TextInputLayout>
-
-                        <com.google.android.material.textfield.TextInputLayout
-                            android:id="@+id/tilEmail"
-                            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:hint="Email"
-                            app:boxCornerRadiusTopStart="4dp"
-                            app:boxCornerRadiusTopEnd="4dp"
-                            app:boxCornerRadiusBottomStart="4dp"
-                            app:boxCornerRadiusBottomEnd="4dp"
-                            app:boxStrokeColor="#1565C0"
-                            app:hintTextColor="#1565C0">
-                            <com.google.android.material.textfield.TextInputEditText
-                                android:id="@+id/etEmail"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:inputType="textEmailAddress"
-                                android:imeOptions="actionNext"/>
-                        </com.google.android.material.textfield.TextInputLayout>
-                    </LinearLayout>
-
+                        android:fontFamily="@font/satoshi_medium"
+                        android:insetTop="0dp"
+                        android:insetBottom="0dp"
+                        android:paddingStart="12dp"
+                        android:paddingEnd="12dp"
+                        android:text="+ Add shift"
+                        android:textAllCaps="false"
+                        android:textColor="#2563EB"
+                        android:textSize="12.5sp"
+                        app:cornerRadius="11dp"
+                        app:strokeColor="#2563EB" />
                 </LinearLayout>
-            </androidx.cardview.widget.CardView>
 
-            <!-- Shifts Card -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="10dp"
-                app:cardCornerRadius="4dp"
-                app:cardElevation="2dp"
-                app:cardBackgroundColor="#FFFFFF">
-
-                <LinearLayout
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rvShifts"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:padding="10dp">
+                    android:nestedScrollingEnabled="false" />
 
-                    <!-- Shift header -->
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:gravity="center_vertical"
-                        android:layout_marginBottom="10dp">
+                <TextView
+                    android:id="@+id/tvNoShifts"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:fontFamily="@font/satoshi_medium"
+                    android:paddingTop="8dp"
+                    android:paddingBottom="4dp"
+                    android:text="No shifts added yet. Tap + Add shift"
+                    android:textColor="#94A3B8"
+                    android:textSize="12.5sp"
+                    android:visibility="visible" />
+            </LinearLayout>
 
-                        <TextView
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:text="Shifts"
-                            android:textSize="14sp"
-                            android:textStyle="bold"
-                            android:textColor="#1565C0"/>
-
-                        <com.google.android.material.button.MaterialButton
-                            android:id="@+id/btnAddShift"
-                            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="+ Add shift"
-                            android:textSize="11sp"
-                            android:textColor="#1565C0"
-                            app:strokeColor="#1565C0"
-                            app:cornerRadius="4dp"/>
-                    </LinearLayout>
-
-                    <!-- Shift RecyclerView -->
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rvShifts"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:nestedScrollingEnabled="false"/>
-
-                    <!-- Empty shifts hint -->
-                    <TextView
-                        android:id="@+id/tvNoShifts"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="No shifts added yet. Tap + Add shift"
-                        android:textSize="12sp"
-                        android:textColor="#BDBDBD"
-                        android:layout_gravity="center_horizontal"
-                        android:visibility="visible"/>
-
-                </LinearLayout>
-            </androidx.cardview.widget.CardView>
-
-            <!-- Save Button -->
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnSave"
                 android:layout_width="match_parent"
-                android:layout_height="52dp"
+                android:layout_height="54dp"
+                android:layout_marginTop="18dp"
+                android:background="@drawable/bg_btn_primary"
+                android:fontFamily="@font/satoshi_medium"
                 android:text="Save company"
-                android:textSize="15sp"
+                android:textAllCaps="false"
+                android:textSize="15.5sp"
                 android:textStyle="bold"
-                app:cornerRadius="14dp"
-                app:backgroundTint="#1565C0"/>
+                app:backgroundTint="@null"
+                app:elevation="0dp" />
 
             <ProgressBar
                 android:id="@+id/progressBar"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="10dp"
-                android:visibility="gone"
-                android:indeterminateTint="#1565C0"/>
-
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="12dp"
+                android:indeterminateTint="#2563EB"
+                android:visibility="gone" />
         </LinearLayout>
     </ScrollView>
 </LinearLayout>

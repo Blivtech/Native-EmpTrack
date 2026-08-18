@@ -4,22 +4,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F7FA">
+    android:background="#EEF2F8">
 
-    <!-- Blue Header -->
     <LinearLayout
         android:id="@+id/layoutHeader"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="#1565C0"
+        android:background="@drawable/bg_header"
         android:padding="16dp"
-        android:paddingBottom="22dp"
+        android:paddingBottom="24dp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
-        <!-- Top row: greeting + buttons -->
+        <!-- Top row: greeting + actions -->
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -38,10 +37,10 @@
                     android:id="@+id/tvGreeting"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Good morning,"
+                    android:text="Good evening,"
                     android:fontFamily="@font/satoshi_medium"
                     android:textSize="@dimen/text_caption_vs"
-                    android:textColor="#B3ffffff"/>
+                    android:textColor="#B3ffffff" />
 
                 <TextView
                     android:id="@+id/tvUserName"
@@ -49,12 +48,12 @@
                     android:layout_height="wrap_content"
                     android:text="Saravanan R"
                     android:fontFamily="@font/satoshi_medium"
-                    android:textSize="@dimen/text_caption_lg"                    android:textStyle="bold"
+                    android:textSize="@dimen/text_caption_lg"
+                    android:textStyle="bold"
                     android:textColor="#FFFFFF"
-                    android:layout_marginTop="1dp"/>
+                    android:layout_marginTop="1dp" />
             </LinearLayout>
 
-            <!-- Avatar -->
             <TextView
                 android:id="@+id/tvAvatar"
                 android:layout_width="40dp"
@@ -67,9 +66,8 @@
                 android:background="@drawable/bg_avatar"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintBottom_toBottomOf="parent" />
 
-            <!-- Notification -->
             <ImageView
                 android:id="@+id/ivNotification"
                 android:layout_width="36dp"
@@ -81,9 +79,8 @@
                 app:layout_constraintEnd_toStartOf="@id/tvAvatar"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginEnd="8dp"/>
+                android:layout_marginEnd="8dp" />
 
-            <!-- Sync -->
             <ImageView
                 android:id="@+id/ivSync"
                 android:layout_width="36dp"
@@ -96,8 +93,7 @@
                 app:layout_constraintEnd_toStartOf="@id/ivNotification"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginEnd="8dp"/>
-
+                android:layout_marginEnd="8dp" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <!-- Company selector -->
@@ -106,40 +102,47 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/bg_company_pill"
-            android:padding="9dp"
-            android:layout_marginBottom="14dp">
+            android:padding="11dp">
 
-            <ImageView
-                android:id="@+id/ivCompanyIcon"
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:src="@android:drawable/ic_dialog_map"
-                android:tint="#CCffffff"
+            <!-- Badge chip -->
+            <FrameLayout
+                android:id="@+id/companyBadge"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:background="@drawable/bg_company_badge"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginEnd="8dp"/>
+                app:layout_constraintBottom_toBottomOf="parent">
+
+                <ImageView
+                    android:id="@+id/ivCompanyIcon"
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center"
+                    android:src="@android:drawable/ic_dialog_map"
+                    android:tint="#FFFFFF" />
+            </FrameLayout>
 
             <LinearLayout
-                android:id="@+id/layoutCompanyText"
                 android:layout_width="0dp"
-                app:layout_goneMarginStart="5dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                app:layout_constraintStart_toEndOf="@id/ivCompanyIcon"
-                app:layout_constraintEnd_toStartOf="@id/ivCompanyArrow"
+                app:layout_constraintStart_toEndOf="@id/companyBadge"
+                app:layout_constraintEnd_toStartOf="@id/switchPill"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintBottom_toBottomOf="parent"
-                android:layout_marginStart="8dp"
+                android:layout_marginStart="13dp"
                 android:layout_marginEnd="8dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Active company"
+                    android:textAllCaps="true"
+                    android:letterSpacing="0.04"
                     android:textSize="@dimen/text_caption_small"
                     android:fontFamily="@font/satoshi_medium"
-                    android:textColor="#99ffffff"/>
+                    android:textColor="#99ffffff" />
 
                 <TextView
                     android:id="@+id/tvCompanyName"
@@ -147,126 +150,103 @@
                     android:layout_height="wrap_content"
                     android:text="Loading..."
                     android:textSize="@dimen/text_caption_md"
-                    android:fontFamily="@font/satoshi_medium"                    android:textStyle="bold"
+                    android:fontFamily="@font/satoshi_medium"
+                    android:textStyle="bold"
                     android:textColor="#FFFFFF"
-                    android:layout_marginTop="1dp"/>
+                    android:layout_marginTop="1dp" />
             </LinearLayout>
 
-            <ImageView
-                android:id="@+id/ivCompanyArrow"
-                android:layout_width="14dp"
-                android:layout_height="14dp"
-                android:tint="#80ffffff"
+            <!-- Switch pill -->
+            <LinearLayout
+                android:id="@+id/switchPill"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical"
+                android:background="@drawable/bg_switch_pill"
+                android:paddingHorizontal="10dp"
+                android:paddingVertical="6dp"
+                android:clickable="true"
+                android:focusable="true"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintBottom_toBottomOf="parent"/>
+                app:layout_constraintBottom_toBottomOf="parent">
 
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Switch"
+                    android:textSize="11sp"
+                    android:textStyle="bold"
+                    android:fontFamily="@font/satoshi_medium"
+                    android:textColor="#DBE7FF" />
+
+                <ImageView
+                    android:layout_width="12dp"
+                    android:layout_height="12dp"
+                    android:src="@drawable/ic_chevron_down"
+                    android:tint="#DBE7FF"
+                    android:layout_marginStart="3dp" />
+            </LinearLayout>
         </androidx.constraintlayout.widget.ConstraintLayout>
-
-        <!-- Stats row -->
-        <LinearLayout
-            android:visibility="gone"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="4">
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:background="@drawable/bg_stat_pill"
-                android:padding="8dp"
-                android:layout_marginEnd="5dp">
-                <TextView android:id="@+id/tvTotalEmp" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textSize="18sp" android:textStyle="bold" android:textColor="#FFFFFF"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Employees" android:textSize="9sp" android:textColor="#99ffffff"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:background="@drawable/bg_stat_pill"
-                android:padding="8dp"
-                android:layout_marginEnd="5dp">
-                <TextView android:id="@+id/tvPresent" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textSize="18sp" android:textStyle="bold" android:textColor="#FFFFFF"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Present" android:textSize="9sp" android:textColor="#99ffffff"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:background="@drawable/bg_stat_pill"
-                android:padding="8dp"
-                android:layout_marginEnd="5dp">
-                <TextView android:id="@+id/tvPartial" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textSize="18sp" android:textStyle="bold" android:textColor="#FFFFFF"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Partial" android:textSize="9sp" android:textColor="#99ffffff"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center"
-                android:background="@drawable/bg_stat_pill"
-                android:padding="8dp">
-                <TextView android:id="@+id/tvAbsent" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0" android:textSize="18sp" android:textStyle="bold" android:textColor="#FFFFFF"/>
-                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Absent" android:textSize="9sp" android:textColor="#99ffffff"/>
-            </LinearLayout>
-
-        </LinearLayout>
     </LinearLayout>
 
-    <!-- Scrollable content -->
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/scrollContent"
+    <!-- ───────── Scrollable content: ads + modules ───────── -->
+    <androidx.core.widget.NestedScrollView
         android:layout_width="0dp"
         android:layout_height="0dp"
+        android:fillViewport="true"
+        android:overScrollMode="never"
         app:layout_constraintTop_toBottomOf="@id/layoutHeader"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
 
         <LinearLayout
-            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="14dp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent">
+            android:paddingTop="16dp"
+            android:paddingBottom="14dp">
 
+            <!-- Ad / announcement carousel -->
+            <androidx.viewpager2.widget.ViewPager2
+                android:id="@+id/vpBanner"
+                android:layout_width="match_parent"
+                android:layout_height="140dp" />
+
+            <!-- Dots (built in code) -->
+            <LinearLayout
+                android:id="@+id/dotsContainer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="12dp" />
+
+            <!-- Section heading -->
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="8dp"
-                android:text="Quick Modules"
+                android:text="Quick modules"
                 android:textColor="#212121"
                 android:textSize="@dimen/text_caption_md"
                 android:fontFamily="@font/satoshi_medium"
-                android:textStyle="bold" />
+                android:textStyle="bold"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginBottom="12dp" />
+
+            <!-- Compact module tiles -->
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvModules"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="16dp"
+                android:clipToPadding="false"
+                android:nestedScrollingEnabled="false"
+                android:overScrollMode="never" />
         </LinearLayout>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvModules"
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:overScrollMode="never"
-            android:layout_marginBottom="10dp"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/linearLayout"/>
-
-    </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.core.widget.NestedScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

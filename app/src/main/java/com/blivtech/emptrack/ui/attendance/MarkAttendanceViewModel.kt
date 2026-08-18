@@ -144,18 +144,24 @@ class MarkAttendanceViewModel @Inject constructor(
     // ─────────────────────────────────────
     // ✅ Add deviation employees
     // ─────────────────────────────────────
-    fun addDeviationEmployees(empCodes: List<String>) {
+    fun addDeviationEmployees(shiftCode:String,companyCode:String,empCodes: List<String>) {
         val allEmps = _allCompanyEmployees.value ?: return
         val currentList = _employees.value?.toMutableList() ?: mutableListOf()
 
         empCodes.forEach { empCode ->
             deviationEmpCodes.add(empCode)
+
             val emp = allEmps.find { it.empCode == empCode }
             if (emp != null && currentList.none { it.empCode == empCode }) {
                 currentList.add(emp)
             }
-        }
+            viewModelScope.launch {
+                shiftPlanRepository.updateDeviationShift(empCode,companyCode,shiftCode)  }
+           }
         _employees.value = currentList
+
+
+
     }
 
     // ─────────────────────────────────────

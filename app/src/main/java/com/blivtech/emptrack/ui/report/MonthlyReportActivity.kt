@@ -243,52 +243,31 @@ class MonthlyReportActivity : AppCompatActivity() {
             binding.layoutTableRows.visibility = View.GONE
             return
         }
-
         binding.layoutEmpty.visibility     = View.GONE
         binding.layoutTableRows.visibility = View.VISIBLE
 
         employees.forEach { emp ->
             val row = LayoutInflater.from(this).inflate(
-                R.layout.item_monthly_report_row,
-                binding.layoutTableRows,
-                false
+                R.layout.item_monthly_report_row, binding.layoutTableRows, false
             )
-
-            // ✅ Employee info
             row.findViewById<TextView>(R.id.tvEmpName).text = emp.empName
             row.findViewById<TextView>(R.id.tvEmpCode).text = emp.empCode
 
-            // ✅ Present count — tappable
-            val tvPresent = row.findViewById<TextView>(R.id.tvPresent)
-            tvPresent.text = emp.presentDays.toString()
-            tvPresent.setOnClickListener {
-                openEmployeeDetail(emp, "PRESENT")
-            }
+            val tvP  = row.findViewById<TextView>(R.id.tvP)
+            val tvL  = row.findViewById<TextView>(R.id.tvL)
+            val tvH  = row.findViewById<TextView>(R.id.tvH)
+            val tvWO = row.findViewById<TextView>(R.id.tvWO)
 
-            // ✅ Absent count — tappable
-            val tvAbsent = row.findViewById<TextView>(R.id.tvAbsent)
-            tvAbsent.text = emp.absentDays.toString()
-            tvAbsent.setOnClickListener {
-                openEmployeeDetail(emp, "ABSENT")
-            }
+            tvP.text  = emp.presentDays.toString()
+            tvL.text  = emp.absentDays.toString()
+            tvH.text  = emp.holidayDays.toString()
+            tvWO.text = emp.weekOffDays.toString()
+            row.findViewById<TextView>(R.id.tvTotal).text = emp.totalDays.toString()
 
-            // ✅ Holiday count — tappable
-            val tvHoliday = row.findViewById<TextView>(R.id.tvHoliday)
-            tvHoliday.text = emp.holidayDays.toString()
-            tvHoliday.setOnClickListener {
-                openEmployeeDetail(emp, "HOLIDAY")
-            }
-
-            // ✅ WeekOff count — tappable
-            val tvWeekOff = row.findViewById<TextView>(R.id.tvWeekOff)
-            tvWeekOff.text = emp.weekOffDays.toString()
-            tvWeekOff.setOnClickListener {
-                openEmployeeDetail(emp, "WEEKOFF")
-            }
-
-            // ✅ Total — not tappable
-            row.findViewById<TextView>(R.id.tvTotal).text =
-                emp.totalDays.toString()
+            tvP.setOnClickListener  { openEmployeeDetail(emp, "PRESENT") }
+            tvL.setOnClickListener  { openEmployeeDetail(emp, "ABSENT") }
+            tvH.setOnClickListener  { openEmployeeDetail(emp, "HOLIDAY") }
+            tvWO.setOnClickListener { openEmployeeDetail(emp, "WEEKOFF") }
 
             binding.layoutTableRows.addView(row)
         }

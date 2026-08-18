@@ -80,9 +80,15 @@ class EmployeeWeeklyDetailActivity : AppCompatActivity() {
         )
     }
 
-    // ─────────────────────────────────
-    // ✅ Render full detail
-    // ─────────────────────────────────
+    private fun statusColors(status: String): Pair<String, String> = when (status) {
+        "P"       -> "#F0FDF4" to "#15803D"
+        "A"       -> "#FEF2F2" to "#B91C1C"
+        "L"       -> "#FEF3C7" to "#B45309"
+        "H"       -> "#EDE9FE" to "#6D28D9"
+        "W", "WO" -> "#F1F5F9" to "#64748B"
+        else      -> "#F1F5F9" to "#64748B"
+    }
+
     private fun renderDetail(detail: EmployeeWeeklyDetail) {
 
         // ✅ Count bar
@@ -312,28 +318,13 @@ class EmployeeWeeklyDetailActivity : AppCompatActivity() {
         }
     }
 
-    // ─────────────────────────────────
-    // ✅ Helper — status bg + text color
-    // ─────────────────────────────────
-    private fun statusColors(status: String): Pair<String, String> {
-        return when (status) {
-            "P"       -> "#EAF3DE" to "#27500A"
-            "A"       -> "#FCEBEB" to "#E24B4A"
-            "L"       -> "#FAEEDA" to "#633806"
-            "H"       -> "#EEEDFE" to "#3C3489"
-            "W", "WO" -> "#F5F5F5" to "#9E9E9E"
-            else      -> "#F5F5F5" to "#9E9E9E"
-        }
-    }
 
-    // ✅ Rounded background for badge
-    private fun getRoundedBg(hexColor: String): android.graphics.drawable.GradientDrawable {
-        return android.graphics.drawable.GradientDrawable().apply {
-            shape         = android.graphics.drawable.GradientDrawable.RECTANGLE
-            cornerRadius  = dpToPx(8).toFloat()
+    private fun getRoundedBg(hexColor: String): android.graphics.drawable.GradientDrawable =
+        android.graphics.drawable.GradientDrawable().apply {
+            shape        = android.graphics.drawable.GradientDrawable.RECTANGLE
+            cornerRadius = dpToPx(11).toFloat()
             setColor(Color.parseColor(hexColor))
         }
-    }
 
     // ✅ dp → px
     private fun dpToPx(dp: Int): Int =

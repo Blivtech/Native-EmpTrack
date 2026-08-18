@@ -16,8 +16,6 @@ import com.blivtech.emptrack.utils.PreferenceManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
-import java.text.SimpleDateFormat
-import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
@@ -34,8 +32,6 @@ class ReportsFragment : Fragment() {
     private var companyName = ""
     private var companyCode = ""
     private var btCode      = ""
-
-    private val monthFmt = SimpleDateFormat("MMM yyyy", Locale.getDefault())
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -77,48 +73,49 @@ class ReportsFragment : Fragment() {
             ReportItem(
                 id = "DAILY", name = "Daily Report",
                 subtitle = "Shift-wise attendance by date",
-                category = "ATTENDANCE", tag = "Daily",
-                iconRes = R.drawable.ic_nav_reports,
-                iconBgColor = "#E6F1FB", iconTintColor = "#0C447C",
+                category = "ATTENDANCE", tag = "",
+                iconRes = R.drawable.ic_rep_daily,
+                iconBgColor = "#DBEAFE", iconTintColor = "#2563EB",
                 destination = DailyReportActivity::class.java
             ),
             ReportItem(
                 id = "WEEKLY", name = "Weekly Report",
                 subtitle = "Shift-wise summary by week",
-                category = "ATTENDANCE", tag = "Weekly",
-                iconRes = R.drawable.ic_nav_reports,
-                iconBgColor = "#EAF3DE", iconTintColor = "#27500A",
+                category = "ATTENDANCE", tag = "",
+                iconRes = R.drawable.ic_rep_weekly,
+                iconBgColor = "#DCFCE7", iconTintColor = "#16A34A",
                 destination = WeeklyReportActivity::class.java
             ),
             ReportItem(
                 id = "MONTHLY", name = "Monthly Report",
                 subtitle = "Monthly attendance summary",
-                category = "ATTENDANCE", tag = "Monthly",
-                iconRes = R.drawable.ic_nav_reports,
-                iconBgColor = "#EEEDFE", iconTintColor = "#3C3489",
+                category = "ATTENDANCE", tag = "",
+                iconRes = R.drawable.ic_rep_monthly,
+                iconBgColor = "#EEF0FF", iconTintColor = "#4F46E5",
                 destination = MonthlyReportActivity::class.java
-            )  ,     ReportItem(
+            ),
+            ReportItem(
                 id = "ADVANCE", name = "Advance Report",
                 subtitle = "Advance summary",
-                category = "ADVANCE", tag = "Monthly",
-                iconRes = R.drawable.ic_nav_reports,
-                iconBgColor = "#EEEDFE", iconTintColor = "#3C3489",
+                category = "PAY", tag = "",
+                iconRes = R.drawable.ic_rep_advance,
+                iconBgColor = "#FEF3E2", iconTintColor = "#D97706",
                 destination = AdvanceReportActivity::class.java
             ),
-                    ReportItem(
+            ReportItem(
                 id = "OVERTIME", name = "Overtime Report",
                 subtitle = "Overtime summary",
-                category = "OVERTIME", tag = "Monthly",
-                iconRes = R.drawable.ic_nav_reports,
-                iconBgColor = "#EEEDFE", iconTintColor = "#3C3489",
+                category = "PAY", tag = "",
+                iconRes = R.drawable.ic_rep_overtime,
+                iconBgColor = "#CCFBF1", iconTintColor = "#0D9488",
                 destination = OvertimeReportActivity::class.java
             ),
-                    ReportItem(
-                id = "BOUNS", name = "Bouns Report",
-                subtitle = "Bouns summary",
-                category = "BOUNS", tag = "Monthly",
-                iconRes = R.drawable.ic_nav_reports,
-                iconBgColor = "#EEEDFE", iconTintColor = "#3C3489",
+            ReportItem(
+                id = "BONUS", name = "Bonus Report",
+                subtitle = "Bonus summary",
+                category = "PAY", tag = "",
+                iconRes = R.drawable.ic_rep_bonus,
+                iconBgColor = "#FFE4E6", iconTintColor = "#E11D48",
                 destination = BonusReportActivity::class.java
             )
         )

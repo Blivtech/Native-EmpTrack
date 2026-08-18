@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="10dp">
+
+    <EditText android:id="@+id/workName" android:layout_width="0dp" android:layout_weight="1" android:layout_height="48dp"
+        android:hint="Work name" android:fontFamily="@font/satoshi_medium" android:textSize="14.5sp" android:textStyle="bold"
+        android:textColor="#0F172A" android:textColorHint="#94A3B8" android:background="@drawable/bg_field"
+        android:paddingStart="13dp" android:paddingEnd="13dp" android:inputType="textCapWords" android:singleLine="true"/>
+
+    <LinearLayout android:layout_width="wrap_content" android:layout_height="48dp" android:orientation="horizontal"
+        android:gravity="center_vertical" android:background="@drawable/bg_field" android:paddingStart="12dp" android:paddingEnd="10dp" android:layout_marginStart="8dp">
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="₹"
+            android:fontFamily="@font/satoshi_medium" android:textStyle="bold" android:textSize="14.5sp" android:textColor="#94A3B8"/>
+        <EditText android:id="@+id/rate" android:layout_width="66dp" android:layout_height="wrap_content"
+            android:hint="0.00" android:fontFamily="@font/satoshi_medium" android:textSize="14.5sp" android:textStyle="bold"
+            android:textColor="#0F172A" android:textColorHint="#CBD5E1" android:background="@null" android:gravity="end"
+            android:inputType="numberDecimal" android:singleLine="true"/>
+    </LinearLayout>
+
+    <ImageView android:id="@+id/remove" android:layout_width="38dp" android:layout_height="38dp"
+        android:src="@drawable/ic_close" android:tint="#DC2626" android:padding="10dp" android:background="@drawable/bg_remove"
+        android:layout_marginStart="8dp" android:clickable="true" android:focusable="true"/>
+</LinearLayout>

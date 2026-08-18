@@ -1,128 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
+    android:background="@drawable/bg_row_divider"
     android:gravity="center_vertical"
-    android:padding="8dp"
-    android:layout_marginVertical="5dp"
-    android:paddingStart="11dp"
-    android:background="?attr/selectableItemBackground">
+    android:orientation="horizontal"
+    android:paddingStart="12dp"
+    android:paddingTop="12dp"
+    android:paddingEnd="12dp"
+    android:paddingBottom="12dp">
 
-    <!-- Employee name + code -->
     <LinearLayout
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="2.5"
+        android:layout_weight="1"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/tvEmpName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_caption_small"
             android:fontFamily="@font/satoshi_medium"
-            android:textStyle="bold"
-            android:textColor="#212121"/>
+            android:textColor="#0F172A"
+            android:textSize="15.5sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvEmpCode"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_caption_small"
+            android:layout_marginTop="1dp"
             android:fontFamily="@font/satoshi_medium"
-            android:textColor="#BDBDBD"
-            android:layout_marginTop="1dp"/>
+            android:textColor="#94A3B8"
+            android:textSize="12.5sp" />
     </LinearLayout>
 
-    <!-- Present — tappable -->
     <TextView
-        android:id="@+id/tvPresent"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:textSize="@dimen/text_caption_small"
-        android:fontFamily="@font/satoshi_medium"
-        android:textStyle="bold"
-        android:textColor="#27500A"
-        android:background="@drawable/bg_card_working"
-        android:paddingStart="4dp"
-        android:paddingEnd="4dp"
-        android:paddingTop="3dp"
-        android:paddingBottom="3dp"
-        android:layout_marginEnd="3dp"
-        android:clickable="true"
-        android:focusable="true"/>
-
-    <!-- Absent — tappable -->
-    <TextView
-        android:id="@+id/tvAbsent"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:textSize="@dimen/text_caption_small"
-        android:fontFamily="@font/satoshi_medium"
-        android:textStyle="bold"
-        android:textColor="#E24B4A"
-        android:background="@drawable/bg_badge_red_light"
-        android:paddingStart="4dp"
-        android:paddingEnd="4dp"
-        android:paddingTop="3dp"
-        android:paddingBottom="3dp"
-        android:layout_marginEnd="3dp"
-        android:clickable="true"
-        android:focusable="true"/>
-
-    <!-- Holiday — tappable -->
-    <TextView
-        android:id="@+id/tvHoliday"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:textSize="@dimen/text_caption_small"
-        android:fontFamily="@font/satoshi_medium"
-        android:textStyle="bold"
-        android:textColor="#3C3489"
-        android:background="@drawable/bg_badge_purple"
-        android:paddingStart="4dp"
-        android:paddingEnd="4dp"
-        android:paddingTop="3dp"
-        android:paddingBottom="3dp"
-        android:layout_marginEnd="3dp"
-        android:clickable="true"
-        android:focusable="true"/>
+        android:id="@+id/tvP"
+        style="@style/WkPill"
+        android:background="@drawable/bg_pill_p"
+        android:textColor="#16A34A" />
 
     <TextView
-        android:id="@+id/tvWeekOff"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:textSize="@dimen/text_caption_small"
-        android:fontFamily="@font/satoshi_medium"          android:textStyle="bold"
-        android:textColor="#9E9E9E"
-        android:background="@drawable/bg_badge_grey"
-        android:paddingStart="4dp"
-        android:paddingEnd="4dp"
-        android:paddingTop="3dp"
-        android:paddingBottom="3dp"
-        android:layout_marginEnd="3dp"
-        android:clickable="true"
-        android:focusable="true"/>
+        android:id="@+id/tvL"
+        style="@style/WkPill"
+        android:background="@drawable/bg_pill_l"
+        android:textColor="#DC2626" />
+
+    <TextView
+        android:id="@+id/tvH"
+        style="@style/WkPill"
+        android:background="@drawable/bg_pill_h"
+        android:textColor="#FFFFFF" />
+
+    <TextView
+        android:id="@+id/tvWO"
+        style="@style/WkPill"
+        android:background="@drawable/bg_pill_wo"
+        android:textColor="#94A3B8" />
 
     <TextView
         android:id="@+id/tvTotal"
-        android:layout_width="0dp"
+        android:layout_width="44dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:gravity="center"
-        android:textSize="@dimen/text_caption_small"
         android:fontFamily="@font/satoshi_medium"
-        android:textStyle="bold"
-        android:textColor="#1565C0"/>
-
+        android:gravity="center"
+        android:textColor="#2563EB"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 </LinearLayout>

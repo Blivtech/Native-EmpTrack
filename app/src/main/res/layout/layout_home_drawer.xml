@@ -1,43 +1,34 @@
-<?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/drawer"
-    android:layout_width="300dp"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
-    android:elevation="8dp">
-
-    <!-- Drawer header -->
+    android:background="#FFFFFF"
+    android:orientation="vertical">
     <LinearLayout
-        android:id="@+id/drawerHeader"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
         android:background="#1565C0"
-        android:padding="16dp"
-        android:paddingTop="40dp"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingStart="20dp"
+        android:paddingTop="48dp"
+        android:paddingEnd="16dp"
+        android:paddingBottom="22dp">
 
-        <!-- Avatar -->
         <TextView
             android:id="@+id/tvDrawerAvatar"
-            android:layout_width="52dp"
-            android:layout_height="52dp"
+            android:layout_width="58dp"
+            android:layout_height="58dp"
+            android:background="@drawable/bg_avatar"
             android:gravity="center"
             android:text="SR"
-            android:textSize="18sp"
-            android:textStyle="bold"
             android:textColor="#FFFFFF"
-            android:background="@drawable/bg_avatar"
-            android:layout_marginEnd="12dp"/>
+            android:textSize="19sp"
+            android:textStyle="bold" />
 
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
@@ -45,381 +36,280 @@
                 android:id="@+id/tvDrawerName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/satoshi_medium"
                 android:text="Saravanan R"
-                android:textSize="15sp"
-                android:textStyle="bold"
-                android:textColor="#FFFFFF"/>
+                android:textColor="#FFFFFF"
+                android:textSize="18sp"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tvDrawerPhone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="9876543210"
-                android:textSize="11sp"
-                android:textColor="#CCffffff"
-                android:layout_marginTop="2dp"/>
+                android:layout_marginTop="2dp"
+                android:text="BT0005"
+                android:textColor="#CFE0FF"
+                android:textSize="12.5sp" />
 
             <TextView
                 android:id="@+id/tvDrawerCode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="1dp"
                 android:text="BT0005 · Admin"
-                android:textSize="10sp"
-                android:textColor="#99ffffff"
-                android:layout_marginTop="2dp"/>
+                android:textColor="#CFE0FF"
+                android:textSize="12.5sp" />
         </LinearLayout>
-    </LinearLayout>
-
-    <!-- Menu items scroll -->
-    <ScrollView
-        android:id="@+id/scrollDrawer"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:scrollbars="none"
-        app:layout_constraintTop_toBottomOf="@id/drawerHeader"
-        app:layout_constraintBottom_toTopOf="@id/layoutLogout"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="12dp">
-
-            <!-- Sync -->
-            <LinearLayout
-                android:id="@+id/menuSync"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:padding="10dp"
-                android:background="@drawable/bg_menu_item"
-                android:layout_marginBottom="4dp">
-
-                <LinearLayout
-                    android:layout_width="34dp"
-                    android:layout_height="34dp"
-                    android:gravity="center"
-                    android:background="@drawable/bg_circle_blue"
-                    android:layout_marginEnd="12dp">
-                    <ImageView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:src="@android:drawable/ic_popup_sync"
-                        android:tint="#0C447C"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Sync data"
-                        android:textSize="13sp"
-                        android:textStyle="bold"
-                        android:textColor="#212121"/>
-                    <TextView
-                        android:id="@+id/tvLastSynced"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Last synced: just now"
-                        android:textSize="10sp"
-                        android:textColor="#9E9E9E"
-                        android:layout_marginTop="1dp"/>
-                </LinearLayout>
-
-                <ImageView
-                    android:layout_width="14dp"
-                    android:layout_height="14dp"
-                    android:src="@android:drawable/arrow_down_float"
-                    android:tint="#BDBDBD"
-                    android:rotation="-90"/>
-            </LinearLayout>
-
-            <!-- Profile -->
-            <LinearLayout
-                android:id="@+id/menuProfile"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:padding="10dp"
-                android:background="@drawable/bg_menu_item"
-                android:layout_marginBottom="4dp">
-
-                <LinearLayout
-                    android:layout_width="34dp"
-                    android:layout_height="34dp"
-                    android:gravity="center"
-                    android:background="@drawable/bg_circle_green"
-                    android:layout_marginEnd="12dp">
-                    <ImageView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:src="@android:drawable/ic_menu_myplaces"
-                        android:tint="#27500A"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="My profile"
-                        android:textSize="13sp"
-                        android:textStyle="bold"
-                        android:textColor="#212121"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="View &amp; edit profile"
-                        android:textSize="10sp"
-                        android:textColor="#9E9E9E"
-                        android:layout_marginTop="1dp"/>
-                </LinearLayout>
-
-                <ImageView
-                    android:layout_width="14dp"
-                    android:layout_height="14dp"
-                    android:src="@android:drawable/arrow_down_float"
-                    android:tint="#BDBDBD"
-                    android:rotation="-90"/>
-            </LinearLayout>
-
-            <!-- Companies -->
-            <LinearLayout
-                android:id="@+id/menuCompanies"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:padding="10dp"
-                android:background="@drawable/bg_menu_item"
-                android:layout_marginBottom="4dp">
-
-                <LinearLayout
-                    android:layout_width="34dp"
-                    android:layout_height="34dp"
-                    android:gravity="center"
-                    android:background="@drawable/bg_circle_amber"
-                    android:layout_marginEnd="12dp">
-                    <ImageView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:src="@android:drawable/ic_dialog_map"
-                        android:tint="#633806"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Companies"
-                        android:textSize="13sp"
-                        android:textStyle="bold"
-                        android:textColor="#212121"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Manage &amp; switch company"
-                        android:textSize="10sp"
-                        android:textColor="#9E9E9E"
-                        android:layout_marginTop="1dp"/>
-                </LinearLayout>
-
-                <ImageView
-                    android:layout_width="14dp"
-                    android:layout_height="14dp"
-                    android:src="@android:drawable/arrow_down_float"
-                    android:tint="#BDBDBD"
-                    android:rotation="-90"/>
-            </LinearLayout>
-
-            <!-- Settings -->
-            <LinearLayout
-                android:id="@+id/menuSettings"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:padding="10dp"
-                android:background="@drawable/bg_menu_item"
-                android:layout_marginBottom="4dp">
-
-                <LinearLayout
-                    android:layout_width="34dp"
-                    android:layout_height="34dp"
-                    android:gravity="center"
-                    android:background="@drawable/bg_circle_blue_dark"
-                    android:layout_marginEnd="12dp">
-                    <ImageView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:src="@android:drawable/ic_menu_preferences"
-                        android:tint="#FFFFFF"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Settings"
-                        android:textSize="13sp"
-                        android:textStyle="bold"
-                        android:textColor="#212121"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="App preferences"
-                        android:textSize="10sp"
-                        android:textColor="#9E9E9E"
-                        android:layout_marginTop="1dp"/>
-                </LinearLayout>
-
-                <ImageView
-                    android:layout_width="14dp"
-                    android:layout_height="14dp"
-                    android:src="@android:drawable/arrow_down_float"
-                    android:tint="#BDBDBD"
-                    android:rotation="-90"/>
-            </LinearLayout>
-
-            <!-- Divider -->
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:background="#E0E0E0"
-                android:layout_marginTop="4dp"
-                android:layout_marginBottom="4dp"/>
-
-            <!-- Help -->
-            <LinearLayout
-                android:id="@+id/menuHelp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="center_vertical"
-                android:padding="10dp"
-                android:background="@drawable/bg_menu_item">
-
-                <LinearLayout
-                    android:layout_width="34dp"
-                    android:layout_height="34dp"
-                    android:gravity="center"
-                    android:background="@drawable/bg_circle_white"
-                    android:layout_marginEnd="12dp">
-                    <ImageView
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        android:src="@android:drawable/ic_menu_info_details"
-                        android:tint="#444441"/>
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Help &amp; support"
-                        android:textSize="13sp"
-                        android:textStyle="bold"
-                        android:textColor="#212121"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="FAQ · Contact us"
-                        android:textSize="10sp"
-                        android:textColor="#9E9E9E"
-                        android:layout_marginTop="1dp"/>
-                </LinearLayout>
-
-                <ImageView
-                    android:layout_width="14dp"
-                    android:layout_height="14dp"
-                    android:src="@android:drawable/arrow_down_float"
-                    android:tint="#BDBDBD"
-                    android:rotation="-90"/>
-            </LinearLayout>
-
-        </LinearLayout>
-    </ScrollView>
-
-    <!-- Logout button -->
-    <LinearLayout
-        android:id="@+id/layoutLogout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:background="@drawable/bg_logout_btn"
-        android:padding="12dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginBottom="16dp"
-        app:layout_constraintBottom_toTopOf="@id/tvVersion"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent">
-
-        <LinearLayout
-            android:layout_width="34dp"
-            android:layout_height="34dp"
-            android:gravity="center"
-            android:background="@drawable/bg_circle_red"
-            android:layout_marginEnd="12dp">
-            <ImageView
-                android:layout_width="18dp"
-                android:layout_height="18dp"
-                android:src="@android:drawable/ic_menu_close_clear_cancel"
-                android:tint="#791F1F"/>
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Logout"
-            android:textSize="13sp"
-            android:textStyle="bold"
-            android:textColor="#791F1F"/>
 
         <ImageView
-            android:layout_width="14dp"
-            android:layout_height="14dp"
-            android:src="@android:drawable/arrow_down_float"
-            android:tint="#A32D2D"
-            android:rotation="-90"/>
+            android:id="@+id/ivDrawerClose"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_gravity="top"
+            android:background="@drawable/bg_circle_white"
+            android:padding="7dp"
+            android:src="@drawable/ic_close"
+            android:tint="#FFFFFF" />
+    </LinearLayout>
+    <!--  ───────── Menu rows ─────────  -->
+    <LinearLayout
+        android:id="@+id/menuSync"
+        style="@style/DrawerRow">
+
+        <FrameLayout
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/bg_drawer_chip"
+            android:backgroundTint="#E7F0FF">
+
+            <ImageView
+                android:layout_width="21dp"
+                android:layout_height="21dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_sync"
+                android:tint="#2563EB" />
+        </FrameLayout>
+
+        <LinearLayout style="@style/DrawerRowText">
+
+            <TextView
+                style="@style/DrawerTitle"
+                android:text="Sync data" />
+
+            <TextView
+                style="@style/DrawerSub"
+                android:text="Last synced: just now" />
+        </LinearLayout>
+
+        <ImageView style="@style/DrawerChevron" />
     </LinearLayout>
 
-    <!-- Version -->
-    <TextView
-        android:id="@+id/tvVersion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="EmpTrack v1.0 · © 2026"
-        android:textSize="10sp"
-        android:textColor="#BDBDBD"
-        android:layout_marginBottom="12dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"/>
+    <LinearLayout
+        android:id="@+id/menuProfile"
+        style="@style/DrawerRow">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <FrameLayout
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/bg_drawer_chip"
+            android:backgroundTint="#EAF7EF">
+
+            <ImageView
+                android:layout_width="21dp"
+                android:layout_height="21dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_profile"
+                android:tint="#16A34A" />
+        </FrameLayout>
+
+        <LinearLayout style="@style/DrawerRowText">
+
+            <TextView
+                style="@style/DrawerTitle"
+                android:text="My profile" />
+
+            <TextView
+                style="@style/DrawerSub"
+                android:text="View  edit profile" />
+        </LinearLayout>
+
+        <ImageView style="@style/DrawerChevron" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/menuCompanies"
+        style="@style/DrawerRow">
+
+        <FrameLayout
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/bg_drawer_chip"
+            android:backgroundTint="#FEF3E2">
+
+            <ImageView
+                android:layout_width="21dp"
+                android:layout_height="21dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_company"
+                android:tint="#D97706" />
+        </FrameLayout>
+
+        <LinearLayout style="@style/DrawerRowText">
+
+            <TextView
+                style="@style/DrawerTitle"
+                android:text="Companies" />
+
+            <TextView
+                style="@style/DrawerSub"
+                android:text="Manage  switch company" />
+        </LinearLayout>
+
+        <ImageView style="@style/DrawerChevron" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/menuSettings"
+        style="@style/DrawerRow">
+
+        <FrameLayout
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/bg_drawer_chip"
+            android:backgroundTint="#E7F0FF">
+
+            <ImageView
+                android:layout_width="21dp"
+                android:layout_height="21dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_settings"
+                android:tint="#2563EB" />
+        </FrameLayout>
+
+        <LinearLayout style="@style/DrawerRowText">
+
+            <TextView
+                style="@style/DrawerTitle"
+                android:text="Settings" />
+
+            <TextView
+                style="@style/DrawerSub"
+                android:text="App preferences" />
+        </LinearLayout>
+
+        <ImageView style="@style/DrawerChevron" />
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_marginHorizontal="20dp"
+        android:layout_marginVertical="8dp"
+        android:background="#E7ECF3" />
+
+    <LinearLayout
+        android:id="@+id/menuHelp"
+        style="@style/DrawerRow">
+
+        <FrameLayout
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/bg_drawer_chip"
+            android:backgroundTint="#F1F5F9">
+
+            <ImageView
+                android:layout_width="21dp"
+                android:layout_height="21dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_help"
+                android:tint="#64748B" />
+        </FrameLayout>
+
+        <LinearLayout style="@style/DrawerRowText">
+
+            <TextView
+                style="@style/DrawerTitle"
+                android:text="Help  support" />
+
+            <TextView
+                style="@style/DrawerSub"
+                android:text="FAQ · Contact us" />
+        </LinearLayout>
+
+        <ImageView style="@style/DrawerChevron" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/menuAbout"
+        style="@style/DrawerRow">
+
+        <FrameLayout
+            android:layout_width="44dp"
+            android:layout_height="44dp"
+            android:background="@drawable/bg_drawer_chip"
+            android:backgroundTint="#F1F5F9">
+
+            <ImageView
+                android:layout_width="21dp"
+                android:layout_height="21dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_settings"
+                android:tint="#64748B" />
+        </FrameLayout>
+
+        <LinearLayout style="@style/DrawerRowText">
+
+            <TextView
+                style="@style/DrawerTitle"
+                android:text="About Us" />
+
+            <TextView
+                style="@style/DrawerSub"
+                android:text="View Us" />
+        </LinearLayout>
+
+        <ImageView style="@style/DrawerChevron" />
+    </LinearLayout>
+    <!--  push logout to the bottom  -->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+    <!--  ───────── Logout ─────────  -->
+    <LinearLayout
+        android:id="@+id/layoutLogout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="14dp"
+        android:background="@drawable/bg_logout"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:padding="15dp">
+
+        <ImageView
+            android:layout_width="19dp"
+            android:layout_height="19dp"
+            android:layout_marginEnd="10dp"
+            android:src="@drawable/ic_logout"
+            android:tint="#DC2626" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Logout"
+            android:textColor="#DC2626"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:paddingVertical="18dp"
+        android:text="EmpTrack v1.0 · © 2026"
+        android:textColor="#94A3B8"
+        android:textSize="11.5sp" />
+</LinearLayout>

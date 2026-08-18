@@ -1,28 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F5F7FA">
+    android:orientation="vertical"
+    android:background="#EEF2F8">
 
-    <!-- Top Bar -->
+    <!-- Header -->
     <LinearLayout
         android:id="@+id/layoutTopBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:background="#1565C0"
-        android:padding="15dp">
+        android:background="@drawable/bg_header"
+        android:paddingStart="18dp"
+        android:paddingEnd="18dp"
+        android:paddingTop="18dp"
+        android:paddingBottom="22dp">
 
         <ImageView
             android:id="@+id/ivBack"
-            android:layout_width="32dp"
-            android:layout_height="32dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:padding="10dp"
             android:src="@drawable/ic_arrow_back"
             app:tint="@color/white"
-            android:layout_marginEnd="12dp"/>
+            android:background="@drawable/bg_icon_btn"
+            android:layout_marginEnd="14dp"/>
 
         <LinearLayout
             android:layout_width="0dp"
@@ -34,7 +39,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Companies"
-                android:textSize="18sp"
+                android:textSize="22sp"
+                android:fontFamily="@font/satoshi_medium"
                 android:textStyle="bold"
                 android:textColor="#FFFFFF"/>
 
@@ -42,57 +48,72 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Select or manage companies"
-                android:textSize="12sp"
-                android:textColor="#CCffffff"/>
+                android:textSize="12.5sp"
+                android:fontFamily="@font/satoshi_medium"
+                android:textColor="#CFE0FF"
+                android:layout_marginTop="1dp"/>
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnAddCompany"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="5dp"
-            android:text="+ Add"
-            android:textColor="#FFFFFF"
-            android:textSize="12sp"
-            app:strokeColor="#FFFFFF"
-            app:cornerRadius="4dp"/>
+            android:text="Add"
+            android:textAllCaps="false"
+            android:textColor="#1D4ED8"
+            android:fontFamily="@font/satoshi_medium"
+            android:textStyle="bold"
+            android:textSize="14sp"
+            app:icon="@drawable/ic_add"
+            app:iconTint="#1D4ED8"
+            app:iconSize="18dp"
+            app:backgroundTint="#FFFFFF"
+            app:cornerRadius="13dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"/>
     </LinearLayout>
 
-    <!-- Company List -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvCompanies"
+    <!-- Content -->
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="72dp"
-        android:padding="16dp"
-        android:clipToPadding="false"/>
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-    <!-- Empty state -->
-    <LinearLayout
-        android:id="@+id/layoutEmpty"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:visibility="gone"
-        app:layout_anchor="@id/rvCompanies"
-        app:layout_anchorGravity="center">
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvCompanies"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="16dp"
+            android:clipToPadding="false"
+            android:overScrollMode="never"/>
 
-        <TextView
+        <LinearLayout
+            android:id="@+id/layoutEmpty"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="No companies yet"
-            android:textSize="16sp"
-            android:textColor="#757575"
-            android:layout_marginBottom="8dp"/>
+            android:layout_gravity="center"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tap + Add to create your first company"
-            android:textSize="13sp"
-            android:textColor="#BDBDBD"/>
-    </LinearLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="No companies yet"
+                android:textSize="16sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/satoshi_medium"
+                android:textColor="#475569"
+                android:layout_marginBottom="6dp"/>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tap Add to create your first company"
+                android:textSize="13sp"
+                android:textColor="#94A3B8"/>
+        </LinearLayout>
+    </FrameLayout>
+</LinearLayout>

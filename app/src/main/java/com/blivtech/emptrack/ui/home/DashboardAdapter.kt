@@ -1,5 +1,6 @@
 package com.blivtech.emptrack.ui.home
 
+import android.graphics.Color
 import android.graphics.PorterDuff
 import android.graphics.drawable.GradientDrawable
 import android.view.LayoutInflater
@@ -34,8 +35,9 @@ class DashboardAdapter(
     override fun onBindViewHolder(holder: VH, position: Int) {
         val item = items[position]
         val context = holder.itemView.context
-
         holder.title.text = item.title
+
+            holder.title.text = item.title
         holder.icon.setImageResource(item.icon)
 
         // Tint the glyph

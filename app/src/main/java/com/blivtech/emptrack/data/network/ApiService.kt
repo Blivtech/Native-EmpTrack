@@ -16,6 +16,7 @@ import com.blivtech.emptrack.data.model.BonusEntryRequest
 import com.blivtech.emptrack.data.model.BonusMonthlyDto
 import com.blivtech.emptrack.data.model.BonusRequest
 import com.blivtech.emptrack.data.model.BonusResponse
+import com.blivtech.emptrack.data.model.BulkSaveWorkEntryRequestDto
 import com.blivtech.emptrack.data.model.LoginRequest
 import com.blivtech.emptrack.data.model.LoginResponse
 import com.blivtech.emptrack.data.model.RegisterRequest
@@ -24,6 +25,8 @@ import com.blivtech.emptrack.data.model.CompanyData
 import com.blivtech.emptrack.data.model.ContractEntryRequest
 import com.blivtech.emptrack.data.model.ContractProductRequest
 import com.blivtech.emptrack.data.model.DailyReportSummaryDto
+import com.blivtech.emptrack.data.model.DateEntrySummary
+import com.blivtech.emptrack.data.model.DayTotalDto
 import com.blivtech.emptrack.data.model.DepartmentRequest
 import com.blivtech.emptrack.data.model.DepartmentResponse
 import com.blivtech.emptrack.data.model.DesignationRequest
@@ -40,12 +43,12 @@ import com.blivtech.emptrack.data.model.OvertimeEntryRequest
 import com.blivtech.emptrack.data.model.OvertimeMonthlyDto
 import com.blivtech.emptrack.data.model.OvertimeRequest
 import com.blivtech.emptrack.data.model.OvertimeResponse
-import com.blivtech.emptrack.data.model.ProductRequest
-import com.blivtech.emptrack.data.model.ProductResponse
+import com.blivtech.emptrack.data.model.ProductDto
+import com.blivtech.emptrack.data.model.ProductRequestDto
 import com.blivtech.emptrack.data.model.ShiftStatusResponse
 import com.blivtech.emptrack.data.model.WeeklyOverallReportDto
 import com.blivtech.emptrack.data.model.WeeklyShiftReportDto
-import com.blivtech.emptrack.data.model.WorkEntryRequest
+import com.blivtech.emptrack.data.model.WorkEntryDto
 import com.blivtech.emptrack.data.model.WorkEntryResponse
 import retrofit2.Response
 import retrofit2.http.Body
@@ -78,7 +81,7 @@ interface ApiService {
         @Body request: CompanyRequest
     ): Response<ApiResponse<CompanyData>>
 
-    @PUT("api/companies/{id}")
+    @PUT("api/companies/update/{companyCode}")
     suspend fun updateCompany(
         @Path("companyCode") companyCode: String,
         @Body request: CompanyRequest
@@ -167,34 +170,13 @@ interface ApiService {
 
     // ─── Products ───────────────────────────────
 
-    @GET("api/products")
-    suspend fun getProducts(
-        @Query("btCode") btCode: String,
-        @Query("companyCode") companyCode: String
-    ): Response<ApiResponse<List<ProductResponse>>>
-
-    @POST("api/products/add")
-    suspend fun addProduct(
-        @Body request: ProductRequest
-    ): Response<ApiResponse<String>>
-
-    @PUT("api/products/update/{productId}")
-    suspend fun updateProduct(
-        @Path("productId") productId: String,
-        @Body request: ProductRequest
-    ): Response<ApiResponse<String>>
-
-    @DELETE("api/products/{productId}")
-    suspend fun deleteProduct(
-        @Path("productId") productId: String
-    ): Response<ApiResponse<String>>
 
 // ─── Work Entries ────────────────────────────
-
-    @POST("api/work/add")
-    suspend fun addWorkEntry(
-        @Body request: WorkEntryRequest
-    ): Response<ApiResponse<String>>
+//
+//    @POST("api/work/add")
+//    suspend fun addWorkEntry(
+//        @Body request: WorkEntryRequest
+//    ): Response<ApiResponse<String>>
 
     @GET("api/work")
     suspend fun getWorkEntries(
@@ -390,5 +372,78 @@ interface ApiService {
         @Body body: DepartmentRequest
     ): Response<ApiResponse<DepartmentResponse>>
 
+    // ① Which employees already have an entry on this date (indicator source)
+    @GET("api/v1/work-entries/summary")
+    suspend fun getDateEntrySummary(
+        @Query("btCode") btCode: String,
+        @Query("companyCode") companyCode: String,
+        @Query("entryDate") entryDate: String
+    ): Response<ApiResponse<List<DateEntrySummary>>>
+
+    // ② Full entry for EDIT prefill
+    @GET("api/v1/work-entries/{entryId}")
+    suspend fun getWorkEntry(
+        @Path("entryId") entryId: String,
+        @Query("btCode") btCode: String,
+        @Query("companyCode") companyCode: String
+    ): Response<ApiResponse<WorkEntryResponse>>
+
+//    // ③ Update existing entry
+//    @PUT("api/v1/work-entries/{entryId}")
+//    suspend fun updateWorkEntry(
+//        @Path("entryId") entryId: String,
+//        @Body request: WorkEntryRequest
+//    ): Response<ApiResponse<String>>
+
+    // ④ Delete (soft delete -> status = 0 server side)
+    @DELETE("api/v1/work-entries/{entryId}")
+    suspend fun deleteWorkEntry(
+        @Path("entryId") entryId: String,
+        @Query("btCode") btCode: String,
+        @Query("companyCode") companyCode: String
+    ): Response<ApiResponse<String>>
+
+    @POST("api/v1/products")
+    suspend fun createProduct(
+        @Query("btCode") btCode: String,
+        @Query("companyCode") companyCode: String,
+        @Body body: ProductRequestDto
+    ): Response<ApiResponse<ProductDto>>
+
+    @PUT("api/v1/products/{id}")
+    suspend fun updateProduct(
+        @Path("id") id: Long,
+        @Query("btCode") btCode: String,
+        @Query("companyCode") companyCode: String,
+        @Body body: ProductRequestDto
+    ): Response<ApiResponse<ProductDto>>
+
+    @DELETE("api/v1/products/{id}")
+    suspend fun deleteProduct(
+        @Path("id") id: Long,
+        @Query("btCode") btCode: String,
+        @Query("companyCode") companyCode: String
+    ): Response<ApiResponse<Any>>
+
+
+    @GET("api/work-entries/{companyCode}")
+    suspend fun getEntries(
+        @Path("companyCode") companyCode: String,
+        @Query("employeeId") employeeId: Long,
+        @Query("date") date: String
+    ): Response<ApiResponse<List<WorkEntryDto>>>
+
+    @POST("api/work-entries/{companyCode}/bulk")
+    suspend fun saveEntries(
+        @Path("companyCode") companyCode: String,
+        @Query("btCode") btCode: String,
+        @Body body: BulkSaveWorkEntryRequestDto
+    ): Response<ApiResponse<List<WorkEntryDto>>>
+
+    @GET("api/work-entries/{companyCode}/day-totals")
+    suspend fun getDayTotals(
+        @Path("companyCode") companyCode: String,
+        @Query("date") date: String
+    ): Response<ApiResponse<List<DayTotalDto>>>
 
 }

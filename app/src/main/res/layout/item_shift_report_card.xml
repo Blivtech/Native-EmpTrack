@@ -1,29 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="5dp"
-    android:background="@drawable/bg_search"
-    android:layout_marginBottom="8dp">
-
+    android:background="@drawable/bg_report_card"
+    android:layout_marginBottom="12dp">
+    <!--  header  -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:padding="11dp"
-        android:paddingBottom="9dp">
+        android:padding="16dp">
 
         <TextView
             android:id="@+id/tvShiftEmoji"
-            android:layout_width="36dp"
-            android:layout_height="36dp"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
             android:gravity="center"
-            android:textSize="18sp"
-            android:background="@drawable/bg_card_working"
-            android:layout_marginEnd="9dp"/>
+            android:textSize="22sp"
+            android:background="@drawable/bg_shift_badge"
+            android:layout_marginEnd="13dp" />
 
         <LinearLayout
             android:layout_width="0dp"
@@ -36,74 +33,68 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/satoshi_medium"
-                android:textSize="@dimen/text_caption_md"
+                android:textSize="17sp"
                 android:textStyle="bold"
-                android:textColor="#212121"/>
+                android:textColor="#0F172A" />
 
             <TextView
                 android:id="@+id/tvShiftTime"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/satoshi_medium"
-
-                android:textSize="@dimen/text_caption_small"
-                android:textColor="#9E9E9E"
-                android:layout_marginTop="1dp"/>
+                android:textSize="13.5sp"
+                android:textColor="#94A3B8"
+                android:layout_marginTop="1dp" />
         </LinearLayout>
-
+        <!--  badge bg + colour set in code (bg_badge_green / bg_badge_amber)  -->
         <TextView
             android:id="@+id/tvSubmitBadge"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/text_caption_small"
+            android:textSize="13sp"
             android:textStyle="bold"
             android:fontFamily="@font/satoshi_medium"
-            android:paddingStart="8dp"
-            android:paddingEnd="8dp"
-            android:paddingTop="3dp"
-            android:paddingBottom="3dp"/>
+            android:paddingStart="12dp"
+            android:paddingEnd="12dp"
+            android:paddingTop="7dp"
+            android:paddingBottom="7dp" />
     </LinearLayout>
-
+    <!--  meta strip  -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:background="#F8F9FB"
-        android:padding="9dp"
-        android:paddingStart="12dp"
-        android:paddingEnd="12dp">
+        android:background="@drawable/bg_meta"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp">
 
-        <!-- Date row -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginBottom="4dp">
+            android:layout_marginBottom="5dp">
 
             <TextView
-                android:layout_width="65dp"
+                android:layout_width="118dp"
                 android:layout_height="wrap_content"
                 android:text="Date"
-                android:textSize="@dimen/text_caption_small"
+                android:textSize="13.5sp"
                 android:fontFamily="@font/satoshi_medium"
-
-                android:textStyle="bold"
-                android:textColor="#BDBDBD"
-                android:letterSpacing="0.05"/>
+                android:textColor="#94A3B8" />
 
             <TextView
                 android:id="@+id/tvMetaDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/text_caption_small"
+                android:textSize="14sp"
                 android:fontFamily="@font/satoshi_medium"
-
                 android:textStyle="bold"
-                android:textColor="#424242"/>
+                android:textColor="#0F172A" />
         </LinearLayout>
 
-        <!-- Submitted row -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -111,37 +102,30 @@
             android:gravity="center_vertical">
 
             <TextView
-                android:layout_width="wrap_content"
+                android:layout_width="118dp"
                 android:layout_height="wrap_content"
                 android:text="Submitted Date"
-
-                android:textSize="@dimen/text_caption_small"
+                android:textSize="13.5sp"
                 android:textStyle="bold"
                 android:fontFamily="@font/satoshi_medium"
-
-                android:textColor="#BDBDBD"
-                android:letterSpacing="0.05"/>
+                android:textColor="#94A3B8" />
 
             <TextView
                 android:id="@+id/tvMetaSubmit"
                 android:layout_width="wrap_content"
-                android:layout_marginStart="5dp"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/text_caption_small"
-                android:textStyle="bold"/>
+                android:textSize="14sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/satoshi_medium" />
         </LinearLayout>
     </LinearLayout>
-
-    <!-- ✅ Count pills — 4 pills -->
+    <!--  tiles  -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
-        android:padding="10dp"
-        android:paddingTop="10dp"
-        android:paddingBottom="11dp">
+        android:padding="14dp">
 
-        <!-- ✅ Present pill -->
         <LinearLayout
             android:id="@+id/pillPresent"
             android:layout_width="0dp"
@@ -149,9 +133,10 @@
             android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:background="@drawable/bg_card_working"
-            android:padding="8dp"
-            android:layout_marginEnd="4dp"
+            android:background="@drawable/bg_tile_present"
+            android:paddingTop="14dp"
+            android:paddingBottom="12dp"
+            android:layout_marginEnd="8dp"
             android:clickable="true"
             android:focusable="true">
 
@@ -161,32 +146,29 @@
                 android:layout_height="wrap_content"
                 android:text="—"
                 android:fontFamily="@font/satoshi_medium"
-
-                android:textSize="18sp"
+                android:textSize="22sp"
                 android:textStyle="bold"
-                android:textColor="#27500A"/>
+                android:textColor="#16A34A" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Present"
-                android:textSize="@dimen/text_caption_md"
+                android:textSize="13sp"
                 android:fontFamily="@font/satoshi_medium"
-
                 android:textStyle="bold"
-                android:textColor="#639922"
-                android:layout_marginTop="2dp"/>
+                android:textColor="#16A34A"
+                android:layout_marginTop="4dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Tap to view"
-                android:textSize="6sp"
-                android:textColor="#9E9E9E"
-                android:layout_marginTop="1dp"/>
+                android:textSize="9sp"
+                android:textColor="#94A3B8"
+                android:layout_marginTop="2dp" />
         </LinearLayout>
 
-        <!-- ✅ Leave / Absent pill -->
         <LinearLayout
             android:id="@+id/pillLeave"
             android:layout_width="0dp"
@@ -194,9 +176,10 @@
             android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:background="@drawable/bg_card_unselected"
-            android:padding="8dp"
-            android:layout_marginEnd="4dp"
+            android:background="@drawable/bg_tile_leave"
+            android:paddingTop="14dp"
+            android:paddingBottom="12dp"
+            android:layout_marginEnd="8dp"
             android:clickable="true"
             android:focusable="true">
 
@@ -205,31 +188,30 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="—"
-                android:textSize="18sp"
+                android:fontFamily="@font/satoshi_medium"
+                android:textSize="22sp"
                 android:textStyle="bold"
-                android:textColor="#E24B4A"/>
+                android:textColor="#DC2626" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Leave"
-                android:textSize="@dimen/text_caption_md"
+                android:textSize="13sp"
                 android:fontFamily="@font/satoshi_medium"
-
                 android:textStyle="bold"
-                android:textColor="#E24B4A"
-                android:layout_marginTop="2dp"/>
+                android:textColor="#DC2626"
+                android:layout_marginTop="4dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Tap to view"
-                android:textSize="6sp"
-                android:textColor="#9E9E9E"
-                android:layout_marginTop="1dp"/>
+                android:textSize="9sp"
+                android:textColor="#94A3B8"
+                android:layout_marginTop="2dp" />
         </LinearLayout>
 
-        <!-- ✅ Holiday / Week Off pill -->
         <LinearLayout
             android:id="@+id/pillHoliday"
             android:layout_width="0dp"
@@ -237,77 +219,77 @@
             android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:background="@drawable/bg_badge_purple_light"
-            android:padding="8dp"
-            android:layout_marginEnd="4dp"
-            android:clickable="false"
-            android:focusable="false">
+            android:background="@drawable/bg_tile_hwo"
+            android:paddingTop="14dp"
+            android:paddingBottom="12dp"
+            android:layout_marginEnd="8dp">
 
             <TextView
                 android:id="@+id/tvHolidayCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="—"
-                android:textSize="18sp"
+                android:fontFamily="@font/satoshi_medium"
+                android:textSize="22sp"
                 android:textStyle="bold"
-                android:textColor="#3C3489"/>
+                android:textColor="#7C3AED" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="H / WO"
-                android:textSize="@dimen/text_caption_md"
+                android:textSize="13sp"
                 android:fontFamily="@font/satoshi_medium"
                 android:textStyle="bold"
-                android:textColor="#3C3489"
-                android:layout_marginTop="2dp"/>
+                android:textColor="#7C3AED"
+                android:layout_marginTop="4dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Holiday + WO"
-                android:textSize="6sp"
-                android:textColor="#7E6FD8"
-                android:layout_marginTop="1dp"/>
+                android:textSize="9sp"
+                android:textColor="#A78BFA"
+                android:layout_marginTop="2dp" />
         </LinearLayout>
 
-        <!-- ✅ Total pill -->
         <LinearLayout
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:orientation="vertical"
             android:gravity="center"
-            android:background="@drawable/bg_field_selector"
-            android:padding="8dp">
+            android:background="@drawable/bg_tile_total"
+            android:paddingTop="14dp"
+            android:paddingBottom="12dp">
 
             <TextView
                 android:id="@+id/tvTotalCount"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="—"
-                android:textSize="18sp"
+                android:fontFamily="@font/satoshi_medium"
+                android:textSize="22sp"
                 android:textStyle="bold"
-                android:textColor="#1565C0"/>
+                android:textColor="#2563EB" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Total"
-                android:textSize="@dimen/text_caption_md"
-                android:textStyle="bold"
+                android:textSize="13sp"
                 android:fontFamily="@font/satoshi_medium"
-                android:textColor="#1565C0"
-                android:layout_marginTop="2dp"/>
+                android:textStyle="bold"
+                android:textColor="#2563EB"
+                android:layout_marginTop="4dp" />
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="All employees"
-                android:textSize="6sp"
-                android:textColor="#9E9E9E"
-                android:layout_marginTop="1dp"/>
+                android:textSize="9sp"
+                android:textColor="#94A3B8"
+                android:layout_marginTop="2dp" />
         </LinearLayout>
-
     </LinearLayout>
 </LinearLayout>

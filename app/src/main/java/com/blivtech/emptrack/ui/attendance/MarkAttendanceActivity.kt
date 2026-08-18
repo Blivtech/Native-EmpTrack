@@ -441,7 +441,7 @@ class MarkAttendanceActivity : AppCompatActivity() {
         dialogBinding.btnCancelDeviation.setOnClickListener { dialog.dismiss() }
 
         dialogBinding.btnAddDeviation.setOnClickListener {
-            viewModel.addDeviationEmployees(selectedCodes.toList())
+            viewModel.addDeviationEmployees(shiftCode,companyCode,selectedCodes.toList())
             dialog.dismiss()
             filterAndRefresh()
             updateBottomBar()

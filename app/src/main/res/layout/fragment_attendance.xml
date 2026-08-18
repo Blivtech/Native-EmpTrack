@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F5F7FA">
+    android:background="#EEF2F8">
+
     <com.facebook.shimmer.ShimmerFrameLayout
         android:id="@+id/shimmerLayout"
         android:layout_width="match_parent"
@@ -23,36 +23,35 @@
         <include layout="@layout/layout_shimmer_list"/>
         <include layout="@layout/layout_shimmer_list"/>
         <include layout="@layout/layout_shimmer_list"/>
-
     </com.facebook.shimmer.ShimmerFrameLayout>
-
 
     <LinearLayout
         android:id="@+id/layoutMain"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible"
         android:orientation="vertical"
-        android:background="#F5F7FA">
+        android:background="#EEF2F8">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:background="#1565C0"
-            android:padding="16dp"
-            android:paddingBottom="20dp">
+            android:background="@drawable/bg_header"
+            android:paddingStart="20dp"
+            android:paddingEnd="20dp"
+            android:paddingTop="18dp"
+            android:paddingBottom="22dp">
 
-            <!-- Top row -->
             <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="12dp">
+                android:layout_marginBottom="16dp">
+
                 <LinearLayout
                     android:id="@+id/layoutTitles"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:layout_marginStart="10dp"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintEnd_toStartOf="@id/ivCalendar"
                     app:layout_constraintTop_toTopOf="parent"
@@ -63,7 +62,7 @@
                         android:layout_height="wrap_content"
                         android:text="Attendance"
                         android:fontFamily="@font/satoshi_medium"
-                        android:textSize="@dimen/text_caption_th"
+                        android:textSize="24sp"
                         android:textStyle="bold"
                         android:textColor="#FFFFFF"/>
 
@@ -72,23 +71,22 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/satoshi_medium"
-
-                        android:textSize="@dimen/text_caption_small"
-                        android:textColor="#CCffffff"
-                        android:layout_marginTop="1dp"/>
+                        android:textSize="13.5sp"
+                        android:textColor="#CFE0FF"
+                        android:layout_marginTop="2dp"/>
                 </LinearLayout>
 
                 <ImageView
                     android:id="@+id/ivCalendar"
-                    android:layout_width="28dp"
-                    android:layout_height="28dp"
-                    android:visibility="visible"
-                    android:src="@android:drawable/ic_menu_my_calendar"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:padding="11dp"
+                    android:src="@drawable/ic_calendar"
                     android:tint="#FFFFFF"
+                    android:background="@drawable/bg_icon_btn"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent"/>
-
             </androidx.constraintlayout.widget.ConstraintLayout>
 
             <!-- Company pill -->
@@ -98,14 +96,20 @@
                 android:orientation="horizontal"
                 android:gravity="center_vertical"
                 android:background="@drawable/bg_company_pill"
-                android:padding="9dp">
+                android:padding="11dp">
 
-                <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:src="@android:drawable/ic_dialog_map"
-                    android:tint="#CCffffff"
-                    android:layout_marginEnd="8dp"/>
+                <FrameLayout
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:background="@drawable/bg_company_badge"
+                    android:layout_marginEnd="13dp">
+                    <ImageView
+                        android:layout_width="20dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:src="@android:drawable/ic_dialog_map"
+                        android:tint="#FFFFFF"/>
+                </FrameLayout>
 
                 <LinearLayout
                     android:layout_width="0dp"
@@ -117,23 +121,25 @@
                         android:id="@+id/tvCompanyName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_caption_md"
+                        android:textSize="16sp"
                         android:textStyle="bold"
+                        android:letterSpacing="0.02"
+                        android:fontFamily="@font/satoshi_medium"
                         android:textColor="#FFFFFF"/>
 
                     <TextView
                         android:id="@+id/tvEmpCount"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_caption_small"
-                        android:textColor="#99ffffff"
+                        android:textSize="12.5sp"
+                        android:fontFamily="@font/satoshi_medium"
+                        android:textColor="#CFE0FF"
                         android:layout_marginTop="1dp"/>
                 </LinearLayout>
             </LinearLayout>
-
         </LinearLayout>
 
-        <!-- Progress bar -->
+        <!-- (kept for binding; hidden) -->
         <ProgressBar
             android:id="@+id/progressBar"
             android:layout_width="match_parent"
@@ -141,38 +147,41 @@
             style="@style/Widget.AppCompat.ProgressBar.Horizontal"
             android:indeterminate="true"
             android:indeterminateTint="#1565C0"
-            android:visibility="visible"/>
+            android:visibility="gone"/>
 
-        <!-- Scrollable content -->
+        <!-- ───────── Content ───────── -->
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="1">
+            android:layout_weight="1"
+            android:overScrollMode="never">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="14dp">
+                android:paddingHorizontal="16dp"
+                android:paddingTop="18dp"
+                android:paddingBottom="14dp">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Today's shifts"
                     android:fontFamily="@font/satoshi_medium"
-                    android:textSize="@dimen/text_caption_lg"
+                    android:textSize="17sp"
                     android:textStyle="bold"
-                    android:textColor="@color/black_overlay_80"
-                    android:layout_marginBottom="10dp"/>
+                    android:textColor="#0F172A"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginBottom="12dp"/>
 
-                <!-- ✅ Replace with RecyclerView -->
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rvShiftCards"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:nestedScrollingEnabled="false"
                     android:overScrollMode="never"/>
-                <!-- ✅ Also add empty state -->
+
                 <LinearLayout
                     android:id="@+id/layoutEmpty"
                     android:layout_width="match_parent"
@@ -182,20 +191,28 @@
                     android:padding="40dp"
                     android:visibility="gone">
 
+                    <ImageView
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:src="@drawable/ic_calendar"
+                        android:tint="#C3CEDE"
+                        android:layout_marginBottom="14dp"/>
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="No shifts configured"
-                        android:textSize="13sp"
+                        android:textSize="15sp"
                         android:textStyle="bold"
-                        android:textColor="#9E9E9E"/>
+                        android:fontFamily="@font/satoshi_medium"
+                        android:textColor="#475569"/>
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Add shifts in company settings"
-                        android:textSize="11sp"
-                        android:textColor="#BDBDBD"
+                        android:textSize="13sp"
+                        android:textColor="#94A3B8"
                         android:layout_marginTop="6dp"/>
                 </LinearLayout>
             </LinearLayout>

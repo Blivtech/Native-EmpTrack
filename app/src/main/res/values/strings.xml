@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">EmpTrack</string>
+    <string name="app_name">EmpOne</string>
     <string name="app_subtitle">Employee Management System</string>
     <string name="splash_tagline">Manage your workforce, effortlessly</string>
     <string name="welcome_back">Welcome Back</string>

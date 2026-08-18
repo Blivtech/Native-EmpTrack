@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:background="#EEF2F8">
+
+    <!-- Header -->
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal" android:gravity="center_vertical" android:background="@drawable/bg_header"
+        android:paddingStart="16dp" android:paddingEnd="16dp" android:paddingTop="42dp" android:paddingBottom="18dp">
+        <ImageView android:id="@+id/back" android:layout_width="40dp" android:layout_height="40dp"
+            android:src="@drawable/ic_arrow_back" android:tint="#FFFFFF" android:padding="10dp" android:background="@drawable/bg_icon_btn" android:layout_marginEnd="12dp"/>
+        <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical">
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Products"
+                android:fontFamily="@font/satoshi_medium" android:textSize="21sp" android:textStyle="bold" android:textColor="#FFFFFF"/>
+            <TextView android:id="@+id/subtitle" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:fontFamily="@font/satoshi_medium" android:textSize="12.5sp" android:textColor="#CFE0FF" android:layout_marginTop="1dp"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <!-- Count -->
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal"
+        android:gravity="center_vertical" android:layout_marginStart="16dp" android:layout_marginTop="16dp" android:layout_marginBottom="10dp">
+        <TextView android:id="@+id/count" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0"
+            android:fontFamily="@font/satoshi_medium" android:textSize="17sp" android:textStyle="bold" android:textColor="#0F172A"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text=" products"
+            android:fontFamily="@font/satoshi_medium" android:textSize="17sp" android:textStyle="bold" android:textColor="#0F172A"/>
+    </LinearLayout>
+
+    <FrameLayout android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1">
+        <androidx.recyclerview.widget.RecyclerView android:id="@+id/recycler"
+            android:layout_width="match_parent" android:layout_height="match_parent"
+            android:paddingStart="14dp" android:paddingEnd="14dp" android:paddingBottom="96dp"
+            android:clipToPadding="false" android:scrollbars="none"/>
+
+        <!-- Empty state -->
+        <LinearLayout android:id="@+id/emptyState" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_gravity="center" android:orientation="vertical" android:gravity="center" android:padding="24dp" android:visibility="gone">
+            <LinearLayout android:layout_width="72dp" android:layout_height="72dp" android:gravity="center" android:background="@drawable/bg_empty_ic">
+                <ImageView android:layout_width="34dp" android:layout_height="34dp" android:src="@drawable/ic_box" android:tint="#2563EB"/>
+            </LinearLayout>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="No products yet"
+                android:fontFamily="@font/satoshi_medium" android:textStyle="bold" android:textSize="16sp" android:textColor="#0F172A" android:layout_marginTop="14dp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Add a product and its piece-rates to get started"
+                android:fontFamily="@font/satoshi_medium" android:textSize="13sp" android:textColor="#94A3B8" android:gravity="center" android:layout_marginTop="6dp"/>
+            <LinearLayout android:id="@+id/addCard" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:orientation="horizontal" android:gravity="center" android:background="@drawable/bg_btn_primary"
+                android:paddingStart="22dp" android:paddingEnd="22dp" android:paddingTop="13dp" android:paddingBottom="13dp"
+                android:layout_marginTop="18dp" android:clickable="true" android:focusable="true">
+                <ImageView android:layout_width="18dp" android:layout_height="18dp" android:src="@drawable/ic_add" android:tint="#FFFFFF" android:layout_marginEnd="8dp"/>
+                <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Add your first product"
+                    android:fontFamily="@font/satoshi_medium" android:textStyle="bold" android:textSize="14.5sp" android:textColor="#FFFFFF"/>
+            </LinearLayout>
+        </LinearLayout>
+    </FrameLayout>
+
+    <!-- Bottom add bar -->
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:background="#FFFFFF" android:padding="14dp" android:elevation="10dp">
+        <com.google.android.material.button.MaterialButton android:id="@+id/addButton"
+            android:layout_width="match_parent" android:layout_height="54dp" android:text="Add product"
+            android:textAllCaps="false" android:textSize="15.5sp" android:textStyle="bold" android:fontFamily="@font/satoshi_medium"
+            app:icon="@drawable/ic_add" app:iconTint="#FFFFFF" app:iconGravity="textStart"
+            app:backgroundTint="@null" android:background="@drawable/bg_btn_primary" app:elevation="0dp"/>
+    </LinearLayout>
+</LinearLayout>

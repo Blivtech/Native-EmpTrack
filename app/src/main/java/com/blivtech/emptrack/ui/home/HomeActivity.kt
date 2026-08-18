@@ -22,8 +22,12 @@ import androidx.navigation.fragment.NavHostFragment
 import com.blivtech.emptrack.R
 import com.blivtech.emptrack.databinding.ActivityHomeBinding
 import com.blivtech.emptrack.databinding.DialogSyncBinding
+import com.blivtech.emptrack.ui.AboutActivity
+import com.blivtech.emptrack.ui.HelpActivity
 import com.blivtech.emptrack.ui.company.CompanyListActivity
 import com.blivtech.emptrack.ui.login.LoginActivity
+import com.blivtech.emptrack.ui.profile.ProfileActivity
+import com.blivtech.emptrack.ui.profile.SettingsActivity
 import com.blivtech.emptrack.utils.PreferenceManager
 import com.blivtech.emptrack.utils.Resource
 import com.blivtech.emptrack.utils.SyncEventBus
@@ -119,15 +123,19 @@ class HomeActivity : AppCompatActivity() {
         }
         binding.layout.menuProfile.setOnClickListener {
             binding.drawerLayout.closeDrawer(GravityCompat.END)
-            // TODO: ProfileActivity
+            startActivity(Intent(this, ProfileActivity::class.java))
+        }
+        binding.layout.menuAbout.setOnClickListener {
+            binding.drawerLayout.closeDrawer(GravityCompat.END)
+            startActivity(Intent(this, AboutActivity::class.java))
         }
         binding.layout.menuSettings.setOnClickListener {
             binding.drawerLayout.closeDrawer(GravityCompat.END)
-            // TODO: SettingsActivity
+            startActivity(Intent(this, SettingsActivity::class.java))
         }
         binding.layout.menuHelp.setOnClickListener {
             binding.drawerLayout.closeDrawer(GravityCompat.END)
-            // TODO: HelpActivity
+            startActivity(Intent(this, HelpActivity::class.java))
         }
         binding.layout.layoutLogout.setOnClickListener {
             showLogoutDialog()

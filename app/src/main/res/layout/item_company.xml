@@ -4,20 +4,20 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
+    android:layout_marginBottom="13dp"
     android:clickable="true"
     android:focusable="true"
-    app:cardCornerRadius="14dp"
-    app:cardElevation="2dp"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="3dp"
     app:cardBackgroundColor="#FFFFFF"
-    app:strokeColor="#1565C0"
+    app:strokeColor="#2563EB"
     app:strokeWidth="0dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:padding="14dp">
+        android:padding="16dp">
 
         <!-- Top row -->
         <LinearLayout
@@ -26,19 +26,17 @@
             android:orientation="horizontal"
             android:gravity="center_vertical">
 
-            <!-- Logo initial -->
             <TextView
                 android:id="@+id/tvCompanyInitial"
-                android:layout_width="42dp"
-                android:layout_height="42dp"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
                 android:gravity="center"
-                android:textSize="18sp"
+                android:textSize="19sp"
                 android:textStyle="bold"
-                android:textColor="#0C447C"
-                android:background="@drawable/bg_circle_blue"
-                android:layout_marginEnd="12dp"/>
+                android:textColor="#1D4ED8"
+                android:background="@drawable/bg_company_ava"
+                android:layout_marginEnd="13dp"/>
 
-            <!-- Info -->
             <LinearLayout
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -49,28 +47,37 @@
                     android:id="@+id/tvCompanyName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="14sp"
+                    android:fontFamily="@font/satoshi_medium"
+                    android:textSize="17sp"
                     android:textStyle="bold"
-                    android:textColor="#212121"/>
+                    android:textColor="#0F172A"/>
 
                 <TextView
                     android:id="@+id/tvCompanyCity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="12sp"
-                    android:textColor="#757575"
-                    android:layout_marginTop="2dp"/>
+                    android:fontFamily="@font/satoshi_medium"
+                    android:textSize="12.5sp"
+                    android:textStyle="bold"
+                    android:textColor="#475569"
+                    android:drawableStart="@drawable/ic_pin"
+                    android:drawableTint="#94A3B8"
+                    android:drawablePadding="5dp"
+                    android:layout_marginTop="5dp"/>
 
                 <TextView
                     android:id="@+id/tvCompanyPhone"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textSize="11sp"
-                    android:textColor="#9E9E9E"
-                    android:layout_marginTop="1dp"/>
+                    android:fontFamily="@font/satoshi_medium"
+                    android:textSize="12.5sp"
+                    android:textColor="#94A3B8"
+                    android:drawableStart="@drawable/ic_phone"
+                    android:drawableTint="#94A3B8"
+                    android:drawablePadding="5dp"
+                    android:layout_marginTop="3dp"/>
             </LinearLayout>
 
-            <!-- Edit + Delete -->
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -79,56 +86,64 @@
 
                 <ImageView
                     android:id="@+id/ivEdit"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:src="@android:drawable/ic_menu_edit"
-                    android:tint="#185FA5"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_edit"
+                    android:tint="#2563EB"
                     android:background="@drawable/bg_circle_blue"
-                    android:padding="7dp"
-                    android:layout_marginEnd="6dp"/>
+                    android:padding="10dp"
+                    android:layout_marginEnd="8dp"/>
 
                 <ImageView
                     android:id="@+id/ivDelete"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
-                    android:src="@android:drawable/ic_menu_delete"
-                    android:tint="#791F1F"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_delete"
+                    android:tint="#DC2626"
                     android:background="@drawable/bg_circle_red"
-                    android:padding="7dp"/>
+                    android:padding="10dp"/>
             </LinearLayout>
         </LinearLayout>
 
-        <!-- Shift chips -->
+        <!-- Shift chips (built in adapter) -->
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chipGroupShifts"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            app:chipSpacingVertical="2dp"/>
+            android:layout_marginTop="12dp"
+            app:chipSpacingVertical="6dp"
+            app:chipSpacingHorizontal="8dp"/>
 
+        <!-- Active indicator (adapter toggles visibility) -->
         <LinearLayout
             android:id="@+id/layoutSelected"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:gravity="center_vertical"
-            android:layout_marginTop="8dp"
+            android:background="@drawable/bg_active_pill"
+            android:paddingStart="10dp"
+            android:paddingEnd="12dp"
+            android:paddingTop="6dp"
+            android:paddingBottom="6dp"
+            android:layout_marginTop="12dp"
             android:visibility="gone">
 
             <ImageView
                 android:layout_width="14dp"
                 android:layout_height="14dp"
-                android:src="@android:drawable/btn_star_big_on"
-                android:tint="#1565C0"
-                android:layout_marginEnd="4dp"/>
+                android:src="@drawable/ic_check"
+                android:tint="#2563EB"
+                android:layout_marginEnd="6dp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Currently selected company"
-                android:textSize="11sp"
-                android:textColor="#1565C0"/>
+                android:text="Active company"
+                android:textSize="11.5sp"
+                android:textStyle="bold"
+                android:fontFamily="@font/satoshi_medium"
+                android:textColor="#2563EB"/>
         </LinearLayout>
-
     </LinearLayout>
 </com.google.android.material.card.MaterialCardView>

@@ -40,6 +40,15 @@
             android:name=".ui.sync.SyncActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.product.ProductListActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.entry.WorkEntryActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.workers.DailyEntryActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.home.HomeActivity"
             android:exported="false" />
         <!-- Login -->
@@ -51,9 +60,7 @@
         <activity
             android:name=".ui.signup.SignUpActivity"
             android:theme="@style/Theme.EmpManager" />
-        <activity
-            android:name=".ui.employee.EmployeeListActivity"
-            android:exported="false" />
+
         <activity
             android:name=".ui.employee.AddEditEmployeeActivity"
             android:exported="false" />
@@ -73,7 +80,7 @@
             android:name=".ui.shiftplan.AssignShiftActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.entry.AddEntryActivity"
+            android:name=".ui.advance.AddEntryActivity"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
@@ -81,11 +88,28 @@
             android:name=".ui.work.AddProductActivity"
             android:exported="false" />
         <activity
+            android:name=".ui.work.SelectDateActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.AboutActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.HelpActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.work.WorkEntryEmployeeListActivity"
+            android:exported="false" />
+        <activity
             android:name=".ui.work.AddWorkEntryActivity"
             android:exported="false" />
         <activity
             android:name=".ui.work.SelectEmployeeActivity"
             android:exported="false" />
+        <activity android:name=".ui.profile.ProfileActivity"/>
+        <activity android:name=".ui.profile.EditProfileActivity"/>
+        <activity android:name=".ui.profile.ChangePasswordActivity"/>
+        <activity android:name=".ui.profile.SettingsActivity"/>
+
         <activity
             android:name=".ui.contract.ContractWageActivity"
             android:exported="false" />

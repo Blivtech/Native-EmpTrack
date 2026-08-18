@@ -12,6 +12,9 @@ import com.blivtech.emptrack.utils.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
 import java.text.SimpleDateFormat
+import java.time.DayOfWeek
+import java.time.LocalDate
+import java.time.temporal.TemporalAdjusters
 import java.util.*
 import javax.inject.Inject
 
@@ -36,21 +39,14 @@ class WeeklyReportViewModel @Inject constructor(
     private val _weekSubLabel = MutableLiveData<String>()
     val weekSubLabel: LiveData<String> = _weekSubLabel
 
-    // ─────────────────────────────────
-    // ✅ Overall report
-    // ─────────────────────────────────
+
     private val _overallReport = MutableLiveData<WeeklyOverallReportDto?>()
     val overallReport: LiveData<WeeklyOverallReportDto?> = _overallReport
 
-    // ─────────────────────────────────
-    // ✅ Shift report
-    // ─────────────────────────────────
+
     private val _shiftReport = MutableLiveData<WeeklyShiftReportDto?>()
     val shiftReport: LiveData<WeeklyShiftReportDto?> = _shiftReport
 
-    // ─────────────────────────────────
-    // ✅ Loading + Error
-    // ─────────────────────────────────
     private val _loading = MutableLiveData(false)
     val loading: LiveData<Boolean> = _loading
 
@@ -188,4 +184,32 @@ class WeeklyReportViewModel @Inject constructor(
     fun getShifts(companyCode: String) =
         companyRepository.getShiftsByCompany(companyCode)
             .asLiveData()
+
+
+
+
+ // default: the Mon..Sun week that contains `anchor`
+ fun defaultWeek(anchor: LocalDate = LocalDate.now()): Pair<LocalDate, LocalDate> {
+     val start = anchor.with(TemporalAdjusters.previousOrSame(DayOfWeek.MONDAY))
+     val end   = start.plusDays(6)          // Sunday
+     return start to end
+ }
+
+ // prev / next week buttons
+ fun prevWeek(start: LocalDate, end: LocalDate) = start.minusWeeks(1) to end.minusWeeks(1)
+ fun nextWeek(start: LocalDate, end: LocalDate) = start.plusWeeks(1) to end.plusWeeks(1)
+
+ // header labels
+ fun weekTitle(start: LocalDate): String {
+     val wk = start.get(java.time.temporal.WeekFields.ISO.weekOfMonth())
+     return "Week $wk · ${start.month.name.lowercase().replaceFirstChar{it.uppercase()}} ${start.year}"
+ }
+ fun weekRange(start: LocalDate, end: LocalDate): String {
+     val f = java.time.format.DateTimeFormatter.ofPattern("d MMM yyyy")
+     return "${start.format(f)} — ${end.format(f)}"
+ }
+
+
+
+
 }

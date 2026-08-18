@@ -1,571 +1,114 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="#F5F7FA">
-    <com.facebook.shimmer.ShimmerFrameLayout
-        android:id="@+id/shimmerLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:shimmer_duration="1000"
-        app:shimmer_base_color="#F0F0F0"
-        app:shimmer_highlight_color="#FFFFFF"
-        android:visibility="gone">
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:background="#EEF2F8">
 
-        <include layout="@layout/layout_shimmer_list"/>
-        <include layout="@layout/layout_shimmer_list"/>
-        <include layout="@layout/layout_shimmer_list"/>
-        <include layout="@layout/layout_shimmer_list"/>
-        <include layout="@layout/layout_shimmer_list"/>
-        <include layout="@layout/layout_shimmer_list"/>
-        <include layout="@layout/layout_shimmer_list"/>
-        <include layout="@layout/layout_shimmer_list"/>
-
+    <com.facebook.shimmer.ShimmerFrameLayout android:id="@+id/shimmerLayout"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        app:shimmer_duration="1000" app:shimmer_base_color="#F0F0F0" app:shimmer_highlight_color="#FFFFFF" android:visibility="gone">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical">
+            <include layout="@layout/layout_shimmer_list"/><include layout="@layout/layout_shimmer_list"/>
+            <include layout="@layout/layout_shimmer_list"/><include layout="@layout/layout_shimmer_list"/>
+            <include layout="@layout/layout_shimmer_list"/><include layout="@layout/layout_shimmer_list"/>
+        </LinearLayout>
     </com.facebook.shimmer.ShimmerFrameLayout>
 
+    <LinearLayout android:id="@+id/layoutMain" android:layout_width="match_parent" android:layout_height="match_parent"
+        android:orientation="vertical" android:background="#EEF2F8">
 
-    <LinearLayout
-        android:id="@+id/layoutMain"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="visible"
-        android:orientation="vertical"
-        android:background="#F5F7FA">
+        <!-- Header -->
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical"
+            android:background="@drawable/bg_header_att" android:paddingStart="16dp" android:paddingEnd="16dp" android:paddingTop="42dp" android:paddingBottom="16dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:gravity="center_vertical" android:layout_marginBottom="14dp">
+                <ImageView android:id="@+id/ivBack" android:layout_width="36dp" android:layout_height="36dp"
+                    android:src="@drawable/ic_arrow_back" android:tint="#FFFFFF" android:padding="8dp" android:background="@drawable/bg_icon_btn" android:layout_marginEnd="12dp" android:clickable="true" android:focusable="true"/>
+                <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="Mark Attendance"
+                    android:fontFamily="@font/satoshi_medium" android:textSize="20sp" android:textStyle="bold" android:textColor="#FFFFFF"/>
+                <TextView android:id="@+id/tvProgress" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="0/0"
+                    android:fontFamily="@font/satoshi_medium" android:textSize="13sp" android:textStyle="bold" android:textColor="#FFFFFF"
+                    android:background="@drawable/bg_stat_pill" android:paddingStart="12dp" android:paddingEnd="12dp" android:paddingTop="6dp" android:paddingBottom="6dp"/>
+            </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="#1565C0"
-        android:padding="14dp"
-        android:paddingBottom="16dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:layout_marginBottom="10dp">
-
-            <ImageView
-                android:id="@+id/ivBack"
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:src="@drawable/ic_arrow_back"
-                android:tint="#FFFFFF"
-                android:padding="4dp"
-                android:layout_marginEnd="10dp"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:text="Mark Attendance"
-                android:fontFamily="@font/satoshi_medium"
-                android:textSize="@dimen/text_caption_th"
-                android:textStyle="bold"
-                android:textColor="#FFFFFF"/>
-
-            <TextView
-                android:id="@+id/tvProgress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/text_caption_md"
-                android:fontFamily="@font/satoshi_medium"
-                android:text="0/0"
-                android:textColor="#CCffffff"/>
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal"
+                android:gravity="center_vertical" android:background="@drawable/bg_company_pill" android:padding="12dp">
+                <LinearLayout android:layout_width="36dp" android:layout_height="36dp" android:gravity="center" android:background="@drawable/bg_circle_white" android:layout_marginEnd="11dp">
+                    <ImageView android:layout_width="18dp" android:layout_height="18dp" android:src="@android:drawable/ic_menu_day" android:tint="#1D4ED8"/>
+                </LinearLayout>
+                <LinearLayout android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:orientation="vertical">
+                    <TextView android:id="@+id/tvShiftBanner" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:fontFamily="@font/satoshi_medium" android:textSize="14.5sp" android:textStyle="bold" android:textColor="#FFFFFF"/>
+                    <TextView android:id="@+id/tvShiftTime" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:fontFamily="@font/satoshi_medium" android:textSize="12sp" android:textColor="#CFE0FF" android:layout_marginTop="2dp"/>
+                </LinearLayout>
+                <TextView android:id="@+id/btnDeviation" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Deviation"
+                    android:fontFamily="@font/satoshi_medium" android:textSize="12.5sp" android:textStyle="bold" android:textColor="#FFFFFF"
+                    android:background="@drawable/bg_stat_pill" android:paddingStart="12dp" android:paddingEnd="12dp" android:paddingTop="8dp" android:paddingBottom="8dp" android:layout_marginStart="6dp"/>
+                <TextView android:id="@+id/btnPrefill" android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Prefill"
+                    android:fontFamily="@font/satoshi_medium" android:textSize="12sp" android:textStyle="bold" android:textColor="#412402"
+                    android:background="@drawable/bg_badge_amber" android:paddingStart="12dp" android:paddingEnd="12dp" android:paddingTop="8dp" android:paddingBottom="8dp" android:layout_marginStart="6dp" android:visibility="gone"/>
+            </LinearLayout>
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:gravity="center_vertical"
-            android:background="@drawable/bg_company_pill"
-            android:padding="9dp">
-
-            <LinearLayout
-                android:layout_width="28dp"
-                android:layout_height="28dp"
-                android:gravity="center"
-                android:background="@drawable/bg_circle_white"
-                android:layout_marginEnd="10dp">
-                <ImageView
-                    android:layout_width="16dp"
-                    android:layout_height="16dp"
-                    android:src="@android:drawable/ic_menu_day"
-                    android:tint="#1565C0"/>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tvShiftBanner"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/satoshi_medium"
-                    android:textSize="@dimen/text_caption_md"
-                    android:textStyle="bold"
-                    android:textColor="#FFFFFF"/>
-
-                <TextView
-                    android:id="@+id/tvShiftTime"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/satoshi_medium"
-                    android:textSize="@dimen/text_caption_small"
-                    android:textColor="#CCffffff"
-                    android:layout_marginTop="2dp"/>
-            </LinearLayout>
-
-            <TextView
-                android:id="@+id/btnDeviation"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Deviation"
-                android:textSize="@dimen/text_caption_small"
-                android:textStyle="bold"
-                android:fontFamily="@font/satoshi_medium"
-                android:textColor="#FFFFFF"
-                android:background="@drawable/bg_stat_pill"
-                android:paddingStart="9dp"
-                android:paddingEnd="9dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:layout_marginStart="6dp"
-                android:visibility="gone"/>
-
-            <TextView
-                android:id="@+id/btnPrefill"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Prefill"
-                android:textSize="9sp"
-                android:textStyle="bold"
-                android:textColor="#412402"
-                android:background="@drawable/bg_badge_amber"
-                android:paddingStart="9dp"
-                android:paddingEnd="9dp"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                android:layout_marginStart="6dp"
-                android:visibility="gone"/>
-
-        </LinearLayout>
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:id="@+id/layoutPrefillBanner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:background="@drawable/bg_badge_amber"
-        android:paddingStart="14dp"
-        android:paddingEnd="14dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp"
-        android:visibility="gone">
-
-        <ImageView
-            android:layout_width="16dp"
-            android:layout_height="16dp"
-            android:src="@android:drawable/ic_menu_recent_history"
-            android:tint="#633806"
-            android:layout_marginEnd="8dp"/>
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="Pre-filled from yesterday's attendance"
-            android:textSize="11sp"
-            android:textColor="#633806"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Edit"
-            android:textSize="11sp"
-            android:textStyle="bold"
-            android:textColor="#854F0B"/>
-    </LinearLayout>
-
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:gravity="center_vertical"
-        android:background="#FFFFFF"
-        android:paddingVertical="5dp"
-        android:paddingHorizontal="10dp"
-        android:paddingTop="8dp"
-        android:paddingBottom="8dp">
-
-        <ImageView
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:src="@android:drawable/ic_menu_search"
-            android:tint="#BDBDBD"
-            android:layout_marginEnd="8dp"/>
-
-        <EditText
-            android:id="@+id/etSearch"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:hint="Search name or emp code..."
-            android:textSize="@dimen/text_caption_md"
-            android:fontFamily="@font/satoshi_medium"
-            android:textColor="#212121"
-            android:paddingVertical="5dp"
-            android:paddingHorizontal="10dp"
-            android:textColorHint="#BDBDBD"
-            android:background="@null"
-            android:singleLine="true"
-            android:imeOptions="actionSearch"
-            android:inputType="text"/>
-
-        <ImageView
-            android:id="@+id/ivClearSearch"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
-            android:src="@android:drawable/ic_menu_close_clear_cancel"
-            android:tint="#BDBDBD"
-            android:visibility="gone"/>
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="#E0E0E0"/>
-
-    <HorizontalScrollView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="none"
-        android:background="#FFFFFF">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:padding="6dp"
-            android:gravity="center_vertical">
-
-            <!-- ✅ Pending tab — default active -->
-            <TextView
-                android:id="@+id/tabUnselected"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="Pending (0)"
-                android:textSize="@dimen/text_caption_md"
-                android:fontFamily="@font/satoshi_medium"
-                android:textStyle="bold"
-                android:paddingVertical="5dp"
-                android:paddingHorizontal="10dp"
-
-                android:layout_marginEnd="4dp"
-                android:background="@drawable/bg_tab_active"
-                android:textColor="@color/blue_dark"/>
-
-            <!-- All tab -->
-            <TextView
-                android:id="@+id/tabAll"
-                android:layout_width="wrap_content"
-                android:layout_height="34dp"
-                android:gravity="center"
-                android:text="All (0)"
-                android:textSize="@dimen/text_caption_md"
-                android:fontFamily="@font/satoshi_medium"
-                android:paddingVertical="5dp"
-                android:paddingHorizontal="10dp"
-                android:layout_marginEnd="4dp"
-                android:background="@drawable/bg_tab_inactive"
-                android:textColor="#757575"/>
-
-            <!-- Working tab -->
-            <TextView
-                android:id="@+id/tabWorking"
-                android:layout_width="wrap_content"
-                android:layout_height="34dp"
-                android:gravity="center"
-                android:text="Working (0)"
-                android:textSize="@dimen/text_caption_md"
-                android:fontFamily="@font/satoshi_medium"
-                android:paddingVertical="5dp"
-                android:paddingHorizontal="10dp"
-                android:layout_marginEnd="4dp"
-                android:background="@drawable/bg_tab_inactive"
-                android:textColor="#757575"/>
-
-            <!-- Off tab -->
-            <TextView
-                android:id="@+id/tabWeekoff"
-                android:layout_width="wrap_content"
-                android:layout_height="34dp"
-                android:gravity="center"
-                android:text="Off (0)"
-                android:textSize="@dimen/text_caption_md"
-                android:fontFamily="@font/satoshi_medium"
-                android:paddingVertical="5dp"
-                android:paddingHorizontal="10dp"
-                android:layout_marginEnd="4dp"
-                android:background="@drawable/bg_tab_inactive"
-                android:textColor="#757575"/>
-
-            <!-- Leave tab -->
-            <TextView
-                android:id="@+id/tabLeave"
-                android:layout_width="wrap_content"
-                android:layout_height="34dp"
-                android:gravity="center"
-                android:text="Leave (0)"
-                android:textSize="@dimen/text_caption_md"
-                android:fontFamily="@font/satoshi_medium"
-                android:paddingVertical="5dp"
-                android:paddingHorizontal="10dp"
-                android:layout_marginEnd="4dp"
-                android:background="@drawable/bg_tab_inactive"
-                android:textColor="#757575"/>
-
-            <!-- Holiday tab -->
-            <TextView
-                android:id="@+id/tabHoliday"
-                android:layout_width="wrap_content"
-                android:layout_height="34dp"
-                android:gravity="center"
-                android:text="Holiday (0)"
-                android:textSize="@dimen/text_caption_md"
-                android:fontFamily="@font/satoshi_medium"
-                android:paddingVertical="5dp"
-                android:paddingHorizontal="10dp"
-                android:background="@drawable/bg_tab_inactive"
-                android:textColor="#757575"/>
-
-        </LinearLayout>
-    </HorizontalScrollView>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:background="#E0E0E0"/>
-
-    <!-- ═══════════════════════════════ -->
-    <!-- EMPLOYEE LIST                   -->
-    <!-- ═══════════════════════════════ -->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rvEmployees"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:padding="10dp"
-        android:clipToPadding="false"
-        android:scrollbars="none"/>
-
-    <!-- ═══════════════════════════════ -->
-    <!-- EMPTY STATE                     -->
-    <!-- ═══════════════════════════════ -->
-    <LinearLayout
-        android:id="@+id/layoutEmpty"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="vertical"
-        android:gravity="center"
-        android:padding="30dp"
-        android:visibility="gone">
-
-        <ImageView
-            android:layout_width="56dp"
-            android:layout_height="56dp"
-            android:src="@android:drawable/ic_menu_agenda"
-            android:tint="#BDBDBD"
-            android:layout_marginBottom="12dp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="No employees in shift plan"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:textColor="#9E9E9E"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Assign employees to this shift first"
-            android:textSize="12sp"
-            android:textColor="#BDBDBD"
-            android:layout_marginTop="6dp"/>
-
-    </LinearLayout>
-
-    <!-- ═══════════════════════════════ -->
-    <!-- BOTTOM BAR                      -->
-    <!-- ═══════════════════════════════ -->
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="#FFFFFF"
-        android:padding="12dp"
-        android:elevation="8dp">
-
-        <!-- Count grid -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="5"
-            android:layout_marginBottom="10dp">
-
-            <!-- Working count -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center">
-                <TextView
-                    android:id="@+id/tvCountWorking"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textSize="@dimen/text_caption_md"
-                    android:fontFamily="@font/satoshi_medium"                    android:textStyle="bold"
-                    android:textColor="#27500A"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Working"
-                    android:textSize="@dimen/text_caption_small"
-                    android:fontFamily="@font/satoshi_medium"                     android:textColor="#757575"
-                    android:layout_marginTop="2dp"/>
-            </LinearLayout>
-
-            <!-- Off count -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center">
-                <TextView
-                    android:id="@+id/tvCountWeekoff"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textSize="@dimen/text_caption_md"
-                    android:fontFamily="@font/satoshi_medium"                    android:textStyle="bold"
-                    android:textColor="#633806"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Off"
-                    android:textSize="@dimen/text_caption_small"
-                    android:fontFamily="@font/satoshi_medium"                       android:textColor="#757575"
-                    android:layout_marginTop="2dp"/>
-            </LinearLayout>
-
-            <!-- Leave count -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center">
-                <TextView
-                    android:id="@+id/tvCountLeave"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textSize="@dimen/text_caption_md"
-                    android:fontFamily="@font/satoshi_medium"                    android:textStyle="bold"
-                    android:textColor="#0C447C"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Leave"
-                    android:textSize="@dimen/text_caption_small"
-                    android:fontFamily="@font/satoshi_medium"                       android:textColor="#757575"
-                    android:layout_marginTop="2dp"/>
-            </LinearLayout>
-
-            <!-- Holiday count -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center">
-                <TextView
-                    android:id="@+id/tvCountHoliday"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textSize="@dimen/text_caption_md"
-                    android:fontFamily="@font/satoshi_medium"                    android:textStyle="bold"
-                    android:textColor="#3C3489"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Holiday"
-                    android:textSize="@dimen/text_caption_small"
-                    android:fontFamily="@font/satoshi_medium"                       android:textColor="#757575"
-                    android:layout_marginTop="2dp"/>
-            </LinearLayout>
-
-            <!-- Pending count -->
-            <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:gravity="center">
-                <TextView
-                    android:id="@+id/tvCountPending"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0"
-                    android:textSize="@dimen/text_caption_md"
-                    android:fontFamily="@font/satoshi_medium"                    android:textStyle="bold"
-                    android:textColor="#E24B4A"/>
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Pending"
-                    android:textSize="@dimen/text_caption_small"
-                    android:fontFamily="@font/satoshi_medium"                       android:textColor="#757575"
-                    android:layout_marginTop="2dp"/>
-            </LinearLayout>
-
+        <!-- Prefill banner -->
+        <LinearLayout android:id="@+id/layoutPrefillBanner" android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal" android:gravity="center_vertical" android:background="#FEF3C7"
+            android:paddingStart="16dp" android:paddingEnd="16dp" android:paddingTop="9dp" android:paddingBottom="9dp" android:visibility="gone">
+            <ImageView android:layout_width="16dp" android:layout_height="16dp" android:src="@android:drawable/ic_menu_recent_history" android:tint="#B45309" android:layout_marginEnd="8dp"/>
+            <TextView android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content" android:text="Pre-filled from yesterday's attendance"
+                android:fontFamily="@font/satoshi_medium" android:textSize="12sp" android:textStyle="bold" android:textColor="#854F0B"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Edit" android:textStyle="bold" android:textColor="#854F0B" android:textSize="12sp"/>
         </LinearLayout>
 
-        <!-- ✅ Submit button -->
-        <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnSubmit"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Submit attendance →"
-            android:textSize="@dimen/text_caption_md"
-            android:fontFamily="@font/satoshi_medium"
-            android:textStyle="bold"
-            android:textAllCaps="false"
-            android:enabled="false"
-            app:cornerRadius="4dp"
-            app:backgroundTint="#BDBDBD"/>
+        <!-- Search -->
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal"
+            android:gravity="center_vertical" android:background="#FFFFFF" android:paddingStart="16dp" android:paddingEnd="16dp" android:paddingTop="11dp" android:paddingBottom="11dp">
+            <ImageView android:layout_width="18dp" android:layout_height="18dp" android:src="@android:drawable/ic_menu_search" android:tint="#94A3B8" android:layout_marginEnd="10dp"/>
+            <EditText android:id="@+id/etSearch" android:layout_width="0dp" android:layout_weight="1" android:layout_height="wrap_content"
+                android:hint="Search name or emp code..." android:fontFamily="@font/satoshi_medium" android:textSize="14.5sp" android:textColor="#0F172A" android:textColorHint="#94A3B8"
+                android:background="@null" android:singleLine="true" android:imeOptions="actionSearch" android:inputType="text"/>
+            <ImageView android:id="@+id/ivClearSearch" android:layout_width="20dp" android:layout_height="20dp" android:src="@android:drawable/ic_menu_close_clear_cancel" android:tint="#94A3B8" android:visibility="gone"/>
+        </LinearLayout>
 
-    </LinearLayout>
+        <!-- Filter tabs -->
+        <HorizontalScrollView android:layout_width="match_parent" android:layout_height="wrap_content" android:scrollbars="none" android:background="#FFFFFF">
+            <LinearLayout android:layout_width="wrap_content" android:layout_height="wrap_content" android:orientation="horizontal" android:padding="8dp" android:paddingTop="4dp" android:gravity="center_vertical">
+                <TextView android:id="@+id/tabUnselected" style="@style/AttTab" android:text="Pending (0)" android:background="@drawable/bg_tab_active" android:textColor="@color/blue_dark"/>
+                <TextView android:id="@+id/tabAll" style="@style/AttTab" android:text="All (0)" android:background="@drawable/bg_tab_inactive" android:textColor="#64748B"/>
+                <TextView android:id="@+id/tabWorking" style="@style/AttTab" android:text="Working (0)" android:background="@drawable/bg_tab_inactive" android:textColor="#64748B"/>
+                <TextView android:id="@+id/tabWeekoff" style="@style/AttTab" android:text="Off (0)" android:background="@drawable/bg_tab_inactive" android:textColor="#64748B"/>
+                <TextView android:id="@+id/tabLeave" style="@style/AttTab" android:text="Leave (0)" android:background="@drawable/bg_tab_inactive" android:textColor="#64748B"/>
+                <TextView android:id="@+id/tabHoliday" style="@style/AttTab" android:text="Holiday (0)" android:background="@drawable/bg_tab_inactive" android:textColor="#64748B" android:layout_marginEnd="0dp"/>
+            </LinearLayout>
+        </HorizontalScrollView>
+
+        <androidx.recyclerview.widget.RecyclerView android:id="@+id/rvEmployees"
+            android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"
+            android:padding="14dp" android:clipToPadding="false" android:scrollbars="none"/>
+
+        <LinearLayout android:id="@+id/layoutEmpty" android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1"
+            android:orientation="vertical" android:gravity="center" android:padding="30dp" android:visibility="gone">
+            <ImageView android:layout_width="56dp" android:layout_height="56dp" android:src="@android:drawable/ic_menu_agenda" android:tint="#CBD5E1" android:layout_marginBottom="12dp"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="No employees in shift plan"
+                android:fontFamily="@font/satoshi_medium" android:textSize="15sp" android:textStyle="bold" android:textColor="#94A3B8"/>
+            <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Assign employees to this shift first"
+                android:fontFamily="@font/satoshi_medium" android:textSize="12sp" android:textColor="#CBD5E1" android:layout_marginTop="6dp"/>
+        </LinearLayout>
+
+        <!-- Bottom bar -->
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical"
+            android:background="#FFFFFF" android:padding="14dp" android:elevation="10dp">
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="horizontal" android:weightSum="5" android:layout_marginBottom="12dp">
+                <LinearLayout style="@style/AttCount"><TextView android:id="@+id/tvCountWorking" style="@style/AttCountNum" android:textColor="#16A34A"/><TextView style="@style/AttCountLbl" android:text="Working"/></LinearLayout>
+                <LinearLayout style="@style/AttCount"><TextView android:id="@+id/tvCountWeekoff" style="@style/AttCountNum" android:textColor="#D97706"/><TextView style="@style/AttCountLbl" android:text="Off"/></LinearLayout>
+                <LinearLayout style="@style/AttCount"><TextView android:id="@+id/tvCountLeave" style="@style/AttCountNum" android:textColor="#2563EB"/><TextView style="@style/AttCountLbl" android:text="Leave"/></LinearLayout>
+                <LinearLayout style="@style/AttCount"><TextView android:id="@+id/tvCountHoliday" style="@style/AttCountNum" android:textColor="#7C3AED"/><TextView style="@style/AttCountLbl" android:text="Holiday"/></LinearLayout>
+                <LinearLayout style="@style/AttCount"><TextView android:id="@+id/tvCountPending" style="@style/AttCountNum" android:textColor="#DC2626"/><TextView style="@style/AttCountLbl" android:text="Pending"/></LinearLayout>
+            </LinearLayout>
+            <com.google.android.material.button.MaterialButton android:id="@+id/btnSubmit"
+                android:layout_width="match_parent" android:layout_height="54dp" android:text="Submit attendance →"
+                android:textSize="15.5sp" android:fontFamily="@font/satoshi_medium" android:textStyle="bold" android:textAllCaps="false"
+                android:enabled="false" app:cornerRadius="14dp" app:backgroundTint="#CBD5E1"/>
+        </LinearLayout>
     </LinearLayout>
 </LinearLayout>

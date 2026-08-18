@@ -1,21 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="#F5F7FA">
+    android:background="#EEF2F8">
 
-    <!-- Top Bar -->
+    <!-- ───────── Header (rounded bottom) ───────── -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:gravity="center_vertical"
-        android:background="#1565C0"
-        android:padding="10dp">
-
+        android:background="@drawable/bg_header"
+        android:paddingStart="20dp"
+        android:paddingEnd="20dp"
+        android:paddingTop="18dp"
+        android:paddingBottom="22dp">
 
         <LinearLayout
             android:layout_width="0dp"
@@ -28,138 +29,145 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Employees"
-                android:textSize="@dimen/text_caption_lg"
+                android:textSize="24sp"
                 android:fontFamily="@font/satoshi_medium"
                 android:textStyle="bold"
-                android:textColor="#FFFFFF"/>
+                android:textColor="#FFFFFF" />
 
             <TextView
                 android:id="@+id/tvSubtitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Loading..."
-                android:textSize="@dimen/text_caption_small"
+                android:text="Loading…"
+                android:textSize="13sp"
                 android:fontFamily="@font/satoshi_medium"
-                android:textColor="#CCffffff"/>
+                android:textColor="#CFE0FF"
+                android:layout_marginTop="2dp" />
         </LinearLayout>
 
         <com.google.android.material.button.MaterialButton
             android:id="@+id/btnAdd"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="+ Add"
-            android:textColor="#FFFFFF"
+            android:text="Add"
+            android:textAllCaps="false"
+            android:textColor="#1D4ED8"
             android:fontFamily="@font/satoshi_medium"
-            android:textSize="@dimen/text_caption_md"
-            app:strokeColor="#FFFFFF"
-            app:cornerRadius="4dp"/>
+            android:textStyle="bold"
+            android:textSize="14sp"
+            app:icon="@drawable/ic_add"
+            app:iconTint="#1D4ED8"
+            app:iconSize="18dp"
+            app:backgroundTint="#FFFFFF"
+            app:cornerRadius="14dp"
+            android:insetTop="0dp"
+            android:insetBottom="0dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp" />
     </LinearLayout>
 
-    <!-- Search -->
+    <!-- ───────── Search card ───────── -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:background="#FFFFFF"
-        android:padding="10dp">
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:background="@drawable/bg_emp_search"
+        android:elevation="2dp"
+        android:padding="14dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginHorizontal="16dp">
+
+        <ImageView
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/ic_search"
+            android:tint="#94A3B8"
+            android:layout_marginEnd="11dp" />
 
         <EditText
             android:id="@+id/etSearch"
             android:layout_width="match_parent"
-            android:padding="10dp"
             android:layout_height="wrap_content"
-            android:background="@drawable/bg_search"
-            android:drawableLeft="@drawable/ic_search"
-            android:drawablePadding="8dp"
-            android:gravity="center_vertical"
-            android:hint="Search by name, code, phone..."
-            android:textSize="@dimen/text_caption_md"
+            android:background="@android:color/transparent"
+            android:hint="Search by name, code, phone…"
+            android:textColorHint="#94A3B8"
+            android:textColor="#0F172A"
+            android:textSize="14sp"
             android:fontFamily="@font/satoshi_medium"
             android:inputType="text"
-            android:singleLine="true"/>
-
-        <!-- Filter chips -->
-        <HorizontalScrollView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:scrollbars="none"
-            android:layout_marginTop="8dp">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipAll"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="All"
-                    android:fontFamily="@font/satoshi_medium"
-                    android:textSize="@dimen/text_caption_md"
-                    android:checkable="true"
-                    android:checked="true"
-                    style="@style/Widget.MaterialComponents.Chip.Filter"/>
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipActive"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Active"
-                    android:checkable="true"
-                    android:fontFamily="@font/satoshi_medium"
-                    android:textSize="@dimen/text_caption_md"
-                    android:layout_marginStart="6dp"
-                    style="@style/Widget.MaterialComponents.Chip.Filter"/>
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipInactive"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Inactive"
-                    android:fontFamily="@font/satoshi_medium"
-                    android:textSize="@dimen/text_caption_md"
-                    android:checkable="true"
-                    android:layout_marginStart="6dp"
-                    style="@style/Widget.MaterialComponents.Chip.Filter"/>
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipMale"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Male"
-                    android:fontFamily="@font/satoshi_medium"
-                    android:textSize="@dimen/text_caption_md"
-                    android:checkable="true"
-                    android:layout_marginStart="6dp"
-                    style="@style/Widget.MaterialComponents.Chip.Filter"/>
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chipFemale"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Female"
-                    android:fontFamily="@font/satoshi_medium"
-                    android:textSize="@dimen/text_caption_md"
-                    android:checkable="true"
-                    android:layout_marginStart="6dp"
-                    style="@style/Widget.MaterialComponents.Chip.Filter"/>
-
-            </LinearLayout>
-        </HorizontalScrollView>
+            android:singleLine="true" />
     </LinearLayout>
 
-    <!-- Employee List -->
+    <!-- ───────── Filter chips ───────── -->
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:paddingHorizontal="16dp"
+        android:layout_marginTop="14dp"
+        android:clipToPadding="false">
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:singleLine="true"
+            app:singleSelection="true"
+            app:selectionRequired="true"
+            app:chipSpacingHorizontal="9dp">
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipAll"
+                style="@style/Chip.EmpFilter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="All"
+                android:checked="true" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipActive"
+                style="@style/Chip.EmpFilter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Active" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipInactive"
+                style="@style/Chip.EmpFilter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Inactive" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipMale"
+                style="@style/Chip.EmpFilter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Male" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chipFemale"
+                style="@style/Chip.EmpFilter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Female" />
+        </com.google.android.material.chip.ChipGroup>
+    </HorizontalScrollView>
+
+    <!-- ───────── List ───────── -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvEmployees"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:padding="4dp"
-        android:clipToPadding="false"/>
+        android:paddingHorizontal="16dp"
+        android:paddingTop="12dp"
+        android:paddingBottom="12dp"
+        android:clipToPadding="false"
+        android:overScrollMode="never" />
 
-    <!-- Empty state -->
+    <!-- ───────── Empty state ───────── -->
     <LinearLayout
         android:id="@+id/layoutEmpty"
         android:layout_width="match_parent"
@@ -169,20 +177,28 @@
         android:gravity="center"
         android:visibility="gone">
 
+        <ImageView
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:src="@drawable/ic_employees_empty"
+            android:tint="#C3CEDE"
+            android:layout_marginBottom="14dp" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="No employees found"
             android:textSize="16sp"
-            android:textColor="#757575"/>
+            android:textStyle="bold"
+            android:fontFamily="@font/satoshi_medium"
+            android:textColor="#475569" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Tap + Add to add your first employee"
+            android:text="Tap Add to add your first employee"
             android:textSize="13sp"
-            android:textColor="#BDBDBD"
-            android:layout_marginTop="4dp"/>
+            android:textColor="#94A3B8"
+            android:layout_marginTop="4dp" />
     </LinearLayout>
-
 </LinearLayout>

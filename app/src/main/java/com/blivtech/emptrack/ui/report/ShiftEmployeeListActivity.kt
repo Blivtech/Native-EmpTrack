@@ -190,7 +190,7 @@ class ShiftEmployeeListActivity : AppCompatActivity() {
             // ✅ Name + code + dept
             row.findViewById<TextView>(R.id.tvEmpName).text   = emp.empName
             row.findViewById<TextView>(R.id.tvEmpCode).text   = emp.empCode
-            row.findViewById<TextView>(R.id.tvEmpDept).text   = emp.deptCode
+            row.findViewById<TextView>(R.id.tvEmpDept).text   = emp.desgName
 
             // ✅ Status label
             val tvStatus = row.findViewById<TextView>(R.id.tvStatus)

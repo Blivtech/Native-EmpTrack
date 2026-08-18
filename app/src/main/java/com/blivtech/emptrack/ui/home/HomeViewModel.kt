@@ -66,14 +66,17 @@ class HomeViewModel @Inject constructor(
         CardDetailsForHomeActivity(id = "4", iconRes = R.drawable.ic_nav_reports, bgColorRes = R.drawable.bg_circle_blue, cardName = "Salary", subtitle = "Work based · Pay", needFlag = false),
         CardDetailsForHomeActivity(id = "5", iconRes = R.drawable.ic_nav_work, bgColorRes = R.drawable.bg_circle_green, cardName = "Inventory", subtitle = "Stock · Issue · Track", needFlag = false),
     )
+
+
     val items = listOf(
-        DashboardItem("Extra Pay & Advances", R.drawable.ic_extra_pay, R.color.icon_pay, R.color.bg_pay),
-        DashboardItem("Shift Management", R.drawable.ic_shift, R.color.icon_shift, R.color.bg_shift),
-        DashboardItem("Work-Based Pay", R.drawable.ic_work_pay, R.color.icon_work, R.color.bg_work),
-        DashboardItem("Salary", R.drawable.ic_salary, R.color.icon_salary, R.color.bg_salary),
-        DashboardItem("Inventory", R.drawable.ic_inventory, R.color.icon_inventory, R.color.bg_inventory),
-        DashboardItem("Contractor Billing", R.drawable.ic_billing, R.color.icon_billing, R.color.bg_billing)
+        DashboardItem("Extra Pay & Advances", R.drawable.ic_extra_pay,    R.color.mod_extra_ic,    R.color.mod_extra_bg),
+        DashboardItem("Shift Management",     R.drawable.ic_shift,     R.color.mod_shift_ic,    R.color.mod_shift_bg),
+        DashboardItem("Work-Based Pay",       R.drawable.ic_work,      R.color.mod_work_ic,     R.color.mod_work_bg),
+        DashboardItem("Salary",               R.drawable.ic_salary,    R.color.mod_salary_ic,   R.color.mod_salary_bg),
+        DashboardItem("Product",            R.drawable.bg_product, R.color.mod_inv_ic,      R.color.mod_inv_bg),
+        DashboardItem("Contractor Billing",   R.drawable.ic_billing,  R.color.mod_contract_ic, R.color.mod_contract_bg)
     )
+
 
 }
 

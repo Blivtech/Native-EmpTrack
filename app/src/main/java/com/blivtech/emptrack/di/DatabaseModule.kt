@@ -42,4 +42,10 @@ object DatabaseModule {
 
     @Provides
     fun provideContractEntryDao(db: AppDatabase): ContractEntryDao =
-        db.contractEntryDao()}
+        db.contractEntryDao()
+    @Provides fun provideProductDao(db: AppDatabase): ProductDao = db.productDao()
+    @Provides
+    fun provideWorkEntryDao(db: AppDatabase): WorkEntryDao = db.workEntryDao()
+}
+
+// Hilt module

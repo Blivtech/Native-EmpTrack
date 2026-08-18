@@ -1,5 +1,6 @@
 package com.blivtech.emptrack.ui.report.adapter
 
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -18,75 +19,30 @@ class ReportAdapter(
     ) : RecyclerView.ViewHolder(binding.root) {
 
         fun bind(item: ReportItem) {
-            // ✅ Icon
+            // Icon glyph + colour
             binding.ivReportIcon.setImageResource(item.iconRes)
-            binding.ivReportIcon.setColorFilter(
-                Color.parseColor(item.iconTintColor)
-            )
-            binding.layoutReportIcon.setBackgroundColor(
-                Color.parseColor(item.iconBgColor)
-            )
+            binding.ivReportIcon.setColorFilter(Color.parseColor(item.iconTintColor))
 
-            // ✅ Name + subtitle
+            // Rounded chip background — tint keeps the corner radius
+            binding.layoutReportIcon.backgroundTintList =
+                ColorStateList.valueOf(Color.parseColor(item.iconBgColor))
+
             binding.tvReportName.text     = item.name
             binding.tvReportSubtitle.text = item.subtitle
 
-            // ✅ Tag
-            binding.tvReportTag.text = item.tag
-
-            // ✅ Tag color by category
-            when (item.category) {
-                "ATTENDANCE" -> {
-                    binding.tvReportTag.setTextColor(
-                        Color.parseColor("#0C447C")
-                    )
-                    binding.tvReportTag.setBackgroundResource(
-                        com.blivtech.emptrack.R.drawable.bg_badge_blue
-                    )
-                }
-                "WAGES" -> {
-                    binding.tvReportTag.setTextColor(
-                        Color.parseColor("#633806")
-                    )
-                    binding.tvReportTag.setBackgroundResource(
-                        com.blivtech.emptrack.R.drawable.bg_badge_amber
-                    )
-                }
-                "WORK" -> {
-                    binding.tvReportTag.setTextColor(
-                        Color.parseColor("#E65100")
-                    )
-                    binding.tvReportTag.setBackgroundResource(
-                        com.blivtech.emptrack.R.drawable.bg_badge_red_light
-                    )
-                }
-            }
-
-            // ✅ Click
             binding.root.setOnClickListener { onClick(item) }
         }
     }
 
     class DiffCallback : DiffUtil.ItemCallback<ReportItem>() {
-        override fun areItemsTheSame(
-            oldItem: ReportItem, newItem: ReportItem
-        ) = oldItem.id == newItem.id
-
-        override fun areContentsTheSame(
-            oldItem: ReportItem, newItem: ReportItem
-        ) = oldItem == newItem
+        override fun areItemsTheSame(a: ReportItem, b: ReportItem) = a.id == b.id
+        override fun areContentsTheSame(a: ReportItem, b: ReportItem) = a == b
     }
 
-    override fun onCreateViewHolder(
-        parent: ViewGroup, viewType: Int
-    ): ViewHolder {
-        val binding = ItemReportCardBinding.inflate(
-            LayoutInflater.from(parent.context), parent, false
-        )
-        return ViewHolder(binding)
-    }
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int) = ViewHolder(
+        ItemReportCardBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+    )
 
-    override fun onBindViewHolder(
-        holder: ViewHolder, position: Int
-    ) = holder.bind(getItem(position))
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) =
+        holder.bind(getItem(position))
 }

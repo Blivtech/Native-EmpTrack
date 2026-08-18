@@ -25,7 +25,6 @@ class AddEditEmployeeViewModel @Inject constructor(
 
 
 
-
     private val _deptCreated = MutableLiveData<DepartmentEntity?>()
     val deptCreated: LiveData<DepartmentEntity?> = _deptCreated
 
