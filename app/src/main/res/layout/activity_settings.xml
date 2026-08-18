@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:background="#EEF2F8">
+
+    <!-- Header -->
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal" android:gravity="center_vertical" android:background="@drawable/bg_header"
+        android:paddingStart="16dp" android:paddingEnd="16dp" android:paddingTop="42dp" android:paddingBottom="18dp">
+        <ImageView android:id="@+id/ivBack" android:layout_width="40dp" android:layout_height="40dp"
+            android:src="@drawable/ic_arrow_back" android:tint="#FFFFFF" android:padding="10dp" android:background="@drawable/bg_icon_btn" android:layout_marginEnd="12dp"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Settings"
+            android:fontFamily="@font/satoshi_medium" android:textSize="21sp" android:textStyle="bold" android:textColor="#FFFFFF"/>
+    </LinearLayout>
+
+    <ScrollView android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:scrollbars="none">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
+
+            <!-- Account -->
+            <TextView style="@style/SetSectionLbl" android:text="Account"/>
+            <LinearLayout style="@style/SetCard">
+                <LinearLayout android:id="@+id/rowEditProfile" style="@style/SetRow">
+                    <ImageView style="@style/SetIcon" android:src="@drawable/ic_user" android:backgroundTint="#DBEAFE" android:tint="#2563EB"/>
+                    <TextView style="@style/SetTitle" android:text="Edit profile"/>
+                    <ImageView style="@style/SetChevron"/>
+                </LinearLayout>
+                <View style="@style/SetDivider"/>
+                <LinearLayout android:id="@+id/rowChangePassword" style="@style/SetRow">
+                    <ImageView style="@style/SetIcon" android:src="@drawable/ic_lock" android:backgroundTint="#EDE9FE" android:tint="#7C3AED"/>
+                    <TextView style="@style/SetTitle" android:text="Change password"/>
+                    <ImageView style="@style/SetChevron"/>
+                </LinearLayout>
+                <View style="@style/SetDivider"/>
+                <LinearLayout android:id="@+id/rowCompanies" style="@style/SetRow">
+                    <ImageView style="@style/SetIcon" android:src="@drawable/ic_company" android:backgroundTint="#DCFCE7" android:tint="#16A34A"/>
+                    <TextView style="@style/SetTitle" android:text="My companies"/>
+                    <ImageView style="@style/SetChevron"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Preferences -->
+            <TextView style="@style/SetSectionLbl" android:text="Preferences"/>
+            <LinearLayout style="@style/SetCard">
+                <LinearLayout style="@style/SetRow" android:clickable="false">
+                    <ImageView style="@style/SetIcon" android:src="@drawable/ic_bell" android:backgroundTint="#FEF3E2" android:tint="#D97706"/>
+                    <TextView style="@style/SetTitle" android:text="Notifications"/>
+                    <com.google.android.material.materialswitch.MaterialSwitch android:id="@+id/switchNotifications"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content" android:checked="true"/>
+                </LinearLayout>
+                <View style="@style/SetDivider"/>
+                <LinearLayout style="@style/SetRow" android:clickable="false">
+                    <ImageView style="@style/SetIcon" android:src="@drawable/ic_wifi" android:backgroundTint="#DBEAFE" android:tint="#2563EB"/>
+                    <TextView style="@style/SetTitle" android:text="Sync on Wi-Fi only"/>
+                    <com.google.android.material.materialswitch.MaterialSwitch android:id="@+id/switchWifiSync"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content" android:checked="true"/>
+                </LinearLayout>
+                <View style="@style/SetDivider"/>
+                <LinearLayout style="@style/SetRow" android:clickable="false">
+                    <ImageView style="@style/SetIcon" android:src="@drawable/ic_moon" android:backgroundTint="#E9EDF5" android:tint="#475569"/>
+                    <TextView style="@style/SetTitle" android:text="Dark mode"/>
+                    <com.google.android.material.materialswitch.MaterialSwitch android:id="@+id/switchDarkMode"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"/>
+                </LinearLayout>
+                <View style="@style/SetDivider"/>
+                <LinearLayout android:id="@+id/rowLanguage" style="@style/SetRow">
+                    <ImageView style="@style/SetIcon" android:src="@drawable/ic_globe" android:backgroundTint="#CCFBF1" android:tint="#0D9488"/>
+                    <TextView style="@style/SetTitle" android:text="Language"/>
+                    <TextView android:id="@+id/tvLanguage" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="English" android:textSize="13sp" android:textStyle="bold" android:fontFamily="@font/satoshi_medium" android:textColor="#94A3B8" android:layout_marginEnd="6dp"/>
+                    <ImageView style="@style/SetChevron"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- Support -->
+            <TextView style="@style/SetSectionLbl" android:text="Support"/>
+            <LinearLayout style="@style/SetCard">
+                <LinearLayout android:id="@+id/rowHelp" style="@style/SetRow">
+                    <ImageView style="@style/SetIcon" android:src="@drawable/ic_help" android:backgroundTint="#DBEAFE" android:tint="#2563EB"/>
+                    <TextView style="@style/SetTitle" android:text="Help &amp; Support"/>
+                    <ImageView style="@style/SetChevron"/>
+                </LinearLayout>
+                <View style="@style/SetDivider"/>
+                <LinearLayout android:id="@+id/rowAbout" style="@style/SetRow">
+                    <ImageView style="@style/SetIcon" android:src="@drawable/ic_info" android:backgroundTint="#EDE9FE" android:tint="#7C3AED"/>
+                    <TextView style="@style/SetTitle" android:text="About"/>
+                    <ImageView style="@style/SetChevron"/>
+                </LinearLayout>
+                <View style="@style/SetDivider"/>
+                <LinearLayout android:id="@+id/rowRate" style="@style/SetRow">
+                    <ImageView style="@style/SetIcon" android:src="@drawable/ic_star" android:backgroundTint="#FEF3E2" android:tint="#D97706"/>
+                    <TextView style="@style/SetTitle" android:text="Rate this app"/>
+                    <ImageView style="@style/SetChevron"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton android:id="@+id/btnLogout"
+                android:layout_width="match_parent" android:layout_height="52dp" android:text="Log out"
+                android:textAllCaps="false" android:textSize="15sp" android:textStyle="bold" android:fontFamily="@font/satoshi_medium"
+                android:textColor="#DC2626" app:backgroundTint="#FEE2E2" app:cornerRadius="14dp"
+                app:icon="@drawable/ic_logout" app:iconTint="#DC2626" app:iconGravity="textStart" android:layout_marginTop="16dp"/>
+
+            <TextView android:layout_width="match_parent" android:layout_height="wrap_content" android:text="EmpTrack v1.0 · © 2026 BlivTech"
+                android:gravity="center" android:textColor="#94A3B8" android:textSize="11.5sp" android:fontFamily="@font/satoshi_medium" android:layout_marginTop="16dp"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

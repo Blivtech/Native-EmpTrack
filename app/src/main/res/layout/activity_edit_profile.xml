@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:orientation="vertical" android:background="#EEF2F8">
+
+    <!-- Header -->
+    <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="horizontal" android:gravity="center_vertical" android:background="@drawable/bg_header"
+        android:paddingStart="16dp" android:paddingEnd="16dp" android:paddingTop="42dp" android:paddingBottom="18dp">
+        <ImageView android:id="@+id/ivBack" android:layout_width="40dp" android:layout_height="40dp"
+            android:src="@drawable/ic_arrow_back" android:tint="#FFFFFF" android:padding="10dp" android:background="@drawable/bg_icon_btn" android:layout_marginEnd="12dp"/>
+        <TextView android:layout_width="wrap_content" android:layout_height="wrap_content" android:text="Edit Profile"
+            android:fontFamily="@font/satoshi_medium" android:textSize="21sp" android:textStyle="bold" android:textColor="#FFFFFF"/>
+    </LinearLayout>
+
+    <ScrollView android:layout_width="match_parent" android:layout_height="0dp" android:layout_weight="1" android:scrollbars="none">
+        <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical" android:padding="16dp">
+
+            <!-- Avatar with change badge -->
+            <FrameLayout android:layout_width="96dp" android:layout_height="96dp" android:layout_gravity="center_horizontal" android:layout_marginTop="6dp" android:layout_marginBottom="18dp">
+                <TextView android:id="@+id/tvAvatar" android:layout_width="96dp" android:layout_height="96dp" android:gravity="center"
+                    android:text="S" android:textSize="36sp" android:textStyle="bold" android:fontFamily="@font/satoshi_medium"
+                    android:textColor="#FFFFFF" android:background="@drawable/bg_avatar_grad"/>
+                <ImageView android:id="@+id/ivChangePhoto" android:layout_width="32dp" android:layout_height="32dp"
+                    android:layout_gravity="bottom|end" android:src="@drawable/ic_camera" android:tint="#2563EB"
+                    android:padding="7dp" android:background="@drawable/bg_photo_badge"/>
+            </FrameLayout>
+
+            <LinearLayout android:layout_width="match_parent" android:layout_height="wrap_content" android:orientation="vertical"
+                android:background="@drawable/bg_info_card" android:padding="16dp">
+
+                <com.google.android.material.textfield.TextInputLayout android:id="@+id/tilFullName" style="@style/ProfileTil"
+                    android:hint="Full name" app:startIconDrawable="@drawable/ic_user">
+                    <com.google.android.material.textfield.TextInputEditText android:id="@+id/etFullName"
+                        android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="textCapWords" android:imeOptions="actionNext"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout android:id="@+id/tilPhone" style="@style/ProfileTil"
+                    android:hint="Phone" app:startIconDrawable="@drawable/ic_phone">
+                    <com.google.android.material.textfield.TextInputEditText android:id="@+id/etPhone"
+                        android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="phone" android:imeOptions="actionNext"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout android:id="@+id/tilEmail" style="@style/ProfileTil"
+                    android:hint="Email" app:startIconDrawable="@drawable/ic_email">
+                    <com.google.android.material.textfield.TextInputEditText android:id="@+id/etEmail"
+                        android:layout_width="match_parent" android:layout_height="wrap_content" android:inputType="textEmailAddress" android:imeOptions="actionDone"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout android:id="@+id/tilUserType" style="@style/ProfileTil"
+                    android:hint="User type" app:startIconDrawable="@drawable/ic_badge" android:layout_marginBottom="0dp">
+                    <com.google.android.material.textfield.TextInputEditText android:id="@+id/etUserType"
+                        android:layout_width="match_parent" android:layout_height="wrap_content" android:focusable="false" android:clickable="false" android:enabled="false"/>
+                </com.google.android.material.textfield.TextInputLayout>
+            </LinearLayout>
+
+            <com.google.android.material.button.MaterialButton android:id="@+id/btnSave"
+                android:layout_width="match_parent" android:layout_height="54dp" android:text="Save changes"
+                android:textAllCaps="false" android:textSize="15.5sp" android:textStyle="bold" android:fontFamily="@font/satoshi_medium"
+                android:layout_marginTop="18dp" app:backgroundTint="@null" android:background="@drawable/bg_btn_primary" app:elevation="0dp"/>
+
+            <ProgressBar android:id="@+id/progressBar" android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal" android:layout_marginTop="12dp" android:visibility="gone" android:indeterminateTint="#2563EB"/>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
