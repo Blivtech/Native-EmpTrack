@@ -5,6 +5,7 @@ import com.blivtech.emptrack.data.local.entity.*
 import com.blivtech.emptrack.data.model.ProductRequestDto
 import com.blivtech.emptrack.data.network.ApiService
 import com.blivtech.emptrack.ui.home.SyncResult
+import com.blivtech.emptrack.utils.PreferenceManager
 import com.blivtech.emptrack.utils.Resource
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -21,6 +22,7 @@ class MasterRepository @Inject constructor(
     private val employeeDao: EmployeeDao,
     private val designationDao: DesignationDao,
     private val productDao: ProductDao,
+    private val preferenceManager: PreferenceManager
 ) {
     suspend fun syncMasterData(btCode: String): Resource<SyncResult> {
         return try {
@@ -55,6 +57,14 @@ class MasterRepository @Inject constructor(
                     }
                     companyDao.insertAll(companies)
 
+                    companies.firstOrNull()?.let { company ->
+                        preferenceManager.saveSelectedCompany(
+                            company.companyCode,
+                            company.name
+                        )
+                    }
+
+
                     // Save shifts
                     val shifts = data.companies.flatMap { c ->
                         c.shifts.map { s ->
@@ -71,6 +81,8 @@ class MasterRepository @Inject constructor(
                         }
                     }
                     shiftDao.insertAll(shifts)
+
+
 
                     // Save departments
                     val departments = data.departments.map { d ->

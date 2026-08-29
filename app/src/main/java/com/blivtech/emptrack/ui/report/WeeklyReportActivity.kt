@@ -83,15 +83,13 @@ class WeeklyReportActivity : AppCompatActivity() {
         binding.rvWeeklyRows.adapter = weeklyAdapter
     }
 
-    // ─────────────────────────────────
-    // ✅ Setup tabs
-    // ─────────────────────────────────
+
     private fun setupTabs() {
         binding.tabOverall.setOnClickListener {
             if (currentTab != "OVERALL") {
                 currentTab = "OVERALL"
                 updateTabUI()
-               // binding.scrollShiftChips.visibility = View.GONE
+                binding.scrollShiftChips.visibility = View.GONE
                 loadData()
             }
         }
@@ -100,7 +98,7 @@ class WeeklyReportActivity : AppCompatActivity() {
             if (currentTab != "SHIFT") {
                 currentTab = "SHIFT"
                 updateTabUI()
-            //    binding.scrollShiftChips.visibility = View.VISIBLE
+                binding.scrollShiftChips.visibility = View.VISIBLE
                 loadData()
             }
         }
@@ -109,17 +107,8 @@ class WeeklyReportActivity : AppCompatActivity() {
     }
 
     private fun updateTabUI() {
-        if (currentTab == "OVERALL") {
-            binding.tabOverall.alpha   = 1f
-            binding.tabShiftWise.alpha = 0.5f
-            binding.tabShiftWise.setTextColor(ContextCompat.getColor(this, R.color.bg_ss))
-            binding.tabOverall.setTextColor(ContextCompat.getColor(this, R.color.white))
-        } else {
-            binding.tabOverall.alpha   = 0.5f
-            binding.tabShiftWise.alpha = 1f
-            binding.tabShiftWise.setTextColor(ContextCompat.getColor(this, R.color.white))
-            binding.tabOverall.setTextColor(ContextCompat.getColor(this, R.color.bg_ss))
-        }
+        binding.tabOverall.isSelected   = currentTab == "OVERALL"
+        binding.tabShiftWise.isSelected = currentTab == "SHIFT"
     }
 
     // ─────────────────────────────────
@@ -197,12 +186,18 @@ class WeeklyReportActivity : AppCompatActivity() {
         viewModel.error.observe(this) { error ->
             error ?: return@observe
             Snackbar.make(binding.root, error, Snackbar.LENGTH_LONG).show()
+
+
             viewModel.resetError()
         }
 
         // ✅ Overall report
         viewModel.overallReport.observe(this) { report ->
-            report ?: return@observe
+            if (report == null) {
+                buildTable(emptyList())
+                return@observe
+            }
+
             updateSummaryStrip(
                 report.totalPresent,
                 report.totalAbsent,
@@ -214,6 +209,10 @@ class WeeklyReportActivity : AppCompatActivity() {
 
         // ✅ Shift report
         viewModel.shiftReport.observe(this) { report ->
+            if (report == null) {
+                buildTable(emptyList())
+                return@observe
+            }
             report ?: return@observe
             updateSummaryStrip(
                 report.totalPresent,
@@ -237,6 +236,7 @@ class WeeklyReportActivity : AppCompatActivity() {
     // ─────────────────────────────────
     private fun loadData() {
         if (currentTab == "OVERALL") {
+            binding.tabOverall.isSelected   = currentTab == "OVERALL"
             viewModel.loadOverallReport(btCode, companyCode)
         } else {
             val shift = selectedShift ?: return
@@ -272,9 +272,7 @@ class WeeklyReportActivity : AppCompatActivity() {
         binding.layoutTable.visibility = View.VISIBLE
     }
 
-    // ─────────────────────────────────
-    // ✅ Open employee weekly detail
-    // ─────────────────────────────────
+
     private fun openEmployeeDetail(
         emp: WeeklyEmployeeSummaryDto,
         type: String

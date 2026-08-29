@@ -1,193 +1,171 @@
 package com.blivtech.emptrack.utils
 
 import android.content.Context
-import android.graphics.Color
-import com.blivtech.emptrack.data.model.*
+import android.graphics.pdf.PdfDocument
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.LinearLayout
+import android.widget.TextView
+import com.blivtech.emptrack.R
+import com.blivtech.emptrack.data.model.MonthlyEmployeeSummaryDto
+import com.blivtech.emptrack.data.model.MonthlyReportData
+import com.blivtech.emptrack.data.model.MonthlyReportDto
+import com.blivtech.emptrack.data.model.MonthlyShiftReportDto
 import java.io.File
-import java.text.SimpleDateFormat
-import java.util.*
+import java.io.FileOutputStream
+import kotlin.math.ceil
 
+/**
+ * Renders the DESIGNED report layout (pdf_report_page.xml) to a multi-page A4 PDF.
+ * Company name + address are STATIC inside pdf_report_page.xml — edit them there.
+ * Signatures match what MonthlyReportActivity already calls.
+ */
 object MonthlyReportPdfBuilder {
 
-    private val ACCENT_OVERALL    = Color.parseColor("#0C447C")  // blue
-    private val ACCENT_SHIFTWISE  = Color.parseColor("#27500A")  // green
-    private val ACCENT_EMPLOYEE   = Color.parseColor("#633806")  // amber
+    private const val PAGE_W = 1080                          // px; layout is measured at this width
+    private val PAGE_H = (PAGE_W * 842f / 595f).toInt()      // A4 portrait ratio ≈ 1528
 
-    // ═══════════════════════════════════════════
-    // ✅ 1. Overall Report PDF
-    // ═══════════════════════════════════════════
+    // ── OVERALL ──────────────────────────────────────────────
     fun buildOverallPdf(
         context: Context,
-        companyName: String,
-        monthLabel: String,        // "June 2026"
+        companyName: String,          // kept for compatibility; header is static (see note)
+        monthLabel: String,
         workingDays: Int,
         report: MonthlyReportDto
     ): File {
-        val gen = PdfReportGenerator(
-            context        = context,
-            companyName    = companyName,
-            reportTitle    = "Monthly attendance report — overall",
-            periodLabel    = "$monthLabel · $workingDays working days",
-            accentColor    = ACCENT_OVERALL
-        )
+        val page = inflatePage(context)
 
-        // ✅ Summary cards
-        gen.drawSummaryCards(
-            listOf(
-                Triple("PRESENT", report.totalPresent.toString(), Color.parseColor("#27500A")),
-                Triple("ABSENT",  report.totalAbsent.toString(),  Color.parseColor("#A32D2D")),
-                Triple("HOLIDAY", report.totalHoliday.toString(), Color.parseColor("#444441")),
-                Triple("WEEK OFF",report.totalWeekOff.toString(), Color.parseColor("#444441"))
-            )
-        )
+        page.findViewById<TextView>(R.id.tvReportTitle).text = "Overall Monthly Report"
+        page.findViewById<TextView>(R.id.tvReportMeta).text =
+            "Month · $monthLabel\nWorking days · $workingDays\nGenerated · ${today()}"
+        page.findViewById<TextView>(R.id.tvReportSubtitle).text =
+            "Overall Report · ${report.totalEmployees} employees"
 
-        // ✅ Employee table
-        val rows = report.employees.map { e ->
-            listOf(
-                e.empName,
-                e.presentDays.toString(),
-                e.absentDays.toString(),
-                e.holidayDays.toString(),
-                e.weekOffDays.toString(),
-                e.totalDays.toString()
-            )
-        }
-        val totalRow = listOf(
-            "TOTAL",
-            report.totalPresent.toString(),
-            report.totalAbsent.toString(),
-            report.totalHoliday.toString(),
-            report.totalWeekOff.toString(),
-            (report.totalPresent + report.totalAbsent + report.totalHoliday + report.totalWeekOff).toString()
-        )
+        val container = page.findViewById<LinearLayout>(R.id.sectionsContainer)
+        addSection(context, container, heading = null, employees = report.employees)
 
-        gen.drawTable(
-            headers    = listOf("Employee", "P", "A", "H", "WO", "Total"),
-            colWeights = listOf(2.4f, 0.7f, 0.7f, 0.7f, 0.7f, 0.8f),
-            rows       = rows,
-            totalRow   = totalRow
-        )
+        bindSummary(page, report.totalPresent, report.totalAbsent, report.totalHoliday, report.totalWeekOff)
 
-        val fileName = "Monthly_Overall_${monthLabel.replace(" ", "_")}.pdf"
-        return gen.save(fileName)
+        return render(context, page, "overall_report_${safe(monthLabel)}.pdf")
     }
 
-    // ═══════════════════════════════════════════
-    // ✅ 2. Shift Wise Report PDF — one PDF, one section per shift
-    // ═══════════════════════════════════════════
+    // ── SHIFT-WISE ───────────────────────────────────────────
     fun buildShiftWisePdf(
         context: Context,
         companyName: String,
         monthLabel: String,
         workingDays: Int,
-        shiftReports: List<MonthlyShiftReportDto>     // one per shift, already loaded
+        shiftReports: List<MonthlyShiftReportDto>
     ): File {
-        val gen = PdfReportGenerator(
-            context     = context,
-            companyName = companyName,
-            reportTitle = "Monthly attendance report — shift wise",
-            periodLabel = "$monthLabel · $workingDays working days",
-            accentColor = ACCENT_SHIFTWISE
-        )
+        val page = inflatePage(context)
 
-        shiftReports.forEach { shift ->
-            gen.drawSectionBanner(
-                text       = "${shiftEmoji(shift.shiftName)} ${shift.shiftName} · ${shift.totalEmployees} employees",
-                bannerBg   = Color.parseColor("#EAF3DE"),
-                bannerText = Color.parseColor("#27500A")
-            )
+        page.findViewById<TextView>(R.id.tvReportTitle).text = "Shift-Wise Monthly Report"
+        val totalEmp = shiftReports.sumOf { it.employees.size }
+        page.findViewById<TextView>(R.id.tvReportMeta).text =
+            "Month · $monthLabel\nWorking days · $workingDays\nGenerated · ${today()}"
+        page.findViewById<TextView>(R.id.tvReportSubtitle).text =
+            "Shift-Wise Report · ${shiftReports.size} shifts · $totalEmp employees"
 
-            val rows = shift.employees.map { e ->
-                listOf(
-                    e.empName,
-                    e.presentDays.toString(),
-                    e.absentDays.toString(),
-                    e.holidayDays.toString(),
-                    e.weekOffDays.toString()
-                )
-            }
-
-            gen.drawTable(
-                headers    = listOf("Employee", "P", "A", "H", "WO"),
-                colWeights = listOf(2.6f, 0.7f, 0.7f, 0.7f, 0.7f),
-                rows       = rows
-            )
+        val container = page.findViewById<LinearLayout>(R.id.sectionsContainer)
+        shiftReports.forEach { rep ->
+            val heading = rep.employees.firstOrNull()?.shiftName ?: "Shift"
+            addSection(context, container, heading = heading, employees = rep.employees)
         }
 
-        val fileName = "Monthly_ShiftWise_${monthLabel.replace(" ", "_")}.pdf"
-        return gen.save(fileName)
+        // combined summary
+        bindSummary(
+            page,
+            shiftReports.sumOf { it.totalPresent },
+            shiftReports.sumOf { it.totalAbsent },
+            shiftReports.sumOf { it.totalHoliday },
+            shiftReports.sumOf { it.totalWeekOff }
+        )
+
+        return render(context, page, "shiftwise_report_${safe(monthLabel)}.pdf")
     }
 
-    // ═══════════════════════════════════════════
-    // ✅ 3. Employee Wise Report PDF — one PDF per employee, date/shift/status rows
-    // ═══════════════════════════════════════════
-    fun buildEmployeeWisePdf(
+    // ── build one table section ──────────────────────────────
+    private fun addSection(
         context: Context,
-        companyName: String,
-        monthLabel: String,
-        detail: MonthlyEmployeeDetail
-    ): File {
-        val gen = PdfReportGenerator(
-            context     = context,
-            companyName = companyName,
-            reportTitle = "Monthly attendance report — employee wise",
-            periodLabel = monthLabel,
-            accentColor = ACCENT_EMPLOYEE
-        )
+        container: LinearLayout,
+        heading: String?,
+        employees: List<MonthlyEmployeeSummaryDto>
+    ) {
+        val inflater = LayoutInflater.from(context)
+        val section = inflater.inflate(R.layout.pdf_report_section, container, false)
 
-        val initials = detail.empName.trim().split(" ")
-            .mapNotNull { it.firstOrNull()?.toString() }
-            .take(2).joinToString("")
+        val head = section.findViewById<TextView>(R.id.tvShiftHeading)
+        if (heading != null) { head.visibility = View.VISIBLE; head.text = heading }
+        else head.visibility = View.GONE
 
-        gen.drawEmployeeStrip(
-            initials    = initials,
-            nameLine    = "${detail.empName} · $detail.empCode",
-            metaLine    = "${detail.deptName} · ${detail.desgName} · " +
-                          "Present ${detail.presentDays} · Absent ${detail.absentDays} · ${detail.attendancePercent}%",
-            avatarColor = ACCENT_EMPLOYEE
-        )
-//
-//        // ✅ Build date/shift/status rows from dailyStatus list
-//        val rows = detail.dailyStatus.map { d ->
-//            listOf(formatDateDay(d.date, d.dayName), detail.shiftName, d.statusLabel)
-//        }
+        val rows = section.findViewById<LinearLayout>(R.id.rowsContainer)
+        employees.forEach { emp ->
+            val row = inflater.inflate(R.layout.item_overall_report_row, rows, false)
+            row.findViewById<TextView>(R.id.tvName).text = emp.empName
+            row.findViewById<TextView>(R.id.tvSub).text =
+                listOf(emp.empCode, emp.deptName, emp.shiftName).filter { it.isNotBlank() }.joinToString(" · ")
+            row.findViewById<TextView>(R.id.tvP).text     = emp.presentDays.toString()
+            row.findViewById<TextView>(R.id.tvL).text     = emp.absentDays.toString()
+            row.findViewById<TextView>(R.id.tvH).text     = emp.holidayDays.toString()
+            row.findViewById<TextView>(R.id.tvWO).text    = emp.weekOffDays.toString()
+            row.findViewById<TextView>(R.id.tvTotal).text = emp.totalDays.toString()
+            rows.addView(row)
+        }
 
-        gen.drawTable(
-            headers         = listOf("Date", "Shift", "Status"),
-            colWeights      = listOf(1.4f, 1.2f, 1f),
-            rows            = emptyList(),
-            statusColIndex  = 2,
-            statusColors    = { status ->
-                when (status) {
-                    "Present" -> Color.parseColor("#EAF3DE") to Color.parseColor("#27500A")
-                    "Late"    -> Color.parseColor("#FAEEDA") to Color.parseColor("#633806")
-                    "Absent"  -> Color.parseColor("#FCEBEB") to Color.parseColor("#A32D2D")
-                    "Holiday" -> Color.parseColor("#EEEDFE") to Color.parseColor("#3C3489")
-                    "Week Off"-> Color.parseColor("#F1EFE8") to Color.parseColor("#5F5E5A")
-                    else      -> Color.LTGRAY to Color.DKGRAY
-                }
-            }
-        )
+        section.findViewById<TextView>(R.id.tvSubP).text     = employees.sumOf { it.presentDays }.toString()
+        section.findViewById<TextView>(R.id.tvSubL).text     = employees.sumOf { it.absentDays }.toString()
+        section.findViewById<TextView>(R.id.tvSubH).text     = employees.sumOf { it.holidayDays }.toString()
+        section.findViewById<TextView>(R.id.tvSubWO).text    = employees.sumOf { it.weekOffDays }.toString()
+        section.findViewById<TextView>(R.id.tvSubTotal).text = employees.sumOf { it.totalDays }.toString()
 
-        val fileName = "Monthly_${detail.empName.replace(" ", "_")}_${monthLabel.replace(" ", "_")}.pdf"
-        return gen.save(fileName)
+        container.addView(section)
     }
 
-    // ─────────────────────────────────
-    // ✅ Helpers
-    // ─────────────────────────────────
-    private fun shiftEmoji(name: String) = when {
-        name.contains("morning", true) || name.contains("day", true) -> "☀"
-        name.contains("evening", true) -> "☁"
-        name.contains("night",   true) -> "☾"
-        else -> "○"
+    private fun bindSummary(page: View, p: Int, a: Int, h: Int, w: Int) {
+        page.findViewById<TextView>(R.id.tvSumPresent).text = p.toString()
+        page.findViewById<TextView>(R.id.tvSumAbsent).text  = a.toString()
+        page.findViewById<TextView>(R.id.tvSumHoliday).text = h.toString()
+        page.findViewById<TextView>(R.id.tvSumWeekOff).text = w.toString()
     }
 
-    private fun formatDateDay(date: String, dayName: String): String {
-        return try {
-            val inp = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-            val out = SimpleDateFormat("d MMM", Locale.getDefault())
-            "${out.format(inp.parse(date) ?: Date())}, $dayName"
-        } catch (e: Exception) { "$date, $dayName" }
+    private fun inflatePage(context: Context): View =
+        LayoutInflater.from(context).inflate(R.layout.pdf_report_page, null, false)
+
+    // ── measure + paginate + write ───────────────────────────
+    private fun render(context: Context, page: View, fileName: String): File {
+        page.measure(
+            View.MeasureSpec.makeMeasureSpec(PAGE_W, View.MeasureSpec.EXACTLY),
+            View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED)
+        )
+        page.layout(0, 0, page.measuredWidth, page.measuredHeight)
+
+        val totalH   = page.measuredHeight
+        val pageH    = PAGE_H
+        val pageCount = ceil(totalH.toDouble() / pageH).toInt().coerceAtLeast(1)
+
+        val pdf = PdfDocument()
+        for (i in 0 until pageCount) {
+            val info = PdfDocument.PageInfo.Builder(PAGE_W, pageH, i + 1).create()
+            val pdfPage = pdf.startPage(info)
+            val canvas = pdfPage.canvas
+            canvas.save()
+            canvas.translate(0f, (-i * pageH).toFloat())
+            page.draw(canvas)
+            canvas.restore()
+            pdf.finishPage(pdfPage)
+        }
+
+        val dir  = File(context.cacheDir, "reports").apply { mkdirs() }
+        val file = File(dir, fileName)
+        FileOutputStream(file).use { pdf.writeTo(it) }
+        pdf.close()
+        return file
     }
+
+    private fun today(): String =
+        java.text.SimpleDateFormat("dd MMM yyyy", java.util.Locale.getDefault())
+            .format(java.util.Date())
+
+    private fun safe(s: String) = s.replace("[^A-Za-z0-9]".toRegex(), "_")
 }

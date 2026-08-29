@@ -14,6 +14,7 @@ data class CompanyRequest(
     data class ShiftRequest(
         val shiftName: String,
         val startTime: String,
-        val endTime: String
+        val endTime: String,
+        val shiftCode: String,
     )
 }

@@ -149,7 +149,7 @@ class HomeActivity : AppCompatActivity() {
             binding.layout.tvDrawerAvatar.text = initials
             binding.layout.tvDrawerName.text   = name
             binding.layout.tvDrawerPhone.text  = preferenceManager.btCode.first()
-            binding.layout.tvDrawerCode.text   = "${preferenceManager.btCode.first()} · Admin"
+            binding.layout.tvDrawerCode.text   = "${preferenceManager.phoneNumber.first()}"
         }
     }
 
@@ -178,9 +178,7 @@ class HomeActivity : AppCompatActivity() {
         }
     }
 
-    // ─────────────────────────────────
-    // ✅ Sync dialog — unchanged logic from old HomeActivity
-    // ─────────────────────────────────
+
     private fun showSyncDialog() {
         syncDialogBinding = DialogSyncBinding.inflate(layoutInflater)
         syncDialog = Dialog(this).apply {
@@ -244,7 +242,6 @@ class HomeActivity : AppCompatActivity() {
                         ColorStateList.valueOf(Color.parseColor("#1565C0"))
                     syncDialogBinding.btnSyncAction.setOnClickListener {
                         syncDialog.dismiss()
-                        // ✅ Tell HomeFragment to refresh — via simple broadcast LiveData
                         SyncEventBus.notifySyncComplete()
                     }
                     Handler(Looper.getMainLooper()).postDelayed({
@@ -253,6 +250,11 @@ class HomeActivity : AppCompatActivity() {
                             SyncEventBus.notifySyncComplete()
                         }
                     }, 2000)
+                    navController.previousBackStackEntry
+                        ?.savedStateHandle
+                        ?.set("refreshHome", true)
+
+                    navController.navigate(R.id.homeFragment)
                 }
                 is Resource.Error -> {
                     syncDialogBinding.progressBar.progress = 0

@@ -74,6 +74,7 @@ class AdvanceReportActivity : AppCompatActivity() {
 
         viewModel.error.observe(this) { error ->
             error ?: return@observe
+
             Snackbar.make(binding.root, error, Snackbar.LENGTH_LONG).show()
             viewModel.resetError()
         }

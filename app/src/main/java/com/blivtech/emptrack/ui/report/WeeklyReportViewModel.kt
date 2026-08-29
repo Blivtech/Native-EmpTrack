@@ -121,6 +121,7 @@ class WeeklyReportViewModel @Inject constructor(
     fun loadOverallReport(btCode: String, companyCode: String) {
         val start = _weekStart.value ?: return
         val end   = _weekEnd.value   ?: return
+        _overallReport.value= null
         viewModelScope.launch {
             repository.getWeeklyOverallReport(
                 btCode, companyCode, start, end
@@ -133,7 +134,8 @@ class WeeklyReportViewModel @Inject constructor(
                     }
                     is Resource.Error -> {
                         _loading.value = false
-                        _error.value   = resource.message
+                        _overallReport.value=null
+                        _error.value   ="No Records Found"
                     }
                 }
             }
@@ -161,7 +163,8 @@ class WeeklyReportViewModel @Inject constructor(
                     }
                     is Resource.Error -> {
                         _loading.value = false
-                        _error.value   = resource.message
+                        _shiftReport.value = null
+                        _error.value   ="No Records Found"
                     }
                 }
             }
@@ -201,7 +204,7 @@ class WeeklyReportViewModel @Inject constructor(
 
  // header labels
  fun weekTitle(start: LocalDate): String {
-     val wk = start.get(java.time.temporal.WeekFields.ISO.weekOfMonth())
+     val wk = start.get(    java.time.temporal.WeekFields.ISO.weekOfMonth())
      return "Week $wk · ${start.month.name.lowercase().replaceFirstChar{it.uppercase()}} ${start.year}"
  }
  fun weekRange(start: LocalDate, end: LocalDate): String {

@@ -155,7 +155,8 @@ class AddEditCompanyActivity : AppCompatActivity() {
                 CompanyRequest.ShiftRequest(
                     shiftName = s.shiftName,
                     startTime = s.startTime,
-                    endTime = s.endTime
+                    endTime = s.endTime,
+                    shiftCode = s.shiftCode,
                 )
             }
             viewModel.setShifts(shiftRequests)
@@ -221,7 +222,8 @@ class AddEditCompanyActivity : AppCompatActivity() {
                 CompanyRequest.ShiftRequest(
                     shiftName = name,
                     startTime = start,
-                    endTime = end
+                    endTime = end,
+                    shiftCode = ""
                 )
             )
             dialog.dismiss()

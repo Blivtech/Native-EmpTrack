@@ -1154,4 +1154,27 @@
     <style name="AttCountLbl"><item name="android:layout_width">wrap_content</item><item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">10.5sp</item><item name="android:textStyle">bold</item><item name="android:fontFamily">@font/satoshi_medium</item><item name="android:textColor">#64748B</item><item name="android:layout_marginTop">2dp</item></style>
 
+    <style name="OvHeadNum">
+        <item name="android:layout_width">0dp</item><item name="android:layout_weight">1</item><item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item><item name="android:textSize">12.5sp</item><item name="android:textStyle">bold</item>
+        <item name="android:fontFamily">@font/satoshi_medium</item><item name="android:textColor">#FFFFFF</item>
+    </style>
+    <style name="OvRowNum">
+        <item name="android:layout_width">0dp</item><item name="android:layout_weight">1</item><item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item><item name="android:textSize">14sp</item><item name="android:textStyle">bold</item><item name="android:fontFamily">@font/satoshi_medium</item>
+    </style>
+    <style name="OvTotalNum">
+        <item name="android:layout_width">0dp</item><item name="android:layout_weight">1</item><item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item><item name="android:textSize">14sp</item><item name="android:textStyle">bold</item><item name="android:fontFamily">@font/satoshi_medium</item><item name="android:textColor">#0F172A</item>
+    </style>
+    <style name="OvSumCard">
+        <item name="android:layout_width">0dp</item><item name="android:layout_weight">1</item><item name="android:layout_height">wrap_content</item>
+        <item name="android:orientation">vertical</item><item name="android:gravity">center</item>
+        <item name="android:background">@drawable/bg_sum_card</item><item name="android:paddingTop">13dp</item><item name="android:paddingBottom">13dp</item>
+    </style>
+    <style name="OvSumNum"><item name="android:layout_width">wrap_content</item><item name="android:layout_height">wrap_content</item>
+        <item name="android:text">0</item><item name="android:textSize">21sp</item><item name="android:textStyle">bold</item><item name="android:fontFamily">@font/satoshi_medium</item></style>
+    <style name="OvSumLbl"><item name="android:layout_width">wrap_content</item><item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">11sp</item><item name="android:textStyle">bold</item><item name="android:fontFamily">@font/satoshi_medium</item><item name="android:textColor">#64748B</item><item name="android:layout_marginTop">2dp</item></style>
+
 </resources>

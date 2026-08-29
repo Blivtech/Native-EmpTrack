@@ -30,6 +30,7 @@ import com.blivtech.emptrack.ui.workers.DailyEntryActivity
 import com.blivtech.emptrack.utils.PreferenceManager
 import com.blivtech.emptrack.utils.SyncEventBus
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import java.util.*
@@ -85,9 +86,7 @@ class HomeFragment : Fragment() {
         observeSyncBus()
     }
 
-    // ─────────────────────────────────
-    // ✅ Greeting
-    // ─────────────────────────────────
+
     private fun setGreeting() {
         val hour = Calendar.getInstance().get(Calendar.HOUR_OF_DAY)
         binding.tvGreeting.text = when {
@@ -97,9 +96,7 @@ class HomeFragment : Fragment() {
         }
     }
 
-    // ─────────────────────────────────
-    // ✅ Ad / announcement carousel
-    // ─────────────────────────────────
+
     private fun setupBanners() {
         val banners = listOf(
             Banner("New", "Monthly reports, one tap",
@@ -205,7 +202,7 @@ class HomeFragment : Fragment() {
                     putExtra("companyCode", currentCompany?.companyCode ?: "")
                 }
             )
-            "Salary" -> { /* TODO */ }
+            "Salary" -> { }
             "Extra Pay & Advances" -> startActivity(
                 Intent(requireContext(), AddEntryActivity::class.java).apply {
                     putExtra("btCode", btCode)

@@ -96,4 +96,7 @@ class PreferenceManager @Inject constructor(
 
     val selectedCompanyName: Flow<String> = context.dataStore.data
         .map { prefs -> prefs[KEY_SELECTED_COMPANY_NAME] ?: "" }
+
+    val phoneNumber: Flow<String> = context.dataStore.data
+        .map { prefs -> prefs[KEY_PHONE] ?: "" }
 }

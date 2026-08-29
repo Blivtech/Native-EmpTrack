@@ -2,12 +2,14 @@ package com.blivtech.emptrack.ui.report
 
 import android.content.Intent
 import android.graphics.Color
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import com.blivtech.emptrack.R
@@ -41,6 +43,15 @@ class MonthlyReportActivity : AppCompatActivity() {
     private var currentTab   = "OVERALL"    // OVERALL / SHIFT
     private var selectedShift: ShiftEntity? = null
     private var shifts = listOf<ShiftEntity>()
+
+    // ✅ Storage permission (only used on Android 9 and below)
+    private val requestWrite =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { granted ->
+            if (granted) generateAndDownloadPdf()
+            else Snackbar.make(
+                binding.root, "Storage permission needed to save", Snackbar.LENGTH_SHORT
+            ).show()
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -85,6 +96,7 @@ class MonthlyReportActivity : AppCompatActivity() {
         binding.tabOverall.setOnClickListener {
             if (currentTab != "OVERALL") {
                 currentTab = "OVERALL"
+
                 updateTabUI()
                 binding.scrollShiftChips.visibility = View.GONE
                 loadData()
@@ -185,7 +197,10 @@ class MonthlyReportActivity : AppCompatActivity() {
 
         // ✅ Overall report
         viewModel.overallReport.observe(this) { report ->
-            report ?: return@observe
+            if (report == null) {
+                buildTable(emptyList())
+                return@observe
+            }
             updateSummaryStrip(
                 report.totalPresent,
                 report.totalAbsent,
@@ -197,7 +212,10 @@ class MonthlyReportActivity : AppCompatActivity() {
 
         // ✅ Shift report
         viewModel.shiftReport.observe(this) { report ->
-            report ?: return@observe
+            if (report == null) {
+                buildTable(emptyList())
+                return@observe
+            }
             updateSummaryStrip(
                 report.totalPresent,
                 report.totalAbsent,
@@ -216,6 +234,7 @@ class MonthlyReportActivity : AppCompatActivity() {
 
     private fun loadData() {
         if (currentTab == "OVERALL") {
+            binding.tabOverall.isSelected   = currentTab == "OVERALL"
             viewModel.loadOverallReport(btCode, companyCode)
         } else {
             val shift = selectedShift ?: return
@@ -303,21 +322,35 @@ class MonthlyReportActivity : AppCompatActivity() {
     // ✅ Emoji helper
     private fun shiftEmoji(name: String) = when {
         name.contains("morning", true) ||
-        name.contains("day", true)     -> "☀️"
+                name.contains("day", true)     -> "☀️"
         name.contains("evening", true) -> "🌆"
         name.contains("night", true)   -> "🌙"
         else                           -> "🕐"
     }
 
-    // ✅ Add to MonthlyReportActivity.kt
-
+    // ─────────────────────────────────
+    // ✅ Download bar
+    // ─────────────────────────────────
     private fun setupDownloadBar() {
         binding.imgDownload.setOnClickListener {
-            generateAndOpenPdf()
+            downloadWithPermission()
         }
     }
 
-    private fun generateAndOpenPdf() {
+    // ✅ Ask for storage permission on Android 9 and below, then download.
+    private fun downloadWithPermission() {
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.Q) {
+            val perm = android.Manifest.permission.WRITE_EXTERNAL_STORAGE
+            if (checkSelfPermission(perm) != android.content.pm.PackageManager.PERMISSION_GRANTED) {
+                requestWrite.launch(perm)
+                return
+            }
+        }
+        generateAndDownloadPdf()
+    }
+
+    // ✅ Build the PDF (designed layout) and SAVE it to Downloads.
+    private fun generateAndDownloadPdf() {
         val monthLabel = viewModel.monthLabel.value ?: return
 
         val file = when (currentTab) {
@@ -353,6 +386,14 @@ class MonthlyReportActivity : AppCompatActivity() {
             else -> return
         }
 
-        PdfFileOpener.openPdf(this, file)
+        // ✅ Save to the public Downloads folder
+        val uri = PdfFileOpener.saveToDownloads(this, file)
+        if (uri != null) {
+            Snackbar.make(binding.root, "Saved to Downloads ✓", Snackbar.LENGTH_LONG)
+                .setAction("Open") { PdfFileOpener.openUri(this, uri) }
+                .show()
+        } else {
+            Snackbar.make(binding.root, "Couldn't save the report", Snackbar.LENGTH_SHORT).show()
+        }
     }
 }

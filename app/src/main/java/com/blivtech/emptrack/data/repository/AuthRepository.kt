@@ -1,11 +1,13 @@
 package com.blivtech.emptrack.data.repository
 
+import com.blivtech.emptrack.data.model.ApiResponse
 import com.blivtech.emptrack.data.model.LoginRequest
 import com.blivtech.emptrack.data.model.LoginResponse
 import com.blivtech.emptrack.data.model.RegisterRequest
 import com.blivtech.emptrack.data.network.ApiService
 import com.blivtech.emptrack.utils.CommonClass
 import com.blivtech.emptrack.utils.Resource
+import com.google.gson.Gson
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -41,7 +43,20 @@ class AuthRepository @Inject constructor(
                     Resource.Success(body.data)
                 else Resource.Error(body.message)
             } else {
-                Resource.Error("Login failed. Please try again.")
+                val errorBody = response.errorBody()?.string()
+
+                val errorResponse = try {
+                    Gson().fromJson(
+                        errorBody,
+                        ApiResponse::class.java
+                    )
+                } catch (e: Exception) {
+                    null
+                }
+                Resource.Error(
+                    errorResponse?.message
+                        ?: "Request failed: ${response.code()}"
+                )
             }
         } catch (e: Exception) {
             Resource.Error(e.localizedMessage ?: "Network error occurred")
